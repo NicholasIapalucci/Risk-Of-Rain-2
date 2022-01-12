@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ror2",
+  "name": "Risk Of Rain 2",
+  "description": "Adds elements from the game Risk Of Rain 2 into Minecraft",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["zNick_"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
