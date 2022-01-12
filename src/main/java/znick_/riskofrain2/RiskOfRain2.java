@@ -1,0 +1,60 @@
+package znick_.riskofrain2;
+
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import znick_.riskofrain2.block.RiskOfRain2Blocks;
+import znick_.riskofrain2.client.gui.RiskOfRain2Guis;
+import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
+import znick_.riskofrain2.client.render.RiskOfRain2Renders;
+import znick_.riskofrain2.entity.RiskOfRain2Entities;
+import znick_.riskofrain2.event.RiskOfRain2Events;
+import znick_.riskofrain2.item.RiskOfRain2Items;
+import znick_.riskofrain2.net.RiskOfRain2Packets;
+import znick_.riskofrain2.tile.RiskOfRain2TileEntities;
+import znick_.riskofrain2.util.misc.customs.RiskOfRain2Achievements;
+import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.misc.customs.RiskOfRain2Recipes;
+
+@Mod(modid = "ror2", name = "Risk Of Rain 2", version = "1.0")
+public class RiskOfRain2 {
+	
+	@Instance("ror2")
+	public static RiskOfRain2 instance;
+	public static final String MODID = "ror2";
+	public static final boolean DEBUG = true;
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) throws Exception {
+		RiskOfRain2CreativeTabs.registerCreativeTabs();
+		RiskOfRain2Items.registerItems();
+		RiskOfRain2Blocks.registerBlocks();
+		RiskOfRain2Entities.registerEntities();
+		RiskOfRain2Renders.registerRenders();
+		RiskOfRain2TileEntities.registerTileEntities();
+		RiskOfRain2Guis.registerGuis();
+		RiskOfRain2Events.registerEvents();
+		RiskOfRain2KeyBinds.registerKeyBinds();
+		RiskOfRain2Achievements.registerAchievements();
+		RiskOfRain2Recipes.registerRecipes();
+		RiskOfRain2Packets.registerPackets();
+	}
+
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		
+	}
+
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		
+	}
+	
+	//TODO: Add ------------------------------------------
+	//TODO: Fix -------------------------------------------
+	//TODO: Update ----------------------------------------
+
+}

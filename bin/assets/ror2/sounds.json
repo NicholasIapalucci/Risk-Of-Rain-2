@@ -1,0 +1,161 @@
+{
+	
+	"cautious_slug_start": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/cautious_slug/start",
+			"stream": false
+		}
+		]
+	},
+	
+	"cautious_slug_stop": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/cautious_slug/stop",
+			"stream": false
+		}
+		]
+	},
+	
+	"crit_glasses": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/crit_glasses",
+			"stream": false
+		}
+		]
+	},
+	
+	
+	"crowbar": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/crowbar",
+			"stream": false
+		}
+		]
+	},
+	
+	"hopoo_feather": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/hopoo_feather/hopoo_feather_1",
+			"stream": false
+		},
+		{
+			"name": "ror2:items/hopoo_feather/hopoo_feather_2",
+			"stream": false
+		},
+		{
+			"name": "ror2:items/hopoo_feather/hopoo_feather_3",
+			"stream": false
+		}
+		]
+	},
+	
+	"tougher_times": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/tougher_times",
+			"stream": false
+		}
+		]
+	},
+	
+	"wax_quail": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/wax_quail",
+			"stream": false
+		}
+		]
+	},
+	
+	"huntress_start_blink": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:characters/huntress/utility/huntress_start_blink",
+			"stream": false
+		}
+		]
+	},
+	
+	"huntress_end_blink": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:characters/huntress/utility/huntress_end_blink",
+			"stream": false
+		}
+		]
+	},
+	
+	"huntress_arrowrain_loop": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:characters/huntress/special/huntress_arrowrain_loop",
+			"stream": false
+		}
+		]
+	},
+	
+	"huntress_arrowrain_start": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:characters/huntress/special/huntress_arrowrain_start",
+			"stream": false
+		}
+		]
+	},
+	
+	"huntress_shoot": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:characters/huntress/primary/huntress_shoot_1",
+			"stream": false
+		},
+		{
+			"name": "ror2:characters/huntress/primary/huntress_shoot_2",
+			"stream": false
+		},
+		{
+			"name": "ror2:characters/huntress/primary/huntress_shoot_3",
+			"stream": false
+		},
+		{
+			"name": "ror2:characters/huntress/primary/huntress_shoot_4",
+			"stream": false
+		},
+		{
+			"name": "ror2:characters/huntress/primary/huntress_shoot_5",
+			"stream": false
+		},
+		{
+			"name": "ror2:characters/huntress/primary/huntress_shoot_6",
+			"stream": false
+		}
+		]
+	},
+	
+	"printer": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:misc/printer",
+			"stream": false
+		}
+		]
+	}
+}
