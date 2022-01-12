@@ -10,7 +10,7 @@ import znick_.riskofrain2.api.mc.PlayerData;
  * game. These can simply return {@code null} in {@link #getIconTexture()} and they will be skipped in the
  * rendering process.
  * 
- * @author Nicholas Iapalucci
+ * @author zNick_
  */
 public abstract class Buff {
 	

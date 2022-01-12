@@ -5,9 +5,9 @@ import ibxm.Player;
 import net.minecraft.entity.SharedMonsterAttributes;
 import znick_.riskofrain2.api.mc.PlayerData;
 
-public class ForeignFruit extends RiskOfRain2Equipment {
+public class ForeignFruitItem extends RiskOfRain2Equipment {
 	
-	public ForeignFruit() {
+	public ForeignFruitItem() {
 		super("foreign_fruit");
 		this.setCooldown(900);
 	}

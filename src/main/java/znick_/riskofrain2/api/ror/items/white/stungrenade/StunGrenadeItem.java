@@ -1,4 +1,4 @@
-package znick_.riskofrain2.api.ror.items.white;
+package znick_.riskofrain2.api.ror.items.white.stungrenade;
 
 import java.util.Map;
 
@@ -11,9 +11,9 @@ import znick_.riskofrain2.item.ror.proc.item.OnHitItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class StunGrenade extends RiskOfRain2Item implements OnHitItem {
+public class StunGrenadeItem extends RiskOfRain2Item implements OnHitItem {
 	
-	public StunGrenade() {
+	public StunGrenadeItem() {
 		super("stun_grenade");
 	}
 

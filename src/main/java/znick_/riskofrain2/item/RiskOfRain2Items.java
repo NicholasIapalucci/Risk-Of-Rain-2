@@ -15,7 +15,7 @@ import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.Scrap;
 import znick_.riskofrain2.api.ror.items.boss.pearl.PearlItem;
 import znick_.riskofrain2.api.ror.items.boss.titanicknurl.TitanicKnurlItem;
-import znick_.riskofrain2.api.ror.items.equipment.ForeignFruit;
+import znick_.riskofrain2.api.ror.items.equipment.ForeignFruitItem;
 import znick_.riskofrain2.api.ror.items.equipment.jadeelephant.JadeElephantItem;
 import znick_.riskofrain2.api.ror.items.equipment.ocularhud.OcularHudItem;
 import znick_.riskofrain2.api.ror.items.equipment.supermassiveleech.SuperMassiveLeechItem;
@@ -32,7 +32,7 @@ import znick_.riskofrain2.api.ror.items.lunar.BeadsOfFealty;
 import znick_.riskofrain2.api.ror.items.lunar.Purity;
 import znick_.riskofrain2.api.ror.items.lunar.ShapedGlass;
 import znick_.riskofrain2.api.ror.items.red.AlienHead;
-import znick_.riskofrain2.api.ror.items.red.BrilliantBehemoth;
+import znick_.riskofrain2.api.ror.items.red.BrilliantBehemothItem;
 import znick_.riskofrain2.api.ror.items.red.HardlightAfterburner;
 import znick_.riskofrain2.api.ror.items.red.HeadSet;
 import znick_.riskofrain2.api.ror.items.red.RejuvinationRack;
@@ -53,10 +53,10 @@ import znick_.riskofrain2.api.ror.items.white.PersonalShield;
 import znick_.riskofrain2.api.ror.items.white.RepulsionArmorPlate;
 import znick_.riskofrain2.api.ror.items.white.RustedKey;
 import znick_.riskofrain2.api.ror.items.white.SoldierSyringe;
-import znick_.riskofrain2.api.ror.items.white.StunGrenade;
 import znick_.riskofrain2.api.ror.items.white.TougherTimes;
 import znick_.riskofrain2.api.ror.items.white.TriTipDagger;
-import znick_.riskofrain2.api.ror.items.white.medkit.Medkit;
+import znick_.riskofrain2.api.ror.items.white.medkit.MedkitItem;
+import znick_.riskofrain2.api.ror.items.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.api.ror.items.white.warbanner.WarbannerItem;
 import znick_.riskofrain2.item.achievement.AchievementItem;
 import znick_.riskofrain2.item.armor.ArmorPiece;
@@ -93,7 +93,7 @@ public class RiskOfRain2Items {
 	
 	/**
 	 * The "repulsion armor plate" item. Each time the player is hurt, they take 1 (+1 per item) half-heart less
-	 * damage. 
+	 * damage. m
 	 */
 	public static final Item REPULSION_ARMOR_PLATE = new RepulsionArmorPlate();
 	/**
@@ -139,7 +139,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "medkit" item. Heals the player 2 seconds after they take damage for 2 (+1 per item) hearts.
 	 */
-	public static final Item MEDKIT = new Medkit();
+	public static final Item MEDKIT = new MedkitItem();
 	public static final Item BUSTLING_FUNGUS = new BustlingFungus();
 	/**
 	 * The "focus crystal" item. Causes the player to deal 20% (+20% per stack) more damage to enemies within 
@@ -158,7 +158,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "stun grenade" item. Has a 5% (+5% per item) chance to stun enemies in place for 2 seconds. 
 	 */
-	public static final Item STUN_GRENADE = new StunGrenade();
+	public static final Item STUN_GRENADE = new StunGrenadeItem();
 	public static final Item SOLDIER_SYRINGE = new SoldierSyringe();
 	/**
 	 * The "monster tooth" item. The player is healed when consuming XP.
@@ -213,7 +213,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "brilliant behemoth" item. All of the players attacks explode in a radius of 2 (+1 per item).
 	 */
-	public static final Item BRILLIANT_BEHEMOTH = new BrilliantBehemoth();
+	public static final Item BRILLIANT_BEHEMOTH = new BrilliantBehemothItem();
 	public static final Item FIFTY_SEVEN_LEAF_CLOVER = new FiftySevenLeafClover();
 	/**
 	 * The "Dio's best friend" item. Allows the player to be saved from death followed by 10 seconds of
@@ -250,7 +250,7 @@ public class RiskOfRain2Items {
 	public static final Item BEADS_OF_FEALTY = new BeadsOfFealty();	
 	
 	//Active Equipment Items
-	public static final Item FOREIGN_FRUIT = new ForeignFruit();
+	public static final Item FOREIGN_FRUIT = new ForeignFruitItem();
 	public static final Item SUPER_MASSIVE_LEECH = new SuperMassiveLeechItem();
 	public static final Item JADE_ELEPHANT = new JadeElephantItem();
 	public static final Item OCULAR_HUD = new OcularHudItem();

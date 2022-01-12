@@ -7,9 +7,9 @@ import znick_.riskofrain2.item.ror.proc.item.OnHurtItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class Medkit extends RiskOfRain2Item implements OnHurtItem {
+public class MedkitItem extends RiskOfRain2Item implements OnHurtItem {
 	
-	public Medkit() {
+	public MedkitItem() {
 		super("medkit");
 	}
 

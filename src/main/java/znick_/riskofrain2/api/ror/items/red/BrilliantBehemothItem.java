@@ -9,9 +9,9 @@ import znick_.riskofrain2.item.ror.proc.item.OnHitItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class BrilliantBehemoth extends RiskOfRain2Item implements OnHitItem {
+public class BrilliantBehemothItem extends RiskOfRain2Item implements OnHitItem {
 
-	public BrilliantBehemoth() {
+	public BrilliantBehemothItem() {
 		super("brilliant_behemoth");
 	}
 	

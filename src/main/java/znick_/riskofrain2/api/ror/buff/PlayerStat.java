@@ -1,5 +1,10 @@
 package znick_.riskofrain2.api.ror.buff;
 
+/**
+ * Enum of different stats saved to the player. Used to prevent item effects from multiplying instead of adding.
+ * 
+ * @author zNick_
+ */
 public enum PlayerStat {
 	
 	ARMOR(0),
@@ -7,7 +12,8 @@ public enum PlayerStat {
 	CRIT_CHANCE(0),
 	LUCK(0),
 	MAXIMUM_HEALTH_MULTIPLIER(1),
-	MOVEMENT_SPEED_MULTIPLIER(1);
+	MOVEMENT_SPEED_MULTIPLIER(1),
+	REGEN_SPEED_MULTIPLIER(1);
 
 	private final double defaultValue;
 	

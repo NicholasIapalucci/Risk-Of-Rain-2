@@ -2,6 +2,11 @@ package znick_.riskofrain2.api.ror.buff;
 
 import znick_.riskofrain2.event.Tick;
 
+/**
+ * Represents a temporary {@code Buff} that wears off after a certain amount of time.
+ * 
+ * @author zNick_
+ */
 public abstract class DurationBuff extends Buff {
 	
 	private int startTick;
