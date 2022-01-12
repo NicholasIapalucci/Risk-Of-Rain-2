@@ -7,7 +7,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.ror.items.white.CautiousSlug;
+import znick_.riskofrain2.api.ror.items.white.cautiousslug.CautiousSlugItem;
 import znick_.riskofrain2.event.Tick;
 
 public class CombatHandler extends EventHandler {
@@ -27,7 +27,6 @@ public class CombatHandler extends EventHandler {
 		if (event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			TICKS_SINCE_HURT.put(player, Tick.server());
-			if (CautiousSlug.isActiveOnPlayer(player)) CautiousSlug.disable(player);
 		}
 	}
 	
@@ -39,5 +38,9 @@ public class CombatHandler extends EventHandler {
 	public static int ticksSinceLastHurt(EntityPlayer player) {
 		if (TICKS_SINCE_HURT.get(player) == null) TICKS_SINCE_HURT.put(player, 0);
 		return Tick.server() - TICKS_SINCE_HURT.get(player);
+	}
+	
+	public static int tickSinceCombat(EntityPlayer player) {
+		return Math.min(ticksSinceLastAttack(player), ticksSinceLastHurt(player));
 	}
 }

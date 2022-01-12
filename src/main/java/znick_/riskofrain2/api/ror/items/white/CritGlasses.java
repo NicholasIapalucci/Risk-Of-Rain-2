@@ -18,7 +18,7 @@ public class CritGlasses extends RiskOfRain2Item implements OnHitItem {
 
 	@Override
 	public void procOnHit(LivingAttackEvent event, PlayerData player, EntityLivingBase enemy, int itemCount) {
-		player.playSound("ror2:crit_glasses", 1, 1);
+		player.playSound("ror2:crit_glasses");
 		int harvestersScytheAmount = player.itemCount(RiskOfRain2Items.HARVESTERS_SCYTHE);
 		if (harvestersScytheAmount > 0) {
 			((OnHitItem) RiskOfRain2Items.HARVESTERS_SCYTHE).procOnHit(event, player, enemy, harvestersScytheAmount);

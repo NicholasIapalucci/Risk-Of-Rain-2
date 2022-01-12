@@ -56,7 +56,12 @@ public class PlayerData implements IExtendedEntityProperties {
 	}
 	
 	public void removeBuff(Buff buff) {
+		buff.removeEffect(this);
 		this.buffs.remove(buff);
+	}
+	
+	public void removeBuff(Class<? extends Buff> buffClass) {
+		for (Buff buff : this.buffs) if (buff.getClass() == buffClass) this.removeBuff(buff);
 	}
 	
 	public Buff[] getBuffs() {
@@ -159,8 +164,8 @@ public class PlayerData implements IExtendedEntityProperties {
 	@Override
 	public void init(Entity entity, World world) {}
 
-	public void playSound(String string, int i, int j) {
-		this.getPlayer().playSound(string, i, j);
+	public void playSound(String string) {
+		this.getPlayer().playSound(string, 1, 1);
 	}
 	
 	public int itemCount(Item item) {

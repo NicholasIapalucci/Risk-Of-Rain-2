@@ -18,7 +18,7 @@ public class WaxQuail extends RiskOfRain2Item implements OnJumpItem {
 	public void procOnJump(LivingJumpEvent event, PlayerData player, int itemCount) {
 		Vec3 lookVector = player.getLookVector();
 		player.getPlayer().addVelocity(0.5 * lookVector.xCoord * itemCount, 0, 0.5 * lookVector.zCoord * itemCount);
-		if (player.getWorld().isRemote) player.playSound("ror2:wax_quail", 1, 1);
+		if (player.getWorld().isRemote) player.playSound("ror2:wax_quail");
 	}
 	
 	@Override

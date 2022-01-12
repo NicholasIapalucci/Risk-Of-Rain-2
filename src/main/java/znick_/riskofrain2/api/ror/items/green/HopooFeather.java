@@ -27,7 +27,7 @@ public class HopooFeather extends RiskOfRain2Item implements OnKeyPressItem {
 				JUMPS_REMAINING.put(player.getPlayer(), itemCount);
 			} else if (JUMPS_REMAINING.get(player.getPlayer()) > 0) {
 				player.getPlayer().motionY = 0.75;
-				player.playSound("ror2:hopoo_feather", 50, 1);
+				player.playSound("ror2:hopoo_feather");
 				JUMPS_REMAINING.put(player.getPlayer(), JUMPS_REMAINING.get(player.getPlayer()) - 1);
 			}
 		}

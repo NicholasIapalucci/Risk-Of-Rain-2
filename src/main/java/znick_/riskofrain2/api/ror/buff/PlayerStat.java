@@ -13,6 +13,7 @@ public enum PlayerStat {
 	LUCK(0),
 	MAXIMUM_HEALTH_MULTIPLIER(1),
 	MOVEMENT_SPEED_MULTIPLIER(1),
+	FLAT_REGEN_SPEED(0),
 	REGEN_SPEED_MULTIPLIER(1);
 
 	private final double defaultValue;

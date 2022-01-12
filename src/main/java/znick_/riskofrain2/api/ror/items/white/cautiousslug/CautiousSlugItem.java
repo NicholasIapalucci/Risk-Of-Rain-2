@@ -1,49 +1,46 @@
-package znick_.riskofrain2.api.ror.items.white;
+package znick_.riskofrain2.api.ror.items.white.cautiousslug;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.event.Tick;
 import znick_.riskofrain2.event.handler.CombatHandler;
+import znick_.riskofrain2.item.ror.proc.item.OnHurtItem;
 import znick_.riskofrain2.item.ror.proc.item.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class CautiousSlug extends RiskOfRain2Item implements OnUpdateItem {
+public class CautiousSlugItem extends RiskOfRain2Item implements OnUpdateItem, OnHurtItem {
 
 	private static final Set<EntityPlayer> SLUGGING_PLAYERS = new HashSet<>();
 	
-	public CautiousSlug() {
+	public CautiousSlugItem() {
 		super("cautious_slug");
 	}
 
 	@Override
 	public void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
-		if (!player.getPlayer().worldObj.isRemote) player.getPlayer().heal(1); //TODO: Update cautious slug w refactoring
-		else if (!SLUGGING_PLAYERS.contains(player.getPlayer())) {
-			player.getPlayer().playSound("ror2:cautious_slug_start", 1, 1);
-			SLUGGING_PLAYERS.add(player.getPlayer());
-		}
+		player.addBuff(new CautiousSlugBuff(itemCount));
 	}
 
 	@Override
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
-		return CombatHandler.ticksSinceLastHurt(player.getPlayer()) > Tick.fromSeconds(7) && (Tick.server() + 1) % (20 / itemCount) == 0;
+		return CombatHandler.ticksSinceLastHurt(player.getPlayer()) > Tick.fromSeconds(7);
 	}
 	
-	public static boolean isActiveOnPlayer(EntityPlayer player) {
-		return SLUGGING_PLAYERS.contains(player);
+	@Override
+	public void procOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
+		player.removeBuff(CautiousSlugBuff.class);
 	}
-	
-	public static void disable(EntityPlayer player) {
-		if (player.worldObj.isRemote) {
-			SLUGGING_PLAYERS.remove(player);
-			player.playSound("ror2:cautious_slug_stop", 1, 1);
-		}
+
+	@Override
+	public boolean shouldProcOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
+		return true;
 	}
 	
 	@Override

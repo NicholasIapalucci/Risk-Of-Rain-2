@@ -124,7 +124,6 @@ public class ItemProccer extends EventHandler {
 				if (buff instanceof DurationBuff) {
 					DurationBuff db = (DurationBuff) buff;
 					if (db.getStartTick() + db.getDuration() < Tick.server()) {
-						db.removeEffect(data);
 						data.removeBuff(db);
 					}
 				}

@@ -41,7 +41,6 @@ import znick_.riskofrain2.api.ror.items.red.fiftysevenleafclover.FiftySevenLeafC
 import znick_.riskofrain2.api.ror.items.white.ArmorPiercingRounds;
 import znick_.riskofrain2.api.ror.items.white.BisonSteak;
 import znick_.riskofrain2.api.ror.items.white.BustlingFungus;
-import znick_.riskofrain2.api.ror.items.white.CautiousSlug;
 import znick_.riskofrain2.api.ror.items.white.CritGlasses;
 import znick_.riskofrain2.api.ror.items.white.Crowbar;
 import znick_.riskofrain2.api.ror.items.white.EnergyDrink;
@@ -55,6 +54,7 @@ import znick_.riskofrain2.api.ror.items.white.RustedKey;
 import znick_.riskofrain2.api.ror.items.white.SoldierSyringe;
 import znick_.riskofrain2.api.ror.items.white.TougherTimes;
 import znick_.riskofrain2.api.ror.items.white.TriTipDagger;
+import znick_.riskofrain2.api.ror.items.white.cautiousslug.CautiousSlugItem;
 import znick_.riskofrain2.api.ror.items.white.medkit.MedkitItem;
 import znick_.riskofrain2.api.ror.items.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.api.ror.items.white.warbanner.WarbannerItem;
@@ -126,7 +126,7 @@ public class RiskOfRain2Items {
 	 * The "cautious slug" item. Activates when the player does not take damage for 7 seconds. Begins healing the
 	 * player at a rate of 1 (/2 per item) second per half-heart. Deactivates when the player takes damage.
 	 */
-	public static final Item CAUTIOUS_SLUG = new CautiousSlug();
+	public static final Item CAUTIOUS_SLUG = new CautiousSlugItem();
 	/**
 	 * The "Paul's goat hoof" item. Adds 14% (+14% per item) boost to movement speed.
 	 */
