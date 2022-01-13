@@ -8,7 +8,6 @@ public class BustlingFungus extends RiskOfRain2Item {
 
 	public BustlingFungus() {
 		super("bustling_fungus");
-		this.wip = true;
 	}
 
 	@Override

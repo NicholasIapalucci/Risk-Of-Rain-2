@@ -17,7 +17,6 @@ import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 public abstract class RiskOfRain2Item extends Item {
 
 	private final String name;
-	protected boolean wip = false;
 
 	protected RiskOfRain2Item(String name) {
 		this.name = name;
@@ -47,12 +46,6 @@ public abstract class RiskOfRain2Item extends Item {
 			String cat = Character.toString(this.getCategory().toString().charAt(0)).toUpperCase() + this.getCategory().toString().substring(1).toLowerCase();
 			info.add("Rarity: " + this.getRarity().getColor() + rar);
 			info.add("Category: " + this.getCategory().getColor() + cat);
-
-			if (this.wip) {
-				info.add("");
-				info.add(EnumChatFormatting.DARK_RED + (EnumChatFormatting.ITALIC + "Warning! this item is"));
-				info.add(EnumChatFormatting.DARK_RED + (EnumChatFormatting.ITALIC + "a work in progress"));
-			}
 		}
 	}
 

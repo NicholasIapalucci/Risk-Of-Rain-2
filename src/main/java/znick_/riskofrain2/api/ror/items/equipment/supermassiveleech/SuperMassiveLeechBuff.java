@@ -4,7 +4,9 @@ import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
+import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.util.file.RiskOfRain2Files;
 
 public class SuperMassiveLeechBuff extends DurationBuff {
@@ -12,7 +14,7 @@ public class SuperMassiveLeechBuff extends DurationBuff {
 	private static final ResourceLocation TEXUTRE = new ResourceLocation(RiskOfRain2Files.BUFFS + "super_massive_leech.png");
 	
 	public SuperMassiveLeechBuff() {
-		super(0, (int) Tick.fromSeconds(8)); //0 Item count because it's an equipment
+		super((RiskOfRain2Item) RiskOfRain2Items.SUPER_MASSIVE_LEECH, 0, (int) Tick.fromSeconds(8));
 	}
 	
 	@Override

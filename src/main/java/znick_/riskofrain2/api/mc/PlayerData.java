@@ -96,6 +96,15 @@ public class PlayerData implements IExtendedEntityProperties {
 		return this.stats.get(stat);
 	}
 	
+	public void applyStat(PlayerStat stat) {
+		switch(stat) {
+		case MOVEMENT_SPEED_MULTIPLIER:
+			this.player.capabilities.setPlayerWalkSpeed((float) (this.getStat(stat) * 0.1));
+			break;
+		default: return;
+		}
+	}
+	
 	/**
 	 * Resets the given stat to its default value.
 	 * 

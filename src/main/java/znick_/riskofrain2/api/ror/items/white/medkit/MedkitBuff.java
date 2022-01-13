@@ -3,7 +3,9 @@ package znick_.riskofrain2.api.ror.items.white.medkit;
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
+import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.util.file.RiskOfRain2Files;
 
 public class MedkitBuff extends DurationBuff {
@@ -11,7 +13,7 @@ public class MedkitBuff extends DurationBuff {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "medkit.png");
 		
 	public MedkitBuff(int itemCount) {
-		super(itemCount, (int) Tick.fromSeconds(2));
+		super((RiskOfRain2Item) RiskOfRain2Items.MEDKIT, itemCount, (int) Tick.fromSeconds(2));
 	}
 	
 	@Override

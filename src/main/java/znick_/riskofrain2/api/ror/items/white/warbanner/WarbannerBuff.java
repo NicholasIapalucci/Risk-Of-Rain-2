@@ -5,7 +5,9 @@ import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 
 /**
  * The buff the player receives when in radius of a warbanner. The buff normally would not be a {@code DurationBuff},
@@ -17,7 +19,7 @@ import znick_.riskofrain2.event.Tick;
 public class WarbannerBuff extends DurationBuff {
 	
 	public WarbannerBuff(int itemCount) {
-		super(itemCount, (int) Tick.fromSeconds(3));
+		super((RiskOfRain2Item) RiskOfRain2Items.WAR_BANNER, itemCount, (int) Tick.fromSeconds(3));
 	}
 
 	@Override

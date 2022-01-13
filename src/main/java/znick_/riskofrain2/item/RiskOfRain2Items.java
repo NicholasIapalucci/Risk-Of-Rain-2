@@ -43,7 +43,6 @@ import znick_.riskofrain2.api.ror.items.white.BisonSteak;
 import znick_.riskofrain2.api.ror.items.white.BustlingFungus;
 import znick_.riskofrain2.api.ror.items.white.CritGlasses;
 import znick_.riskofrain2.api.ror.items.white.Crowbar;
-import znick_.riskofrain2.api.ror.items.white.EnergyDrink;
 import znick_.riskofrain2.api.ror.items.white.FocusCrystal;
 import znick_.riskofrain2.api.ror.items.white.Gasoline;
 import znick_.riskofrain2.api.ror.items.white.GoatHoof;
@@ -55,6 +54,7 @@ import znick_.riskofrain2.api.ror.items.white.SoldierSyringe;
 import znick_.riskofrain2.api.ror.items.white.TougherTimes;
 import znick_.riskofrain2.api.ror.items.white.TriTipDagger;
 import znick_.riskofrain2.api.ror.items.white.cautiousslug.CautiousSlugItem;
+import znick_.riskofrain2.api.ror.items.white.energydrink.EnergyDrinkItem;
 import znick_.riskofrain2.api.ror.items.white.medkit.MedkitItem;
 import znick_.riskofrain2.api.ror.items.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.api.ror.items.white.warbanner.WarbannerItem;
@@ -154,7 +154,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "energy drink" item. Adds 25% (+25% per item) movement speed to the player while sprinting.
 	 */
-	public static final Item ENERGY_DRINK = new EnergyDrink();
+	public static final Item ENERGY_DRINK = new EnergyDrinkItem();
 	/**
 	 * The "stun grenade" item. Has a 5% (+5% per item) chance to stun enemies in place for 2 seconds. 
 	 */

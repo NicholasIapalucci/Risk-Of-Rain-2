@@ -119,15 +119,20 @@ public class ItemProccer extends EventHandler {
 				}
 			}
 			
-			//Remove all expired duration buffs
+			//Check all buffs
 			for (Buff buff : data.getBuffs()) {
+				//Remove all expired duration buffs
 				if (buff instanceof DurationBuff) {
 					DurationBuff db = (DurationBuff) buff;
 					if (db.getStartTick() + db.getDuration() < Tick.server()) {
 						data.removeBuff(db);
 					}
 				}
+				//Remove all buffs that correspond to the items that the player no longer has 
+				if (InventoryHelper.amountOfItems(player, buff.getItem()) <= 0) data.removeBuff(buff);
 			}
+			
+			data.applyStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER);
 		}
 	}
 	

@@ -2,6 +2,7 @@ package znick_.riskofrain2.api.ror.buff;
 
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 
 /**
  * A {@code Buff} represents an effect the player gets, like a potion. Some buffs do not do anything
@@ -15,8 +16,10 @@ import znick_.riskofrain2.api.mc.PlayerData;
 public abstract class Buff {
 	
 	private final int itemCount;
+	private final RiskOfRain2Item item;
 	
-	public Buff(int itemCount) {
+	public Buff(RiskOfRain2Item item, int itemCount) {
+		this.item = item;
 		this.itemCount = itemCount;
 	}
 	
@@ -26,6 +29,11 @@ public abstract class Buff {
 	public abstract void applyEffect(PlayerData player);
 	/**Removes the effect from the player*/
 	public abstract void removeEffect(PlayerData player);
+	
+	/**Returns the item that gives this effect*/
+	public RiskOfRain2Item getItem() {
+		return this.item;
+	}
 	
 	/**
 	 * Returns whether or not this buff gives a negative effect. Used by blast shower to detect whether or 
