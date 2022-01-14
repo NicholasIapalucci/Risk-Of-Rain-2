@@ -17,10 +17,10 @@ import znick_.riskofrain2.item.RiskOfRain2Items;
 public class RiskOfRain2Achievements {
 
 	public static AchievementPage achievementPageRiskOfRain2; //TODO: Add achievements
-	public static final Map<RiskOfRain2Item, Achievement> achievementMap = new LinkedHashMap<RiskOfRain2Item, Achievement>();
+	public static final Map<RiskOfRain2Item, Achievement> achievementMap = new LinkedHashMap<>();
 	public static final Set<Achievement> achievements = new LinkedHashSet<Achievement>();
 
-	public static void registerAchievements() throws Exception {
+	public static void registerAchievements() {
 		int i = 0;
 		int j = 0;
 		for (RiskOfRain2Item item : RiskOfRain2Items.LOCKED_ITEMS.keySet()) {

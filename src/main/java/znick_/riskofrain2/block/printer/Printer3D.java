@@ -12,7 +12,7 @@ import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 /**
  * Class for creating the {@link znick_.riskofrain2.block.RiskOfRain2Blocks#PRINTER_3D 3DPrinter} block.
  * 
- * @author Nicholas Iapalucci
+ * @author zNick_
  */
 public class Printer3D extends Block implements ITileEntityProvider {
 	

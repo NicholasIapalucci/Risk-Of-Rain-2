@@ -30,16 +30,20 @@ public class RiskOfRain2Blocks {
 	
 	public static final Block WARBANNER_BLOCK = new WarbannerBlock();
 	
-	public static final void registerBlocks() throws Exception {
+	public static final void registerBlocks() {
 		for (Field field : RiskOfRain2Blocks.class.getDeclaredFields()) {
-			if (field.get(null) instanceof IBlockItem) {
-				IBlockItem blockItem = (IBlockItem) field.get(null);
-				Block block = (Block) field.get(null);
-				GameRegistry.registerBlock(block, blockItem.getItemBlockClass(), block.getUnlocalizedName());
-			}
-			else if (field.get(null) instanceof Block) {
-				Block block = (Block) field.get(null);
-				GameRegistry.registerBlock(block, block.getUnlocalizedName());
+			try {
+				if (field.get(null) instanceof IBlockItem) {
+					IBlockItem blockItem = (IBlockItem) field.get(null);
+					Block block = (Block) field.get(null);
+					GameRegistry.registerBlock(block, blockItem.getItemBlockClass(), block.getUnlocalizedName());
+				}
+				else if (field.get(null) instanceof Block) {
+					Block block = (Block) field.get(null);
+					GameRegistry.registerBlock(block, block.getUnlocalizedName());
+				}
+			} catch(Exception e) {
+				throw new RuntimeException(e);
 			}
 		}
 		GameRegistry.registerWorldGenerator(new OreGenerator(), 0);

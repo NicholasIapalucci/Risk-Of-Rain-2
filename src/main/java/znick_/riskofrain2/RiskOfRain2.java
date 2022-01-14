@@ -19,6 +19,11 @@ import znick_.riskofrain2.util.misc.customs.RiskOfRain2Achievements;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Recipes;
 
+/**
+ * The main class for the {@code Risk Of Rain 2} mod. Registers all items, blocks, tile entities, etc.
+ * 
+ * @author zNick_
+ */
 @Mod(modid = "ror2", name = "Risk Of Rain 2", version = "1.0")
 public class RiskOfRain2 {
 	
@@ -27,8 +32,14 @@ public class RiskOfRain2 {
 	public static final String MODID = "ror2";
 	public static final boolean DEBUG = true;
 	
+	/**
+	 * Called during pre-initialization. Registers creative tabs, items, blocks, entities, renderers, tile entities,
+	 * GUIs, events, keybindings, achievements, recipes, and packets.
+	 * 
+	 * @param event The {@code PreInitiazliationEvent}.
+	 */
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) throws Exception {
+	public void preInit(FMLPreInitializationEvent event) {
 		RiskOfRain2CreativeTabs.registerCreativeTabs();
 		RiskOfRain2Items.registerItems();
 		RiskOfRain2Blocks.registerBlocks();

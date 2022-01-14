@@ -24,60 +24,109 @@ import znick_.riskofrain2.util.helper.MathHelper;
 
 public class PlayerData implements IExtendedEntityProperties {
 
+	/**The string used to register the extended properties.*/
 	private final static String EXT_PROP_NAME = "ExtendedPlayer";
+	/**The player to hold the data of.*/
 	private final EntityPlayer player;
 	
+	/**The {@code Buffs} that the player has.*/
 	private final Set<Buff> buffs = new HashSet<>();
+	/**A map between the {@code PlayerStats} and their values that the player has.*/
 	private final Map<PlayerStat, Double> stats = new HashMap<>();
+	/**The current amount of ticks left until the player can use equipment again.*/
 	private int equipmentCooldown = 0;
 	
-	public PlayerData(EntityPlayer player) {
-		this.player = player;	
+	/**
+	 * Creates a new {@code PlayerData} instance for the given player.
+	 * 
+	 * @throws IllegalArgumentException if the player is already registered.
+	 */
+	private PlayerData(EntityPlayer player) {
+		if (get(player) != null) throw new IllegalArgumentException("Player already registered.");
+		this.player = player;
 		for (PlayerStat stat : PlayerStat.values()) this.resetStat(stat);
 	}
 	
+	/**
+	 * Registers the given player with a new instance of {@code PlayerData}.
+	 * 
+	 * @throws IllegalArgumentException if the player is already registered.
+	 */
 	public static final void register(EntityPlayer player) {
 		player.registerExtendedProperties(PlayerData.EXT_PROP_NAME, new PlayerData(player));
 	}
 	
+	/**
+	 * Returns the {@code PlayerData} instance associated with the given player.
+	 * 
+	 * @param player The player to fetch the data of.
+	 */
 	public static final PlayerData get(EntityPlayer player) {
 		return (PlayerData) player.getExtendedProperties(EXT_PROP_NAME);
 	}
 	
+	/**Returns the player associated with this {@code PlayerData} instance*/
 	public EntityPlayer getPlayer() {
 		return this.player;
 	}
 	
-	public void addBuff(Buff newBuff) {
+	/**
+	 * Adds the buff to the current player. If a buff of the same class already exists on the player, it
+	 * is not added. This prevents buffs from being unintentionally stacked, such as adding speed from an
+	 * energy drink when the player is already getting speed from energy drinks.
+	 * 
+	 * @param newBuff the buff to add.
+	 * 
+	 * @return whether or not the buff was added.
+	 */
+	public boolean addBuff(Buff newBuff) {
 		//Prevent buffs from applying twice, such as stacking speed with more speed from the same item
-		for (Buff buff : this.buffs) if (buff.getClass() == newBuff.getClass()) return;
+		for (Buff buff : this.buffs) if (buff.getClass() == newBuff.getClass()) return false;
 		this.buffs.add(newBuff);
 		newBuff.applyEffect(this);
+		return true;
 	}
 	
+	/**
+	 * Removes the given buff from the player.
+	 * 
+	 * @param buff The buff to remove.
+	 */
 	public void removeBuff(Buff buff) {
 		buff.removeEffect(this);
 		this.buffs.remove(buff);
 	}
 	
+	/**
+	 * Removes the buff with the given class.
+	 * 
+	 * @param buffClass The class of the buff to remove.
+	 */
 	public void removeBuff(Class<? extends Buff> buffClass) {
 		for (Buff buff : this.buffs) if (buff.getClass() == buffClass) this.removeBuff(buff);
 	}
 	
+	/**
+	 * Returns all buffs the player has in an array. Modifying the array will not change the buffs the 
+	 * player has.
+	 */
 	public Buff[] getBuffs() {
 		return this.buffs.toArray(new Buff[0]);
 	}
 	
+	/**Returns a buff on the player with the given class, or null if the player has no such buff.*/
 	public <T extends Buff> T getBuff(Class<T> buffClass) {
 		for (Buff buff : this.buffs) if (buffClass.isInstance(buff)) return (T) buff;
 		return null;
 	}
 	
+	/**Returns whether or not the player has a buff with the given class*/
 	public boolean hasBuff(Class<? extends Buff> buffClass) {
 		for (Buff buff : this.buffs) if (buff.getClass() == buffClass) return true;
 		return false;
 	}
 	
+	/**Removes all buffs from the player.*/
 	public void clearBuffs() {
 		this.buffs.clear();
 	}
@@ -92,6 +141,11 @@ public class PlayerData implements IExtendedEntityProperties {
 		this.stats.put(stat, this.stats.get(stat) + addition);
 	}
 	
+	/**
+	 * Returns the current value of the given stat on this player.
+	 * 
+	 * @param stat The {@code PlayerStat} to get the value of.
+	 */
 	public double getStat(PlayerStat stat) {
 		return this.stats.get(stat);
 	}
@@ -124,6 +178,12 @@ public class PlayerData implements IExtendedEntityProperties {
 		return this.rollStat(this.getStat(stat));
 	}
 	
+	/**
+	 * Rolls a percent chance for success or failure. Factors in the player's {@code LUCK} stat.
+	 * 
+	 * @param procChance The percent chance of a roll succeeding
+	 * @return true if a sucess was rolled, false otherwise.
+	 */
 	public boolean rollStat(double procChance) {
 		int luck = (int) this.getStat(PlayerStat.LUCK);
 		double chance = Math.random();
@@ -173,26 +233,49 @@ public class PlayerData implements IExtendedEntityProperties {
 	@Override
 	public void init(Entity entity, World world) {}
 
+	/**
+	 * Plays a sound at the player's location with full volume.
+	 * 
+	 * @param string The name of the sound to play.
+	 */
 	public void playSound(String string) {
 		this.getPlayer().playSound(string, 1, 1);
 	}
 	
+	/**
+	 * Returns the amount of the given item in the players inventory
+	 * 
+	 * @param item The item to count.
+	 */
 	public int itemCount(Item item) {
 		return InventoryHelper.amountOfItems(this.player, item);
 	}
 
+	/**Returns whether or not the player is sprinting.*/
 	public boolean isSprinting() {
 		return this.player.isSprinting();
 	}
 	
+	/**
+	 * Returns the distance between the player and the given entity
+	 * 
+	 * @param entity The entity to get the distance from.
+	 */
 	public double distanceFrom(Entity entity) {
 		return MathHelper.getDistanceBetweenEntities(this.player, entity);
 	}
 	
+	/**
+	 * Creates an {@code AxisAlignedBB} centered around the player's position with the given radius.
+	 * 
+	 * @param r The radius of the box around the player.
+	 * @return The bounding box.
+	 */
 	public AxisAlignedBB radialBox(double r) {
 		return AxisAlignedBB.getBoundingBox(this.player.posX - r, this.player.posY - r, this.player.posZ - r, this.player.posX + r, this.player.posY + r, this.player.posZ + r);
 	}
 
+	/**Returns the world object associated with the player.*/
 	public World getWorld() {
 		return this.player.worldObj;
 	}
@@ -210,39 +293,61 @@ public class PlayerData implements IExtendedEntityProperties {
 		else this.player.heal(halfHearts);
 	}
 
+	/**Returns the health of the player*/
 	public float getHealth() {
 		return this.player.getHealth();
 	}
 	
+	/**
+	 * Changes the max health of the player via its {@code EntityAttribute}.
+	 * 
+	 * @param maxHealth the new max health of the player in half-hearts.
+	 */
 	public void setMaxHealth(float maxHealth) {
 		this.player.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
 	}
 	
+	/**
+	 * Adds the given amount of health to the player's max health.
+	 * 
+	 * @param halfHearts The amount of half-hearts to add to the player's max health.
+	 */
 	public void addToMaxHealth(float halfHearts) {
 		this.setMaxHealth(halfHearts + this.getMaxHealth());
 	}
 
+	/**Returns the max health of the player.*/
 	public float getMaxHealth() {
 		return this.player.getMaxHealth();
 	}
 
+	/**Returns the players look vector.*/
 	public Vec3 getLookVector() {
 		return this.player.getLookVec();
 	}
 	
+	/**Returns the player's {@code PlayerCapabilities} instance.*/
 	public PlayerCapabilities getCapabilities() {
 		return this.player.capabilities;
 	}
 
+	/**Returns the player's current cooldown on equipment.*/
 	public int getEquipmentCooldown() {
 		return this.equipmentCooldown;
 	}
 	
+	/**
+	 * Sets the equipment cooldown to the given value.
+	 * 
+	 * @param cooldown The new equipment cooldown.
+	 * 
+	 */
 	public void setEquipmentCooldown(int cooldown) {
 		this.equipmentCooldown = cooldown;
 	}
 
+	/**Lowers the player's equipment cooldown by 1 tick.*/
 	public void tickEquipmentCooldown() {
-		this.equipmentCooldown -= 1;
-	}
-}
+		this.equipmentCooldown -= 1; 
+	} 
+} 
