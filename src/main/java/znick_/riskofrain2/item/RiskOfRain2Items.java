@@ -12,56 +12,55 @@ import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.api.ror.character.PlayableCharacter;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.api.ror.items.Scrap;
-import znick_.riskofrain2.api.ror.items.boss.pearl.PearlItem;
-import znick_.riskofrain2.api.ror.items.boss.titanicknurl.TitanicKnurlItem;
-import znick_.riskofrain2.api.ror.items.equipment.ForeignFruitItem;
-import znick_.riskofrain2.api.ror.items.equipment.jadeelephant.JadeElephantItem;
-import znick_.riskofrain2.api.ror.items.equipment.ocularhud.OcularHudItem;
-import znick_.riskofrain2.api.ror.items.equipment.supermassiveleech.SuperMassiveLeechItem;
-import znick_.riskofrain2.api.ror.items.green.Chronobauble;
-import znick_.riskofrain2.api.ror.items.green.FuelCell;
-import znick_.riskofrain2.api.ror.items.green.HarvestersScythe;
-import znick_.riskofrain2.api.ror.items.green.HopooFeather;
-import znick_.riskofrain2.api.ror.items.green.LeechingSeed;
-import znick_.riskofrain2.api.ror.items.green.OldWarStealthkit;
-import znick_.riskofrain2.api.ror.items.green.WaxQuail;
-import znick_.riskofrain2.api.ror.items.green.WillOTheWisp;
-import znick_.riskofrain2.api.ror.items.green.infusion.InfusionItem;
-import znick_.riskofrain2.api.ror.items.lunar.BeadsOfFealty;
-import znick_.riskofrain2.api.ror.items.lunar.Purity;
-import znick_.riskofrain2.api.ror.items.lunar.ShapedGlass;
-import znick_.riskofrain2.api.ror.items.red.AlienHead;
-import znick_.riskofrain2.api.ror.items.red.BrilliantBehemothItem;
-import znick_.riskofrain2.api.ror.items.red.HardlightAfterburner;
-import znick_.riskofrain2.api.ror.items.red.HeadSet;
-import znick_.riskofrain2.api.ror.items.red.RejuvinationRack;
-import znick_.riskofrain2.api.ror.items.red.diosbestfriend.DiosBestFriend;
-import znick_.riskofrain2.api.ror.items.red.fiftysevenleafclover.FiftySevenLeafClover;
-import znick_.riskofrain2.api.ror.items.white.ArmorPiercingRounds;
-import znick_.riskofrain2.api.ror.items.white.BisonSteak;
-import znick_.riskofrain2.api.ror.items.white.BustlingFungus;
-import znick_.riskofrain2.api.ror.items.white.CritGlasses;
-import znick_.riskofrain2.api.ror.items.white.Crowbar;
-import znick_.riskofrain2.api.ror.items.white.FocusCrystal;
-import znick_.riskofrain2.api.ror.items.white.Gasoline;
-import znick_.riskofrain2.api.ror.items.white.GoatHoof;
-import znick_.riskofrain2.api.ror.items.white.MonsterTooth;
-import znick_.riskofrain2.api.ror.items.white.PersonalShield;
-import znick_.riskofrain2.api.ror.items.white.RepulsionArmorPlate;
-import znick_.riskofrain2.api.ror.items.white.RustedKey;
-import znick_.riskofrain2.api.ror.items.white.SoldierSyringe;
-import znick_.riskofrain2.api.ror.items.white.TougherTimes;
-import znick_.riskofrain2.api.ror.items.white.TriTipDagger;
-import znick_.riskofrain2.api.ror.items.white.cautiousslug.CautiousSlugItem;
-import znick_.riskofrain2.api.ror.items.white.energydrink.EnergyDrinkItem;
-import znick_.riskofrain2.api.ror.items.white.medkit.MedkitItem;
-import znick_.riskofrain2.api.ror.items.white.stungrenade.StunGrenadeItem;
-import znick_.riskofrain2.api.ror.items.white.warbanner.WarbannerItem;
-import znick_.riskofrain2.item.achievement.AchievementItem;
+import znick_.riskofrain2.api.ror.items.list.ScrapItem;
+import znick_.riskofrain2.api.ror.items.list.boss.pearl.PearlItem;
+import znick_.riskofrain2.api.ror.items.list.boss.titanicknurl.TitanicKnurlItem;
+import znick_.riskofrain2.api.ror.items.list.equipment.ForeignFruitItem;
+import znick_.riskofrain2.api.ror.items.list.equipment.jadeelephant.JadeElephantItem;
+import znick_.riskofrain2.api.ror.items.list.equipment.ocularhud.OcularHudItem;
+import znick_.riskofrain2.api.ror.items.list.equipment.supermassiveleech.SuperMassiveLeechItem;
+import znick_.riskofrain2.api.ror.items.list.green.Chronobauble;
+import znick_.riskofrain2.api.ror.items.list.green.FuelCell;
+import znick_.riskofrain2.api.ror.items.list.green.HarvestersScythe;
+import znick_.riskofrain2.api.ror.items.list.green.HopooFeather;
+import znick_.riskofrain2.api.ror.items.list.green.LeechingSeed;
+import znick_.riskofrain2.api.ror.items.list.green.OldWarStealthkit;
+import znick_.riskofrain2.api.ror.items.list.green.WaxQuail;
+import znick_.riskofrain2.api.ror.items.list.green.WillOTheWisp;
+import znick_.riskofrain2.api.ror.items.list.green.infusion.InfusionItem;
+import znick_.riskofrain2.api.ror.items.list.lunar.BeadsOfFealty;
+import znick_.riskofrain2.api.ror.items.list.lunar.Purity;
+import znick_.riskofrain2.api.ror.items.list.lunar.ShapedGlass;
+import znick_.riskofrain2.api.ror.items.list.red.AlienHead;
+import znick_.riskofrain2.api.ror.items.list.red.BrilliantBehemothItem;
+import znick_.riskofrain2.api.ror.items.list.red.HardlightAfterburner;
+import znick_.riskofrain2.api.ror.items.list.red.HeadSet;
+import znick_.riskofrain2.api.ror.items.list.red.RejuvinationRack;
+import znick_.riskofrain2.api.ror.items.list.red.diosbestfriend.DiosBestFriend;
+import znick_.riskofrain2.api.ror.items.list.red.fiftysevenleafclover.FiftySevenLeafClover;
+import znick_.riskofrain2.api.ror.items.list.white.ArmorPiercingRounds;
+import znick_.riskofrain2.api.ror.items.list.white.BisonSteak;
+import znick_.riskofrain2.api.ror.items.list.white.BustlingFungus;
+import znick_.riskofrain2.api.ror.items.list.white.CritGlasses;
+import znick_.riskofrain2.api.ror.items.list.white.Crowbar;
+import znick_.riskofrain2.api.ror.items.list.white.FocusCrystal;
+import znick_.riskofrain2.api.ror.items.list.white.Gasoline;
+import znick_.riskofrain2.api.ror.items.list.white.GoatHoof;
+import znick_.riskofrain2.api.ror.items.list.white.MonsterTooth;
+import znick_.riskofrain2.api.ror.items.list.white.PersonalShield;
+import znick_.riskofrain2.api.ror.items.list.white.RepulsionArmorPlate;
+import znick_.riskofrain2.api.ror.items.list.white.RustedKey;
+import znick_.riskofrain2.api.ror.items.list.white.SoldierSyringe;
+import znick_.riskofrain2.api.ror.items.list.white.TougherTimes;
+import znick_.riskofrain2.api.ror.items.list.white.TriTipDagger;
+import znick_.riskofrain2.api.ror.items.list.white.cautiousslug.CautiousSlugItem;
+import znick_.riskofrain2.api.ror.items.list.white.energydrink.EnergyDrinkItem;
+import znick_.riskofrain2.api.ror.items.list.white.medkit.MedkitItem;
+import znick_.riskofrain2.api.ror.items.list.white.stungrenade.StunGrenadeItem;
+import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerItem;
+import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 import znick_.riskofrain2.item.armor.ArmorPiece;
 import znick_.riskofrain2.item.armor.ArmorType;
-import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.util.RandomGenerator;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
@@ -150,7 +149,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "white scrap" item. Does nothing, but is taken first when using white 3D printers.
 	 */
-	public static final Item WHITE_SCRAP = new Scrap(ItemRarity.WHITE);
+	public static final Item WHITE_SCRAP = new ScrapItem(ItemRarity.WHITE);
 	/**
 	 * The "energy drink" item. Adds 25% (+25% per item) movement speed to the player while sprinting.
 	 */
@@ -198,7 +197,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "green scrap" item. Does nothing, but is taken first when using green 3D printers.
 	 */
-	public static final Item GREEN_SCRAP = new Scrap(ItemRarity.GREEN);
+	public static final Item GREEN_SCRAP = new ScrapItem(ItemRarity.GREEN);
 	/**
 	 * The "leeching seed" item. Heals 1 (+1 per item) half hearts upon dealing damage.
 	 */
@@ -232,13 +231,13 @@ public class RiskOfRain2Items {
 	/**
 	 * The "red scrap" item. Does nothing, but is taken first when using red 3D printers.
 	 */
-	public static final Item RED_SCRAP = new Scrap(ItemRarity.RED);
+	public static final Item RED_SCRAP = new ScrapItem(ItemRarity.RED);
 	public static final Item HARDLIGHT_AFTERBURNER = new HardlightAfterburner();
 	
 	//Boss Items
 	public static final Item PEARL = new PearlItem();
 	public static final Item TITANIC_KNURL = new TitanicKnurlItem();
-	public static final Item BOSS_SCRAP = new Scrap(ItemRarity.BOSS);
+	public static final Item BOSS_SCRAP = new ScrapItem(ItemRarity.BOSS);
 	
 	//Lunar Items
 	public static final Item SHAPED_GLASS = new ShapedGlass();

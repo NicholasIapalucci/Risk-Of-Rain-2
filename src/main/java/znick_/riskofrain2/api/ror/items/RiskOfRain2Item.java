@@ -10,8 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.RiskOfRain2;
-import znick_.riskofrain2.item.ror.property.ItemCategory;
-import znick_.riskofrain2.item.ror.property.ItemRarity;
+import znick_.riskofrain2.api.ror.items.property.ItemCategory;
+import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
 public abstract class RiskOfRain2Item extends Item {

@@ -14,9 +14,9 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.api.ror.items.Scrap;
+import znick_.riskofrain2.api.ror.items.list.ScrapItem;
+import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 import znick_.riskofrain2.event.Tick;
-import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.util.helper.InventoryHelper;
 
 public class TileEntity3DPrinter extends TileEntity {
@@ -113,7 +113,7 @@ public class TileEntity3DPrinter extends TileEntity {
 				//Only continues if the item is a Risk Of Rain 2 item with the correct rarity
 				if (riskItem.getRarity() == this.getRarity()) {
 					//Prioritizes scrap
-					if (riskItem instanceof Scrap) {
+					if (riskItem instanceof ScrapItem) {
 						itemToTake = new AbstractMap.SimpleEntry<Integer, RiskOfRain2Item>(i, riskItem);
 						break;
 					}

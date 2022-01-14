@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import znick_.riskofrain2.api.ror.items.equipment.RiskOfRain2Equipment;
+import znick_.riskofrain2.api.ror.items.list.equipment.RiskOfRain2Equipment;
 
 public class InventoryHelper {
 

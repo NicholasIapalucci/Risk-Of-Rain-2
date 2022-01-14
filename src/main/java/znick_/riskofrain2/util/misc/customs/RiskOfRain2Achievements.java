@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
+import znick_.riskofrain2.item.AchievementItem;
 import znick_.riskofrain2.item.RiskOfRain2Items;
-import znick_.riskofrain2.item.achievement.AchievementItem;
 
 public class RiskOfRain2Achievements {
 

@@ -6,7 +6,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import znick_.riskofrain2.api.ror.character.huntress.ArrowRainBorder;
-import znick_.riskofrain2.api.ror.items.white.warbanner.WarbannerBlock;
+import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBlock;
 import znick_.riskofrain2.block.misc.LunarPod;
 import znick_.riskofrain2.block.misc.RiskOfRain2Chest;
 import znick_.riskofrain2.block.ore.OreBlock;

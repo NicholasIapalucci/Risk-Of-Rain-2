@@ -6,7 +6,7 @@ import net.minecraft.util.DamageSource;
 
 public class UniqueDamageSource extends DamageSource {
 
-	private EntityPlayer player;
+	private final EntityPlayer player;
 	
 	public UniqueDamageSource(EntityPlayer player) {
 		super("unique");
