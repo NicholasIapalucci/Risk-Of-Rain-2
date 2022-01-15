@@ -9,16 +9,16 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2;
-import znick_.riskofrain2.api.ror.character.PlayableCharacter;
+import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
 public class ArmorPiece extends ItemArmor {
 
 	private final ArmorType type;
-	private final PlayableCharacter character;
+	private final Survivor character;
 	private final String folder;
 	
-	public ArmorPiece(PlayableCharacter character, ArmorType armorType, String folder) {
+	public ArmorPiece(Survivor character, ArmorType armorType, String folder) {
 		super(character.getArmorMaterial(), 0, armorType.getID());
 		String uln = character.getName().toLowerCase() + "_" + armorType.getName().toLowerCase();
 		

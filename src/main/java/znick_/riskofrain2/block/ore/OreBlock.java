@@ -5,10 +5,9 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import znick_.riskofrain2.block.BlockBase;
-import znick_.riskofrain2.util.misc.OreData;
+import znick_.riskofrain2.block.BasicBlock;
 
-public class OreBlock extends BlockBase {
+public class OreBlock extends BasicBlock {
 	
 	private final OreData oreData;
 	

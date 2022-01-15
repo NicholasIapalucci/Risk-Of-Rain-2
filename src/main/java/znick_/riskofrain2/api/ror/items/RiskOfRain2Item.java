@@ -6,6 +6,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -28,6 +29,7 @@ public abstract class RiskOfRain2Item extends Item {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean someParam) {
 
+		//Clear the info and add the item name
 		info.clear();
 		info.add(this.getRarity().getColor() + this.getProperName());
 
@@ -48,7 +50,23 @@ public abstract class RiskOfRain2Item extends Item {
 			info.add("Category: " + this.getCategory().getColor() + cat);
 		}
 	}
+	
+	@Override
+	public EnumRarity getRarity(ItemStack stack) {
+		switch(this.getRarity()) {
+		case GREEN: return EnumRarity.rare;
+		case RED: return EnumRarity.epic;
+		case BOSS: return EnumRarity.uncommon;
+		default: return EnumRarity.common;
+		}
+	}
 
+	/**
+	 * Returns the description of this item broken up into lines of
+	 * acceptable size. This is the method that is called to add the information to
+	 * the item in the inventory GUI, so if an item needs a custom description it should
+	 * override this method instead of {@link #getDescription()}.
+	 */
 	protected List<String> getSplicedDesc() {
 		String localDesc = this.getDescription();
 		List<String> splicedDesc = new ArrayList<String>();

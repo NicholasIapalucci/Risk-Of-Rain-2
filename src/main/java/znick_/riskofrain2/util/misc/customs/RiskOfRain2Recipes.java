@@ -11,7 +11,7 @@ import znick_.riskofrain2.item.RiskOfRain2Items;
 public class RiskOfRain2Recipes {
 	
 	public static void registerRecipes() {
-		GameRegistry.addSmelting(RiskOfRain2Blocks.huntriteOre, new ItemStack(RiskOfRain2Items.RAW_HUNTRITE), 0);
+		GameRegistry.addSmelting(RiskOfRain2Blocks.HUNTRITE_ORE, new ItemStack(RiskOfRain2Items.RAW_HUNTRITE), 0);
 		GameRegistry.addRecipe(new ItemStack(RiskOfRain2Items.LENS), new Object[] {"PPP", "P P", "PPP", 'P', Item.getItemFromBlock(Blocks.glass_pane)});
 		GameRegistry.addShapelessRecipe(new ItemStack(RiskOfRain2Items.LIGHT_BLUE_LENS), new Object[] {RiskOfRain2Items.LENS, new ItemStack(Items.dye, 1, 12)});
 		GameRegistry.addShapelessRecipe(new ItemStack(RiskOfRain2Items.LIGHT_BLUE_FRAMED_LENS), new Object[] {RiskOfRain2Items.LENS_FRAME, RiskOfRain2Items.LIGHT_BLUE_LENS});

@@ -27,7 +27,7 @@ public class WarbannerBuff extends DurationBuff {
 
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/buffs/warbanner.png");
+		return TEXTURE;
 	}
 
 	@Override

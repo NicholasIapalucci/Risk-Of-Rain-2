@@ -1,4 +1,4 @@
-package znick_.riskofrain2.api.ror.character.huntress;
+package znick_.riskofrain2.api.ror.survivor.huntress;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -6,14 +6,14 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.api.ror.ability.SpecialAbility;
 import znick_.riskofrain2.api.ror.ability.UtilityAbility;
-import znick_.riskofrain2.api.ror.character.PlayableCharacter;
+import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.armor.ArmorType;
 
-public class Huntress extends PlayableCharacter {
+public class Huntress extends Survivor {
 
-	public final UtilityAbility BLINK = new UtilityAbility("blink", 140);
-	public final SpecialAbility ARROW_RAIN = new SpecialAbility("arrow_rain", 240);
+	public static final UtilityAbility BLINK = new UtilityAbility("blink", 140);
+	public static final SpecialAbility ARROW_RAIN = new SpecialAbility("arrow_rain", 240);
 	
 	@Override
 	public ArmorMaterial getArmorMaterial() {

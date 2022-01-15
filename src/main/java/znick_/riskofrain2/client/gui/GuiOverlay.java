@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.ability.AbilityWrapper;
-import znick_.riskofrain2.api.ror.character.PlayableCharacter;
+import znick_.riskofrain2.api.ror.survivor.Survivor;
 
 public class GuiOverlay extends Gui {
 	
@@ -18,7 +18,7 @@ public class GuiOverlay extends Gui {
 	private int height;
 	
 	private Minecraft mc;
-	private PlayableCharacter character;
+	private Survivor character;
 	
 	private EntityPlayer player;
 	private PlayerData extendedPlayer;
@@ -26,7 +26,7 @@ public class GuiOverlay extends Gui {
 	private AbilityWrapper wrappedUtility;
 	private AbilityWrapper wrappedSpecial;
 	
-	public GuiOverlay(Minecraft mc, EntityPlayer player, PlayableCharacter character, AbilityWrapper wrappedUtility, AbilityWrapper wrappedSpecial) {
+	public GuiOverlay(Minecraft mc, EntityPlayer player, Survivor character, AbilityWrapper wrappedUtility, AbilityWrapper wrappedSpecial) {
 		ScaledResolution scaled = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		
 		this.width = scaled.getScaledWidth();

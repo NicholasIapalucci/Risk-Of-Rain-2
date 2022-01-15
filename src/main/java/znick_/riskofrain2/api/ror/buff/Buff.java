@@ -39,7 +39,9 @@ public abstract class Buff {
 	 * Returns whether or not this buff gives a negative effect. Used by blast shower to detect whether or 
 	 * not it should be removed upon use.
 	 */
-	public abstract boolean isDebuff();
+	public boolean isDebuff() {
+		return false;
+	}
 	
 	/**Returns the number of items that gave the buff;*/
 	public int getItemCount() {

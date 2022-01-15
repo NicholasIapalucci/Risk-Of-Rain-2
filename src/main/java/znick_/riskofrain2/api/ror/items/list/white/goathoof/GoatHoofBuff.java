@@ -1,15 +1,16 @@
-package znick_.riskofrain2.api.ror.items.list.white.energydrink;
+package znick_.riskofrain2.api.ror.items.list.white.goathoof;
 
 import net.minecraft.util.ResourceLocation;
+import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 
-public class EnergyDrinkBuff extends StatBuff {
+public class GoatHoofBuff extends StatBuff {
 
-	public EnergyDrinkBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.ENERGY_DRINK, PlayerStat.MOVEMENT_SPEED_MULTIPLIER, itemCount);
+	public GoatHoofBuff(int itemCount) {
+		super((RiskOfRain2Item) RiskOfRain2Items.GOAT_HOOF, PlayerStat.MOVEMENT_SPEED_MULTIPLIER, itemCount);
 	}
 
 	@Override
@@ -19,6 +20,7 @@ public class EnergyDrinkBuff extends StatBuff {
 
 	@Override
 	public double getStatAdditionAmount() {
-		return 0.2 * this.getItemCount();
+		return this.getItemCount() * 0.14;
 	}
+
 }

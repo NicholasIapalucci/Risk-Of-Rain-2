@@ -15,6 +15,7 @@ public class Tick extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void onServerTick(TickEvent.ServerTickEvent event) {
+		if (event.phase != TickEvent.Phase.END) return;
 		serverTick++;
 	}
 	

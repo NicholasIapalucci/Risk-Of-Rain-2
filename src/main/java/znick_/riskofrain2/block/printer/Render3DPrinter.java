@@ -12,6 +12,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
+/**{@code TileEntitySpecialRenderer} subclass used to render the 3D Printer block.*/
 public class Render3DPrinter extends TileEntitySpecialRenderer {
 
 	/**The render ID to use for the 3D Printer block*/

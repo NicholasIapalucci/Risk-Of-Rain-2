@@ -21,9 +21,4 @@ public class EntityBlazingZombie extends EntityZombie {
 		super(world);
 	}
 
-	@Override
-	protected boolean isAIEnabled() {
-		return true;
-	}
-
 }

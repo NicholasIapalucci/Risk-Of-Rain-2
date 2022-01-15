@@ -16,7 +16,12 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import znick_.riskofrain2.api.ror.buff.Buff;
+import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.StatBuff;
+import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBuff;
+import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
+import znick_.riskofrain2.event.Tick;
 import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.util.helper.InventoryHelper;
@@ -124,6 +129,42 @@ public class PlayerData implements IExtendedEntityProperties {
 	public boolean hasBuff(Class<? extends Buff> buffClass) {
 		for (Buff buff : this.buffs) if (buff.getClass() == buffClass) return true;
 		return false;
+	}
+
+	/**
+	 * Removes all expired duration buffs. Also, if the player no longer has the item that gives a buff,
+	 * it will remove that buff as well.
+	 */
+	public void removeExcessBuffs() {
+		for (Buff buff : this.getBuffs()) {
+			//Remove all expired duration buffs
+			if (buff instanceof DurationBuff) {
+				DurationBuff db = (DurationBuff) buff;
+				if (db.getStartTick() + db.getDuration() < Tick.server()) {
+					this.removeBuff(db);
+				}
+			}
+			
+			/*
+			 * Remove all buffs that correspond to items the player no longer has. Skip warbanner
+			 * because the player does not need to have warbanner items to receive the buff from
+			 * the warbanner block. The warbanner buff thus must be a duration buff so that it
+			 * can be removed if the player is not in the radius of the block. 
+			 */
+			if (buff instanceof WarbannerBuff) continue;
+			if (this.itemCount(buff.getItem()) <= 0) this.removeBuff(buff);
+		}
+	}
+	
+	public void removeOnHitBuffs() {
+		for (Buff buff : this.getBuffs()) {
+			if (buff instanceof StatBuff) {
+				StatBuff sb = (StatBuff) buff;
+				if (sb.getAffectedStat() == PlayerStat.DAMAGE_MULTIPLIER && buff.getItem() instanceof OnHitItem) {
+					this.removeBuff(sb);
+				}
+			}
+		}
 	}
 	
 	/**Removes all buffs from the player.*/

@@ -17,6 +17,7 @@ import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
+import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBuff;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHealItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
@@ -47,9 +48,11 @@ public class ItemProccer extends EventHandler {
 			EntityPlayer player = (EntityPlayer) event.source.getEntity();
 			PlayerData data = PlayerData.get(player);
 			
+			data.removeOnHitBuffs();
+			
 			//Loops through all RoR2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = InventoryHelper.amountOfItems(player, item);
+				int count = data.itemCount(item);
 				//Checks if the item is on-hit and the player has some
 				if (count > 0 && item instanceof OnHitItem) {
 					OnHitItem onHit = (OnHitItem) item;
@@ -84,10 +87,14 @@ public class ItemProccer extends EventHandler {
 		if (event.source.getEntity() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.source.getEntity();
 			PlayerData data = PlayerData.get(player);
+			
+			//Loop through all Risk of Rain 2 items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
 				int count = InventoryHelper.amountOfItems(player, item);
+				//Check if the item is an on-kill item and if the player has it
 				if (count > 0 && item instanceof OnKillItem) {
 					OnKillItem onKill = (OnKillItem) item;
+					//Proc the item
 					onKill.procOnKill(event, data, event.entityLiving, count);
 				}
 			}
@@ -105,10 +112,11 @@ public class ItemProccer extends EventHandler {
 		if (event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			PlayerData data = PlayerData.get(player);
+			data.removeExcessBuffs();
 			
 			//Loop through all Risk Of Rain 2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = InventoryHelper.amountOfItems(player, item);
+				int count = data.itemCount(item);
 				if (item instanceof OnUpdateItem) {
 					
 					//Proc the item if meant to
@@ -121,20 +129,6 @@ public class ItemProccer extends EventHandler {
 				}
 			}
 			
-			//Check all buffs
-			for (Buff buff : data.getBuffs()) {
-				//Remove all expired duration buffs
-				if (buff instanceof DurationBuff) {
-					DurationBuff db = (DurationBuff) buff;
-					if (db.getStartTick() + db.getDuration() < Tick.server()) {
-						data.removeBuff(db);
-					}
-				}
-				//Remove all buffs that correspond to the items that the player no longer has 
-				if (InventoryHelper.amountOfItems(player, buff.getItem()) <= 0) data.removeBuff(buff);
-			}
-			
-			data.applyStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER);
 		}
 	}
 	

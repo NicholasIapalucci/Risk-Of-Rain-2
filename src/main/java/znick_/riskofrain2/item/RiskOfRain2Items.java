@@ -10,7 +10,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
-import znick_.riskofrain2.api.ror.character.PlayableCharacter;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.list.ScrapItem;
 import znick_.riskofrain2.api.ror.items.list.boss.pearl.PearlItem;
@@ -38,14 +37,12 @@ import znick_.riskofrain2.api.ror.items.list.red.HeadSet;
 import znick_.riskofrain2.api.ror.items.list.red.RejuvinationRack;
 import znick_.riskofrain2.api.ror.items.list.red.diosbestfriend.DiosBestFriend;
 import znick_.riskofrain2.api.ror.items.list.red.fiftysevenleafclover.FiftySevenLeafClover;
-import znick_.riskofrain2.api.ror.items.list.white.ArmorPiercingRounds;
 import znick_.riskofrain2.api.ror.items.list.white.BisonSteak;
 import znick_.riskofrain2.api.ror.items.list.white.BustlingFungus;
 import znick_.riskofrain2.api.ror.items.list.white.CritGlasses;
 import znick_.riskofrain2.api.ror.items.list.white.Crowbar;
 import znick_.riskofrain2.api.ror.items.list.white.FocusCrystal;
 import znick_.riskofrain2.api.ror.items.list.white.Gasoline;
-import znick_.riskofrain2.api.ror.items.list.white.GoatHoof;
 import znick_.riskofrain2.api.ror.items.list.white.MonsterTooth;
 import znick_.riskofrain2.api.ror.items.list.white.PersonalShield;
 import znick_.riskofrain2.api.ror.items.list.white.RepulsionArmorPlate;
@@ -53,12 +50,15 @@ import znick_.riskofrain2.api.ror.items.list.white.RustedKey;
 import znick_.riskofrain2.api.ror.items.list.white.SoldierSyringe;
 import znick_.riskofrain2.api.ror.items.list.white.TougherTimes;
 import znick_.riskofrain2.api.ror.items.list.white.TriTipDagger;
+import znick_.riskofrain2.api.ror.items.list.white.armorpiercingrounds.ArmorPiercingRoundsItem;
 import znick_.riskofrain2.api.ror.items.list.white.cautiousslug.CautiousSlugItem;
 import znick_.riskofrain2.api.ror.items.list.white.energydrink.EnergyDrinkItem;
+import znick_.riskofrain2.api.ror.items.list.white.goathoof.GoatHoofItem;
 import znick_.riskofrain2.api.ror.items.list.white.medkit.MedkitItem;
 import znick_.riskofrain2.api.ror.items.list.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerItem;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
+import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.item.armor.ArmorPiece;
 import znick_.riskofrain2.item.armor.ArmorType;
 import znick_.riskofrain2.util.RandomGenerator;
@@ -74,10 +74,10 @@ public class RiskOfRain2Items {
 	public static final Map<RiskOfRain2Item, AchievementItem> LOCKED_ITEMS = new LinkedHashMap<>();
 	public static final Map<RiskOfRain2Item, AchievementItem> UNLOCKED_ITEMS = new LinkedHashMap<>();
 	
-	public static final Item HUNTRESS_HELMET = new ArmorPiece(PlayableCharacter.HUNTRESS, ArmorType.HELMET, "huntress");
-	public static final Item HUNTRESS_CHESTPLATE = new ArmorPiece(PlayableCharacter.HUNTRESS, ArmorType.CHESTPLATE, "huntress");
-	public static final Item HUNTRESS_LEGGINGS = new ArmorPiece(PlayableCharacter.HUNTRESS, ArmorType.LEGGINGS, "huntress");
-	public static final Item HUNTESS_BOOTS = new ArmorPiece(PlayableCharacter.HUNTRESS, ArmorType.BOOTS, "huntress");
+	public static final Item HUNTRESS_HELMET = new ArmorPiece(Survivor.HUNTRESS, ArmorType.HELMET, "huntress");
+	public static final Item HUNTRESS_CHESTPLATE = new ArmorPiece(Survivor.HUNTRESS, ArmorType.CHESTPLATE, "huntress");
+	public static final Item HUNTRESS_LEGGINGS = new ArmorPiece(Survivor.HUNTRESS, ArmorType.LEGGINGS, "huntress");
+	public static final Item HUNTESS_BOOTS = new ArmorPiece(Survivor.HUNTRESS, ArmorType.BOOTS, "huntress");
 	
 	public static final Item RAW_HUNTRITE = new BasicItem("Raw Huntrite", "character/huntress/", RiskOfRain2CreativeTabs.MISC, EnumChatFormatting.RED);
 	public static final Item HUNTRITE_PLATE = new BasicItem("Huntrite Plate", "character/huntress/", RiskOfRain2CreativeTabs.MISC, EnumChatFormatting.RED);
@@ -109,7 +109,7 @@ public class RiskOfRain2Items {
 	 * The "armor piercing rounds" item. Causes the player to deal 20% (+20% per item) more damage to bosses,
 	 * such as the Ender Dragon or the Wither. May not work on modded bosses depending on how they are coded. 
 	 */
-	public static final Item ARMOR_PIERCING_ROUNDS = new ArmorPiercingRounds();
+	public static final Item ARMOR_PIERCING_ROUNDS = new ArmorPiercingRoundsItem();
 	/**
 	 * The "Len's-Maker Glasses" item. Adds a 10% chance (+10% per item) for an attack to land a critical hit, 
 	 * dealing double damage. 
@@ -129,7 +129,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "Paul's goat hoof" item. Adds 14% (+14% per item) boost to movement speed.
 	 */
-	public static final Item GOAT_HOOF = new GoatHoof();
+	public static final Item GOAT_HOOF = new GoatHoofItem();
 	/**
 	 * The "gasoline" item. When the player kills an enemy, all enemies around the killed enemy are lit on fire
 	 * in a radius of 5 (+1 per item) blocks. The enemies are lit for 2 (+1 per item) seconds. 

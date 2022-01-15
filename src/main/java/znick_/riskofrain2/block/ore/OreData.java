@@ -1,4 +1,4 @@
-package znick_.riskofrain2.util.misc;
+package znick_.riskofrain2.block.ore;
 
 import java.util.HashSet;
 import java.util.List;

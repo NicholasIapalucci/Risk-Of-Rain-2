@@ -13,8 +13,8 @@ import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import znick_.riskofrain2.api.mc.Position;
 import znick_.riskofrain2.api.ror.ability.AbilityWrapper;
-import znick_.riskofrain2.api.ror.character.PlayableCharacter;
-import znick_.riskofrain2.api.ror.character.huntress.ArrowRainBorder;
+import znick_.riskofrain2.api.ror.survivor.Survivor;
+import znick_.riskofrain2.api.ror.survivor.huntress.ArrowRainBorder;
 import znick_.riskofrain2.block.RiskOfRain2Blocks;
 import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
 import znick_.riskofrain2.entity.character.huntress.HuntressRainingArrow;
@@ -37,7 +37,7 @@ public class HuntressEventHandler extends EventHandler {
 	public static boolean stoppedBlinking = true;
 	public static int startedBlinkingTick = 0;
 	public static int utilityTick = 0;
-	public static int utilityCooldown = PlayableCharacter.HUNTRESS.BLINK.getBaseCooldown();
+	public static int utilityCooldown = Survivor.HUNTRESS.BLINK.getBaseCooldown();
 	EntityPlayer playerBlink = null;
 	
 	//Arrow Rain
@@ -48,7 +48,7 @@ public class HuntressEventHandler extends EventHandler {
 	public static boolean canReplaceBlocks = false;
 	public static int arrowRainStartTick = 0;
 	public static int specialTick = 0;
-	public static int specialCooldown = PlayableCharacter.HUNTRESS.ARROW_RAIN.getBaseCooldown();
+	public static int specialCooldown = Survivor.HUNTRESS.ARROW_RAIN.getBaseCooldown();
 	public static int arrowRainTick = 0;
 	public static Position lastPos;
 	public static Block lastBlock;
@@ -57,7 +57,7 @@ public class HuntressEventHandler extends EventHandler {
 	@SubscribeEvent
 	public void useAbility(KeyInputEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		if (PlayableCharacter.isPlayerSurvivor(player, PlayableCharacter.HUNTRESS)) {
+		if (Survivor.HUNTRESS.isPlayer(player)) {
 			//if (RiskOfRain2KeyBinds.UTILITY.getKeyBinding().isPressed() && canBlink) this.startBlink(player);
 			if (RiskOfRain2KeyBinds.SPECIAL.getKeyBinding().isPressed() && !startedArrowRain && canArrowRain) this.startArrowRain(player);
 		}
@@ -143,7 +143,7 @@ public class HuntressEventHandler extends EventHandler {
 								if (lastPos != null & lastBlock != null) player.worldObj.setBlock(lastPos.getIntX(), lastPos.getIntY() + 1, lastPos.getIntZ(), lastBlock);
 								lastPos = new Position(pos);
 								lastBlock = player.worldObj.getBlock(pos.getIntX(), pos.getIntY() + 1, pos.getIntZ());
-								player.worldObj.setBlock(pos.getIntX(), pos.getIntY() + 1, pos.getIntZ(), RiskOfRain2Blocks.ring);
+								player.worldObj.setBlock(pos.getIntX(), pos.getIntY() + 1, pos.getIntZ(), RiskOfRain2Blocks.HUNTRESS_ARROW_RAIN_RETICLE);
 								if (Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed()) this.startRainingArrows(player, pos);
 								break;
 							}

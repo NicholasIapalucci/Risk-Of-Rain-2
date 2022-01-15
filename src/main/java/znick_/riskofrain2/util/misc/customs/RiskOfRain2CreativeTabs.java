@@ -20,7 +20,7 @@ public class RiskOfRain2CreativeTabs {
 	public static final CreativeTabs BLOCKS = new CreativeTabs("tabBlocks") {
 		@Override
 		public Item getTabIconItem() {
-			return new ItemStack(RiskOfRain2Blocks.huntriteOre).getItem();
+			return new ItemStack(RiskOfRain2Blocks.HUNTRITE_ORE).getItem();
 		}
 	};
 	
@@ -34,7 +34,7 @@ public class RiskOfRain2CreativeTabs {
 	public static final CreativeTabs MISC = new CreativeTabs("tabMisc") {
 		@Override
 		public Item getTabIconItem() {
-			return new ItemStack(RiskOfRain2Blocks.riskChest).getItem();
+			return new ItemStack(RiskOfRain2Blocks.CHEST).getItem();
 		}
 	}; 
 	
