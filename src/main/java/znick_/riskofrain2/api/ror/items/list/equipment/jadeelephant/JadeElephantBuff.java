@@ -5,7 +5,7 @@ import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.util.file.RiskOfRain2Files;
 
@@ -14,7 +14,7 @@ public class JadeElephantBuff extends DurationBuff {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "jade_elephant.png");
 	
 	public JadeElephantBuff() {
-		super((RiskOfRain2Item) RiskOfRain2Items.JADE_ELEPHANT, 0, Tick.fromSeconds(5));
+		super((RiskOfRain2Item) RiskOfRain2Items.JADE_ELEPHANT, 0, TickHandler.fromSeconds(5));
 	}
 
 	@Override

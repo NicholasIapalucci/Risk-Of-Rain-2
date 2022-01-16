@@ -1,16 +1,20 @@
 package znick_.riskofrain2.util.helper;
 
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import znick_.riskofrain2.api.ror.items.list.equipment.RiskOfRain2Equipment;
 
-public class InventoryHelper {
+public class MinecraftHelper {
 
 	public static int amountOfItems(EntityPlayer player, Item item) {
 		int amount = 0;
@@ -37,13 +41,11 @@ public class InventoryHelper {
 	}
 	
 	public static void removeAmount(EntityPlayer player, Item item, int amount) {
-		int amountRemoved = 0;
 		int amountLeft = amount;
 		for (int i = 0; i < 36; i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
 			if (stackInSlot != null) {
 				if (stackInSlot.getItem() == item) {
-					System.out.println(amountLeft);
 					if (stackInSlot.stackSize > amountLeft) {
 						player.inventory.setInventorySlotContents(i, new ItemStack(stackInSlot.getItem(), stackInSlot.stackSize - amountLeft));
 						return;
@@ -116,4 +118,17 @@ public class InventoryHelper {
 		return amount;
 	}
 	
+	/**
+	 * Takes the instance of a player on the client and converts it to the player on the server.
+	 * 
+	 * @param player The client player to convert to server
+	 * 
+	 * @author diesieben07
+	 * @author zNick_
+	 */
+	public static EntityPlayer getPlayerFromUUID(UUID uuid)  {
+	    List<EntityPlayerMP> allPlayers = MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+	    for (EntityPlayerMP playerMP : allPlayers) if (playerMP.getUniqueID().equals(uuid)) return playerMP;
+	    return null;
+	}
 }

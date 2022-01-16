@@ -13,11 +13,9 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.PlayerData;
-import znick_.riskofrain2.api.ror.buff.Buff;
-import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBuff;
+import znick_.riskofrain2.api.ror.items.list.white.critglasses.CritGlassesBuff;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHealItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
@@ -26,10 +24,9 @@ import znick_.riskofrain2.api.ror.items.proc.type.OnKeyPressItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnKillItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnPickupXPItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
-import znick_.riskofrain2.event.Tick;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
-import znick_.riskofrain2.util.helper.InventoryHelper;
+import znick_.riskofrain2.util.helper.MinecraftHelper;
 import znick_.riskofrain2.util.misc.UniqueDamageSource;
 
 public class ItemProccer extends EventHandler {
@@ -48,7 +45,7 @@ public class ItemProccer extends EventHandler {
 			EntityPlayer player = (EntityPlayer) event.source.getEntity();
 			PlayerData data = PlayerData.get(player);
 			
-			data.removeOnHitBuffs();
+			double originalDamageMultiplier = data.getStat(PlayerStat.DAMAGE_MULTIPLIER);
 			
 			//Loops through all RoR2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
@@ -63,6 +60,17 @@ public class ItemProccer extends EventHandler {
 				}
 			}
 			
+			//Check for & handle critical strike
+			boolean crit = data.rollStat(PlayerStat.CRIT_CHANCE);
+			if (crit) {
+				data.addToStat(PlayerStat.DAMAGE_MULTIPLIER, 1);
+				data.playSound("ror2:crit_glasses");
+				int harvestersScytheAmount = data.itemCount(RiskOfRain2Items.HARVESTERS_SCYTHE);
+				if (harvestersScytheAmount > 0) {
+					((OnHitItem) RiskOfRain2Items.HARVESTERS_SCYTHE).procOnHit(event, data, event.entityLiving, harvestersScytheAmount);
+				}
+			}
+			
 			/*
 			 * The damage in LivingAttackEvent cannot be changed, so the event must be canceled
 			 * and a new event must be fired with the new damage value. A UniqueDamageSource must
@@ -74,6 +82,9 @@ public class ItemProccer extends EventHandler {
 				event.setCanceled(true);
 				event.entity.attackEntityFrom(new UniqueDamageSource(player), (float) (event.ammount * data.getStat(PlayerStat.DAMAGE_MULTIPLIER)));
 			}
+			
+			//Reset to original damage multiplier
+			data.setStat(PlayerStat.DAMAGE_MULTIPLIER, originalDamageMultiplier);
 		}
 	}
 	
@@ -90,7 +101,7 @@ public class ItemProccer extends EventHandler {
 			
 			//Loop through all Risk of Rain 2 items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = InventoryHelper.amountOfItems(player, item);
+				int count = MinecraftHelper.amountOfItems(player, item);
 				//Check if the item is an on-kill item and if the player has it
 				if (count > 0 && item instanceof OnKillItem) {
 					OnKillItem onKill = (OnKillItem) item;
@@ -145,7 +156,7 @@ public class ItemProccer extends EventHandler {
 			
 			//Loop Through all Risk of Rain 2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = InventoryHelper.amountOfItems(player, item);
+				int count = MinecraftHelper.amountOfItems(player, item);
 				//Check if the item is an on-heal item and the player has one
 				if (count > 0 && item instanceof OnHealItem) {
 					OnHealItem onHeal = (OnHealItem) item;
@@ -169,7 +180,7 @@ public class ItemProccer extends EventHandler {
 			
 			//Loop through all Risk of Rain 2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = InventoryHelper.amountOfItems(player, item);
+				int count = MinecraftHelper.amountOfItems(player, item);
 				//Check if the item is meant to proc on-jump and if the player has it
 				if (count > 0 && item instanceof OnJumpItem) {
 					OnJumpItem onJump = (OnJumpItem) item;
@@ -197,7 +208,7 @@ public class ItemProccer extends EventHandler {
 			
 			//Proc all on-hurt items if able to
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = InventoryHelper.amountOfItems(player, item);
+				int count = MinecraftHelper.amountOfItems(player, item);
 				//Check if the item is an on-hurt item and if the player has it
 				if (count > 0 && item instanceof OnHurtItem) {
 					if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName());
@@ -229,7 +240,7 @@ public class ItemProccer extends EventHandler {
 		
 		//Loop through all Risk Of Rain 2 items
 		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-			int count = InventoryHelper.amountOfItems(player, item);
+			int count = MinecraftHelper.amountOfItems(player, item);
 			//Checks if the item procs on key press and if the player has any
 			if (count > 0 && item instanceof OnKeyPressItem) {
 				if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName() + "...");
@@ -257,7 +268,7 @@ public class ItemProccer extends EventHandler {
 			
 			//Loops through all Risk Of Rain 2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = InventoryHelper.amountOfItems(player, item);
+				int count = MinecraftHelper.amountOfItems(player, item);
 				//Checks if the item is on-xp-pickup and if the player has it
 				if (count > 0 && item instanceof OnPickupXPItem) {
 					OnPickupXPItem onXP = (OnPickupXPItem) item;

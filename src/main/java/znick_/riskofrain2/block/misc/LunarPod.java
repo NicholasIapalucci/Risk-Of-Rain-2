@@ -16,7 +16,7 @@ import znick_.riskofrain2.client.gui.GuiHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.itemblock.ItemBlockLunarPod;
 import znick_.riskofrain2.tile.RoR2TileEntityChest;
-import znick_.riskofrain2.util.helper.InventoryHelper;
+import znick_.riskofrain2.util.helper.MinecraftHelper;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
 public class LunarPod extends BlockContainer implements IBlockItem {

@@ -4,13 +4,13 @@ import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 
 public class StunGrenadeBuff extends DurationBuff {
 
 	public StunGrenadeBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.STUN_GRENADE, itemCount, Tick.fromSeconds(2));
+		super((RiskOfRain2Item) RiskOfRain2Items.STUN_GRENADE, itemCount, TickHandler.fromSeconds(2));
 	}
 
 	@Override

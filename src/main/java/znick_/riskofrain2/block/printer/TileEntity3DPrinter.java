@@ -16,8 +16,8 @@ import net.minecraft.tileentity.TileEntity;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.list.ScrapItem;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.Tick;
-import znick_.riskofrain2.util.helper.InventoryHelper;
+import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.util.helper.MinecraftHelper;
 
 public class TileEntity3DPrinter extends TileEntity {
 
@@ -43,7 +43,7 @@ public class TileEntity3DPrinter extends TileEntity {
 	 * spamming method.
 	 */
 	public boolean isOnCooldown() {
-		return this.lastUsedTick + 80 > Tick.server();
+		return this.lastUsedTick + 80 > TickHandler.server();
 	}
 
 	/**
@@ -136,8 +136,8 @@ public class TileEntity3DPrinter extends TileEntity {
 		else stack.stackSize--;
 		
 		//Drops the item in the world and puts the printer on cooldown.
-		InventoryHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, new ItemStack(this.item.getItem()));
-		this.lastUsedTick = Tick.server();
+		MinecraftHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, new ItemStack(this.item.getItem()));
+		this.lastUsedTick = TickHandler.server();
 		return true;
 	}
 }

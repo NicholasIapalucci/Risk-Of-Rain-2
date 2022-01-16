@@ -13,7 +13,7 @@ import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
 
 public class OldWarStealthkit extends RiskOfRain2Item implements OnUpdateItem {
 
@@ -27,13 +27,13 @@ public class OldWarStealthkit extends RiskOfRain2Item implements OnUpdateItem {
 	public void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
 		player.getPlayer().addPotionEffect(new PotionEffect(Potion.invisibility.id, 100, 0));
 		player.addToStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, 0.4);
-		PLAYERS_ON_COOLDOWN.put(player.getPlayer(), Tick.server());
+		PLAYERS_ON_COOLDOWN.put(player.getPlayer(), TickHandler.server());
 	}
 
 	@Override
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
 		if (PLAYERS_ON_COOLDOWN.containsKey(player.getPlayer())) {
-			if (Tick.server() > PLAYERS_ON_COOLDOWN.get(player.getPlayer()) / (Math.pow(2, itemCount - 1))) {
+			if (TickHandler.server() > PLAYERS_ON_COOLDOWN.get(player.getPlayer()) / (Math.pow(2, itemCount - 1))) {
 				PLAYERS_ON_COOLDOWN.remove(player.getPlayer());
 			}
 			return false;

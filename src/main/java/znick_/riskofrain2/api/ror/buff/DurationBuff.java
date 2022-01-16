@@ -1,7 +1,7 @@
 package znick_.riskofrain2.api.ror.buff;
 
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
 
 /**
  * Represents a temporary {@code Buff} that wears off after a certain amount of time.
@@ -15,7 +15,7 @@ public abstract class DurationBuff extends Buff {
 	
 	public DurationBuff(RiskOfRain2Item item, int itemCount, int duration) {
 		super(item, itemCount);
-		this.startTick = Tick.server();
+		this.startTick = TickHandler.server();
 		this.duration = duration;
 	}
 	
@@ -28,7 +28,7 @@ public abstract class DurationBuff extends Buff {
 	}
 	
 	public void resetStartTick() {
-		this.startTick = Tick.server();
+		this.startTick = TickHandler.server();
 	}
 	
 	public int getDuration() {

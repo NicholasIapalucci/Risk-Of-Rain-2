@@ -12,7 +12,7 @@ import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
 import znick_.riskofrain2.event.handler.CombatHandler;
 
 public class CautiousSlugItem extends RiskOfRain2Item implements OnUpdateItem, OnHurtItem {
@@ -30,7 +30,7 @@ public class CautiousSlugItem extends RiskOfRain2Item implements OnUpdateItem, O
 
 	@Override
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
-		return CombatHandler.ticksSinceLastHurt(player.getPlayer()) > Tick.fromSeconds(7);
+		return CombatHandler.ticksSinceLastHurt(player.getPlayer()) > TickHandler.fromSeconds(7);
 	}
 	
 	@Override

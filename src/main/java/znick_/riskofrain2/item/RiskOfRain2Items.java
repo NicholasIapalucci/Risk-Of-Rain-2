@@ -35,11 +35,11 @@ import znick_.riskofrain2.api.ror.items.list.red.BrilliantBehemothItem;
 import znick_.riskofrain2.api.ror.items.list.red.HardlightAfterburner;
 import znick_.riskofrain2.api.ror.items.list.red.HeadSet;
 import znick_.riskofrain2.api.ror.items.list.red.RejuvinationRack;
-import znick_.riskofrain2.api.ror.items.list.red.diosbestfriend.DiosBestFriend;
+import znick_.riskofrain2.api.ror.items.list.red.diosbestfriend.DiosBestFriendItem;
 import znick_.riskofrain2.api.ror.items.list.red.fiftysevenleafclover.FiftySevenLeafClover;
+import znick_.riskofrain2.api.ror.items.list.white.ArmorPiercingRoundsItem;
 import znick_.riskofrain2.api.ror.items.list.white.BisonSteak;
 import znick_.riskofrain2.api.ror.items.list.white.BustlingFungus;
-import znick_.riskofrain2.api.ror.items.list.white.CritGlasses;
 import znick_.riskofrain2.api.ror.items.list.white.Crowbar;
 import znick_.riskofrain2.api.ror.items.list.white.FocusCrystal;
 import znick_.riskofrain2.api.ror.items.list.white.Gasoline;
@@ -50,8 +50,8 @@ import znick_.riskofrain2.api.ror.items.list.white.RustedKey;
 import znick_.riskofrain2.api.ror.items.list.white.SoldierSyringe;
 import znick_.riskofrain2.api.ror.items.list.white.TougherTimes;
 import znick_.riskofrain2.api.ror.items.list.white.TriTipDagger;
-import znick_.riskofrain2.api.ror.items.list.white.armorpiercingrounds.ArmorPiercingRoundsItem;
 import znick_.riskofrain2.api.ror.items.list.white.cautiousslug.CautiousSlugItem;
+import znick_.riskofrain2.api.ror.items.list.white.critglasses.CritGlassesItem;
 import znick_.riskofrain2.api.ror.items.list.white.energydrink.EnergyDrinkItem;
 import znick_.riskofrain2.api.ror.items.list.white.goathoof.GoatHoofItem;
 import znick_.riskofrain2.api.ror.items.list.white.medkit.MedkitItem;
@@ -114,7 +114,7 @@ public class RiskOfRain2Items {
 	 * The "Len's-Maker Glasses" item. Adds a 10% chance (+10% per item) for an attack to land a critical hit, 
 	 * dealing double damage. 
 	 */
-	public static final Item CRIT_GLASSES = new CritGlasses();
+	public static final Item CRIT_GLASSES = new CritGlassesItem();
 	/**
 	 * The "crowbar" item. Activates when the player attacks an enemy with over 90% health. The hit will deal
 	 * 75% (+75% per item) more damage. 
@@ -218,7 +218,7 @@ public class RiskOfRain2Items {
 	 * The "Dio's best friend" item. Allows the player to be saved from death followed by 10 seconds of
 	 * invincibility. Consumed on use.
 	 */
-	public static final Item DIOS_BEST_FRIEND = new DiosBestFriend();
+	public static final Item DIOS_BEST_FRIEND = new DiosBestFriendItem();
 	/**
 	 * The "H3AD-5T v2" item. Makes the player jump significantly higher. 
 	 */

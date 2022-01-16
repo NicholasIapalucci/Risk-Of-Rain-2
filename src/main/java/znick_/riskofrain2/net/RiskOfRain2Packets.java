@@ -1,8 +1,6 @@
 package znick_.riskofrain2.net;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import znick_.riskofrain2.RiskOfRain2;
@@ -14,6 +12,7 @@ public class RiskOfRain2Packets {
 	
 	public static void registerPackets() {
 		registerMessage(PlayerHealPacketHandler.class, PlayerHealPacketHandler.PlayerHealPacket.class);
+		registerMessage(AbilityPacketHandler.class, AbilityPacketHandler.AbilityPacket.class);
 	}
 	
 	private static void registerMessage(Class handler, Class packet) {

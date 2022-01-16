@@ -11,20 +11,23 @@ import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.item.RiskOfRain2Items;
+import znick_.riskofrain2.util.helper.MinecraftHelper;
 
-public class DiosBestFriend extends RiskOfRain2Item implements OnHurtItem {
+public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem {
 
 	private static final Map<EntityPlayer, Integer> IMMUNE_PLAYERS = new HashMap<>();
 	
-	public DiosBestFriend() {
+	public DiosBestFriendItem() {
 		super("dios_best_friend");
 	}
 
 	@Override
 	public void procOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
 		event.setCanceled(true);
-		player.addBuff(new DiosBestFriendBuff(itemCount)); //TODO: Add Dio Consumption
+		player.addBuff(new DiosBestFriendBuff(itemCount));
+		MinecraftHelper.removeAmount(player.getPlayer(), RiskOfRain2Items.DIOS_BEST_FRIEND, 1);
 	}
 
 	@Override

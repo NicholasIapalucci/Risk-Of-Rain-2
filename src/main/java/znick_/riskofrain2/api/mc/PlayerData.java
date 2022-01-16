@@ -21,11 +21,13 @@ import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBuff;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.api.ror.survivor.Survivor;
+import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
+import znick_.riskofrain2.event.TickHandler;
 import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
-import znick_.riskofrain2.util.helper.InventoryHelper;
 import znick_.riskofrain2.util.helper.MathHelper;
+import znick_.riskofrain2.util.helper.MinecraftHelper;
 
 public class PlayerData implements IExtendedEntityProperties {
 
@@ -40,6 +42,8 @@ public class PlayerData implements IExtendedEntityProperties {
 	private final Map<PlayerStat, Double> stats = new HashMap<>();
 	/**The current amount of ticks left until the player can use equipment again.*/
 	private int equipmentCooldown = 0;
+	
+	private Loadout loadOut = Survivor.HUNTRESS.getDefaultLoadout();
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -140,7 +144,7 @@ public class PlayerData implements IExtendedEntityProperties {
 			//Remove all expired duration buffs
 			if (buff instanceof DurationBuff) {
 				DurationBuff db = (DurationBuff) buff;
-				if (db.getStartTick() + db.getDuration() < Tick.server()) {
+				if (db.getStartTick() + db.getDuration() < TickHandler.server()) {
 					this.removeBuff(db);
 				}
 			}
@@ -182,6 +186,10 @@ public class PlayerData implements IExtendedEntityProperties {
 		this.stats.put(stat, this.stats.get(stat) + addition);
 	}
 	
+	public void multiplyStat(PlayerStat stat, double multiply) {
+		this.stats.put(stat, this.stats.get(stat) * multiply);
+	}
+	
 	/**
 	 * Returns the current value of the given stat on this player.
 	 * 
@@ -189,6 +197,10 @@ public class PlayerData implements IExtendedEntityProperties {
 	 */
 	public double getStat(PlayerStat stat) {
 		return this.stats.get(stat);
+	}
+	
+	public void setStat(PlayerStat stat, double amount) {
+		this.stats.put(stat, amount);
 	}
 	
 	public void applyStat(PlayerStat stat) {
@@ -270,6 +282,10 @@ public class PlayerData implements IExtendedEntityProperties {
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
 
 	}
+	
+	public Loadout getLoadout() {
+		return this.loadOut;
+	}
 
 	@Override
 	public void init(Entity entity, World world) {}
@@ -289,7 +305,7 @@ public class PlayerData implements IExtendedEntityProperties {
 	 * @param item The item to count.
 	 */
 	public int itemCount(Item item) {
-		return InventoryHelper.amountOfItems(this.player, item);
+		return MinecraftHelper.amountOfItems(this.player, item);
 	}
 
 	/**Returns whether or not the player is sprinting.*/

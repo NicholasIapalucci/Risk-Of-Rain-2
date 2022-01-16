@@ -18,7 +18,7 @@ public class FocusCrystal extends RiskOfRain2Item implements OnHitItem {
 
 	@Override
 	public void procOnHit(LivingAttackEvent event, PlayerData player, EntityLivingBase enemy, int itemCount) {
-		player.addToStat(PlayerStat.DAMAGE_MULTIPLIER, 0.20 * itemCount);
+		player.multiplyStat(PlayerStat.DAMAGE_MULTIPLIER, 1 + 0.2 * itemCount);
 	}
 
 	@Override

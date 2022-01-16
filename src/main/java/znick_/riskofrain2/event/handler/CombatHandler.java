@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import znick_.riskofrain2.api.ror.items.list.white.cautiousslug.CautiousSlugItem;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
 
 public class CombatHandler extends EventHandler {
 
@@ -18,7 +18,7 @@ public class CombatHandler extends EventHandler {
 	@SubscribeEvent
 	public void onAttack(LivingAttackEvent event) {
 		if (event.source != null && event.source.getEntity() instanceof EntityPlayer) {
-			TICKS_SINCE_ATTACK.put((EntityPlayer) event.source.getEntity(), Tick.server());
+			TICKS_SINCE_ATTACK.put((EntityPlayer) event.source.getEntity(), TickHandler.server());
 		}
 	}
 	
@@ -26,18 +26,18 @@ public class CombatHandler extends EventHandler {
 	public void onHurt(LivingHurtEvent event) {
 		if (event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			TICKS_SINCE_HURT.put(player, Tick.server());
+			TICKS_SINCE_HURT.put(player, TickHandler.server());
 		}
 	}
 	
 	public static int ticksSinceLastAttack(EntityPlayer player) {
 		if (TICKS_SINCE_ATTACK.get(player) == null) TICKS_SINCE_ATTACK.put(player, 0);
-		return Tick.server() - TICKS_SINCE_ATTACK.get(player);
+		return TickHandler.server() - TICKS_SINCE_ATTACK.get(player);
 	}
 	
 	public static int ticksSinceLastHurt(EntityPlayer player) {
 		if (TICKS_SINCE_HURT.get(player) == null) TICKS_SINCE_HURT.put(player, 0);
-		return Tick.server() - TICKS_SINCE_HURT.get(player);
+		return TickHandler.server() - TICKS_SINCE_HURT.get(player);
 	}
 	
 	public static int tickSinceCombat(EntityPlayer player) {

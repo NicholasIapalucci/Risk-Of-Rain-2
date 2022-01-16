@@ -5,13 +5,13 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.items.list.equipment.RiskOfRain2Equipment;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
-import znick_.riskofrain2.event.Tick;
+import znick_.riskofrain2.event.TickHandler;
 
 public class SuperMassiveLeechItem extends RiskOfRain2Equipment implements OnHitItem {
 
 	public SuperMassiveLeechItem() {
 		super("super_massive_leech");
-		this.setCooldown(Tick.fromSeconds(60));
+		this.setCooldown(TickHandler.fromSeconds(60));
 	}
 
 	@Override

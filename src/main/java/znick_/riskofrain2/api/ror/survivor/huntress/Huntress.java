@@ -4,16 +4,21 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.EnumChatFormatting;
-import znick_.riskofrain2.api.ror.ability.SpecialAbility;
-import znick_.riskofrain2.api.ror.ability.UtilityAbility;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
+import znick_.riskofrain2.api.ror.survivor.ability.Ability;
+import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.armor.ArmorType;
 
 public class Huntress extends Survivor {
 
-	public static final UtilityAbility BLINK = new UtilityAbility("blink", 140);
-	public static final SpecialAbility ARROW_RAIN = new SpecialAbility("arrow_rain", 240);
+	private static final Ability BLINK = new BlinkAbility();
+	private static final Ability ARROW_RAIN = new ArrowRainAbility();
+	
+	public Huntress() {
+		this.addAbility(BLINK);
+		this.addAbility(ARROW_RAIN);
+	}
 	
 	@Override
 	public ArmorMaterial getArmorMaterial() {
@@ -39,5 +44,10 @@ public class Huntress extends Survivor {
 		case BOOTS: return RiskOfRain2Items.HUNTESS_BOOTS;
 		default: throw new IllegalArgumentException("There is no ArmorType " + armorType.getName());
 		}
+	}
+
+	@Override
+	public Loadout getDefaultLoadout() {
+		return new Loadout(null, null, BLINK, ARROW_RAIN);
 	}
 }
