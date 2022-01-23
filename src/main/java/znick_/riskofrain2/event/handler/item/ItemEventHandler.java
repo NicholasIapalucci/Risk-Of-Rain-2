@@ -8,9 +8,9 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
+import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.client.gui.GuiOverlay;
 import znick_.riskofrain2.event.handler.EventHandler;
-import znick_.riskofrain2.event.handler.SurvivorEventHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.util.helper.MinecraftHelper;
 

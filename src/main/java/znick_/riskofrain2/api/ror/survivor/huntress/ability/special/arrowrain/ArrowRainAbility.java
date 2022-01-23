@@ -1,47 +1,60 @@
-package znick_.riskofrain2.api.ror.survivor.huntress;
+package znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain;
 
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
-import net.minecraft.block.Block;
+import cpw.mods.fml.common.gameevent.InputEvent.MouseInputEvent;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
 import znick_.riskofrain2.api.mc.Position;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
+import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.AbilityType;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.ActivatedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
+import znick_.riskofrain2.api.ror.survivor.ability.phase.RepeatingAbilityPhase;
 import znick_.riskofrain2.entity.character.huntress.HuntressRainingArrow;
 import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.util.helper.MathHelper;
 
 public class ArrowRainAbility extends Ability {
 
+	private final ArrowRainPhase1 phase1 = this.new ArrowRainPhase1();
+	private final ArrowRainPhase2 phase2 = this.new ArrowRainPhase2();
+	private final ArrowRainPhase3 phase3 = this.new ArrowRainPhase3();
+	private EntityPlayer player;
+	
 	public ArrowRainAbility() {
 		super(Survivor.HUNTRESS, AbilityType.SPECIAL, "Arrow Rain", TickHandler.fromSeconds(12));
+		this.addPhase(phase1);
+		this.addPhase(phase2);
+		this.addPhase(phase3);
 	}
 	
-	private static class ArrowRainPhase1 implements AbilityPhase {
+	private class ArrowRainPhase1 implements AbilityPhase {
 
 		@Override
 		public void activatePhase(EntityPlayer player) {
+			ArrowRainAbility.this.player = player;
 			player.playSound("ror2:huntress_arrowrain_start", 1, 1);
 			player.addVelocity(0, 5, 0);
 		}	
 	}
 	
-	private static class ArrowRainPhase2 implements AbilityPhase, DelayedAbilityPhase {
+	private class ArrowRainPhase2 implements AbilityPhase, DelayedAbilityPhase, RepeatingAbilityPhase {
 
-		private Position lastPos;
-		private Block lastBlock;
-
+		private Position blockToRainOn;
+		private boolean isActive;
+		
 		@Override
 		public void activatePhase(EntityPlayer player) {
+			this.isActive = true;
 			player.motionX = 0;
 			player.motionY = 0;
 			player.motionZ = 0;
@@ -54,6 +67,7 @@ public class ArrowRainAbility extends Ability {
 				//Check if the block exists
 				if (pos.getBlock(player.worldObj) != Blocks.air) {
 					//TODO: Add block highlighting
+					this.blockToRainOn = pos;
 					break;
 				}
 			}
@@ -63,10 +77,23 @@ public class ArrowRainAbility extends Ability {
 		public int getTickDelay() {
 			return 2;
 		}
+		
+		private void deactivatePhase() {
+			this.isActive = false;
+			SurvivorEventHandler.removeScheduledAbility(ArrowRainAbility.this.player);
+		}
+
+		@Override
+		public boolean isActive() {
+			return this.isActive;
+		}
 	}
 	
-	private static class ArrowRainPhase3 implements AbilityPhase, ActivatedAbilityPhase<KeyInputEvent> {
-
+	public class ArrowRainPhase3 implements AbilityPhase, ActivatedAbilityPhase<MouseInputEvent>, RepeatingAbilityPhase {
+		
+		public Position arrowRainBlock;
+		private boolean isActive;
+		
 		public ArrowRainPhase3() {
 			this.register();
 		}
@@ -77,9 +104,9 @@ public class ArrowRainAbility extends Ability {
 				HuntressRainingArrow arrow = new HuntressRainingArrow(player.worldObj, player, 2);
 				Random random = new Random();
 		
-				//arrow.posX = arrowRainBlock.getIntX() + 0.5;
-				//arrow.posY = arrowRainBlock.getIntY() + 8;
-				//arrow.posZ = arrowRainBlock.getIntZ() + 0.5;
+				arrow.posX = arrowRainBlock.getIntX() + 0.5;
+				arrow.posY = arrowRainBlock.getIntY() + 8;
+				arrow.posZ = arrowRainBlock.getIntZ() + 0.5;
 		
 				arrow.posX += ((random.nextDouble() * 2) - 1) * 3;
 				arrow.posY += ((random.nextDouble() * 2) - 1);
@@ -96,8 +123,22 @@ public class ArrowRainAbility extends Ability {
 
 		@Override
 		@SubscribeEvent
-		public void listenForActivation(KeyInputEvent event) {
+		public void listenForActivation(MouseInputEvent event) {
+			if (Minecraft.getMinecraft().gameSettings.keyBindAttack.isPressed()) {
+				if (ArrowRainAbility.this.phase2.isActive) {
+					ArrowRainAbility.this.phase2.deactivatePhase();
+					
+					//Activate the ability on the server
+					Position pos = ArrowRainAbility.this.phase2.blockToRainOn;
+					IMessage packet = new ArrowRainPacket.ArrowRainMessage(pos.getIntX(), pos.getIntY(), pos.getIntZ());
+					RiskOfRain2Packets.NET.sendToServer(packet);
+				}
+			}
+		}
 
+		@Override
+		public boolean isActive() {
+			return this.isActive;
 		}
 	}
 

@@ -15,12 +15,13 @@ public class EnergyDrinkItem extends RiskOfRain2Item implements OnUpdateItem {
 	
 	@Override
 	public void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
-		player.addBuff(new EnergyDrinkBuff(itemCount));
+		if (player.isSprinting()) player.addBuff(new EnergyDrinkBuff(itemCount));
+		else player.removeBuff(EnergyDrinkBuff.class);
 	}
 
 	@Override
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
-		return player.isSprinting();
+		return true;
 	}
 
 	@Override

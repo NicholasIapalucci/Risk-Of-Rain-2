@@ -4,15 +4,29 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.util.ResourceLocation;
-import scala.actors.threadpool.Arrays;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraftforge.client.GuiIngameForge;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.Buff;
+import znick_.riskofrain2.api.ror.survivor.Survivor;
 
 public class RiskOfRain2Gui extends Gui {
 
+	private int width;
+	private int height;
+	
 	public RiskOfRain2Gui() {
 		if (Minecraft.getMinecraft().thePlayer == null) return;
+
+		ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayHeight, Minecraft.getMinecraft().displayHeight);
+		this.width = res.getScaledWidth();
+		this.height = res.getScaledHeight();
+		
+		this.renderBuffs();
+		this.renderCrosshair();
+	}
+	
+	private void renderBuffs() {
 		int i = 0;
 		for (Buff buff : PlayerData.get(Minecraft.getMinecraft().thePlayer).getBuffs()) {
 			if (buff.getIconTexture() == null) continue;
@@ -24,5 +38,17 @@ public class RiskOfRain2Gui extends Gui {
 			i++;
 			GL11.glPopMatrix();
 		}
+	}
+	
+	private void renderCrosshair() {
+		for (Survivor survivor : Survivor.getSurvivors()) {
+			if (survivor.isPlayer(Minecraft.getMinecraft().thePlayer)) {
+				survivor.renderCrosshair(this);
+				return;
+			}
+		}
+		
+		//If the player isnt a survivor, render crosshairs normally.
+		GuiIngameForge.renderCrosshairs = true;
 	}
 }

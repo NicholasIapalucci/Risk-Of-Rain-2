@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -45,6 +46,8 @@ public abstract class Survivor {
 		if (player.getCurrentArmor(0).getItem() != this.getArmorPiece(ArmorType.BOOTS)) return false;
 		return true;
 	}
+	
+	public void renderCrosshair(Gui gui) {}
 	
 	public void addAbility(Ability ability) {
 		this.abilities.get(ability.getAbilityType()).add(ability);

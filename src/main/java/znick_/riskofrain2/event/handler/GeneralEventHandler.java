@@ -29,14 +29,6 @@ public class GeneralEventHandler extends EventHandler {
 	@SubscribeEvent
 	public void renderGui(RenderGameOverlayEvent.Post event) {
 		if (event.type != ElementType.EXPERIENCE) return;
-		boolean isPlayerSurvivor = false;
-		for (Survivor survivor : Survivor.getSurvivors()) {
-			if (survivor.isPlayer(Minecraft.getMinecraft().thePlayer)) {
-				isPlayerSurvivor = true;
-				GuiIngameForge.renderCrosshairs = false;
-			}
-		}
-		if (!isPlayerSurvivor) GuiIngameForge.renderCrosshairs = true;
 		new RiskOfRain2Gui();
 	}
 	

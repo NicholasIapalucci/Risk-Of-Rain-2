@@ -16,18 +16,7 @@ public class AbilityPacketHandler implements IMessageHandler<AbilityPacket, IMes
 	@Override
 	public IMessage onMessage(AbilityPacket message, MessageContext ctx) {
 		if (ctx.side.isServer()) {
-			EntityPlayer player = ctx.getServerHandler().playerEntity;
-			for (Survivor survivor : Survivor.getSurvivors()) {
-				if (survivor.isPlayer(player)) {
-					PlayerData data = PlayerData.get(player);
-					Loadout loadout = data.getLoadout();
-					
-					//If the utility key was pressed, activate the utility ability
-					if (RiskOfRain2KeyBinds.UTILITY.getKeyBinding().isPressed()) {
-						loadout.getUtility().activate(player);
-					}
-				}
-			}
+			
 		}
 		
 		return null;

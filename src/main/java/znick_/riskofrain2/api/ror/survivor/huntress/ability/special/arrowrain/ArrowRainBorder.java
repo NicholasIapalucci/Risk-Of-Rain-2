@@ -1,4 +1,4 @@
-package znick_.riskofrain2.api.ror.survivor.huntress;
+package znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

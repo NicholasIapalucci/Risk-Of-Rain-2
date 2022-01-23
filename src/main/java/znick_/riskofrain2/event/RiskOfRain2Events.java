@@ -1,10 +1,10 @@
 package znick_.riskofrain2.event;
 
 import znick_.riskofrain2.api.ror.items.proc.ItemProccer;
+import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.event.handler.CombatHandler;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.event.handler.GeneralEventHandler;
-import znick_.riskofrain2.event.handler.SurvivorEventHandler;
 
 public class RiskOfRain2Events {
 	

@@ -7,6 +7,7 @@ import java.util.TreeMap;
 
 import net.minecraft.entity.player.EntityPlayer;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
+import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
 import znick_.riskofrain2.event.TickHandler;
 
@@ -35,7 +36,7 @@ public abstract class Ability {
 	}
 	
 	public void activate(EntityPlayer player) {
-		TickHandler.queueAbilityPhases(this.getPhases(), player);
+		SurvivorEventHandler.scheduleAbility(this, player);
 	}
 	
 	public String getName() {
@@ -64,7 +65,11 @@ public abstract class Ability {
 	    return true;
 	}
 
-	public int getID() {
+	/**
+	 * Returns the unique ID associated with this ability. All IDs are prime so that
+	 * loadouts can multiply them to create a unique ID for each loadout.
+	 */
+	public int getUniqueID() {
 		return this.id;
 	}
 }

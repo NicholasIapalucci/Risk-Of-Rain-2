@@ -1,7 +1,8 @@
-package znick_.riskofrain2.api.ror.survivor.huntress;
+package znick_.riskofrain2.api.ror.survivor.huntress.ability;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Vec3;
+import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.AbilityType;
@@ -21,10 +22,10 @@ public class BlinkAbility extends Ability {
 
 		@Override
 		public void activatePhase(EntityPlayer player) {
-			System.out.println("Blinking");
+			if (RiskOfRain2.DEBUG) System.out.println("Player is beginning to blink...");
 			Vec3 lookVec = player.getLookVec();
 			player.addVelocity(10 * lookVec.xCoord, 5 * lookVec.yCoord, 10 * lookVec.zCoord);
-			player.playSound("ror2:huntress_start_blink", 1, 1);
+			player.playSound("ror2:huntress_start_blink", 50, 1);
 		}
 		
 	}
@@ -33,6 +34,7 @@ public class BlinkAbility extends Ability {
 
 		@Override
 		public void activatePhase(EntityPlayer player) {
+			if (RiskOfRain2.DEBUG) System.out.println("Ending player blink");
 			player.motionX = 0;
 			player.motionY = 0;
 			player.motionZ = 0;

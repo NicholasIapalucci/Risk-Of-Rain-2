@@ -15,7 +15,6 @@ import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.api.ror.items.list.white.critglasses.CritGlassesBuff;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHealItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
@@ -140,6 +139,7 @@ public class ItemProccer extends EventHandler {
 				}
 			}
 			
+			player.capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER)));
 		}
 	}
 	
