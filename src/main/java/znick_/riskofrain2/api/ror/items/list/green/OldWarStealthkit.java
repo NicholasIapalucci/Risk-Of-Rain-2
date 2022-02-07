@@ -13,7 +13,7 @@ import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 
 public class OldWarStealthkit extends RiskOfRain2Item implements OnUpdateItem {
 

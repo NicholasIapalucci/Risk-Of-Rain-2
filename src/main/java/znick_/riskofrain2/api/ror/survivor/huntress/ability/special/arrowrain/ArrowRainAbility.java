@@ -18,8 +18,7 @@ import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.ActivatedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.RepeatingAbilityPhase;
-import znick_.riskofrain2.entity.character.huntress.HuntressRainingArrow;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.util.helper.MathHelper;
 
@@ -31,7 +30,7 @@ public class ArrowRainAbility extends Ability {
 	private EntityPlayer player;
 	
 	public ArrowRainAbility() {
-		super(Survivor.HUNTRESS, AbilityType.SPECIAL, "Arrow Rain", TickHandler.fromSeconds(12));
+		super(Survivor.HUNTRESS, AbilityType.SPECIAL, "arrow_rain", TickHandler.fromSeconds(12));
 		this.addPhase(phase1);
 		this.addPhase(phase2);
 		this.addPhase(phase3);
@@ -101,7 +100,7 @@ public class ArrowRainAbility extends Ability {
 		@Override
 		public void activatePhase(EntityPlayer player) {
 			for (int i = 0; i < 3; i++) {
-				HuntressRainingArrow arrow = new HuntressRainingArrow(player.worldObj, player, 2);
+				HuntressRainingArrow arrow = new HuntressRainingArrow(player.worldObj, player);
 				Random random = new Random();
 		
 				arrow.posX = arrowRainBlock.getIntX() + 0.5;
@@ -127,8 +126,9 @@ public class ArrowRainAbility extends Ability {
 			if (Minecraft.getMinecraft().gameSettings.keyBindAttack.isPressed()) {
 				if (ArrowRainAbility.this.phase2.isActive) {
 					ArrowRainAbility.this.phase2.deactivatePhase();
+					player.playSound("ror2:huntress_arrowrain_loop", 1, 1);
 					
-					//Activate the ability on the server
+					// Activate the ability on the server
 					Position pos = ArrowRainAbility.this.phase2.blockToRainOn;
 					IMessage packet = new ArrowRainPacket.ArrowRainMessage(pos.getIntX(), pos.getIntY(), pos.getIntZ());
 					RiskOfRain2Packets.NET.sendToServer(packet);

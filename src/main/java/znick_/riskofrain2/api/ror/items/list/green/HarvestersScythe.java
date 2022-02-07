@@ -25,11 +25,6 @@ public class HarvestersScythe extends RiskOfRain2Item implements OnHitItem {
 	}
 
 	@Override
-	public String getProperName() {
-		return "Harvester's Scythe";
-	}
-
-	@Override
 	public ItemCategory getCategory() {
 		return ItemCategory.HEALING;
 	}

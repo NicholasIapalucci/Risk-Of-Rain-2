@@ -5,6 +5,7 @@ import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.event.handler.CombatHandler;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.event.handler.GeneralEventHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 
 public class RiskOfRain2Events {
 	

@@ -12,8 +12,8 @@ import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.TickHandler;
 import znick_.riskofrain2.event.handler.CombatHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 
 public class CautiousSlugItem extends RiskOfRain2Item implements OnUpdateItem, OnHurtItem {
 

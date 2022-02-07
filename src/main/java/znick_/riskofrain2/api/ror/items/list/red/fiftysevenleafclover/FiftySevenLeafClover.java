@@ -22,11 +22,6 @@ public class FiftySevenLeafClover extends RiskOfRain2Item implements OnUpdateIte
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
 		return true;
 	}
-	
-	@Override
-	public String getProperName() {
-		return "57 Leaf Clover";
-	}
 
 	@Override
 	public ItemCategory getCategory() {

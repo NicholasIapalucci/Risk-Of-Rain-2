@@ -9,7 +9,7 @@ import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 
 /**
  * Class used to create the {@link znick_.riskofrain2.item.RiskOfRain2Items#REJUVINATION_RACK REJUVINATION_RACK} item.
- * @author Nicholas Iapalucci
+ * @author zNick_
  */
 public class RejuvinationRack extends RiskOfRain2Item implements OnHealItem {
 

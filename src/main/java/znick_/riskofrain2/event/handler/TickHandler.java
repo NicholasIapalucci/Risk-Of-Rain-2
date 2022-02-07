@@ -1,4 +1,4 @@
-package znick_.riskofrain2.event;
+package znick_.riskofrain2.event.handler;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
@@ -13,7 +13,6 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
-import znick_.riskofrain2.event.handler.EventHandler;
 
 public class TickHandler extends EventHandler {
 

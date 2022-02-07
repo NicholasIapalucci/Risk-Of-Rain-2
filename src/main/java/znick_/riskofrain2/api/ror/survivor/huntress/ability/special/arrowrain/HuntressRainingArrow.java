@@ -1,4 +1,4 @@
-package znick_.riskofrain2.entity.character.huntress;
+package znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -34,27 +34,24 @@ public class HuntressRainingArrow extends EntityArrow {
 	private boolean inGround;
 	private Block block;
 
-	public HuntressRainingArrow(World world, EntityLivingBase shooter, float tag) {
-		super(world, shooter, tag);
+	public HuntressRainingArrow(World world, EntityLivingBase shooter) {
+		super(world, shooter, 2);
 	}
 	
-	public HuntressRainingArrow(World world){
+	public HuntressRainingArrow(World world) {
 		super(world);
-	}
-
-	public HuntressRainingArrow(World world, double x, double y, double z) {
-		super(world);
-	}
-
-	public HuntressRainingArrow(World world, EntityLivingBase entity, EntityLivingBase entity2, float a, float b) {
-		super(world, entity, entity2, a, b);
 	}
 
 	@Override
 	public void onUpdate() {
+		// Superclass update method (with modifications)
 		this.superUpdate();
+		
+		// Ensure arrow always points straight down
 		this.prevRotationPitch = 270;
 		this.rotationPitch = 270;
+		
+		// If the arrow hits the ground, delete it
 		if (this.inGround) this.setDead();
 	}
 	

@@ -22,11 +22,6 @@ public class GoatHoofItem extends RiskOfRain2Item implements OnUpdateItem {
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
 		return true;
 	}
-	
-	@Override
-	public String getProperName() {
-		return "Paul's Goat Hoof";
-	}
 
 	@Override
 	public ItemCategory getCategory() {

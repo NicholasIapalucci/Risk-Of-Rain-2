@@ -21,8 +21,8 @@ import znick_.riskofrain2.api.ror.survivor.ability.phase.ActivatedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.RepeatingAbilityPhase;
 import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
-import znick_.riskofrain2.event.TickHandler;
 import znick_.riskofrain2.event.handler.EventHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 
 public class SurvivorEventHandler extends EventHandler {
 

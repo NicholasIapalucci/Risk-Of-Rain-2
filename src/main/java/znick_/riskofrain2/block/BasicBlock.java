@@ -56,7 +56,9 @@ public class BasicBlock extends Block {
 				}
 			}
 		} else {
-			for (int i = 0; i < 6; i++) this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":" + this.folder + "/" + this.name);
+			for (int i = 0; i < 6; i++) {
+				this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":" + this.folder + "/" + this.name);
+			}
 		}
     }
 	

@@ -5,7 +5,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.items.list.equipment.RiskOfRain2Equipment;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 
 public class SuperMassiveLeechItem extends RiskOfRain2Equipment implements OnHitItem {
 

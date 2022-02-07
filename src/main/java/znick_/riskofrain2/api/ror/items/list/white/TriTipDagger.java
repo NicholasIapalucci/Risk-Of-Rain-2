@@ -27,11 +27,6 @@ public class TriTipDagger extends RiskOfRain2Item implements OnHitItem {
 	}
 	
 	@Override
-	public String getProperName() {
-		return "Tri-Tip Dagger";
-	}
-
-	@Override
 	public ItemCategory getCategory() {
 		return ItemCategory.DAMAGE;
 	}

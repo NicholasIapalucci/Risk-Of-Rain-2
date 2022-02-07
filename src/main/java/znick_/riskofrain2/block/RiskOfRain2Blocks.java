@@ -6,7 +6,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBlock;
-import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainBorder;
 import znick_.riskofrain2.block.itemblock.BlockItem;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.block.misc.LunarPod;
@@ -23,7 +22,6 @@ public class RiskOfRain2Blocks {
 	public static final Block TRESSIUM_ORE = new OreBlock("tressium_ore", new OreData().setUpperY(30).setSpawnWeight(0.1f).setMaxVeinSize(1));
 	public static final Block HUNTRITE_BLOCK = new BlockItem("huntrite_block", "cosmetic", 5, Material.iron, Block.soundTypeMetal);
 	public static final Block TRESSIUM_BLOCK = new BlockItem("tressium_block", "cosmetic", 5, Material.iron, Block.soundTypeMetal);
-	public static final Block HUNTRESS_ARROW_RAIN_RETICLE = new ArrowRainBorder();
 	
 	//Items
 	public static final Block WARBANNER_BLOCK = new WarbannerBlock();
@@ -39,21 +37,30 @@ public class RiskOfRain2Blocks {
 	 * with their respective {@code ItemBlock} class.
 	 */
 	public static final void registerBlocks() {
+		// Loop through all fields in the class
 		for (Field field : RiskOfRain2Blocks.class.getDeclaredFields()) {
 			try {
+				// Register the block as an ItemBlock if necessary
 				if (field.get(null) instanceof IBlockItem) {
 					IBlockItem blockItem = (IBlockItem) field.get(null);
 					Block block = (Block) field.get(null);
 					GameRegistry.registerBlock(block, blockItem.getItemBlockClass(), block.getUnlocalizedName());
 				}
+				
+				// Otherwise, register it normally
 				else if (field.get(null) instanceof Block) {
 					Block block = (Block) field.get(null);
 					GameRegistry.registerBlock(block, block.getUnlocalizedName());
 				}
-			} catch(Exception e) {
+			} 
+			
+			//Throw an exception if there is an exception thrown
+			catch(Exception e) {
 				throw new RuntimeException(e);
 			}
 		}
+		
+		// Register ore generation
 		GameRegistry.registerWorldGenerator(new OreGenerator(), 0);
 	}
 }

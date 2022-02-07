@@ -16,7 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.list.ScrapItem;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.util.helper.MinecraftHelper;
 
 public class TileEntity3DPrinter extends TileEntity {
@@ -68,15 +68,18 @@ public class TileEntity3DPrinter extends TileEntity {
 	}
 	
 	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
+	public void readFromNBT(NBTTagCompound nbt) { // TODO: Fix printers not saving data correctly
         super.readFromNBT(nbt);
-        this.item = ItemStack.loadItemStackFromNBT(nbt);
+        NBTTagCompound properties = (NBTTagCompound) nbt.getTag("item");
+        this.item = ItemStack.loadItemStackFromNBT(properties);
     }
 
 	@Override
     public void writeToNBT(NBTTagCompound nbt) {
     	super.writeToNBT(nbt);
-    	this.item.writeToNBT(nbt);
+    	NBTTagCompound properties = new NBTTagCompound();
+    	this.item.writeToNBT(properties);
+    	nbt.setTag("item", properties);
     }
 	
 	@Override
@@ -101,41 +104,41 @@ public class TileEntity3DPrinter extends TileEntity {
 	 * Risk Of Rain 2 items of the correct rarity. 
 	 */
 	public boolean print(EntityPlayer player) {
-		//Map between index of inventory slots and the item to take for potential items, and what the chosen item will be
+		// Map between index of inventory slots and the item to take for potential items, and what the chosen item will be
 		Map<Integer, RiskOfRain2Item> potentialItems = new HashMap<>();
 		Map.Entry<Integer, RiskOfRain2Item> itemToTake = null;
 		
-		//Loops through all of the player's inventory slots
+		// Loops through all of the player's inventory slots
 		for (int i = 0; i < 36; i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
 			if (stackInSlot != null && stackInSlot.getItem() instanceof RiskOfRain2Item) {
 				RiskOfRain2Item riskItem = (RiskOfRain2Item) stackInSlot.getItem();
-				//Only continues if the item is a Risk Of Rain 2 item with the correct rarity
+				// Only continues if the item is a Risk Of Rain 2 item with the correct rarity
 				if (riskItem.getRarity() == this.getRarity()) {
-					//Prioritizes scrap
+					// Prioritizes scrap
 					if (riskItem instanceof ScrapItem) {
 						itemToTake = new AbstractMap.SimpleEntry<Integer, RiskOfRain2Item>(i, riskItem);
 						break;
 					}
-					//If there is no scrap, adds the item to the set of potential items
+					// If there is no scrap, adds the item to the set of potential items
 					potentialItems.put(i, riskItem);
 				}
 			}
 		}
 		
-		//If there is no scrap, picks a random item from the potential items set
+		// If there is no scrap, picks a random item from the potential items set
 		if (itemToTake == null) {
 			if (potentialItems.isEmpty()) return false;
 			Map.Entry<Integer, RiskOfRain2Item>[] itemsArray = potentialItems.entrySet().toArray(new Map.Entry[0]);
 			itemToTake = itemsArray[new Random().nextInt(itemsArray.length)];
 		}
 
-		//consumes the item chosen
+		// Consumes the item chosen
 		ItemStack stack = player.inventory.getStackInSlot(itemToTake.getKey());
 		if (stack.stackSize == 1) player.inventory.setInventorySlotContents(itemToTake.getKey(), null);
 		else stack.stackSize--;
 		
-		//Drops the item in the world and puts the printer on cooldown.
+		// Drops the item in the world and puts the printer on cooldown.
 		MinecraftHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, new ItemStack(this.item.getItem()));
 		this.lastUsedTick = TickHandler.server();
 		return true;

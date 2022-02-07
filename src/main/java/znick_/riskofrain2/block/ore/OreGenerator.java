@@ -15,15 +15,10 @@ public class OreGenerator implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		switch (world.provider.dimensionId) {
-		case -1:
-			this.generateNether(world, random, chunkX, chunkZ);
-			break;
-		case 0:
-			this.generateOverworld(world, random, chunkX, chunkZ);
-			break;
-		case 1:
-			this.generateEnd(world, random, chunkX, chunkZ);
-			break;
+		case -1: this.generateNether(world, random, chunkX, chunkZ); break;
+		case 0: this.generateOverworld(world, random, chunkX, chunkZ); break;
+		case 1: this.generateEnd(world, random, chunkX, chunkZ); break;
+		default: return;
 		}
 	}
 
@@ -31,7 +26,7 @@ public class OreGenerator implements IWorldGenerator {
 		
 	}
 	
-	public void generateOverworld(World world, Random rand, int x, int z) {
+	private void generateOverworld(World world, Random rand, int x, int z) {
 		try {
 			Field[] fields = RiskOfRain2Blocks.class.getDeclaredFields();
 			for (Field field : fields) {
@@ -41,14 +36,18 @@ public class OreGenerator implements IWorldGenerator {
 				}
 			}
 		} 
-		catch(Exception e) {throw new RuntimeException(e.getCause() + ": " + e.getMessage());}
+		
+		catch(Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void generateEnd(World world, Random rand, int x, int z) {
+	private void generateEnd(World world, Random rand, int x, int z) {
 		
 	}
 
-	public void generateOre(OreBlock block, World world, Random random, int chunkX, int chunkZ) {
+	// Generates the ore
+	private void generateOre(OreBlock block, World world, Random random, int chunkX, int chunkZ) {
 		int veinSize = block.getOreData().getMaxVeinSize() == 1 ? 1 : block.getOreData().getMinVeinSize() + random.nextInt(block.getOreData().getMaxVeinSize() - block.getOreData().getMinVeinSize());
 		int heightRange = block.getOreData().getUpperY() - block.getOreData().getLowerY();
 		WorldGenMinable gen = new WorldGenMinable(block, veinSize, block.getOreData().getSpawnBlock());

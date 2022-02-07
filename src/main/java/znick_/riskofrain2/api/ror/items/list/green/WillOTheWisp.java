@@ -21,11 +21,6 @@ public class WillOTheWisp extends RiskOfRain2Item implements OnKillItem {
 	}
 
 	@Override
-	public String getProperName() {
-		return "Will-o-the-wisp";
-	}
-
-	@Override
 	public ItemCategory getCategory() {
 		return ItemCategory.DAMAGE;
 	}

@@ -22,7 +22,7 @@ import znick_.riskofrain2.util.misc.UniqueDamageSource;
  * A {@code FriendlyExplosion} is an {@link Explosion} that does not harm the exploder and does not
  * break any blocks in the world. 
  * 
- * @author Nicholas Iapalucci
+ * @author zNick_
  */
 public class FriendlyExplosion extends Explosion {
 

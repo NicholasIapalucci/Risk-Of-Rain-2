@@ -8,12 +8,12 @@ import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.AbilityType;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 
 public class BlinkAbility extends Ability {
 
 	public BlinkAbility() {
-		super(Survivor.HUNTRESS, AbilityType.UTILITY, "Blink", TickHandler.fromSeconds(7));
+		super(Survivor.HUNTRESS, AbilityType.UTILITY, "blink", TickHandler.fromSeconds(7));
 		this.addPhase(new BlinkAbilityPhase1());
 		this.addPhase(new BlinkAbilityPhase2());
 	}

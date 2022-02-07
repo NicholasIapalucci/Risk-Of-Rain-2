@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.common.util.EnumHelper;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.BlinkAbility;
@@ -18,8 +19,8 @@ import znick_.riskofrain2.item.armor.ArmorType;
 
 public class Huntress extends Survivor {
 	
-	private static final Crosshair DOT_CROSSHAIR = new Crosshair("huntress/crosshairs/dot.png", 100);
-	private static final Crosshair ARROW_CROSSHAIR = new Crosshair("huntress/crosshairs/arrow.png", 50);
+	private static final Crosshair DOT_CROSSHAIR = new Crosshair("huntress/crosshairs/dot.png", 0.02);
+	private static final Crosshair ARROW_CROSSHAIR = new Crosshair("huntress/crosshairs/arrow.png", 0.04);
 	
 	public Huntress() {
 		

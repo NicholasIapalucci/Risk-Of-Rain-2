@@ -9,7 +9,7 @@ import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 
 public class StunGrenadeItem extends RiskOfRain2Item implements OnHitItem {
 	

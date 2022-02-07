@@ -1,7 +1,10 @@
 package znick_.riskofrain2.api.ror.items.list.red;
 
+import java.util.List;
+
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -22,6 +25,11 @@ public class HeadSet extends RiskOfRain2Item implements OnJumpItem, OnHurtItem, 
 	@Override
 	public void procOnKeyPress(KeyInputEvent event, PlayerData player, int itemCount) {
 		player.getPlayer().addVelocity(0, -3, 0);
+		List<EntityLivingBase> entities = player.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, player.radialBox(4));
+		for (EntityLivingBase entity : entities) {
+			if (entity == player.getPlayer()) continue;
+			entity.attackEntityFrom(DamageSource.causePlayerDamage(player.getPlayer()), 10);
+		}
 	}
 
 	@Override
@@ -47,11 +55,6 @@ public class HeadSet extends RiskOfRain2Item implements OnJumpItem, OnHurtItem, 
 	@Override
 	public boolean shouldProcOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
 		return event.source == DamageSource.fall;
-	}
-
-	@Override
-	public String getProperName() {
-		return "H3AD-5T v2";
 	}
 
 	@Override

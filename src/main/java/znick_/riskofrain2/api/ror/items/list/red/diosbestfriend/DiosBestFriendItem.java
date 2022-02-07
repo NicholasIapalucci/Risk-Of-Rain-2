@@ -11,7 +11,7 @@ import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.util.helper.MinecraftHelper;
 
@@ -33,11 +33,6 @@ public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem {
 	@Override
 	public boolean shouldProcOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
 		return event.ammount >= player.getHealth();
-	}
-
-	@Override
-	public String getProperName() {
-		return "Dio's Best Friend";
 	}
 
 	@Override

@@ -71,9 +71,6 @@ public class RiskOfRain2Items {
 	 */
 	public static final Set<RiskOfRain2Item> ITEM_SET = new LinkedHashSet<RiskOfRain2Item>();
 	
-	public static final Map<RiskOfRain2Item, AchievementItem> LOCKED_ITEMS = new LinkedHashMap<>();
-	public static final Map<RiskOfRain2Item, AchievementItem> UNLOCKED_ITEMS = new LinkedHashMap<>();
-	
 	public static final Item HUNTRESS_HELMET = new ArmorPiece(Survivor.HUNTRESS, ArmorType.HELMET, "huntress");
 	public static final Item HUNTRESS_CHESTPLATE = new ArmorPiece(Survivor.HUNTRESS, ArmorType.CHESTPLATE, "huntress");
 	public static final Item HUNTRESS_LEGGINGS = new ArmorPiece(Survivor.HUNTRESS, ArmorType.LEGGINGS, "huntress");
@@ -267,13 +264,5 @@ public class RiskOfRain2Items {
 				}
 			}
 		} catch(Exception e) {throw new RuntimeException(e);}
-		
-		for (RiskOfRain2Item item : ITEM_SET) {
-			LOCKED_ITEMS.put(item, new AchievementItem((RiskOfRain2Item) item, true));
-			UNLOCKED_ITEMS.put(item, new AchievementItem((RiskOfRain2Item) item, false));
-			RandomGenerator.registerItem(item);
-		}
-		for (AchievementItem item : LOCKED_ITEMS.values()) GameRegistry.registerItem(item, item.getUnlocalizedName().substring(5));
-		for (AchievementItem item : UNLOCKED_ITEMS.values()) GameRegistry.registerItem(item, item.getUnlocalizedName().substring(5));
 	}
 }

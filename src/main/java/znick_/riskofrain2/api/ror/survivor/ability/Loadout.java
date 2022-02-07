@@ -13,7 +13,7 @@ public class Loadout {
 		this.secondary = secondary;
 		this.utility = utility;
 		this.special = special;
-		//this.generateUniqueID();
+		this.generateUniqueID();
 	}
 	
 	private void generateUniqueID() {

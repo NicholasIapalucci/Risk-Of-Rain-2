@@ -6,10 +6,11 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
-import znick_.riskofrain2.event.TickHandler;
 
 public abstract class Ability {
 	
@@ -21,6 +22,7 @@ public abstract class Ability {
 	private final AbilityType type;
 	private final String name;
 	private final int baseCooldown;
+	private final ResourceLocation texture;
 	private int cooldown;
 	
 	public Ability(Survivor survivor, AbilityType type, String name, int baseCooldown) {
@@ -29,6 +31,7 @@ public abstract class Ability {
 		this.name = name;
 		this.baseCooldown = baseCooldown;
 		this.cooldown = baseCooldown;
+		this.texture = new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/survivor/" + survivor.getName().toLowerCase() + "/abilities/" + name + ".png");
 	}
 	
 	protected void addPhase(AbilityPhase phase) {
@@ -58,6 +61,10 @@ public abstract class Ability {
 	private static int getNextAvailableID() {
 		while(!isPrime(++lastID)) {}
 	    return lastID;
+	}
+	
+	public ResourceLocation getTexture() {
+		return this.texture;
 	}
 	
 	private static boolean isPrime(int n) {

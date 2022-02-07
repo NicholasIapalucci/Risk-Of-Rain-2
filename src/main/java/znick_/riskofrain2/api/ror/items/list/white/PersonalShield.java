@@ -23,11 +23,6 @@ public class PersonalShield extends RiskOfRain2Item implements OnUpdateItem {
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
 		return true;
 	}
-
-	@Override
-	public String getProperName() {
-		return "Personal Shield Generator";
-	}
 	
 	@Override
 	public ItemCategory getCategory() {

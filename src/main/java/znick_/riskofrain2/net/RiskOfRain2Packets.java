@@ -15,6 +15,7 @@ public class RiskOfRain2Packets {
 		registerMessage(PlayerHealPacketHandler.class, PlayerHealPacketHandler.PlayerHealPacket.class);
 		registerMessage(AbilityPacketHandler.class, AbilityPacketHandler.AbilityPacket.class);
 		registerMessage(ArrowRainPacket.class, ArrowRainPacket.ArrowRainMessage.class);
+		registerMessage(SoundPacketHandler.class, SoundPacketHandler.SoundPacket.class);
 	}
 	
 	private static void registerMessage(Class handler, Class packet) {

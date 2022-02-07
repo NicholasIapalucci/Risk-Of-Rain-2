@@ -61,13 +61,21 @@ public class ItemProccer extends EventHandler {
 			
 			//Check for & handle critical strike
 			boolean crit = data.rollStat(PlayerStat.CRIT_CHANCE);
-			if (crit) {
+			
+			if (crit && !player.worldObj.isRemote) {
+				if (RiskOfRain2.DEBUG) System.out.println("Player procced critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
 				data.addToStat(PlayerStat.DAMAGE_MULTIPLIER, 1);
 				data.playSound("ror2:crit_glasses");
-				int harvestersScytheAmount = data.itemCount(RiskOfRain2Items.HARVESTERS_SCYTHE);
-				if (harvestersScytheAmount > 0) {
-					((OnHitItem) RiskOfRain2Items.HARVESTERS_SCYTHE).procOnHit(event, data, event.entityLiving, harvestersScytheAmount);
+				
+				// Proc Harvester's Scythe if the player has it
+				int scytheAmount = data.itemCount(RiskOfRain2Items.HARVESTERS_SCYTHE);
+				if (scytheAmount > 0) {
+					((OnHitItem) RiskOfRain2Items.HARVESTERS_SCYTHE).procOnHit(event, data, event.entityLiving, scytheAmount);
 				}
+			} 
+			
+			else if (!player.worldObj.isRemote) {
+				if (RiskOfRain2.DEBUG) System.out.println("Failed to proc critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
 			}
 			
 			/*
@@ -139,6 +147,7 @@ public class ItemProccer extends EventHandler {
 				}
 			}
 			
+			// Add the player's movement speed multiplier
 			player.capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER)));
 		}
 	}
@@ -268,7 +277,7 @@ public class ItemProccer extends EventHandler {
 			
 			//Loops through all Risk Of Rain 2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = MinecraftHelper.amountOfItems(player, item);
+				int count = data.itemCount(item);
 				//Checks if the item is on-xp-pickup and if the player has it
 				if (count > 0 && item instanceof OnPickupXPItem) {
 					OnPickupXPItem onXP = (OnPickupXPItem) item;

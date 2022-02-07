@@ -5,7 +5,7 @@ import znick_.riskofrain2.api.mc.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 
 public class OcularHudBuff extends DurationBuff {

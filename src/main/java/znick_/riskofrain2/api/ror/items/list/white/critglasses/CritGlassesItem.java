@@ -22,11 +22,6 @@ public class CritGlassesItem extends RiskOfRain2Item implements OnUpdateItem {
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
 		return true;
 	}
-	
-	@Override
-	public String getProperName() {
-		return "Lens-Maker's Glasses";
-	}
 
 	@Override
 	public ItemCategory getCategory() {

@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2;
-import znick_.riskofrain2.entity.character.huntress.HuntressRainingArrow;
+import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.HuntressRainingArrow;
 
 public class RenderHuntressRainingArrow extends Render {
     private static final ResourceLocation arrowTextures = new ResourceLocation(RiskOfRain2.MODID + ":textures/entity/character/huntress/raining_arrow.png");

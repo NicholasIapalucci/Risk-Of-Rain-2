@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Set;
 
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 
 public class RandomGenerator {
 	
@@ -12,9 +13,15 @@ public class RandomGenerator {
 	private static final Set<RiskOfRain2Item> GREEN_ITEMS = new HashSet<>();
 	private static final Set<RiskOfRain2Item> RED_ITEMS = new HashSet<>();
 	
+	static {
+		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
+			registerItem(item);
+		}
+	}
+	
 	private static final Random RANDOM = new Random();
 	
-	public static void registerItem(RiskOfRain2Item item) {
+	private static void registerItem(RiskOfRain2Item item) {
 		switch(item.getRarity()) {
 		case WHITE: 
 			WHITE_ITEMS.add(item); 

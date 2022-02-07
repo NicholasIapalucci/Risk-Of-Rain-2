@@ -5,9 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,17 +20,25 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
-import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBuff;
-import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
-import znick_.riskofrain2.event.TickHandler;
+import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
+import znick_.riskofrain2.net.SoundPacketHandler;
 import znick_.riskofrain2.util.helper.MathHelper;
 import znick_.riskofrain2.util.helper.MinecraftHelper;
 
+/**
+ * Class for storing data relating to the player. Players are registered upon construction with the
+ * {@link #register(EntityPlayer)} method, and the associated instance of {@code PlayerData} can be
+ * fetched from a player at any time using {@link #get(EntityPlayer)}. Note that not all data is
+ * necessarily synchronized between server and client, so calling {@link #get(EntityPlayer)} on the 
+ * server vs. the client may yield different results.
+ * 
+ * @author zNick_
+ */
 public class PlayerData implements IExtendedEntityProperties {
 
 	/**The string used to register the extended properties.*/
@@ -43,7 +53,8 @@ public class PlayerData implements IExtendedEntityProperties {
 	/**The current amount of ticks left until the player can use equipment again.*/
 	private int equipmentCooldown = 0;
 	
-	private Loadout loadOut = Survivor.HUNTRESS.getDefaultLoadout();
+	/**The loadout the player is using*/
+	private Loadout loadout = Survivor.HUNTRESS.getDefaultLoadout();
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -137,7 +148,8 @@ public class PlayerData implements IExtendedEntityProperties {
 
 	/**
 	 * Removes all expired duration buffs. Also, if the player no longer has the item that gives a buff,
-	 * it will remove that buff as well.
+	 * it will remove that buff as well. This rule does not apply to certain buffs that come from blocks
+	 * such as the Warbanner, as the player does not need to have the item to receive the buff.
 	 */
 	public void removeExcessBuffs() {
 		for (Buff buff : this.getBuffs()) {
@@ -157,17 +169,6 @@ public class PlayerData implements IExtendedEntityProperties {
 			 */
 			if (buff instanceof WarbannerBuff) continue;
 			if (this.itemCount(buff.getItem()) <= 0) this.removeBuff(buff);
-		}
-	}
-	
-	public void removeOnHitBuffs() {
-		for (Buff buff : this.getBuffs()) {
-			if (buff instanceof StatBuff) {
-				StatBuff sb = (StatBuff) buff;
-				if (sb.getAffectedStat() == PlayerStat.DAMAGE_MULTIPLIER && buff.getItem() instanceof OnHitItem) {
-					this.removeBuff(sb);
-				}
-			}
 		}
 	}
 	
@@ -284,19 +285,24 @@ public class PlayerData implements IExtendedEntityProperties {
 	}
 	
 	public Loadout getLoadout() {
-		return this.loadOut;
+		return this.loadout;
 	}
 
 	@Override
 	public void init(Entity entity, World world) {}
 
 	/**
-	 * Plays a sound at the player's location with full volume.
+	 * Plays a sound at the player's location with full volume. If the player is on the server, sends a packet
+	 * to play the sound on the client.
 	 * 
 	 * @param string The name of the sound to play.
 	 */
 	public void playSound(String string) {
-		this.getPlayer().playSound(string, 1, 1);
+		if (this.player.worldObj.isRemote) this.getPlayer().playSound(string, 1, 1);
+		else {
+			IMessage packet = new SoundPacketHandler.SoundPacket(string);
+			RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.player);
+		}
 	}
 	
 	/**
