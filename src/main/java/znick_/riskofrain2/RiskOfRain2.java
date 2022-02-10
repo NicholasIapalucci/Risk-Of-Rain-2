@@ -6,7 +6,7 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.client.GuiIngameForge;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import znick_.riskofrain2.block.RiskOfRain2Blocks;
 import znick_.riskofrain2.client.gui.RiskOfRain2Guis;
 import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
@@ -17,6 +17,7 @@ import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.tile.RiskOfRain2TileEntities;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Achievements;
+import znick_.riskofrain2.util.misc.customs.RiskOfRain2Commands;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Recipes;
 
@@ -63,6 +64,11 @@ public class RiskOfRain2 {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		
+	}
+	
+	@EventHandler
+	public void loadServer(FMLServerStartingEvent event) {
+		RiskOfRain2Commands.registerCommands(event);
 	}
 	
 	//TODO: Add ------------------------------------------

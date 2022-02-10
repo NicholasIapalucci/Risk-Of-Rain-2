@@ -1,4 +1,4 @@
-package znick_.riskofrain2.api.mc;
+package znick_.riskofrain2.api.mc.data;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 
 public class GuiOverlay extends Gui {

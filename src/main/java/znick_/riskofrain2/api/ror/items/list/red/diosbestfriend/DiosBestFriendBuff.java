@@ -1,7 +1,7 @@
 package znick_.riskofrain2.api.ror.items.list.red.diosbestfriend;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.event.handler.TickHandler;

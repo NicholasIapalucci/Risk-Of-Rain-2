@@ -4,7 +4,7 @@ import java.util.Map;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;

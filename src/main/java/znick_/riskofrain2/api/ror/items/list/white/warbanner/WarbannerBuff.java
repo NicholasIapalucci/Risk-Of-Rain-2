@@ -2,7 +2,7 @@ package znick_.riskofrain2.api.ror.items.list.white.warbanner;
 
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;

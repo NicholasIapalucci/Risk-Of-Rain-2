@@ -3,7 +3,7 @@ package znick_.riskofrain2.api.ror.items.list.equipment;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import ibxm.Player;
 import net.minecraft.entity.SharedMonsterAttributes;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 
 public class ForeignFruitItem extends RiskOfRain2Equipment {
 	

@@ -1,6 +1,6 @@
 package znick_.riskofrain2.api.ror.items.list.equipment.ocularhud;
 
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.list.equipment.RiskOfRain2Equipment;
 
 public class OcularHudItem extends RiskOfRain2Equipment {

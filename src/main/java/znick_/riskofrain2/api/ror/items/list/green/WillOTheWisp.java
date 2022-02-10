@@ -3,7 +3,7 @@ package znick_.riskofrain2.api.ror.items.list.green;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import znick_.riskofrain2.api.mc.FriendlyExplosion;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnKillItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;

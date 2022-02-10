@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHurtItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnJumpItem;

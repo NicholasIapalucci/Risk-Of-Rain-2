@@ -13,7 +13,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import znick_.riskofrain2.api.mc.CustomRegenHandler;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 
@@ -30,22 +30,6 @@ public class GeneralEventHandler extends EventHandler {
 	public void renderGui(RenderGameOverlayEvent.Post event) {
 		if (event.type != ElementType.EXPERIENCE) return;
 		new RiskOfRain2Gui();
-	}
-	
-	@SubscribeEvent
-	public void registerCustomRegen(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entity;
-			if (!(player.getFoodStats() instanceof CustomRegenHandler)) {
-				try {	
-					Field foodStats = EntityPlayer.class.getDeclaredField("foodStats");
-					foodStats.setAccessible(true);
-					foodStats.set(player, new CustomRegenHandler());
-				} catch(Exception e) {
-					throw new RuntimeException(e);
-				}
-			}
-		}
 	}
 	
 }

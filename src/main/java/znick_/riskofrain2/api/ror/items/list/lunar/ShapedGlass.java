@@ -7,7 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHitItem;

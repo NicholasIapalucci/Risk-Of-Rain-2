@@ -1,9 +1,7 @@
 package znick_.riskofrain2.item;
 
 import java.lang.reflect.Field;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -11,6 +9,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
+import znick_.riskofrain2.api.ror.items.list.CommandEssence;
 import znick_.riskofrain2.api.ror.items.list.ScrapItem;
 import znick_.riskofrain2.api.ror.items.list.boss.pearl.PearlItem;
 import znick_.riskofrain2.api.ror.items.list.boss.titanicknurl.TitanicKnurlItem;
@@ -61,7 +60,6 @@ import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.item.armor.ArmorPiece;
 import znick_.riskofrain2.item.armor.ArmorType;
-import znick_.riskofrain2.util.RandomGenerator;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
 public class RiskOfRain2Items {
@@ -251,6 +249,8 @@ public class RiskOfRain2Items {
 	public static final Item JADE_ELEPHANT = new JadeElephantItem();
 	public static final Item OCULAR_HUD = new OcularHudItem();
 	
+	public static final Item WHITE_COMMAND_ESSENCE = new CommandEssence(ItemRarity.WHITE);
+	
 	/**
 	 * Registers all items into the game.
 	 */
@@ -259,8 +259,13 @@ public class RiskOfRain2Items {
 			for (Field field : RiskOfRain2Items.class.getDeclaredFields()) {
 				if (field.get(null) instanceof Item) {
 					Item item = (Item) field.get(null);
-					if (item instanceof RiskOfRain2Item) ITEM_SET.add((RiskOfRain2Item) item);
 					GameRegistry.registerItem(item, item.getUnlocalizedName().substring(5));
+					
+					// Register items into the item set
+					if (item instanceof RiskOfRain2Item) {
+						
+						ITEM_SET.add((RiskOfRain2Item) item);
+					}
 				}
 			}
 		} catch(Exception e) {throw new RuntimeException(e);}

@@ -13,6 +13,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import znick_.riskofrain2.api.ror.artifact.Artifact;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.list.ScrapItem;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
@@ -139,7 +140,8 @@ public class TileEntity3DPrinter extends TileEntity {
 		else stack.stackSize--;
 		
 		// Drops the item in the world and puts the printer on cooldown.
-		MinecraftHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, new ItemStack(this.item.getItem()));
+		ItemStack toDrop = Artifact.COMMAND.isEnabled()? new ItemStack(Artifact.COMMAND.getEssenceFromRarity(this.getRarity())) : new ItemStack(this.item.getItem());
+		MinecraftHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, toDrop);
 		this.lastUsedTick = TickHandler.server();
 		return true;
 	}

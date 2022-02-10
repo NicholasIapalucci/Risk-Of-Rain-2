@@ -28,7 +28,7 @@ public class ScrapItem extends RiskOfRain2Item {
 
 	@Override
 	public ItemCategory getCategory() {
-		return ItemCategory.UTILITY;
+		return ItemCategory.UNKNOWN;
 	}
 
 	@Override
@@ -39,5 +39,10 @@ public class ScrapItem extends RiskOfRain2Item {
 	@Override
 	public String getDescription() {
 		return "Does nothing. Prioritized when used with 3D Printers.";
+	}
+	
+	@Override
+	public boolean isSpecialItem() {
+		return true;
 	}
 }

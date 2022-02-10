@@ -6,7 +6,7 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnKeyPressItem;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;

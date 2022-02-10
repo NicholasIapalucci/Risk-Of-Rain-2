@@ -28,7 +28,7 @@ public class CustomRarity {
 	/**
 	 * Creates a new {@link net.minecraft.item.EnumRarity EnumRarity} instance through various unsafe and
 	 * highly inefficient methods. But that's what happens when you use enums for things that should be
-	 * extendable. 
+	 * classes. Nice going Notch.
 	 * 
 	 * @param color The color of the rarity.
 	 * @return The custom {@code EnumRarity} object.

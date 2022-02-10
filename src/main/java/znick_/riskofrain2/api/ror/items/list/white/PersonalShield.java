@@ -2,7 +2,7 @@ package znick_.riskofrain2.api.ror.items.list.white;
 
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnUpdateItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;

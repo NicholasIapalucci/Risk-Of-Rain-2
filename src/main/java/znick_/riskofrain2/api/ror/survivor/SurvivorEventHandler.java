@@ -13,7 +13,7 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;

@@ -1,6 +1,6 @@
 package znick_.riskofrain2.api.ror.items.list.equipment;
 
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 
 public class BlastShowerItem extends RiskOfRain2Equipment {

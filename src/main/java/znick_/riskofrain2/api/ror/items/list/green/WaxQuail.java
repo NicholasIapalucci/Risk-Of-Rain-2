@@ -2,7 +2,7 @@ package znick_.riskofrain2.api.ror.items.list.green;
 
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnJumpItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;

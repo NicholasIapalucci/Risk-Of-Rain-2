@@ -1,7 +1,7 @@
 package znick_.riskofrain2.api.ror.items.list.red;
 
 import net.minecraftforge.event.entity.living.LivingHealEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.proc.type.OnHealItem;
 import znick_.riskofrain2.api.ror.items.property.ItemCategory;

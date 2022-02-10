@@ -132,4 +132,12 @@ public abstract class RiskOfRain2Item extends Item {
 	 * the mod than in the original game.
 	 */
 	public abstract String getDescription();
+	
+	/**
+	 * Returns whether or not this is a special item that should not be included in the standard
+	 * set of items when generating loot, such as item scrap or command essence.
+	 */
+	public boolean isSpecialItem() {
+		return false;
+	}
 }

@@ -2,7 +2,7 @@ package znick_.riskofrain2.api.ror.items.proc.type;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 
 public interface OnJumpItem {
 

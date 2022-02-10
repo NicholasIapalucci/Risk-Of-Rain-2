@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.client.gui.GuiHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;

@@ -7,7 +7,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
-import znick_.riskofrain2.api.mc.PlayerData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
@@ -30,7 +30,7 @@ public class RiskOfRain2Gui extends Gui {
 		
 		Loadout loadout = PlayerData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
 		this.renderAbility(loadout.getUtility(), this.width/3, this.height - 24, 12);
-		this.renderAbility(loadout.getSpecial(), this.width/3 + 24, this.height - 24, 12);
+		this.renderAbility(loadout.getSpecial(), this.width/3 + 24, this.height - 24, 12); // TODO: CAUSING ISSUES
 	}
 	
 	private void renderBuffs() {
