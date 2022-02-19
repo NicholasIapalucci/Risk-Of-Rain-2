@@ -140,7 +140,7 @@ public class TileEntity3DPrinter extends TileEntity {
 		else stack.stackSize--;
 		
 		// Drops the item in the world and puts the printer on cooldown.
-		ItemStack toDrop = Artifact.COMMAND.isEnabled()? new ItemStack(Artifact.COMMAND.getEssenceFromRarity(this.getRarity())) : new ItemStack(this.item.getItem());
+		ItemStack toDrop = Artifact.COMMAND.isEnabled(this.worldObj)? new ItemStack(Artifact.COMMAND.getEssenceFromRarity(this.getRarity())) : new ItemStack(this.item.getItem());
 		MinecraftHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, toDrop);
 		this.lastUsedTick = TickHandler.server();
 		return true;

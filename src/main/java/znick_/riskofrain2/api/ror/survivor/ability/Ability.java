@@ -39,7 +39,7 @@ public abstract class Ability {
 	}
 	
 	public void activate(EntityPlayer player) {
-		SurvivorEventHandler.scheduleAbility(this, player);
+		SurvivorEventHandler.scheduleAbility(this);
 	}
 	
 	public String getName() {

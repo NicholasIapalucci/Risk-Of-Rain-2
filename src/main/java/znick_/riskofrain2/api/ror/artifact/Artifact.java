@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.data.WorldData;
 import znick_.riskofrain2.api.ror.artifact.list.ArtifactOfCommand;
@@ -80,8 +81,8 @@ public abstract class Artifact {
 	 * 
 	 * @return
 	 */
-	public boolean isEnabled() {
-		return WorldData.isArtifactEnabled(this);
+	public boolean isEnabled(World world) {
+		return WorldData.forWorld(world).isArtifactEnabled(this);
 	}
 	
 	/**Returns the description of this artifact.*/

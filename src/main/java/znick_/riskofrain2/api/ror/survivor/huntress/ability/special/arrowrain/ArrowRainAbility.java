@@ -3,8 +3,10 @@ package znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.MouseInputEvent;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -19,8 +21,8 @@ import znick_.riskofrain2.api.ror.survivor.ability.phase.ActivatedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.RepeatingAbilityPhase;
 import znick_.riskofrain2.event.handler.TickHandler;
-import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.util.helper.MathHelper;
+import znick_.riskofrain2.util.helper.ReflectionHelper;
 
 public class ArrowRainAbility extends Ability {
 
@@ -79,16 +81,21 @@ public class ArrowRainAbility extends Ability {
 		
 		private void deactivatePhase() {
 			this.isActive = false;
-			SurvivorEventHandler.removeScheduledAbility(ArrowRainAbility.this.player);
+			SurvivorEventHandler.deactivateRepeatingAbility();
 		}
 
 		@Override
 		public boolean isActive() {
 			return this.isActive;
 		}
+		
+		@Override
+		public void activateFirst(EntityPlayer player) {
+			player.playSound("ror2:huntress_arrowrain_loop", 1, 1);
+		}
 	}
 	
-	public class ArrowRainPhase3 implements AbilityPhase, ActivatedAbilityPhase<MouseInputEvent>, RepeatingAbilityPhase {
+	public class ArrowRainPhase3 implements AbilityPhase, ActivatedAbilityPhase<InputEvent>, RepeatingAbilityPhase {
 		
 		public Position arrowRainBlock;
 		private boolean isActive;
@@ -122,16 +129,12 @@ public class ArrowRainAbility extends Ability {
 
 		@Override
 		@SubscribeEvent
-		public void listenForActivation(MouseInputEvent event) {
+		public void listenForActivation(InputEvent event) {
 			if (Minecraft.getMinecraft().gameSettings.keyBindAttack.isPressed()) {
-				if (ArrowRainAbility.this.phase2.isActive) {
+				System.out.println(ReflectionHelper.toDetailedString(ArrowRainAbility.this.phase2));
+				if (ArrowRainAbility.this.phase2.isActive()) {
 					ArrowRainAbility.this.phase2.deactivatePhase();
-					player.playSound("ror2:huntress_arrowrain_loop", 1, 1);
-					
-					// Activate the ability on the server
-					Position pos = ArrowRainAbility.this.phase2.blockToRainOn;
-					IMessage packet = new ArrowRainPacket.ArrowRainMessage(pos.getIntX(), pos.getIntY(), pos.getIntZ());
-					RiskOfRain2Packets.NET.sendToServer(packet);
+					this.activate();
 				}
 			}
 		}
@@ -139,6 +142,22 @@ public class ArrowRainAbility extends Ability {
 		@Override
 		public boolean isActive() {
 			return this.isActive;
+		}
+		
+		@Override
+		public void activateFirst(EntityPlayer player) {
+			player.playSound("ror2:huntress_arrowrain_loop", 1, 1);
+		}
+		
+		@Override
+		public Side sideToRunOn() {
+			return Side.SERVER;
+		}
+		
+		@Override
+		public IMessage createPacket() {
+			Position pos = ArrowRainAbility.this.phase2.blockToRainOn;
+			return new ArrowRainPacket.ArrowRainMessage(pos.getIntX(), pos.getIntY(), pos.getIntZ());
 		}
 	}
 

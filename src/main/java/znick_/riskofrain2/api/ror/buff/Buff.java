@@ -23,11 +23,11 @@ public abstract class Buff {
 		this.itemCount = itemCount;
 	}
 	
-	/**Returns a {@code ResourceLocation} representing the texture of the status effect icon*/
+	/**Returns a {@code ResourceLocation} representing the texture of the status effect icon.*/
 	public abstract ResourceLocation getIconTexture();
-	/**Applies the effect to the player*/
+	/**Applies the effect to the player.*/
 	public abstract void applyEffect(PlayerData player);
-	/**Removes the effect from the player*/
+	/**Removes the effect from the player.*/
 	public abstract void removeEffect(PlayerData player);
 	
 	/**Returns the item that gives this effect*/

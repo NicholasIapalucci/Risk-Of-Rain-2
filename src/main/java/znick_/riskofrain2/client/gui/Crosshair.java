@@ -22,11 +22,20 @@ public class Crosshair {
 	/**The scale of the crosshair*/
 	private final double scale;
 	
+	/**
+	 * Creates a new {@code Crosshair}. 
+	 * 
+	 * @param texture The texture of the crosshair
+	 * @param scale The scale factor of the crosshair
+	 */
 	public Crosshair(String texture, double scale) {
 		this.texture = new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/survivor/" + texture);
 		this.scale = scale;
 	}
 	
+	/**
+	 * Returns the texture of this crosshair as a {@code ResourceLocation}.
+	 */
 	public ResourceLocation getTexture() {
 		return this.texture;
 	}

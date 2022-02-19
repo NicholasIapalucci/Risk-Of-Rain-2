@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import net.minecraft.client.gui.Gui;
@@ -55,6 +56,13 @@ public abstract class Survivor {
 	
 	public static Survivor[] getSurvivors() {
 		return SURVIVORS.toArray(new Survivor[0]);
+	}
+	
+	public static Optional<Survivor> fromPlayer(EntityPlayer player) {
+		for (Survivor survivor : Survivor.getSurvivors()) {
+			if (survivor.isPlayer(player)) return Optional.of(survivor);
+		}
+		return Optional.empty();
 	}
 	
 }

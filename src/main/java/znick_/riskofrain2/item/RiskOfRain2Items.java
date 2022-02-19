@@ -87,7 +87,7 @@ public class RiskOfRain2Items {
 	
 	/**
 	 * The "repulsion armor plate" item. Each time the player is hurt, they take 1 (+1 per item) half-heart less
-	 * damage. m
+	 * damage.
 	 */
 	public static final Item REPULSION_ARMOR_PLATE = new RepulsionArmorPlate();
 	/**

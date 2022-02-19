@@ -23,17 +23,10 @@ public class RandomGenerator {
 	
 	private static void registerItem(RiskOfRain2Item item) {
 		switch(item.getRarity()) {
-		case WHITE: 
-			WHITE_ITEMS.add(item); 
-			return;
-		case GREEN: 
-			GREEN_ITEMS.add(item); 
-			return;
-		case RED: 
-			RED_ITEMS.add(item); 
-			return;
-		default:
-			return;
+		case WHITE: WHITE_ITEMS.add(item); return;
+		case GREEN: GREEN_ITEMS.add(item); return;
+		case RED:   RED_ITEMS.add(item);   return;
+		default: return;
 		}
 	}
 	

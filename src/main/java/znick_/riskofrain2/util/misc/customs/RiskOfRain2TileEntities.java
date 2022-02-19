@@ -1,4 +1,4 @@
-package znick_.riskofrain2.tile;
+package znick_.riskofrain2.util.misc.customs;
 
 import java.lang.reflect.Field;
 
@@ -12,7 +12,6 @@ import znick_.riskofrain2.block.printer.TileEntity3DPrinter;
 public class RiskOfRain2TileEntities {
 	
 	public static void registerTileEntities() {
-		GameRegistry.registerTileEntity(RoR2TileEntityChest.class, "tileEntityChest");
-		GameRegistry.registerTileEntity(TileEntity3DPrinter.class, "tileEntityPrinter");
+		GameRegistry.registerTileEntity(TileEntity3DPrinter.class, "tile_entity_printer");
 	}
 }

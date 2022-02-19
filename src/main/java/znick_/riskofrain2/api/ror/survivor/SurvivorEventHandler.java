@@ -1,12 +1,8 @@
 package znick_.riskofrain2.api.ror.survivor;
 
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.Optional;
 import java.util.Queue;
-import java.util.Set;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
@@ -26,9 +22,10 @@ import znick_.riskofrain2.event.handler.TickHandler;
 
 public class SurvivorEventHandler extends EventHandler {
 
-	private final static Map<EntityPlayer, Map.Entry<Queue<AbilityPhase>, Integer>> QUEUED_ABILITIES = new HashMap<>();
-	private static final Map<EntityPlayer, AbilityPhase> REPEATING_PHASES = new HashMap<>();
-	
+	private static int lastAbilityTick;
+	private static Queue<AbilityPhase> abilityQueue = new LinkedList<>();
+	private static Optional<AbilityPhase> repeatingPhase = Optional.empty();
+
 	@SubscribeEvent
 	public void listenForAbilityActivation(KeyInputEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -36,80 +33,65 @@ public class SurvivorEventHandler extends EventHandler {
 			if (survivor.isPlayer(player)) {
 				PlayerData data = PlayerData.get(player);
 				Loadout loadout = data.getLoadout();
-				
-				//If the utility key was pressed, activate the utility ability
+
+				// If the utility key was pressed, activate the utility ability
 				if (RiskOfRain2KeyBinds.UTILITY.getKeyBinding().isPressed()) {
-					try {loadout.getUtility().newInstance().activate(player);}
-					catch(Exception e) {throw new RuntimeException(e);}
+					try {
+						loadout.getUtility().newInstance().activate(player);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
 				}
-				
+
 				// If the special key was pressed, activate the special ability
 				if (RiskOfRain2KeyBinds.SPECIAL.getKeyBinding().isPressed()) {
-					try {loadout.getSpecial().newInstance().activate(player);}
-					catch(Exception e) {throw new RuntimeException(e);}
+					try {
+						loadout.getSpecial().newInstance().activate(player);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
 				}
-				
+
 				break;
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void activateAbilities(TickEvent.ClientTickEvent event) {
+		if (abilityQueue.isEmpty()) return;
 		int clientTick = TickHandler.client();
-		
-		// Copy the set to prevent ConcurrentModificationExceptions
-		Set<Map.Entry<EntityPlayer, Map.Entry<Queue<AbilityPhase>, Integer>>> entrySet = new LinkedHashSet<>(QUEUED_ABILITIES.entrySet());
+		AbilityPhase next = abilityQueue.peek();
 
-		// Loop through all scheduled abilities
-		for (Map.Entry<EntityPlayer, Map.Entry<Queue<AbilityPhase>, Integer>> entry : entrySet) {
+		// Check if it's a delayed phase
+		if (next instanceof DelayedAbilityPhase) {
+			DelayedAbilityPhase delayedPhase = (DelayedAbilityPhase) next;
+			int tickDelay = delayedPhase.getTickDelay();
 
-			// Retrieve the values
-			Queue<AbilityPhase> queue = entry.getValue().getKey();
-			EntityPlayer player = entry.getKey();
-			AbilityPhase next = queue.peek();
-
-			// Remove the queue if it's empty
-			if (next == null) {
-				QUEUED_ABILITIES.remove(player);
-				continue;
+			// Check if the delay has elapsed
+			if (delayedPhase.shouldActivate(lastAbilityTick, clientTick)) {
+				// If it has, get and remove the next phase
+				AbilityPhase nextPhase = abilityQueue.remove();
+				// Stop the player from their repeating phase if they're in one.
+				repeatingPhase = Optional.empty();
+				// Activate the phase once
+				nextPhase.activatePhase(Minecraft.getMinecraft().thePlayer);
+				// Schedule it to repeat if it should
+				if (next instanceof RepeatingAbilityPhase) repeatingPhase = Optional.of(next);
+				// Set a new tickAtLastPhase
+				lastAbilityTick = clientTick;
 			}
+		}
 
-			// Check if it's a delayed phase
-			if (next instanceof DelayedAbilityPhase) {
-				DelayedAbilityPhase delayedPhase = (DelayedAbilityPhase) next;
-				int tickAtLastPhase = entry.getValue().getValue();
-				int tickDelay = delayedPhase.getTickDelay();
-
-				// Check if the delay has elapsed
-				if (clientTick > tickAtLastPhase + tickDelay) {
-					// If it has, get and remove the next phase
-					AbilityPhase nextPhase = queue.remove();
-					// Check if the player is currently in a phase
-					for (Map.Entry<EntityPlayer, AbilityPhase> phaseEntry : REPEATING_PHASES.entrySet()) {
-						if (phaseEntry.getValue() == player) REPEATING_PHASES.remove(phaseEntry.getKey());
-					}
-					// Activate the phase once
-					nextPhase.activatePhase(player);
-					// Schedule it to repeat if it should
-					if (next instanceof RepeatingAbilityPhase) REPEATING_PHASES.put(player, next);
-					// Set a new tickAtLastPhase
-					QUEUED_ABILITIES.put(player, new AbstractMap.SimpleEntry<>(queue, clientTick));
-				}
-			}
-
-			// If it's not delayed, activate it immediately.
-			else if (!(next instanceof ActivatedAbilityPhase)) {		
-				AbilityPhase nextPhase = queue.remove();
-				if (nextPhase instanceof RepeatingAbilityPhase) REPEATING_PHASES.put(player, next);
-				nextPhase.activatePhase(player);
-			}
+		// If it's not delayed, activate it immediately.
+		else if (!(next instanceof ActivatedAbilityPhase)) {
+			AbilityPhase nextPhase = abilityQueue.remove();
+			if (nextPhase instanceof RepeatingAbilityPhase) repeatingPhase = Optional.of(nextPhase);
+			nextPhase.activatePhase(Minecraft.getMinecraft().thePlayer);
 		}
 
 		// Activate all repeating phases
-		for (Map.Entry<EntityPlayer, AbilityPhase> phaseEntry : REPEATING_PHASES.entrySet()) {
-			phaseEntry.getValue().activatePhase(phaseEntry.getKey());
-		}
+		if (repeatingPhase.isPresent()) repeatingPhase.get().activate();
 	}
 
 	/**
@@ -118,18 +100,18 @@ public class SurvivorEventHandler extends EventHandler {
 	 * @param phases
 	 * @param player
 	 */
-	public static void scheduleAbility(Ability ability, EntityPlayer player) {
-		Queue<AbilityPhase> queue = new LinkedList<>();
-		for (AbilityPhase phase : ability.getPhases()) queue.add(phase);
-		QUEUED_ABILITIES.put(player, new AbstractMap.SimpleEntry<>(queue, TickHandler.client()));
+	public static void scheduleAbility(Ability ability) {
+		abilityQueue.clear();
+		for (AbilityPhase phase : ability.getPhases()) abilityQueue.add(phase);
+		lastAbilityTick = TickHandler.client();
+	}
+
+	public static void activateRepeatingAbility(EntityPlayer player, RepeatingAbilityPhase next) {
+		next.activateFirst(Minecraft.getMinecraft().thePlayer);
+		repeatingPhase = Optional.of((AbilityPhase) next);
 	}
 	
-	public static void activateRepeatingAbility(EntityPlayer player, AbilityPhase next) {
-		REPEATING_PHASES.put(player, next);
-	}
-	
-	public static void removeScheduledAbility(EntityPlayer player) {
-		QUEUED_ABILITIES.remove(player);
-		REPEATING_PHASES.remove(player);
+	public static void deactivateRepeatingAbility() {
+		repeatingPhase = Optional.empty();
 	}
 }

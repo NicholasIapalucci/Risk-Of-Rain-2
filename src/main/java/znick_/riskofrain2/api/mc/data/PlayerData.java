@@ -3,6 +3,7 @@ package znick_.riskofrain2.api.mc.data;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -52,9 +53,6 @@ public class PlayerData implements IExtendedEntityProperties {
 	private final Map<PlayerStat, Double> stats = new HashMap<>();
 	/**The current amount of ticks left until the player can use equipment again.*/
 	private int equipmentCooldown = 0;
-	
-	/**The loadout the player is using*/
-	private Loadout loadout = Survivor.HUNTRESS.getDefaultLoadout();
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -285,7 +283,9 @@ public class PlayerData implements IExtendedEntityProperties {
 	}
 	
 	public Loadout getLoadout() {
-		return this.loadout;
+		Optional<Survivor> survivor = Survivor.fromPlayer(this.player);
+		if (survivor.isPresent()) return survivor.get().getDefaultLoadout();
+		return null;
 	}
 
 	@Override

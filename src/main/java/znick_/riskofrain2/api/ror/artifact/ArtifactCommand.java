@@ -36,6 +36,7 @@ public class ArtifactCommand implements ICommand {
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
 		World world = sender.getEntityWorld();
+		WorldData data = WorldData.forWorld(world);
 		if (world.isRemote) return;
 		
 		// Throw error if incorrect number of arguments
@@ -65,20 +66,20 @@ public class ArtifactCommand implements ICommand {
 		
 		//
 		if (isEnable) {
-			if (artifact.isEnabled()) {
+			if (artifact.isEnabled(world)) {
 				sender.addChatMessage(new ChatComponentText(artifact.getProperName() + " is already enabled"));
 				return;
 			}
-			WorldData.enableArtifact(artifact);
+			data.enableArtifact(artifact);
 			sender.addChatMessage(new ChatComponentText("Enabled " + artifact.getProperName()));
 		}
 		
 		else {
-			if (!artifact.isEnabled()) {
+			if (!artifact.isEnabled(world)) {
 				sender.addChatMessage(new ChatComponentText(artifact.getProperName() + " is already disabled"));
 				return;
 			}
-			WorldData.disableArtifact(artifact);
+			data.disableArtifact(artifact);
 			sender.addChatMessage(new ChatComponentText("Disabled " + artifact.getProperName()));
 		}
 	}

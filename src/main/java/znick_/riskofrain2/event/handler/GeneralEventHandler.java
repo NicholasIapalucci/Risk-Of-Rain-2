@@ -1,20 +1,15 @@
 package znick_.riskofrain2.event.handler;
 
-import java.lang.reflect.Field;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.client.Minecraft;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.GuiIngameForge;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import znick_.riskofrain2.api.mc.CustomRegenHandler;
+import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.survivor.Survivor;
+import znick_.riskofrain2.api.ror.items.list.CommandEssence;
+import znick_.riskofrain2.client.gui.GuiHandler;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 
 public class GeneralEventHandler extends EventHandler {
@@ -27,9 +22,16 @@ public class GeneralEventHandler extends EventHandler {
 	}
 	
 	@SubscribeEvent
-	public void renderGui(RenderGameOverlayEvent.Post event) {
-		if (event.type != ElementType.EXPERIENCE) return;
+	public void renderGui(RenderGameOverlayEvent.Pre event) {
+		if (event.type != ElementType.AIR) return;
 		new RiskOfRain2Gui();
+	}
+	
+	@SubscribeEvent
+	public void useCommandEssence(ItemPickupEvent event) {
+		if (event.pickedUp == null || 
+			event.pickedUp.getEntityItem() == null || 
+			!(event.pickedUp.getEntityItem().getItem() instanceof CommandEssence)) return;
 	}
 	
 }

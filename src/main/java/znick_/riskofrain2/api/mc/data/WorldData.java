@@ -4,45 +4,65 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
+import net.minecraft.world.storage.MapStorage;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.ror.artifact.Artifact;
 
 public class WorldData extends WorldSavedData {
 
-	private static final Map<Artifact, Boolean> ARTIFACTS = new HashMap<>();
+	public static final WorldData INSTANCE = new WorldData();
+	private final Map<Artifact, Boolean> artifacts = new HashMap<>();
 	
-	static {
+	public WorldData() {
+		super("world_data");
 		for (Artifact artifact : Artifact.getArtifacts()) {
-			ARTIFACTS.put(artifact, false);
+			artifacts.put(artifact, false);
 		}
+		this.markDirty();
 	}
 	
-	public WorldData(String s) {
-		super(s);
+	public static WorldData forWorld(World world) {
+	      MapStorage storage = world.perWorldStorage;
+	      WorldData result = (WorldData) storage.loadData(WorldData.class, "world_data");
+	      if (result == null) {
+	         result = new WorldData();
+	         storage.setData("world_data", result);
+	      }
+	      return result;
 	}
 	
-	public static void enableArtifact(Artifact artifact) {
-		ARTIFACTS.put(artifact, true);
+	public void enableArtifact(Artifact artifact) {
+		this.artifacts.put(artifact, true);
+		this.markDirty();
 		if (RiskOfRain2.DEBUG) System.out.println("Enabling artifact \"" + artifact + "\"");
 	}
 	
-	public static void disableArtifact(Artifact artifact) {
-		ARTIFACTS.put(artifact, false);
+	public void disableArtifact(Artifact artifact) {
+		this.artifacts.put(artifact, false);
+		this.markDirty();
 		if (RiskOfRain2.DEBUG) System.out.println("Disabling artifact \"" + artifact + "\"");
 	}
 	
-	public static boolean isArtifactEnabled(Artifact artifact) {
-		return ARTIFACTS.get(artifact);
+	public boolean isArtifactEnabled(Artifact artifact) {
+		return this.artifacts.get(artifact);
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound p_76184_1_) {
-		
+	public void readFromNBT(NBTTagCompound nbt) {
+		NBTTagCompound properties = new NBTTagCompound();
+		for (Map.Entry<Artifact, Boolean> artifactEntry : artifacts.entrySet()) {
+			properties.setBoolean(artifactEntry.getKey().getName(), artifactEntry.getValue());
+		}
+		nbt.setTag("artifacts", properties);
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound p_76187_1_) {
-		
+	public void writeToNBT(NBTTagCompound nbt) {
+		NBTTagCompound properties = (NBTTagCompound) nbt.getTag("artifacts");
+		for (Artifact artifact : artifacts.keySet()) {
+			artifacts.put(artifact, properties.getBoolean(artifact.getName()));
+		}
 	}
 }

@@ -16,8 +16,7 @@ public class ArrowRainPacket implements IMessageHandler<ArrowRainMessage, IMessa
 		if (ctx.side.isServer()) {
 			ArrowRainPhase3 phase = new ArrowRainAbility().new ArrowRainPhase3();
 			phase.arrowRainBlock = new Position(message.x, message.y, message.z);
-			SurvivorEventHandler.activateRepeatingAbility(ctx.getServerHandler().playerEntity, phase);
-			ctx.getServerHandler().playerEntity.worldObj.playSound(message.x, message.y, message.z, "ror2:huntress_arrowrain_start", 1, 1, true);
+			SurvivorEventHandler.activateRepeatingAbility(ctx.getServerHandler().playerEntity, phase);		
 		}
 		return null;
 	}

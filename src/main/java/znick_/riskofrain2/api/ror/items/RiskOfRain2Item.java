@@ -52,8 +52,6 @@ public abstract class RiskOfRain2Item extends Item {
 	 */
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean someParam) {
-		super.addInformation(stack, player, info, someParam);
-
 		// Check if the shift key is NOT down
 		if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 			// Add the "shift for info" prompt
