@@ -1,4 +1,23 @@
 {
+	"button_press": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:menu/button_click",
+			"stream": false
+		}
+		]
+	},
+	
+	"button_hover": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:menu/button_hover",
+			"stream": false
+		}
+		]
+	},
 	
 	"cautious_slug_start": {
 		"category": "player",

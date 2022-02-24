@@ -50,8 +50,8 @@ public class RiskOfRain2Gui extends Gui {
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		String health = (int) player.getHealth() + "/" + (int) player.getMaxHealth();
 			
-		int width = 150;
-		int left = 25;
+		int width = this.width/4;
+		int left = this.width/20;
 		int right = (int) (left + width * (player.getHealth() / player.getMaxHealth()));
 		int top = this.height - 26;
 		int bottom = this.height - 16;
@@ -64,8 +64,8 @@ public class RiskOfRain2Gui extends Gui {
 		this.drawRect(right - 1, bottom,     right,        top + 1, new Color(82,  150, 38).getRGB()); //Right
 		this.drawRect(right - 1, bottom + 1, right,        bottom,  new Color(67,  125, 26).getRGB()); //RCorner
 		this.drawRect(left + 1,  bottom,     right - 1,    top + 1, new Color(95,  170, 48).getRGB()); //Fill
-			
-		this.drawCenteredString(font, health, 100, this.height - 24, Color.WHITE.getRGB());
+		
+		this.drawCenteredString(font, health, (right + left)/2, this.height - 24, Color.WHITE.getRGB());
 	}
 	
 	private void renderAbilities() {
