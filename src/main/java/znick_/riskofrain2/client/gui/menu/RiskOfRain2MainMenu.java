@@ -110,6 +110,7 @@ public class RiskOfRain2MainMenu extends GuiMainMenu {
 		int f = this.width / 2 - short1 / 2;
         byte b0 = 30;
 		this.mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/title/minecraft.png"));
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.drawTexturedModalRect(f + 0, b0 + 0, 0, 0, 155, 44);
         this.drawTexturedModalRect(f + 155, b0 + 0, 0, 45, 155, 44);
