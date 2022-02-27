@@ -23,6 +23,11 @@ public class HeadSet extends RiskOfRain2Item implements OnJumpItem, OnHurtItem, 
 	}
 	
 	@Override
+	public boolean shouldProcOnKeypress(KeyInputEvent event, PlayerData player, int itemCount) {
+		return Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed();
+	}
+	
+	@Override
 	public void procOnKeyPress(KeyInputEvent event, PlayerData player, int itemCount) {
 		player.getPlayer().addVelocity(0, -3, 0);
 		List<EntityLivingBase> entities = player.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, player.radialBox(4));
@@ -31,10 +36,10 @@ public class HeadSet extends RiskOfRain2Item implements OnJumpItem, OnHurtItem, 
 			entity.attackEntityFrom(DamageSource.causePlayerDamage(player.getPlayer()), 10);
 		}
 	}
-
+	
 	@Override
-	public boolean shouldProcOnKeypress(KeyInputEvent event, PlayerData player, int itemCount) {
-		return Minecraft.getMinecraft().gameSettings.keyBindSneak.isPressed();
+	public boolean shouldProcOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
+		return event.source == DamageSource.fall;
 	}
 	
 	@Override
@@ -50,11 +55,6 @@ public class HeadSet extends RiskOfRain2Item implements OnJumpItem, OnHurtItem, 
 	@Override
 	public void procOnJump(LivingJumpEvent event, PlayerData player, int itemCount) {
 		player.getPlayer().addVelocity(0, itemCount, 0);
-	}
-	
-	@Override
-	public boolean shouldProcOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
-		return event.source == DamageSource.fall;
 	}
 
 	@Override

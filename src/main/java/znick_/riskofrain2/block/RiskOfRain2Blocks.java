@@ -6,10 +6,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBlock;
+import znick_.riskofrain2.block.chest.SmallChest;
 import znick_.riskofrain2.block.itemblock.BlockItem;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.block.lunarpod.LunarPod;
-import znick_.riskofrain2.block.misc.RiskOfRain2Chest;
 import znick_.riskofrain2.block.ore.OreBlock;
 import znick_.riskofrain2.block.ore.OreData;
 import znick_.riskofrain2.block.ore.OreGenerator;
@@ -28,7 +28,7 @@ public class RiskOfRain2Blocks {
 	
 	//Misc
 	public static final Block PRINTER_3D = new Printer3D();
-	public static final Block CHEST = new RiskOfRain2Chest();
+	public static final Block CHEST = new SmallChest();
 	public static final Block LUNAR_POD = new LunarPod();
 	
 	/**

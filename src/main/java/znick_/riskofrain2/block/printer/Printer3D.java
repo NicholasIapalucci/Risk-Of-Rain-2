@@ -6,7 +6,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import znick_.riskofrain2.util.RandomGenerator;
+import net.minecraftforge.common.MinecraftForge;
+import znick_.riskofrain2.api.ror.items.ItemGenerator;
+import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
+import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent.ObjectType;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
 /**
@@ -29,7 +32,7 @@ public class Printer3D extends Block implements ITileEntityProvider {
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileEntity3DPrinter(RandomGenerator.generateSmallChestItem()); //TODO: Add Boss printer
+		return new TileEntity3DPrinter(ItemGenerator.generateSmallChestItem()); //TODO: Add Boss printer
 	}
 	
 	/**
@@ -49,9 +52,12 @@ public class Printer3D extends Block implements ITileEntityProvider {
 	 */
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		ObjectInteractionEvent event = new ObjectInteractionEvent(player, ObjectType.PRINTER_3D);
+		if (!MinecraftForge.EVENT_BUS.post(event)) return false;
 		TileEntity3DPrinter tile = (TileEntity3DPrinter) world.getTileEntity(x, y, z);
 		if (!tile.isOnCooldown() && tile.print(player)) {
 			player.playSound("ror2:printer", 1, 1);
+			return true;
 		}
 		return false;
 	}

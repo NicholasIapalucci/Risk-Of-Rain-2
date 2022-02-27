@@ -217,7 +217,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "H3AD-5T v2" item. Makes the player jump significantly higher. 
 	 */
-	public static final Item HEAD_SET = new HeadSet(); //TODO: Add headset slam
+	public static final Item HEAD_SET = new HeadSet();
 	
 	/**
 	 * The "rejuvination rack" item. Adds 100% (+100% per stack) to all healing. 

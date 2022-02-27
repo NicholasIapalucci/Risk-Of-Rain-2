@@ -1,13 +1,12 @@
-package znick_.riskofrain2.util;
+package znick_.riskofrain2.api.ror.items;
 
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 
-public class RandomGenerator {
+public class ItemGenerator {
 	
 	private static final Set<RiskOfRain2Item> WHITE_ITEMS = new HashSet<>();
 	private static final Set<RiskOfRain2Item> GREEN_ITEMS = new HashSet<>();

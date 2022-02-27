@@ -6,18 +6,19 @@ import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import znick_.riskofrain2.api.ror.artifact.Artifact;
+import net.minecraftforge.common.MinecraftForge;
 import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.api.ror.items.list.ScrapItem;
 import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 import znick_.riskofrain2.event.handler.TickHandler;
+import znick_.riskofrain2.event.rorevents.GenerateItemEvent;
+import znick_.riskofrain2.event.rorevents.GenerateItemEvent.GenerationSource;
 import znick_.riskofrain2.util.helper.MinecraftHelper;
 
 public class TileEntity3DPrinter extends TileEntity {
@@ -139,10 +140,14 @@ public class TileEntity3DPrinter extends TileEntity {
 		if (stack.stackSize == 1) player.inventory.setInventorySlotContents(itemToTake.getKey(), null);
 		else stack.stackSize--;
 		
-		// Drops the item in the world and puts the printer on cooldown.
-		ItemStack toDrop = Artifact.COMMAND.isEnabled(this.worldObj)? new ItemStack(Artifact.COMMAND.getEssenceFromRarity(this.getRarity())) : new ItemStack(this.item.getItem());
-		MinecraftHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, toDrop);
-		this.lastUsedTick = TickHandler.server();
-		return true;
+		RiskOfRain2Item toDrop = (RiskOfRain2Item) this.item.getItem();
+		GenerateItemEvent event = new GenerateItemEvent(GenerationSource.PRINTER_3D, toDrop);
+		if (MinecraftForge.EVENT_BUS.post(event)) {
+			MinecraftHelper.dropItemInWorld(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, new ItemStack(toDrop));
+			this.lastUsedTick = TickHandler.server();
+			return true;
+		}
+
+		return false;
 	}
 }

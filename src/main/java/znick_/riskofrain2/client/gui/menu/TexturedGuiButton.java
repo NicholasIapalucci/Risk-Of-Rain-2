@@ -1,5 +1,7 @@
 package znick_.riskofrain2.client.gui.menu;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -26,7 +28,9 @@ public class TexturedGuiButton extends GuiButton {
 			mc.getTextureManager().bindTexture(this.texture);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			
-			this.field_146123_n = //TODO: Fix scaling issues
+			mouseX /= scale;
+			mouseY /= scale;
+			this.field_146123_n =
 					mouseX >= this.xPosition && 
 					mouseY >= this.yPosition && 
 					mouseX < this.xPosition + this.width && 
@@ -45,5 +49,16 @@ public class TexturedGuiButton extends GuiButton {
 			this.mouseDragged(mc, mouseX, mouseY);		
 		}
 	}
+	
+	@Override
+	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+		mouseX /= this.scale;
+		mouseY /= this.scale;
+        return this.enabled && this.visible && 
+        		mouseX >= this.xPosition && 
+				mouseY >= this.yPosition && 
+				mouseX < this.xPosition + this.width && 
+				mouseY < this.yPosition + this.height;
+    }
 
 }

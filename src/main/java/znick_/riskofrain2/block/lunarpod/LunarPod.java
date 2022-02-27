@@ -7,9 +7,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
+import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
+import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent.ObjectType;
 import znick_.riskofrain2.item.itemblock.ItemBlockLunarPod;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
@@ -56,7 +59,9 @@ public class LunarPod extends Block implements IBlockItem {
 	//TODO: Add lunar coins
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float hitX, float hitY, float hitZ) {
-		PlayerData properties = PlayerData.get(player);
+		ObjectInteractionEvent event = new ObjectInteractionEvent(player, ObjectType.LUNAR_POD);
+		if (!MinecraftForge.EVENT_BUS.post(event)) return false;
+//		PlayerData properties = PlayerData.get(player);
 //		if (!world.isRemote && properties.getLunarCoins() >= 1) {	
 //			player.openGui(RiskOfRain2.instance, GuiHandler.CHEST_ID, world, x, y, z);
 //			if (!player.capabilities.isCreativeMode) properties.consumeLunarCoins(1);
