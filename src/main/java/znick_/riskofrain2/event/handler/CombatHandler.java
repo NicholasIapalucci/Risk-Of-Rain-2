@@ -7,7 +7,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.ror.items.list.white.cautiousslug.CautiousSlugItem;
+import znick_.riskofrain2.item.ror.list.white.cautiousslug.CautiousSlugItem;
 
 public class CombatHandler extends EventHandler {
 

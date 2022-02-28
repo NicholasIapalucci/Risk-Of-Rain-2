@@ -7,9 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import znick_.riskofrain2.api.ror.items.ItemGenerator;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent.ObjectType;
+import znick_.riskofrain2.item.ror.ItemGenerator;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
 /**

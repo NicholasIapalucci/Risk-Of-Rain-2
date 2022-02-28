@@ -1,7 +1,7 @@
 package znick_.riskofrain2.api.ror.buff;
 
-import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
 import znick_.riskofrain2.event.handler.TickHandler;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 /**
  * Represents a temporary {@code Buff} that wears off after a certain amount of time.

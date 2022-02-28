@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import znick_.riskofrain2.api.ror.items.list.equipment.RiskOfRain2Equipment;
+import znick_.riskofrain2.item.ror.list.equipment.RiskOfRain2Equipment;
 
 public class MinecraftHelper {
 

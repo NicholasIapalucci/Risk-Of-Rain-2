@@ -21,10 +21,11 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
-import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBuff;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.event.handler.TickHandler;
+import znick_.riskofrain2.item.ror.list.white.topazbrooch.BarrierPacketHandler.BarrierPacket;
+import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerBuff;
 import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.net.SoundPacketHandler;
@@ -53,6 +54,9 @@ public class PlayerData implements IExtendedEntityProperties {
 	private final Map<PlayerStat, Double> stats = new HashMap<>();
 	/**The current amount of ticks left until the player can use equipment again.*/
 	private int equipmentCooldown = 0;
+	
+	/**The amount of barrier the player has, from items such as topaz brooch or aegis.*/
+	private int barrier = 0;
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -412,5 +416,62 @@ public class PlayerData implements IExtendedEntityProperties {
 	/**Lowers the player's equipment cooldown by 1 tick.*/
 	public void tickEquipmentCooldown() {
 		this.equipmentCooldown -= 1; 
+	}
+
+	/**
+	 * Adds to the players barrier. Cannot exceed the player's max health amount. If you really have to
+	 * do that for some reason, use reflection. 
+	 * 
+	 * @param barrierAmount The amount of barrier to add.
+	 */
+	public void addBarrier(int barrierAmount) {
+		this.setBarrier(this.getBarrier() + barrierAmount);
+	}
+
+	/**
+	 * Retrieves the amount of barrier the player has.
+	 */
+	public int getBarrier() {
+		return this.barrier/100;
+	}
+	
+	/**
+	 * Returns the exact barrier amount, equivalent to 100x greater than the displayed/used barrier amount.
+	 * Used for decreasing the barrier amount with natural degeneration more fluidly. 
+	 */
+	public int getExactBarrier() {
+		return this.barrier;
+	}
+
+	public void removeBarrier(double barrierAmount) {
+		this.setBarrier((this.barrier - (barrierAmount * 100))/100);
+	}
+
+	/**
+	 * Sets the player's barrier. Sends a packet to the other side to synchronize it between
+	 * server and client.
+	 * 
+	 * @param barrier The amount of barrier for the player to have.
+	 */
+	public void setBarrier(double barrier) {
+		this.setBarrier((int) (barrier * 100), true);
 	} 
+	
+	public void setBarrier(int barrier, boolean sendPacket) {
+		if (sendPacket) {
+			IMessage packet = new BarrierPacket(barrier);
+			if (this.getWorld().isRemote) RiskOfRain2Packets.NET.sendToServer(packet);
+			else RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.player);
+		}
+		
+		this.setBarrierManual(barrier);
+	} 
+	
+	private void setBarrierManual(int barrier) {
+		this.barrier = (int) MathHelper.constrain(barrier, 0, this.getMaxHealth() * 100);
+	}
+	
+	public void tickBarrier() {
+		this.removeBarrier(0.1);
+	}
 } 

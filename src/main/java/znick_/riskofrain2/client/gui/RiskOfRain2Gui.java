@@ -46,26 +46,40 @@ public class RiskOfRain2Gui extends Gui {
 		GuiIngameForge.renderHealth = false;
 		GuiIngameForge.renderExperiance = false;
 			
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		PlayerData player = PlayerData.get(Minecraft.getMinecraft().thePlayer);
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		String health = (int) player.getHealth() + "/" + (int) player.getMaxHealth();
-			
+		String health = (int) (player.getHealth() + player.getBarrier())  + "/" + (int) player.getMaxHealth();
+		
 		int width = this.width/4;
 		int left = this.width/20;
-		int right = (int) (left + width * (player.getHealth() / player.getMaxHealth()));
 		int top = this.height - 26;
 		int bottom = this.height - 16;
-			
-		this.drawRect(left,      bottom + 1, left + width, top,     new Color(50,  50,  50).getRGB()); //Base
-		this.drawRect(left,      bottom + 1, left + 1,     bottom,  new Color(67,  125, 26).getRGB()); //LCorner
-		this.drawRect(left + 1,  bottom + 1, right,        bottom,  new Color(82,  150, 38).getRGB()); //Bottom
-		this.drawRect(left,      bottom,     left + 1,     top + 1, new Color(82,  150, 38).getRGB()); //Left
-		this.drawRect(left,      top + 1,    right,        top,     new Color(124, 221, 67).getRGB()); //Top
-		this.drawRect(right - 1, bottom,     right,        top + 1, new Color(82,  150, 38).getRGB()); //Right
-		this.drawRect(right - 1, bottom + 1, right,        bottom,  new Color(67,  125, 26).getRGB()); //RCorner
-		this.drawRect(left + 1,  bottom,     right - 1,    top + 1, new Color(95,  170, 48).getRGB()); //Fill
 		
-		this.drawCenteredString(font, health, (right + left)/2, this.height - 24, Color.WHITE.getRGB());
+		int healthRight =  (int) (left + width * (player.getHealth()  / player.getMaxHealth()));
+		int barrierRight = (int) (left + width * (player.getExactBarrier() / (player.getMaxHealth() * 100)));
+		
+		this.drawRect(left,            bottom + 1, left + width,       top,     new Color(50,  50,  50).getRGB()); //Base
+		this.drawRect(left,            bottom + 1, left + 1,           bottom,  new Color(67,  125, 26).getRGB()); //LCorner
+		this.drawRect(left + 1,        bottom + 1, healthRight,        bottom,  new Color(82,  150, 38).getRGB()); //Bottom
+		this.drawRect(left,            bottom,     left + 1,           top + 1, new Color(82,  150, 38).getRGB()); //Left
+		this.drawRect(left,            top + 1,    healthRight,        top,     new Color(124, 221, 67).getRGB()); //Top
+		this.drawRect(healthRight - 1, bottom,     healthRight,        top + 1, new Color(82,  150, 38).getRGB()); //Right
+		this.drawRect(healthRight - 1, bottom + 1, healthRight,        bottom,  new Color(67,  125, 26).getRGB()); //RCorner
+		this.drawRect(left + 1,        bottom,     healthRight - 1,    top + 1, new Color(95,  170, 48).getRGB()); //Fill
+		
+		// Render Barrier Overlay
+		if (player.getBarrier() > 0) {
+			int barrierBorder = new Color(242, 218, 104).getRGB();
+		
+			this.drawRect(left + 1,         bottom + 1, barrierRight, bottom,  barrierBorder); //Bottom Barrier
+			this.drawRect(left,             bottom + 1, left + 1,     top + 1, barrierBorder); //Left Barrier
+			this.drawRect(left,             top + 1,    barrierRight, top,     barrierBorder); //Top Barrier
+			this.drawRect(barrierRight - 1, bottom,     barrierRight, top + 1, barrierBorder); //Right Barrier
+		
+			this.drawGradientRect(left + 1, top + 1, barrierRight - 1, bottom, new Color(231, 180, 61).getRGB(), new Color(159, 125, 7).getRGB()); //Barrier Gradient Fill
+		}
+		
+		this.drawCenteredString(font, health, (left + width + left)/2, this.height - 24, Color.WHITE.getRGB());
 	}
 	
 	private void renderAbilities() {

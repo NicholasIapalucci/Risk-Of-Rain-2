@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import znick_.riskofrain2.api.ror.items.list.white.warbanner.WarbannerBlock;
 import znick_.riskofrain2.block.chest.SmallChest;
 import znick_.riskofrain2.block.itemblock.BlockItem;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
@@ -14,6 +13,7 @@ import znick_.riskofrain2.block.ore.OreBlock;
 import znick_.riskofrain2.block.ore.OreData;
 import znick_.riskofrain2.block.ore.OreGenerator;
 import znick_.riskofrain2.block.printer.Printer3D;
+import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerBlock;
 
 public class RiskOfRain2Blocks {
 	

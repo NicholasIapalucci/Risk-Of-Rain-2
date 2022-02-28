@@ -2,7 +2,7 @@ package znick_.riskofrain2.api.ror.buff;
 
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 /**
  * A {@code Buff} represents an effect the player gets, like a potion. Some buffs do not do anything

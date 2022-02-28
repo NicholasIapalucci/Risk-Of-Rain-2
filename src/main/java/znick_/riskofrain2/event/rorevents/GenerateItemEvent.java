@@ -2,7 +2,7 @@ package znick_.riskofrain2.event.rorevents;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
-import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 /**
  * The {@code GenerateItemEvent} is fired when a Risk Of Rain 2 item is generated into the world. The event

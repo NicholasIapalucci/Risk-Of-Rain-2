@@ -13,12 +13,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
-import znick_.riskofrain2.api.ror.items.RiskOfRain2Item;
-import znick_.riskofrain2.api.ror.items.list.ScrapItem;
-import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.event.rorevents.GenerateItemEvent;
 import znick_.riskofrain2.event.rorevents.GenerateItemEvent.GenerationSource;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.list.ScrapItem;
+import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.util.helper.MinecraftHelper;
 
 public class TileEntity3DPrinter extends TileEntity {

@@ -4,9 +4,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import znick_.riskofrain2.api.ror.items.list.white.SoldierSyringe;
 import znick_.riskofrain2.block.RiskOfRain2Blocks;
 import znick_.riskofrain2.item.RiskOfRain2Items;
+import znick_.riskofrain2.item.ror.list.white.SoldierSyringe;
 
 public class RiskOfRain2CreativeTabs {
 

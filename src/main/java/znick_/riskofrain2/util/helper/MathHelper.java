@@ -17,13 +17,13 @@ public class MathHelper {
 			
 			return newN;
 			
-		} else throw new ArithmeticException("Number to map must be within the interval!");
+		} 
+		
+		else throw new ArithmeticException("Number to map must be within the interval!");
 	}
 	
 	public static double constrain(double a, double bottom, double top) {
-		if (a > top) return top;
-		if (a < bottom) return bottom;
-		return a;
+		return Math.max(bottom, Math.min(top, a));
 	}
 	
 	public static Vec3 multiplyVectorByScalar(Vec3 vector, double scalar) {

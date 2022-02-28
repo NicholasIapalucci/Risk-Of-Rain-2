@@ -2,8 +2,8 @@ package znick_.riskofrain2.api.ror.artifact.list;
 
 import net.minecraft.item.Item;
 import znick_.riskofrain2.api.ror.artifact.Artifact;
-import znick_.riskofrain2.api.ror.items.property.ItemRarity;
 import znick_.riskofrain2.item.RiskOfRain2Items;
+import znick_.riskofrain2.item.ror.property.ItemRarity;
 
 public class ArtifactOfCommand extends Artifact {
 
