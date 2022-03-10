@@ -115,7 +115,7 @@ public class RiskOfRain2MainMenu extends GuiMainMenu {
 	/**
 	 * Renders the Minecraft title logo onto the top of the screen.
 	 */
-	private void renderMinecraftTitle() { //TODO: Refactor for less math + better performance
+	private void renderMinecraftTitle() {
 		int f = this.width/2 - 137;
 		this.mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/title/minecraft.png"));
 		GL11.glEnable(GL11.GL_ALPHA_TEST);

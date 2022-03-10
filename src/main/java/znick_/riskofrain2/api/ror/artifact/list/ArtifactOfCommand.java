@@ -1,8 +1,8 @@
 package znick_.riskofrain2.api.ror.artifact.list;
 
-import net.minecraft.item.Item;
 import znick_.riskofrain2.api.ror.artifact.Artifact;
 import znick_.riskofrain2.item.RiskOfRain2Items;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
 public class ArtifactOfCommand extends Artifact {
@@ -30,9 +30,9 @@ public class ArtifactOfCommand extends Artifact {
 	 * 
 	 * @param rarity The rarity of the command essence
 	 */
-	public Item getEssenceFromRarity(ItemRarity rarity) {
+	public static RiskOfRain2Item getEssenceFromRarity(ItemRarity rarity) {
 		switch(rarity) {
-		case WHITE: return RiskOfRain2Items.WHITE_COMMAND_ESSENCE;
+		case WHITE: return (RiskOfRain2Item) RiskOfRain2Items.WHITE_COMMAND_ESSENCE;
 		default: return null;
 		}
 	}

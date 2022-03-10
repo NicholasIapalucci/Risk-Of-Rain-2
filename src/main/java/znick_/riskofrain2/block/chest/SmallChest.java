@@ -11,7 +11,6 @@ import net.minecraftforge.common.MinecraftForge;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
-import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent.ObjectType;
 import znick_.riskofrain2.item.itemblock.ItemBlockChest;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 
@@ -57,15 +56,9 @@ public class SmallChest extends Block implements IBlockItem {
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float hitX, float hitY, float hitZ) {
-		ObjectInteractionEvent event = new ObjectInteractionEvent(player, ObjectType.SMALL_CHEST);
-		if (!MinecraftForge.EVENT_BUS.post(event)) return false;
-		
-//		PlayerData properties = PlayerData.get(player);
-//		if (!world.isRemote && (properties.getMoney() >= 25 || player.capabilities.isCreativeMode)) {	
-//			player.openGui(RiskOfRain2.instance, GuiHandler.CHEST_ID, world, x, y, z);
-//			if (!player.capabilities.isCreativeMode) properties.consumeMoney(25);
-//		}
-		
+		TileEntityRoRChest tile = (TileEntityRoRChest) world.getTileEntity(x, y, z);
+		ObjectInteractionEvent event = new ObjectInteractionEvent(player, tile) ;
+		if (!MinecraftForge.EVENT_BUS.post(event)) return false;	
 		return true;
 	}
 
