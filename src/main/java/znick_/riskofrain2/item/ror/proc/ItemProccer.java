@@ -17,6 +17,7 @@ import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.VoidItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHealItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
@@ -90,7 +91,7 @@ public class ItemProccer extends EventHandler {
 				event.entity.attackEntityFrom(new UniqueDamageSource(player), (float) (event.ammount * data.getStat(PlayerStat.DAMAGE_MULTIPLIER)));
 			}
 			
-			//Reset to original damage multiplier
+			// Reset to original damage multiplier
 			data.setStat(PlayerStat.DAMAGE_MULTIPLIER, originalDamageMultiplier);
 		}
 	}
@@ -130,18 +131,27 @@ public class ItemProccer extends EventHandler {
 		if (event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			PlayerData data = PlayerData.get(player);
-			data.removeExcessBuffs();
+			data.updateBuffs();
 			
-			//Loop through all Risk Of Rain 2 Items
+			// Loop through all Risk Of Rain 2 Items
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
 				int count = data.itemCount(item);
 				if (item instanceof OnUpdateItem) {
 					
-					//Proc the item if meant to
+					// Proc the item if meant to
 					if (count > 0) {
 						OnUpdateItem onUpdate = (OnUpdateItem) item;
 						if (onUpdate.shouldProcOnUpdate(event, data, count)) {
 							onUpdate.procOnUpdate(event, data, count);
+						}
+						
+						// Check if the item is a void item
+						if (item instanceof VoidItem) {
+							VoidItem voidItem = (VoidItem) item;
+							// If it is, corrupt all items that it should corrupt
+							for (RiskOfRain2Item toCorrupt : voidItem.getCorruptedItems()) {
+								data.replaceAllItems(toCorrupt, voidItem);
+							}
 						}
 					}
 				}
@@ -247,18 +257,17 @@ public class ItemProccer extends EventHandler {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		PlayerData data = PlayerData.get(player);
 		
-		//Loop through all Risk Of Rain 2 items
+		// Loop through all Risk Of Rain 2 items
 		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
 			int count = MinecraftHelper.amountOfItems(player, item);
-			//Checks if the item procs on key press and if the player has any
+			// Checks if the item procs on key press and if the player has any
 			if (count > 0 && item instanceof OnKeyPressItem) {
 				if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName() + "...");
 				OnKeyPressItem onKeyPress = (OnKeyPressItem) item;
-				//Attempts to proc the item
+				// Attempts to proc the item
 				if (onKeyPress.shouldProcOnKeypress(event, data, count)) {
 					onKeyPress.procOnKeyPress(event, data, count);
-					if (RiskOfRain2.DEBUG) System.out.println("Sucessfully procced " + item.getClass().getSimpleName());
-				} else if (RiskOfRain2.DEBUG) System.out.println("Failed! Not proccing " + item.getClass().getSimpleName());
+				}
 			}
 		}
 	}

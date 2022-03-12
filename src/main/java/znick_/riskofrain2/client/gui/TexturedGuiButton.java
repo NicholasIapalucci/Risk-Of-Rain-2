@@ -1,4 +1,4 @@
-package znick_.riskofrain2.client.gui.menu;
+package znick_.riskofrain2.client.gui;
 
 import java.awt.Color;
 

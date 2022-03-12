@@ -36,6 +36,6 @@ public class EnergyDrinkItem extends RiskOfRain2Item implements OnUpdateItem {
 
 	@Override
 	public String getDescription() {
-		return "Sprint faster.";
+		return "Increase sprint speed by +25%.";
 	}
 }

@@ -14,7 +14,8 @@ public enum ItemRarity {
 	RED(EnumChatFormatting.RED),
 	BOSS(EnumChatFormatting.YELLOW),
 	LUNAR(EnumChatFormatting.BLUE),
-	ACTIVE(EnumChatFormatting.GOLD);
+	EQUIPMENT(EnumChatFormatting.GOLD),
+	VOID(EnumChatFormatting.LIGHT_PURPLE);
 	
 	/**The color associated with the rarity.*/
 	private final EnumChatFormatting color;

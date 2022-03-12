@@ -8,6 +8,7 @@ package znick_.riskofrain2.api.ror.buff;
 public enum PlayerStat {
 	
 	ARMOR(0),
+	BARRIER(0),
 	DAMAGE_MULTIPLIER(1),
 	CRIT_CHANCE(0),
 	LUCK(0),

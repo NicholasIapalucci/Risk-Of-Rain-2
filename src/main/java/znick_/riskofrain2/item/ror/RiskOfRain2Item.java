@@ -10,6 +10,8 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.CustomRarity;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -22,7 +24,7 @@ import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
  * @author zNick_
  */
 public abstract class RiskOfRain2Item extends Item {
-
+	
 	/**The name of the item.*/
 	private final String name;
 
@@ -39,6 +41,10 @@ public abstract class RiskOfRain2Item extends Item {
 		this.setUnlocalizedName(name);
 		this.setCreativeTab(RiskOfRain2CreativeTabs.ITEMS);
 	}
+	
+	public ResourceLocation getTexture() {
+		return new ResourceLocation(RiskOfRain2.MODID + ":textures/items/items/" + this.name + ".png");
+	}
 
 	/**
 	 * Adds lines of information to the description of the item when hovering over it with the mouse in
@@ -52,6 +58,7 @@ public abstract class RiskOfRain2Item extends Item {
 	 */
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean someParam) {
+		
 		// Check if the shift key is NOT down
 		if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 			// Add the "shift for info" prompt
@@ -71,8 +78,10 @@ public abstract class RiskOfRain2Item extends Item {
 			info.add("Rarity: " + this.getRarity().getColor() + rar);
 			
 			// Add the category
-			String cat = Character.toString(this.getCategory().toString().charAt(0)).toUpperCase() + this.getCategory().toString().substring(1).toLowerCase();
-			info.add("Category: " + this.getCategory().getColor() + cat);
+			if (this.getCategory() != ItemCategory.UNKNOWN) {
+				String cat = Character.toString(this.getCategory().toString().charAt(0)).toUpperCase() + this.getCategory().toString().substring(1).toLowerCase();
+				info.add("Category: " + this.getCategory().getColor() + cat);
+			}
 		}
 	}
 	
@@ -88,7 +97,8 @@ public abstract class RiskOfRain2Item extends Item {
 		case RED: return CustomRarity.RED;
 		case LUNAR: return CustomRarity.LUNAR;
 		case BOSS: return EnumRarity.uncommon;
-		case ACTIVE: return CustomRarity.EQUIPMENT;
+		case EQUIPMENT: return CustomRarity.EQUIPMENT;
+		case VOID: return EnumRarity.epic;
 		default: return EnumRarity.common;
 		}
 	}
@@ -102,17 +112,48 @@ public abstract class RiskOfRain2Item extends Item {
 	protected List<String> getSplicedDesc() {
 		String localDesc = this.getDescription();
 		List<String> splicedDesc = new ArrayList<String>();
-
-		for (int i = 25; i > 0; i--) {
-			if (localDesc.length() > 25) {
-				if (localDesc.charAt(i) == ' ') {
-					splicedDesc.add(localDesc.substring(0, i + 1));
-					localDesc = localDesc.substring(i + 1, localDesc.length());
-				}
-			} else {
-				splicedDesc.add(localDesc);
+		
+		int maxLineLength = 25;
+		int lastSpaceIndex = 0;
+		
+		EnumChatFormatting color = null;
+		String colorName = "";
+		boolean colorLine = false;
+		
+		while (true) {
+			
+			// If what's left is less than the max limit (the end of the desc) just add it and stop.
+			if (localDesc.length() < maxLineLength) {
+				if (!colorLine) splicedDesc.add(colorName + localDesc);
+				else splicedDesc.add(localDesc);
 				break;
 			}
+			
+			// Otherwise, loop through every character
+			for (int i = 0; i < maxLineLength; i++) {
+				if (localDesc.charAt(i) == ' ') lastSpaceIndex = i;
+				else if (localDesc.charAt(i) == '\u00a7') {
+					char code = localDesc.charAt(i + 1);
+					for (EnumChatFormatting ecf : EnumChatFormatting.values()) {
+						if (ecf.getFormattingCode() == code) {
+							color = ecf;
+							colorName = color.toString();
+							colorLine = true;
+							break;
+						}
+					}
+				}
+			}
+			
+			// Splice the description at the last space to not cut words in half
+			if (!colorLine) splicedDesc.add(colorName + localDesc.substring(0, lastSpaceIndex));
+			else {
+				splicedDesc.add(localDesc.substring(0, lastSpaceIndex));
+				colorLine = false;
+			}
+			
+			// Remove the used part of the description and loop
+			localDesc = localDesc.substring(lastSpaceIndex + 1);
 		}
 
 		return splicedDesc;
@@ -135,7 +176,12 @@ public abstract class RiskOfRain2Item extends Item {
 	 * Returns whether or not this is a special item that should not be included in the standard
 	 * set of items when generating loot, such as item scrap or command essence.
 	 */
-	public boolean isSpecialItem() {
+	public boolean isSpecial() {
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "Risk Of Rain 2 Item: " + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name");
 	}
 }

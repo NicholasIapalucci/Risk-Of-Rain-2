@@ -48,6 +48,8 @@ tile.risk_chest.name=Risk Of Rain 2 Chest
 tile.lunar_pod.name=Lunar Pod
 tile.printer.name=3D Printer
 
+# White Items -----------------------------------------------------------------------------------
+
 item.repulsion_armor_plate.name=Repulsion Armor Plate
 item.topaz_brooch.name=Topaz Brooch
 item.tougher_times.name=Tougher Times
@@ -57,6 +59,8 @@ item.crit_glasses.name=Lens-Maker Glasses
 item.crowbar.name=Crowbar
 item.fireworks.name=Fireworks
 item.bison_steak.name=Bison Steak
+item.delicate_watch.name=Delicate Watch
+item.broken_delicate_watch.name=Delicate Watch (Broken)
 item.cautious_slug.name=Cautious Slug
 item.goat_hoof.name=Paul's Goat Hoof
 item.gasoline.name=Gasoline
@@ -74,6 +78,8 @@ item.monster_tooth.name=Monster Tooth
 item.rusted_key.name=Rusted Key
 item.warbanner.name=Warbanner
 item.white_command_essence.name=Command Essence (White)
+
+# Green Items -----------------------------------------------------------------------------------
 
 item.predatory_instincts.name=Predatory Instincts
 item.bandolier.name=Bandolier
@@ -103,6 +109,8 @@ item.razorwire.name=Razorwire
 item.berserkers_pauldron.name=Berserker's Pauldron
 item.war_banner.name=Warbanner
 
+# Red Items -----------------------------------------------------------------------------------
+
 item.alien_head.name=Alien Head
 item.shattering_justice.name=Shattering Justice
 item.aegis.name=Aegis
@@ -124,6 +132,8 @@ item.unstable_tesla_coil.name=Unstable Tesla Coil
 item.soulbound_catalyst=Soulbound Catalyst
 item.hardlight_afterburner.name=Hardlight Afterburner
 
+# Boss Items -----------------------------------------------------------------------------------
+
 item.queens_gland.name=Queen's Gland
 item.shatterspleen.name=Shatterspleen
 item.titanic_knurl.name=Titanic Knurl
@@ -133,6 +143,14 @@ item.mired_urn.name=Mired Urn
 item.little_disciple.name=Little Disciple
 item.halcyon_seed.name=Halcyon Seed
 item.boss_scrap.name=Item Scrap (Boss)
+
+# Void Items -----------------------------------------------------------------------------------
+
+item.safer_spaces.name=Safer Spaces
+item.weeping_fungus.name=Weeping Fungus
+item.pluripotent_larva.name=Pluripotent Larva
+
+# Lunar Items -----------------------------------------------------------------------------------
 
 item.gesture_of_the_drowned.name=Gesture of the Drowned
 item.focused_convergence.name=Focused Convergence
@@ -148,6 +166,8 @@ item.hellfire_tincture.name=Hellfire Tincture
 item.effigy_of_grief.name=Effigy of Grief
 item.glowing_meteorite.name=Glowing Meteorite
 item.spinel_tonic.name=Spinel Tonic
+
+# Equipment Items -----------------------------------------------------------------------------------
 
 item.preon_accumulator.name=Preon Accumulator
 item.primordial_cube.name=Primordial Cube

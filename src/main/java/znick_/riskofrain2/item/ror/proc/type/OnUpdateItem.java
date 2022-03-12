@@ -9,11 +9,21 @@ public interface OnUpdateItem {
 	 * Called when a player is updated every tick. Used to proc items that apply every tick. Classes that
 	 * implement 
 	 * 
-	 * @param event The event used for the attack
-	 * @param player The player who attacked
+	 * @param event The event used for the update
+	 * @param player The player who was updated
 	 * @param itemCount The amount of the item that the player has
 	 */
 	public abstract void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount);
 	
+	/**
+	 * Returns whether or not the item should proc at the given update tick. Called each update tick so
+	 * random generators can be used here. 
+	 * 
+	 * @param event The event used for the update
+	 * @param player The player who was updated
+	 * @param itemCount The amount of the item that the player has
+	 * 
+	 * @return true iff the item should proc.
+	 */
 	public abstract boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount);
 }

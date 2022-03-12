@@ -36,7 +36,7 @@ public class Gasoline extends RiskOfRain2Item implements OnKillItem {
 
 	@Override
 	public String getDescription() {
-		return "Killing enemies sets nearby enemies on fire.";
+		return "Killing an enemy ignites other nearby enemies.";
 	}
 
 }

@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
@@ -24,8 +25,10 @@ import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.event.handler.TickHandler;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.list.white.topazbrooch.BarrierPacketHandler.BarrierPacket;
 import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerBuff;
+import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.net.SoundPacketHandler;
@@ -55,8 +58,7 @@ public class PlayerData implements IExtendedEntityProperties {
 	/**The current amount of ticks left until the player can use equipment again.*/
 	private int equipmentCooldown = 0;
 	
-	/**The amount of barrier the player has, from items such as topaz brooch or aegis.*/
-	private int barrier = 0;
+	private final Set<RiskOfRain2Item> unlockedItems = new HashSet<>();
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -67,6 +69,29 @@ public class PlayerData implements IExtendedEntityProperties {
 		if (get(player) != null) throw new IllegalArgumentException("Player already registered.");
 		this.player = player;
 		for (PlayerStat stat : PlayerStat.values()) this.resetStat(stat);
+	}
+	
+	@Override
+	public void saveNBTData(NBTTagCompound compound) {
+		NBTTagCompound properties = new NBTTagCompound();
+		int i = 0;
+		for (RiskOfRain2Item item : this.unlockedItems) {
+			properties.setInteger("item_" + i, Item.getIdFromItem(item));
+			i++;
+		}
+		compound.setTag(EXT_PROP_NAME, properties);
+	}
+
+	@Override
+	public void loadNBTData(NBTTagCompound compound) {
+		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
+		int i = 0;
+		while(true) {
+			int id = properties.getInteger("item_" + i);
+			if (id == 0) break;
+			this.unlockedItems.add((RiskOfRain2Item) Item.getItemById(id));
+			i++;
+		}
 	}
 	
 	/**
@@ -125,7 +150,8 @@ public class PlayerData implements IExtendedEntityProperties {
 	 * @param buffClass The class of the buff to remove.
 	 */
 	public void removeBuff(Class<? extends Buff> buffClass) {
-		for (Buff buff : this.buffs) if (buff.getClass() == buffClass) this.removeBuff(buff);
+		// Loop through a copy of the set to prevent ConcurrentModificationExceptions
+		for (Buff buff : new HashSet<>(this.buffs)) if (buff.getClass() == buffClass) this.removeBuff(buff);
 	}
 	
 	/**
@@ -151,17 +177,21 @@ public class PlayerData implements IExtendedEntityProperties {
 	/**
 	 * Removes all expired duration buffs. Also, if the player no longer has the item that gives a buff,
 	 * it will remove that buff as well. This rule does not apply to certain buffs that come from blocks
-	 * such as the Warbanner, as the player does not need to have the item to receive the buff.
+	 * such as the Warbanner, as the player does not need to have the item to receive the buff. Also
+	 * applies any buffs that should be repeatedly applied.
 	 */
-	public void removeExcessBuffs() {
+	public void updateBuffs() {
 		for (Buff buff : this.getBuffs()) {
-			//Remove all expired duration buffs
+			// Remove all expired duration buffs
 			if (buff instanceof DurationBuff) {
 				DurationBuff db = (DurationBuff) buff;
 				if (db.getStartTick() + db.getDuration() < TickHandler.server()) {
 					this.removeBuff(db);
 				}
 			}
+			
+			// Repeat all repeating buffs
+			if (buff.shouldRepeat()) buff.applyEffect(this);
 			
 			/*
 			 * Remove all buffs that correspond to items the player no longer has. Skip warbanner
@@ -273,17 +303,6 @@ public class PlayerData implements IExtendedEntityProperties {
 		 * If the player has no luck (default), simply roll once and return.
 		 */
 		else return chance < procChance;
-	}
-	
-	@Override
-	public void saveNBTData(NBTTagCompound compound) {
-		NBTTagCompound properties = new NBTTagCompound();
-	}
-
-	@Override
-	public void loadNBTData(NBTTagCompound compound) {
-		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
-
 	}
 	
 	public Loadout getLoadout() {
@@ -432,7 +451,7 @@ public class PlayerData implements IExtendedEntityProperties {
 	 * Retrieves the amount of barrier the player has.
 	 */
 	public int getBarrier() {
-		return this.barrier/100;
+		return (int) (this.getStat(PlayerStat.BARRIER) / 100d);
 	}
 	
 	/**
@@ -440,11 +459,11 @@ public class PlayerData implements IExtendedEntityProperties {
 	 * Used for decreasing the barrier amount with natural degeneration more fluidly. 
 	 */
 	public int getExactBarrier() {
-		return this.barrier;
+		return (int) this.getStat(PlayerStat.BARRIER);
 	}
 
 	public void removeBarrier(double barrierAmount) {
-		this.setBarrier((this.barrier - (barrierAmount * 100))/100);
+		this.setBarrier((this.getStat(PlayerStat.BARRIER) - (barrierAmount * 100))/100);
 	}
 
 	/**
@@ -468,10 +487,69 @@ public class PlayerData implements IExtendedEntityProperties {
 	} 
 	
 	private void setBarrierManual(int barrier) {
-		this.barrier = (int) MathHelper.constrain(barrier, 0, this.getMaxHealth() * 100);
+		this.setStat(PlayerStat.BARRIER, (int) MathHelper.constrain(barrier, 0, this.getMaxHealth() * 100));
 	}
 	
 	public void tickBarrier() {
 		this.removeBarrier(0.1);
+	}
+	
+	public void unlock(RiskOfRain2Item item) {
+		this.unlockedItems.add(item);
+	}
+	
+	public boolean hasUnlocked(RiskOfRain2Item item) {
+		return this.unlockedItems.contains(item);
+	}
+
+	public RiskOfRain2Item[] getUnlockedItems(ItemRarity rarity) {
+		return this.unlockedItems.stream().filter(item -> item.getRarity() == rarity).toArray(RiskOfRain2Item[]::new);
+	}
+
+	public void removeAllItems(Item item) {
+		ItemStack[] items = this.player.inventory.mainInventory;
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] != null && items[i].getItem() == item) {
+				items[i] = null;
+			}
+		}
+	}
+	
+	public void removeItem(Item item) {
+		ItemStack[] items = this.player.inventory.mainInventory;
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] != null && items[i].getItem() == item) {
+				if (items[i].stackSize > 1) items[i].stackSize--;
+				else items[i] = null;
+			}
+		}
+	}
+	
+	public void removeItem(Item item, int count) {
+		for (int i = 0; i < count; i++) this.removeItem(item);
+	}
+
+	/**
+	 * Replaces all items in the player's inventory with a different item. 
+	 * 
+	 * @param toReplace The item to replace
+	 * @param replaceWith The item to replace it with
+	 */
+	public void replaceAllItems(Item toReplace, Item replaceWith) {
+		ItemStack[] items = this.player.inventory.mainInventory;
+		for (int i = 0; i < items.length; i++) {
+			ItemStack stack = items[i];
+			if (stack != null && stack.getItem() == toReplace) {
+				this.player.inventory.mainInventory[i] = new ItemStack(replaceWith, stack.stackSize);
+			}
+		}
+	}
+	
+	public boolean isMoving() {
+		return !this.isStandingStill();
+	}
+	
+	public boolean isStandingStill() {
+		return this.player.motionX == 0 && this.player.motionY == 0 && this.player.motionZ == 0;
 	}
 } 

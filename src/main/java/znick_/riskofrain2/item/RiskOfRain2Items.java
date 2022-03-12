@@ -12,6 +12,9 @@ import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.item.armor.ArmorPiece;
 import znick_.riskofrain2.item.armor.ArmorType;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.pluripotentlarva.PluripotentLarvaItem;
+import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.saferspaces.SaferSpacesItem;
+import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.weepingfungus.WeepingFungusItem;
 import znick_.riskofrain2.item.ror.list.CommandEssence;
 import znick_.riskofrain2.item.ror.list.ScrapItem;
 import znick_.riskofrain2.item.ror.list.boss.pearl.PearlItem;
@@ -39,9 +42,7 @@ import znick_.riskofrain2.item.ror.list.red.HeadSet;
 import znick_.riskofrain2.item.ror.list.red.RejuvinationRack;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendItem;
 import znick_.riskofrain2.item.ror.list.red.fiftysevenleafclover.FiftySevenLeafClover;
-import znick_.riskofrain2.item.ror.list.white.ArmorPiercingRoundsItem;
 import znick_.riskofrain2.item.ror.list.white.BisonSteak;
-import znick_.riskofrain2.item.ror.list.white.BustlingFungus;
 import znick_.riskofrain2.item.ror.list.white.Crowbar;
 import znick_.riskofrain2.item.ror.list.white.FocusCrystal;
 import znick_.riskofrain2.item.ror.list.white.Gasoline;
@@ -52,8 +53,12 @@ import znick_.riskofrain2.item.ror.list.white.RustedKey;
 import znick_.riskofrain2.item.ror.list.white.SoldierSyringe;
 import znick_.riskofrain2.item.ror.list.white.TougherTimes;
 import znick_.riskofrain2.item.ror.list.white.TriTipDagger;
+import znick_.riskofrain2.item.ror.list.white.armorpiercingrounds.ArmorPiercingRoundsItem;
+import znick_.riskofrain2.item.ror.list.white.bustlingfungus.BustlingFungusItem;
 import znick_.riskofrain2.item.ror.list.white.cautiousslug.CautiousSlugItem;
 import znick_.riskofrain2.item.ror.list.white.critglasses.CritGlassesItem;
+import znick_.riskofrain2.item.ror.list.white.delicatewatch.BrokenDelicateWatchItem;
+import znick_.riskofrain2.item.ror.list.white.delicatewatch.DelicateWatchItem;
 import znick_.riskofrain2.item.ror.list.white.energydrink.EnergyDrinkItem;
 import znick_.riskofrain2.item.ror.list.white.goathoof.GoatHoofItem;
 import znick_.riskofrain2.item.ror.list.white.medkit.MedkitItem;
@@ -117,6 +122,9 @@ public class RiskOfRain2Items {
 	 */
 	public static final Item CROWBAR = new Crowbar();
 	public static final Item BISON_STEAK = new BisonSteak();
+	
+	public static final Item BROKEN_DELICATE_WATCH = new BrokenDelicateWatchItem();
+	public static final Item DELICATE_WATCH = new DelicateWatchItem();
 	/**
 	 * The "cautious slug" item. Activates when the player does not take damage for 7 seconds. Begins healing the
 	 * player at a rate of 1 (/2 per item) second per half-heart. Deactivates when the player takes damage.
@@ -137,7 +145,7 @@ public class RiskOfRain2Items {
 	 * The "medkit" item. Heals the player 2 seconds after they take damage for 2 (+1 per item) hearts.
 	 */
 	public static final Item MEDKIT = new MedkitItem();
-	public static final Item BUSTLING_FUNGUS = new BustlingFungus();
+	public static final Item BUSTLING_FUNGUS = new BustlingFungusItem();
 	/**
 	 * The "focus crystal" item. Causes the player to deal 20% (+20% per stack) more damage to enemies within 
 	 * 4 blocks of the player.
@@ -237,6 +245,11 @@ public class RiskOfRain2Items {
 	public static final Item TITANIC_KNURL = new TitanicKnurlItem();
 	public static final Item BOSS_SCRAP = new ScrapItem(ItemRarity.BOSS);
 	
+	// Void Items 
+	public static final Item SAFER_SPACES = new SaferSpacesItem();
+	public static final Item WEEPING_FUNGUS = new WeepingFungusItem();
+	public static final Item PLURIPOTENT_LARVA = new PluripotentLarvaItem();
+	
 	//Lunar Items
 	public static final Item SHAPED_GLASS = new ShapedGlass();
 	public static final Item PURITY = new Purity();
@@ -265,8 +278,7 @@ public class RiskOfRain2Items {
 					GameRegistry.registerItem(item, item.getUnlocalizedName().substring(5));
 					
 					// Register items into the item set
-					if (item instanceof RiskOfRain2Item) {
-						
+					if (item instanceof RiskOfRain2Item) {	
 						ITEM_SET.add((RiskOfRain2Item) item);
 					}
 				}

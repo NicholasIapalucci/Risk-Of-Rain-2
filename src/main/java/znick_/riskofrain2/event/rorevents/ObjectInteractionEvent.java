@@ -8,7 +8,9 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 /**
  * The {@code ObjectInteractionEvent} is fired when a player interacts with a Risk of Rain 2 
  * object. It is fired before other events such as {@code GenerateItemEvent}. Canceling this
- * will properly and fully cancel the event, and will not open chests or play sounds etc. 
+ * will properly and fully cancel the event, and will not open chests or play sounds etc. In
+ * order to check what type of object was interacted with, use an {@code instanceof} check on
+ * the tile entity.
  * 
  * @author zNick_
  */
@@ -22,7 +24,7 @@ public class ObjectInteractionEvent extends PlayerEvent {
 		this.object = object;
 	}
 	
-	public TileEntity getObject() {
+	public TileEntity getInteractedObject() {
 		return this.object;
 	}
 

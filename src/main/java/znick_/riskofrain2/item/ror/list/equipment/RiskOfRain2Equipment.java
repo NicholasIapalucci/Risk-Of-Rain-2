@@ -62,7 +62,7 @@ public abstract class RiskOfRain2Equipment extends RiskOfRain2Item implements On
 
 	@Override
 	public ItemRarity getRarity() {
-		return ItemRarity.ACTIVE;
+		return ItemRarity.EQUIPMENT;
 	}
 	
 	@Override

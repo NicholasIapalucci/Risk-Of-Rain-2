@@ -10,6 +10,7 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
+import znick_.riskofrain2.client.gui.TexturedGuiButton;
 
 public class RiskOfRain2MenuButton extends TexturedGuiButton {
 

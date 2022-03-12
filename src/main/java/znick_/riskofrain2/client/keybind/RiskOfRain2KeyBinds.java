@@ -16,7 +16,8 @@ public enum RiskOfRain2KeyBinds {
 	SECONDARY(Keyboard.KEY_Z, "key.secondary.desc", "key.riskofrain2.category"),
 	UTILITY(Keyboard.KEY_LMENU, "key.utility.desc", "key.riskofrain2.category"),
 	SPECIAL(Keyboard.KEY_R, "key.special.desc", "key.riskofrain2.category"),
-	ACTIVE(Keyboard.KEY_C, "key.active.desc", "key.riskofrain2.category");
+	ACTIVE(Keyboard.KEY_C, "key.active.desc", "key.riskofrain2.category"),
+	LOGBOOK(Keyboard.KEY_L, "key.logbook.desc", "key.riskofrain2.category");
 	
 	private int bind;
 	private KeyBinding kb;
@@ -51,10 +52,8 @@ public enum RiskOfRain2KeyBinds {
 	 * Registers the keybindings into the game.
 	 */
 	public static void registerKeyBinds() {
-		ClientRegistry.registerKeyBinding(PRIMARY.getKeyBinding());
-		ClientRegistry.registerKeyBinding(SECONDARY.getKeyBinding());
-		ClientRegistry.registerKeyBinding(UTILITY.getKeyBinding());
-		ClientRegistry.registerKeyBinding(SPECIAL.getKeyBinding());
-		ClientRegistry.registerKeyBinding(ACTIVE.getKeyBinding());
+		for (RiskOfRain2KeyBinds bind : RiskOfRain2KeyBinds.values()) {
+			ClientRegistry.registerKeyBinding(bind.getKeyBinding());
+		}
 	}
 }

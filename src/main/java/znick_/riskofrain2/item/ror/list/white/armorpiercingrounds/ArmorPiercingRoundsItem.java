@@ -1,9 +1,8 @@
-package znick_.riskofrain2.item.ror.list.white;
+package znick_.riskofrain2.item.ror.list.white.armorpiercingrounds;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -18,7 +17,7 @@ public class ArmorPiercingRoundsItem extends RiskOfRain2Item implements OnHitIte
 	
 	@Override
 	public void procOnHit(LivingAttackEvent event, PlayerData player, EntityLivingBase enemy, int itemCount) {
-		player.multiplyStat(PlayerStat.DAMAGE_MULTIPLIER, 1 + 0.2 * itemCount);
+		player.addBuff(new ArmorPiercingRoundsBuff(itemCount));
 	}
 
 	@Override

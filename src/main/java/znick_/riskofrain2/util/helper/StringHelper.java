@@ -3,6 +3,7 @@ package znick_.riskofrain2.util.helper;
 public class StringHelper {
 
 	public static String format(String s) {
+		s = s.toLowerCase();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < s.length(); i++) {
 			if (i == 0 || s.charAt(i - 1) == '_') sb.append(Character.toUpperCase(s.charAt(i)));

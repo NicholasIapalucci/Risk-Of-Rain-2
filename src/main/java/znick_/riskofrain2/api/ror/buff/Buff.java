@@ -47,4 +47,8 @@ public abstract class Buff {
 	public int getItemCount() {
 		return this.itemCount;
 	}
+	
+	public boolean shouldRepeat() {
+		return false;
+	}
 }

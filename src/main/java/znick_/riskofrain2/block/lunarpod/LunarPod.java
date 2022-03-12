@@ -21,9 +21,10 @@ public class LunarPod extends Block implements IBlockItem {
 	//TODO: Add lunar pod generation
 	public LunarPod() {
 		super(Material.cloth);
+		this.setBlockName("lunar_pod");
 		this.setStepSound(soundTypeSnow);
 		this.setBlockUnbreakable();
-		this.setBlockTextureName(RiskOfRain2.MODID + ":lunarPod"); //TODO: Add lunar pod textures
+		this.setBlockTextureName(RiskOfRain2.MODID + ":lunar_pod"); //TODO: Add lunar pod textures
 		this.setCreativeTab(RiskOfRain2CreativeTabs.MISC);
 	}
 

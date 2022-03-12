@@ -42,7 +42,7 @@ public class ScrapItem extends RiskOfRain2Item {
 	}
 	
 	@Override
-	public boolean isSpecialItem() {
+	public boolean isSpecial() {
 		return true;
 	}
 }
