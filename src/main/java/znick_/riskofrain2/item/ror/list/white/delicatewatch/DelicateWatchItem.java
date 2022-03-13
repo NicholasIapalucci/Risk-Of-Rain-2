@@ -68,7 +68,7 @@ public class DelicateWatchItem extends DLCItem implements ConsumableItem, OnHurt
 
 	@Override
 	public RiskOfRain2Item getBrokenItem() {
-		return (RiskOfRain2Item) RiskOfRain2Items.BROKEN_DELICATE_WATCH;
+		return RiskOfRain2Items.BROKEN_DELICATE_WATCH;
 	}
 
 }

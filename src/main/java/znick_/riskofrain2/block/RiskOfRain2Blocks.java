@@ -5,14 +5,14 @@ import java.lang.reflect.Field;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import znick_.riskofrain2.block.chest.SmallChest;
 import znick_.riskofrain2.block.itemblock.BlockItem;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
-import znick_.riskofrain2.block.lunarpod.LunarPod;
+import znick_.riskofrain2.block.itemgen.lunarpod.LunarPod;
+import znick_.riskofrain2.block.itemgen.printer.Printer3D;
+import znick_.riskofrain2.block.itemgen.smallchest.SmallChestBlock;
 import znick_.riskofrain2.block.ore.OreBlock;
 import znick_.riskofrain2.block.ore.OreData;
 import znick_.riskofrain2.block.ore.OreGenerator;
-import znick_.riskofrain2.block.printer.Printer3D;
 import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerBlock;
 
 public class RiskOfRain2Blocks {
@@ -28,7 +28,7 @@ public class RiskOfRain2Blocks {
 	
 	//Misc
 	public static final Block PRINTER_3D = new Printer3D();
-	public static final Block CHEST = new SmallChest();
+	public static final Block CHEST = new SmallChestBlock();
 	public static final Block LUNAR_POD = new LunarPod();
 	
 	/**

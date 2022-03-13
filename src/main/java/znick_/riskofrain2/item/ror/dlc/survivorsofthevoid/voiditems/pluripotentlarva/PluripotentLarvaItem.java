@@ -20,7 +20,7 @@ public class PluripotentLarvaItem extends VoidItem {
 
 	@Override
 	public RiskOfRain2Item[] getCorruptedItems() {
-		return new RiskOfRain2Item[] {(RiskOfRain2Item) RiskOfRain2Items.DIOS_BEST_FRIEND};
+		return new RiskOfRain2Item[] {RiskOfRain2Items.DIOS_BEST_FRIEND};
 	}
 
 }

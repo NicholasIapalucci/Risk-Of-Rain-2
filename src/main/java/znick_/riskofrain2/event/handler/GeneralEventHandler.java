@@ -5,6 +5,8 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -14,7 +16,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 import znick_.riskofrain2.client.gui.menu.RiskOfRain2MainMenu;
-import znick_.riskofrain2.item.ror.list.CommandEssence;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 public class GeneralEventHandler extends EventHandler {
 
@@ -32,10 +34,22 @@ public class GeneralEventHandler extends EventHandler {
 	}
 	
 	@SubscribeEvent
-	public void useCommandEssence(ItemPickupEvent event) {
-		if (event.pickedUp == null || 
-			event.pickedUp.getEntityItem() == null || 
-			!(event.pickedUp.getEntityItem().getItem() instanceof CommandEssence)) return;
+	public void onItemPickup(ItemPickupEvent event) {
+		// Make sure the item is valid
+		if (event.pickedUp == null || event.pickedUp.getEntityItem() == null || event.pickedUp.getEntityItem().getItem() == null) return;
+		
+		// Initialize some helpful variables
+		ItemStack stack = event.pickedUp.getEntityItem();
+		Item item = stack.getItem();
+		PlayerData player = PlayerData.get(event.player);
+		
+		// Check if the item is a Risk Of Rain 2 item
+		if (item instanceof RiskOfRain2Item) {
+			RiskOfRain2Item rorItem = (RiskOfRain2Item) item;
+			
+			// If the player hasn't found the item, mark it as found.
+			if (!player.hasFound(rorItem) && player.hasUnlocked(rorItem)) player.find(rorItem);
+		}
 	}
 	
 	@SubscribeEvent
@@ -71,6 +85,6 @@ public class GeneralEventHandler extends EventHandler {
 	public void handleBarrierDegen(LivingUpdateEvent event) {
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		PlayerData player = PlayerData.get((EntityPlayer) event.entityLiving);
-		if (player.getBarrier() > 0) player.tickBarrier();
+		if (player.getBarrier() > 0) player.degenBarrier();
 	}
 }

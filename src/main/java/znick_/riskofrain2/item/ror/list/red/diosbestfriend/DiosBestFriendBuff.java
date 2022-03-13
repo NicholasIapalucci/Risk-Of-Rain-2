@@ -13,7 +13,7 @@ public class DiosBestFriendBuff extends DurationBuff {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "dios_best_friend.png");
 	
 	public DiosBestFriendBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.DIOS_BEST_FRIEND, itemCount, (int) TickHandler.fromSeconds(3));
+		super(RiskOfRain2Items.DIOS_BEST_FRIEND, itemCount, (int) TickHandler.fromSeconds(3));
 	}
 	
 	@Override

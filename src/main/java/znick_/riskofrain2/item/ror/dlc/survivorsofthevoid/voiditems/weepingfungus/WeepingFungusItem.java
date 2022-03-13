@@ -20,7 +20,7 @@ public class WeepingFungusItem extends VoidItem implements OnUpdateItem {
 
 	@Override
 	public RiskOfRain2Item[] getCorruptedItems() {
-		return new RiskOfRain2Item[] {(RiskOfRain2Item) RiskOfRain2Items.BUSTLING_FUNGUS};
+		return new RiskOfRain2Item[] {RiskOfRain2Items.BUSTLING_FUNGUS};
 	}
 
 	@Override

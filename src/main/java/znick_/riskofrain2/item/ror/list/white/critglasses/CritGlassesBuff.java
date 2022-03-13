@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class CritGlassesBuff extends StatBuff {
 
 	public CritGlassesBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.CRIT_GLASSES, PlayerStat.CRIT_CHANCE, itemCount);
+		super(RiskOfRain2Items.CRIT_GLASSES, PlayerStat.CRIT_CHANCE, itemCount);
 	}
 
 	@Override

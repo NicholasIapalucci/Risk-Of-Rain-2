@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class FiftySevenLeafCloverBuff extends Buff {
 
 	public FiftySevenLeafCloverBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.FIFTY_SEVEN_LEAF_CLOVER, itemCount);
+		super(RiskOfRain2Items.FIFTY_SEVEN_LEAF_CLOVER, itemCount);
 	}
 
 	@Override

@@ -1,7 +1,8 @@
 package znick_.riskofrain2.event.rorevents;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 /**
@@ -14,7 +15,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
  * @author zNick_
  */
 @Cancelable
-public class GenerateItemEvent extends Event {
+public class GenerateItemEvent extends PlayerEvent {
 
 	private RiskOfRain2Item item;
 	private final GenerationSource source;
@@ -25,7 +26,8 @@ public class GenerateItemEvent extends Event {
 	 * @param source The source that generated the item
 	 * @param item The item that was generated
 	 */
-	public GenerateItemEvent(GenerationSource source, RiskOfRain2Item item) {
+	public GenerateItemEvent(GenerationSource source, RiskOfRain2Item item, EntityPlayer player) {
+		super(player);
 		this.item = item;
 		this.source = source;
 	}

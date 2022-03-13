@@ -14,8 +14,10 @@ public class ArtifactEventHandler extends EventHandler {
 		if (event.source == DamageSource.fall) event.ammount *= 2;
 	}
 	
+	@SuppressWarnings("unused")
 	@SubscribeEvent
 	public void artifactOfCommand(GenerateItemEvent event) {
+		if (true) return;
 		event.setItem(ArtifactOfCommand.getEssenceFromRarity(event.getItem().getRarity()));
 	}
 }

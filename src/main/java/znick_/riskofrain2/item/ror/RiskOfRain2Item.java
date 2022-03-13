@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -183,5 +184,9 @@ public abstract class RiskOfRain2Item extends Item {
 	@Override
 	public String toString() {
 		return "Risk Of Rain 2 Item: " + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name");
+	}
+	
+	public Achievement getAchievement() {
+		return null;
 	}
 }

@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class InfusionBuff extends Buff {
 
 	public InfusionBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.INFUSION, itemCount);
+		super(RiskOfRain2Items.INFUSION, itemCount);
 	}
 
 	@Override

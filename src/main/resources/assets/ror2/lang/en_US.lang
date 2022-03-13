@@ -51,6 +51,7 @@ tile.printer.name=3D Printer
 # White Items -----------------------------------------------------------------------------------
 
 item.repulsion_armor_plate.name=Repulsion Armor Plate
+item.mocha.name=Mocha
 item.topaz_brooch.name=Topaz Brooch
 item.tougher_times.name=Tougher Times
 item.tritip_dagger.name=Tri-Tip Dagger
@@ -62,6 +63,8 @@ item.bison_steak.name=Bison Steak
 item.delicate_watch.name=Delicate Watch
 item.broken_delicate_watch.name=Delicate Watch (Broken)
 item.cautious_slug.name=Cautious Slug
+item.power_elixir.name=Power Elixir
+item.empty_bottle.name=Empty Bottle
 item.goat_hoof.name=Paul's Goat Hoof
 item.gasoline.name=Gasoline
 item.medkit.name=Medkit
@@ -77,7 +80,6 @@ item.soldier_syringe.name=Soldier Syringe
 item.monster_tooth.name=Monster Tooth
 item.rusted_key.name=Rusted Key
 item.warbanner.name=Warbanner
-item.white_command_essence.name=Command Essence (White)
 
 # Green Items -----------------------------------------------------------------------------------
 
@@ -178,3 +180,12 @@ item.forgive_me_please=Forgive Me Please
 item.jade_elephant.name=Jade Elephant
 item.super_massive_leech.name=Supermassive Leech
 item.foreign_fruit.name=Foreign Fruit
+
+# Miscellaneous Items ---------------------------------------------------------------------------------
+
+item.white_command_essence.name=Command Essence (White)
+item.green_command_essence.name=Command Essence (Green)
+item.red_command_essence.name=Command Essence (Red)
+item.boss_command_essence.name=Command Essence (Boss)
+item.lunar_command_essence.name=Command Essence (Lunar)
+item.equipment_command_essence.name=Command Essence (Equipment)

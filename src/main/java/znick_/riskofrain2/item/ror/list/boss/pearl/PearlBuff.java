@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class PearlBuff extends Buff {
 
 	public PearlBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.PEARL, itemCount);
+		super(RiskOfRain2Items.PEARL, itemCount);
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public class SaferSpacesItem extends VoidItem implements OnHurtItem, OnUpdateIte
 
 	@Override
 	public RiskOfRain2Item[] getCorruptedItems() {
-		return new RiskOfRain2Item[] {(RiskOfRain2Item) RiskOfRain2Items.TOUGHER_TIMES};
+		return new RiskOfRain2Item[] {RiskOfRain2Items.TOUGHER_TIMES};
 	}
 
 	@Override

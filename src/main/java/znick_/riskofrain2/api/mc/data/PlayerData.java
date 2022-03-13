@@ -9,6 +9,7 @@ import java.util.Set;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.PlayerCapabilities;
@@ -25,6 +26,7 @@ import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.event.handler.TickHandler;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.list.white.topazbrooch.BarrierPacketHandler.BarrierPacket;
 import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerBuff;
@@ -58,7 +60,10 @@ public class PlayerData implements IExtendedEntityProperties {
 	/**The current amount of ticks left until the player can use equipment again.*/
 	private int equipmentCooldown = 0;
 	
+	/**The set of items that the player has unlocked.o*/
 	private final Set<RiskOfRain2Item> unlockedItems = new HashSet<>();
+	/**The set of items that the player has found in the world.*/
+	private final Set<RiskOfRain2Item> foundItems = new HashSet<>();
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -69,6 +74,7 @@ public class PlayerData implements IExtendedEntityProperties {
 		if (get(player) != null) throw new IllegalArgumentException("Player already registered.");
 		this.player = player;
 		for (PlayerStat stat : PlayerStat.values()) this.resetStat(stat);
+		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) if (item.getAchievement() == null) this.unlockedItems.add(item);
 	}
 	
 	@Override
@@ -96,6 +102,7 @@ public class PlayerData implements IExtendedEntityProperties {
 	
 	/**
 	 * Registers the given player with a new instance of {@code PlayerData}.
+	 * @param player The player to register
 	 * 
 	 * @throws IllegalArgumentException if the player is already registered.
 	 */
@@ -150,8 +157,8 @@ public class PlayerData implements IExtendedEntityProperties {
 	 * @param buffClass The class of the buff to remove.
 	 */
 	public void removeBuff(Class<? extends Buff> buffClass) {
-		// Loop through a copy of the set to prevent ConcurrentModificationExceptions
-		for (Buff buff : new HashSet<>(this.buffs)) if (buff.getClass() == buffClass) this.removeBuff(buff);
+		// Loop through an array of the set to prevent ConcurrentModificationExceptions
+		for (Buff buff : this.getBuffs()) if (buff.getClass() == buffClass) this.removeBuff(buff);
 	}
 	
 	/**
@@ -490,7 +497,10 @@ public class PlayerData implements IExtendedEntityProperties {
 		this.setStat(PlayerStat.BARRIER, (int) MathHelper.constrain(barrier, 0, this.getMaxHealth() * 100));
 	}
 	
-	public void tickBarrier() {
+	/**
+	 * Handles barrier degeneration by decreasing the barrier by 1/100. Should be called every tick.
+	 */
+	public void degenBarrier() {
 		this.removeBarrier(0.1);
 	}
 	
@@ -498,14 +508,47 @@ public class PlayerData implements IExtendedEntityProperties {
 		this.unlockedItems.add(item);
 	}
 	
+	/**
+	 * Returns whether or not the player has unlocked the given item.
+	 * 
+	 * @param item The item to check
+	 * @return true iff the player has unlocked the item
+	 */
 	public boolean hasUnlocked(RiskOfRain2Item item) {
 		return this.unlockedItems.contains(item);
 	}
 
+	/**
+	 * Returns an array of the items that the player has unlocked. Note that this does not mean that
+	 * they have been <i>found</i>, just unlocked.
+	 * 
+	 * @param rarity the rarity of the unlocked items to get
+	 * @return An array of items of the given rarity that the player has unlocked
+	 */
 	public RiskOfRain2Item[] getUnlockedItems(ItemRarity rarity) {
 		return this.unlockedItems.stream().filter(item -> item.getRarity() == rarity).toArray(RiskOfRain2Item[]::new);
 	}
+	
+	/**
+	 * Returns an array of all of the items that the player has unlocked.
+	 */
+	public RiskOfRain2Item[] getUnlockedItems() {
+		return this.unlockedItems.toArray(new RiskOfRain2Item[0]);
+	}
+	
+	public boolean hasFound(RiskOfRain2Item item) {
+		return this.foundItems.contains(item);
+	}
+	
+	public void find(RiskOfRain2Item item) {
+		this.foundItems.add(item);
+	}
 
+	/**
+	 * Removes all of the given item from the player's inventory
+	 * 
+	 * @param item The item to remove
+	 */
 	public void removeAllItems(Item item) {
 		ItemStack[] items = this.player.inventory.mainInventory;
 		for (int i = 0; i < items.length; i++) {
@@ -515,6 +558,12 @@ public class PlayerData implements IExtendedEntityProperties {
 		}
 	}
 	
+	/**
+	 * Removes a single item from the players inventory. This removes one item, not all of them.
+	 * For that use {@link #removeAllItems(Item)}.
+	 * 
+	 * @param item The item to remove
+	 */
 	public void removeItem(Item item) {
 		ItemStack[] items = this.player.inventory.mainInventory;
 		for (int i = 0; i < items.length; i++) {
@@ -525,8 +574,32 @@ public class PlayerData implements IExtendedEntityProperties {
 		}
 	}
 	
+	/**
+	 * Removes the specified amount of some item from the player's inventory.
+	 * 
+	 * @param item The item to remove
+	 * @param count The amount of the item to remove
+	 */
 	public void removeItem(Item item, int count) {
 		for (int i = 0; i < count; i++) this.removeItem(item);
+	}
+	
+	public void replaceItem(Item toReplace, Item replaceWith) {
+		ItemStack[] items = this.player.inventory.mainInventory;
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] != null && items[i].getItem() == toReplace) {
+				if (items[i].stackSize > 1) items[i].stackSize--;
+				else items[i] = null;
+			}
+		}
+		
+		ItemStack stack = new ItemStack(replaceWith);
+		// Try to give the player one of the new item. If it works, we're done and exit the method.
+		if (this.player.inventory.addItemStackToInventory(stack)) return;
+		
+		//Otherwise, drop the item in the world
+		EntityItem entityItem = new EntityItem(this.player.worldObj, this.player.posX, this.player.posY, this.player.posZ, stack);
+		this.player.worldObj.spawnEntityInWorld(entityItem);
 	}
 
 	/**
@@ -545,10 +618,16 @@ public class PlayerData implements IExtendedEntityProperties {
 		}
 	}
 	
+	/**
+	 * Returns whether or not the player is currently moving.
+	 */
 	public boolean isMoving() {
 		return !this.isStandingStill();
 	}
 	
+	/**
+	 * Returns whether or not the player is currently standing still. Equivalent to !{@link #isMoving()}.
+	 */
 	public boolean isStandingStill() {
 		return this.player.motionX == 0 && this.player.motionY == 0 && this.player.motionZ == 0;
 	}

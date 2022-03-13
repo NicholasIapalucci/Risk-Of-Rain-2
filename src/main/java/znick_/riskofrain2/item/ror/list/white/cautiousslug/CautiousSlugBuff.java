@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class CautiousSlugBuff extends Buff {
 
 	public CautiousSlugBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.CAUTIOUS_SLUG, itemCount);
+		super(RiskOfRain2Items.CAUTIOUS_SLUG, itemCount);
 	}
 
 	@Override

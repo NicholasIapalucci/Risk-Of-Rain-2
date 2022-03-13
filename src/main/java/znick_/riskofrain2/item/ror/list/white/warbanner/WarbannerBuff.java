@@ -28,7 +28,7 @@ public class WarbannerBuff extends DurationBuff {
 	 * @param itemCount The level of the war banner.
 	 */
 	public WarbannerBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.WAR_BANNER, itemCount, (int) TickHandler.fromSeconds(3));
+		super(RiskOfRain2Items.WAR_BANNER, itemCount, (int) TickHandler.fromSeconds(3));
 	}
 
 	@Override

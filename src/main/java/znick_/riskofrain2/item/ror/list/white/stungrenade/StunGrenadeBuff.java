@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class StunGrenadeBuff extends DurationBuff {
 
 	public StunGrenadeBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.STUN_GRENADE, itemCount, TickHandler.fromSeconds(2));
+		super(RiskOfRain2Items.STUN_GRENADE, itemCount, TickHandler.fromSeconds(2));
 	}
 
 	@Override

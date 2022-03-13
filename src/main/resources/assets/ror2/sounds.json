@@ -19,6 +19,36 @@
 		]
 	},
 	
+	"item_spawn_white": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/gen/item_spawn_white",
+			"stream": false
+		}
+		]
+	},
+	
+	"item_spawn_green": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/gen/item_spawn_green",
+			"stream": false
+		}
+		]
+	},
+	
+	"item_spawn_red": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/gen/item_spawn_red",
+			"stream": false
+		}
+		]
+	},
+	
 	"cautious_slug_start": {
 		"category": "player",
 		"sounds": [

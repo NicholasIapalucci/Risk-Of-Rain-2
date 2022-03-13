@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class GoatHoofBuff extends StatBuff {
 
 	public GoatHoofBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.GOAT_HOOF, PlayerStat.MOVEMENT_SPEED_MULTIPLIER, itemCount);
+		super(RiskOfRain2Items.GOAT_HOOF, PlayerStat.MOVEMENT_SPEED_MULTIPLIER, itemCount);
 	}
 
 	@Override

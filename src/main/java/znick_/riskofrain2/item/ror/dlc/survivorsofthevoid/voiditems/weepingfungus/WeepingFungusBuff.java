@@ -11,7 +11,7 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 public class WeepingFungusBuff extends Buff {
 
 	public WeepingFungusBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.WEEPING_FUNGUS, itemCount);
+		super(RiskOfRain2Items.WEEPING_FUNGUS, itemCount);
 	}
 
 	@Override

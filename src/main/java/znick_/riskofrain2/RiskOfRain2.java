@@ -9,6 +9,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import znick_.riskofrain2.api.mc.RiskOfRain2Config;
 import znick_.riskofrain2.block.RiskOfRain2Blocks;
+import znick_.riskofrain2.block.RiskOfRain2TileEntities;
 import znick_.riskofrain2.client.gui.RiskOfRain2Guis;
 import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
 import znick_.riskofrain2.client.render.RiskOfRain2Renders;
@@ -21,7 +22,6 @@ import znick_.riskofrain2.util.misc.customs.RiskOfRain2Achievements;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Commands;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Recipes;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2TileEntities;
 
 /**
  * The main class for the {@code Risk Of Rain 2} mod. Registers all items, blocks, tile entities, etc.

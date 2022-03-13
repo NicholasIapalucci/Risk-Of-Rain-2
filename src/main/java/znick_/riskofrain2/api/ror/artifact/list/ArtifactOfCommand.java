@@ -32,7 +32,7 @@ public class ArtifactOfCommand extends Artifact {
 	 */
 	public static RiskOfRain2Item getEssenceFromRarity(ItemRarity rarity) {
 		switch(rarity) {
-		case WHITE: return (RiskOfRain2Item) RiskOfRain2Items.WHITE_COMMAND_ESSENCE;
+		case WHITE: return RiskOfRain2Items.WHITE_COMMAND_ESSENCE;
 		default: return null;
 		}
 	}

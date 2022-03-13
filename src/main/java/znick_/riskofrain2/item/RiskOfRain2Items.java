@@ -19,7 +19,9 @@ import znick_.riskofrain2.item.ror.list.CommandEssence;
 import znick_.riskofrain2.item.ror.list.ScrapItem;
 import znick_.riskofrain2.item.ror.list.boss.pearl.PearlItem;
 import znick_.riskofrain2.item.ror.list.boss.titanicknurl.TitanicKnurlItem;
+import znick_.riskofrain2.item.ror.list.equipment.BlastShowerItem;
 import znick_.riskofrain2.item.ror.list.equipment.ForeignFruitItem;
+import znick_.riskofrain2.item.ror.list.equipment.RiskOfRain2Equipment;
 import znick_.riskofrain2.item.ror.list.equipment.jadeelephant.JadeElephantItem;
 import znick_.riskofrain2.item.ror.list.equipment.ocularhud.OcularHudItem;
 import znick_.riskofrain2.item.ror.list.equipment.supermassiveleech.SuperMassiveLeechItem;
@@ -62,6 +64,9 @@ import znick_.riskofrain2.item.ror.list.white.delicatewatch.DelicateWatchItem;
 import znick_.riskofrain2.item.ror.list.white.energydrink.EnergyDrinkItem;
 import znick_.riskofrain2.item.ror.list.white.goathoof.GoatHoofItem;
 import znick_.riskofrain2.item.ror.list.white.medkit.MedkitItem;
+import znick_.riskofrain2.item.ror.list.white.mocha.MochaItem;
+import znick_.riskofrain2.item.ror.list.white.powerelixir.EmptyBottleItem;
+import znick_.riskofrain2.item.ror.list.white.powerelixir.PowerElixirItem;
 import znick_.riskofrain2.item.ror.list.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.item.ror.list.white.topazbrooch.TopazBroochItem;
 import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerItem;
@@ -95,191 +100,219 @@ public class RiskOfRain2Items {
 	 * The "repulsion armor plate" item. Each time the player is hurt, they take 1 (+1 per item) half-heart less
 	 * damage.
 	 */
-	public static final Item REPULSION_ARMOR_PLATE = new RepulsionArmorPlate();
+	public static final RiskOfRain2Item REPULSION_ARMOR_PLATE = new RepulsionArmorPlate();
+	
+	public static final RiskOfRain2Item MOCHA = new MochaItem();
+	
+	public static final RiskOfRain2Item TOPAZ_BROOCH = new TopazBroochItem();
 	/**
 	 * The "tougher times" item. Gives the player a 15% (+15% per item) chance to take no damage upon getting hurt.
 	 * Stacks hyperbolically instead of linearly, meaning it is impossible to reach 100% block chance. 
 	 */
-	public static final Item TOUGHER_TIMES = new TougherTimes();
+	public static final RiskOfRain2Item TOUGHER_TIMES = new TougherTimes();
 	/**
 	 * The "tri-tip dagger" item. Gives the player a 15% (+15% per item) chance per hit to apply wither 2 to
 	 * the attacked enemy for 5 seconds.
 	 */
-	public static final Item TRI_TIP_DAGGER = new TriTipDagger();
+	public static final RiskOfRain2Item TRI_TIP_DAGGER = new TriTipDagger();
 	/**
 	 * The "armor piercing rounds" item. Causes the player to deal 20% (+20% per item) more damage to bosses,
 	 * such as the Ender Dragon or the Wither. May not work on modded bosses depending on how they are coded. 
 	 */
-	public static final Item ARMOR_PIERCING_ROUNDS = new ArmorPiercingRoundsItem();
+	public static final RiskOfRain2Item ARMOR_PIERCING_ROUNDS = new ArmorPiercingRoundsItem();
 	/**
 	 * The "Len's-Maker Glasses" item. Adds a 10% chance (+10% per item) for an attack to land a critical hit, 
 	 * dealing double damage. 
 	 */
-	public static final Item CRIT_GLASSES = new CritGlassesItem();
+	public static final RiskOfRain2Item CRIT_GLASSES = new CritGlassesItem();
 	/**
 	 * The "crowbar" item. Activates when the player attacks an enemy with over 90% health. The hit will deal
 	 * 75% (+75% per item) more damage. 
 	 */
-	public static final Item CROWBAR = new Crowbar();
-	public static final Item BISON_STEAK = new BisonSteak();
+	public static final RiskOfRain2Item CROWBAR = new Crowbar();
+	public static final RiskOfRain2Item BISON_STEAK = new BisonSteak();
 	
-	public static final Item BROKEN_DELICATE_WATCH = new BrokenDelicateWatchItem();
-	public static final Item DELICATE_WATCH = new DelicateWatchItem();
+	/**
+	 * The broken form of the {@link #DELICATE_WATCH} item that's given after the delicate watch breaks.
+	 * Does nothing.
+	 */
+	public static final RiskOfRain2Item BROKEN_DELICATE_WATCH = new BrokenDelicateWatchItem();
+	
+	
+	/**
+	 * The "Delicate Watch" item. Gives the player +20% damage, but breaks if the player falls below 25% health.
+	 */
+	public static final RiskOfRain2Item DELICATE_WATCH = new DelicateWatchItem();
 	/**
 	 * The "cautious slug" item. Activates when the player does not take damage for 7 seconds. Begins healing the
 	 * player at a rate of 1 (/2 per item) second per half-heart. Deactivates when the player takes damage.
 	 */
-	public static final Item CAUTIOUS_SLUG = new CautiousSlugItem();
+	public static final RiskOfRain2Item CAUTIOUS_SLUG = new CautiousSlugItem();
+	
+	public static final RiskOfRain2Item EMPTY_BOTTLE = new EmptyBottleItem();
+	public static final RiskOfRain2Item POWER_ELIXIR = new PowerElixirItem();
 	/**
 	 * The "Paul's goat hoof" item. Adds 14% (+14% per item) boost to movement speed.
 	 */
-	public static final Item GOAT_HOOF = new GoatHoofItem();
+	public static final RiskOfRain2Item GOAT_HOOF = new GoatHoofItem();
 	
-	public static final Item TOPAZ_BROOCH = new TopazBroochItem();
 	/**
 	 * The "gasoline" item. When the player kills an enemy, all enemies around the killed enemy are lit on fire
 	 * in a radius of 5 (+1 per item) blocks. The enemies are lit for 2 (+1 per item) seconds. 
 	 */
-	public static final Item GASOLINE = new Gasoline();
+	public static final RiskOfRain2Item GASOLINE = new Gasoline();
 	/**
 	 * The "medkit" item. Heals the player 2 seconds after they take damage for 2 (+1 per item) hearts.
 	 */
-	public static final Item MEDKIT = new MedkitItem();
-	public static final Item BUSTLING_FUNGUS = new BustlingFungusItem();
+	public static final RiskOfRain2Item MEDKIT = new MedkitItem();
+	public static final RiskOfRain2Item BUSTLING_FUNGUS = new BustlingFungusItem();
 	/**
 	 * The "focus crystal" item. Causes the player to deal 20% (+20% per stack) more damage to enemies within 
 	 * 4 blocks of the player.
 	 */
-	public static final Item FOCUS_CRYSTAL = new FocusCrystal();
-	public static final Item PERSONAL_SHIELD = new PersonalShield();
+	public static final RiskOfRain2Item FOCUS_CRYSTAL = new FocusCrystal();
+	public static final RiskOfRain2Item PERSONAL_SHIELD = new PersonalShield();
 	/**
 	 * The "white scrap" item. Does nothing, but is taken first when using white 3D printers.
 	 */
-	public static final Item WHITE_SCRAP = new ScrapItem(ItemRarity.WHITE);
+	public static final RiskOfRain2Item WHITE_SCRAP = new ScrapItem(ItemRarity.WHITE);
 	/**
 	 * The "energy drink" item. Adds 25% (+25% per item) movement speed to the player while sprinting.
 	 */
-	public static final Item ENERGY_DRINK = new EnergyDrinkItem();
+	public static final RiskOfRain2Item ENERGY_DRINK = new EnergyDrinkItem();
 	/**
 	 * The "stun grenade" item. Has a 5% (+5% per item) chance to stun enemies in place for 2 seconds. 
 	 */
-	public static final Item STUN_GRENADE = new StunGrenadeItem();
-	public static final Item SOLDIER_SYRINGE = new SoldierSyringe();
+	public static final RiskOfRain2Item STUN_GRENADE = new StunGrenadeItem();
+	public static final RiskOfRain2Item SOLDIER_SYRINGE = new SoldierSyringe();
 	/**
 	 * The "monster tooth" item. The player is healed when consuming XP.
 	 */
-	public static final Item MONSTER_TOOTH = new MonsterTooth();
+	public static final RiskOfRain2Item MONSTER_TOOTH = new MonsterTooth();
 	/**
 	 * The "rusted key" item. Allows the player to open rusty lockboxes.
 	 */
-	public static final Item RUSTED_KEY = new RustedKey();
-	public static final Item WAR_BANNER = new WarbannerItem();
+	public static final RiskOfRain2Item RUSTED_KEY = new RustedKey();
+	public static final RiskOfRain2Item WAR_BANNER = new WarbannerItem();
 	
 	//Green Items
-	public static final Item FUEL_CELL = new FuelCell();
+	public static final RiskOfRain2Item FUEL_CELL = new FuelCell();
 	/**
 	 * The "will-o-the wisp" item. When an enemy dies, it explodes.
 	 */
-	public static final Item WILL_O_THE_WISP = new WillOTheWisp();
+	public static final RiskOfRain2Item WILL_O_THE_WISP = new WillOTheWisp();
 	/**
 	 * The "hopoo feather" item. Allows the player 1 (+1 per stack) extra jump while mid-air.
 	 */
-	public static final Item HOPOO_FEATHER = new HopooFeather();
+	public static final RiskOfRain2Item HOPOO_FEATHER = new HopooFeather();
 	/**
 	 * The "harvesters scythe" item. When the player lands a critical attack, The player is healed 1 heart
 	 * (+1 per item).
 	 */
-	public static final Item HARVESTERS_SCYTHE = new HarvestersScythe();
-	public static final Item INFUSION = new InfusionItem();
+	public static final RiskOfRain2Item HARVESTERS_SCYTHE = new HarvestersScythe();
+	public static final RiskOfRain2Item INFUSION = new InfusionItem();
 	/**
 	 * The "wax quail" item. Boosts the player forward when jumping while springing.
 	 */
-	public static final Item WAX_QUAIL = new WaxQuail();
+	public static final RiskOfRain2Item WAX_QUAIL = new WaxQuail();
 	/**
 	 * The "old war stealthkit" item. Falling below 25% health causes the player to become invisible and gain
 	 * 40% movement speed for 5 seconds. Recharges every 30 seconds (-50% per item).
 	 */
-	public static final Item OLD_WAR_STEALTHKIT = new OldWarStealthkit();
+	public static final RiskOfRain2Item OLD_WAR_STEALTHKIT = new OldWarStealthkit();
 	/**
 	 * The "green scrap" item. Does nothing, but is taken first when using green 3D printers.
 	 */
-	public static final Item GREEN_SCRAP = new ScrapItem(ItemRarity.GREEN);
+	public static final RiskOfRain2Item GREEN_SCRAP = new ScrapItem(ItemRarity.GREEN);
 	/**
 	 * The "leeching seed" item. Heals 1 (+1 per item) half hearts upon dealing damage.
 	 */
-	public static final Item LEECHING_SEED = new LeechingSeed();
+	public static final RiskOfRain2Item LEECHING_SEED = new LeechingSeed();
 	/**
 	 * The "chronobauble" item. Gives enemies the slowness potion effect on hit. 
 	 */
-	public static final Item CHRONOBAUBLE = new Chronobauble();
+	public static final RiskOfRain2Item CHRONOBAUBLE = new Chronobauble();
 	
 	//Red Items
-	public static final Item ALIEN_HEAD = new AlienHead();
+	public static final RiskOfRain2Item ALIEN_HEAD = new AlienHead();
 	/**
 	 * The "brilliant behemoth" item. All of the players attacks explode in a radius of 2 (+1 per item).
 	 */
-	public static final Item BRILLIANT_BEHEMOTH = new BrilliantBehemothItem();
-	public static final Item FIFTY_SEVEN_LEAF_CLOVER = new FiftySevenLeafClover();
+	public static final RiskOfRain2Item BRILLIANT_BEHEMOTH = new BrilliantBehemothItem();
+	public static final RiskOfRain2Item FIFTY_SEVEN_LEAF_CLOVER = new FiftySevenLeafClover();
 	/**
 	 * The "Dio's best friend" item. Allows the player to be saved from death followed by 10 seconds of
 	 * invincibility. Consumed on use.
 	 */
-	public static final Item DIOS_BEST_FRIEND = new DiosBestFriendItem();
+	public static final RiskOfRain2Item DIOS_BEST_FRIEND = new DiosBestFriendItem();
 	/**
 	 * The "H3AD-5T v2" item. Makes the player jump significantly higher. 
 	 */
-	public static final Item HEAD_SET = new HeadSet();
+	public static final RiskOfRain2Item HEAD_SET = new HeadSet();
 	
 	/**
 	 * The "rejuvination rack" item. Adds 100% (+100% per stack) to all healing. 
 	 */
-	public static final Item REJUVINATION_RACK = new RejuvinationRack();
+	public static final RiskOfRain2Item REJUVINATION_RACK = new RejuvinationRack();
 	/**
 	 * The "red scrap" item. Does nothing, but is taken first when using red 3D printers.
 	 */
-	public static final Item RED_SCRAP = new ScrapItem(ItemRarity.RED);
-	public static final Item HARDLIGHT_AFTERBURNER = new HardlightAfterburner();
+	public static final RiskOfRain2Item RED_SCRAP = new ScrapItem(ItemRarity.RED);
+	public static final RiskOfRain2Item HARDLIGHT_AFTERBURNER = new HardlightAfterburner();
 	
 	//Boss Items
-	public static final Item PEARL = new PearlItem();
-	public static final Item TITANIC_KNURL = new TitanicKnurlItem();
-	public static final Item BOSS_SCRAP = new ScrapItem(ItemRarity.BOSS);
+	public static final RiskOfRain2Item PEARL = new PearlItem();
+	public static final RiskOfRain2Item TITANIC_KNURL = new TitanicKnurlItem();
+	public static final RiskOfRain2Item BOSS_SCRAP = new ScrapItem(ItemRarity.BOSS);
 	
 	// Void Items 
-	public static final Item SAFER_SPACES = new SaferSpacesItem();
-	public static final Item WEEPING_FUNGUS = new WeepingFungusItem();
-	public static final Item PLURIPOTENT_LARVA = new PluripotentLarvaItem();
+	public static final RiskOfRain2Item SAFER_SPACES = new SaferSpacesItem();
+	public static final RiskOfRain2Item WEEPING_FUNGUS = new WeepingFungusItem();
+	public static final RiskOfRain2Item PLURIPOTENT_LARVA = new PluripotentLarvaItem();
 	
 	//Lunar Items
-	public static final Item SHAPED_GLASS = new ShapedGlass();
-	public static final Item PURITY = new Purity();
+	public static final RiskOfRain2Item SHAPED_GLASS = new ShapedGlass();
+	public static final RiskOfRain2Item PURITY = new Purity();
 	/**
 	 * The "beads of fealty" item. Does nothing, but takes the player to the "A Moment, Whole" realm when ending the
 	 * game. 
 	 */
-	public static final Item BEADS_OF_FEALTY = new BeadsOfFealty();	
+	public static final RiskOfRain2Item BEADS_OF_FEALTY = new BeadsOfFealty();	
 	
 	//Active Equipment Items
-	public static final Item FOREIGN_FRUIT = new ForeignFruitItem();
-	public static final Item SUPER_MASSIVE_LEECH = new SuperMassiveLeechItem();
-	public static final Item JADE_ELEPHANT = new JadeElephantItem();
-	public static final Item OCULAR_HUD = new OcularHudItem();
+	public static final RiskOfRain2Equipment BLAST_SHOWER = new BlastShowerItem();
+	public static final RiskOfRain2Equipment FOREIGN_FRUIT = new ForeignFruitItem();
+	public static final RiskOfRain2Equipment SUPER_MASSIVE_LEECH = new SuperMassiveLeechItem();
+	public static final RiskOfRain2Equipment JADE_ELEPHANT = new JadeElephantItem();
+	public static final RiskOfRain2Equipment OCULAR_HUD = new OcularHudItem();
 	
-	public static final Item WHITE_COMMAND_ESSENCE = new CommandEssence(ItemRarity.WHITE);
+	public static final RiskOfRain2Item WHITE_COMMAND_ESSENCE = new CommandEssence(ItemRarity.WHITE);
+	public static final RiskOfRain2Item GREEN_COMMAND_ESSENCE = new CommandEssence(ItemRarity.GREEN);
+	public static final RiskOfRain2Item RED_COMMAND_ESSENCE = new CommandEssence(ItemRarity.RED);
+	public static final RiskOfRain2Item BOSS_COMMAND_ESSENCE = new CommandEssence(ItemRarity.BOSS);
+	public static final RiskOfRain2Item LUNAR_COMMAND_ESSENCE = new CommandEssence(ItemRarity.LUNAR);
+	public static final RiskOfRain2Item EQUIPMENT_COMMAND_ESSENCE = new CommandEssence(ItemRarity.EQUIPMENT);
+	
 	
 	/**
 	 * Registers all items into the game.
 	 */
 	public static final void registerItems() {
 		try {
+			// Loop through all fields in this class
 			for (Field field : RiskOfRain2Items.class.getDeclaredFields()) {
+				
+				// Check if it's an item
 				if (field.get(null) instanceof Item) {
+					
+					//If it is, register it
 					Item item = (Item) field.get(null);
 					GameRegistry.registerItem(item, item.getUnlocalizedName().substring(5));
 					
 					// Register items into the item set
-					if (item instanceof RiskOfRain2Item) {	
-						ITEM_SET.add((RiskOfRain2Item) item);
+					if (item instanceof RiskOfRain2Item) {
+						RiskOfRain2Item rorItem = (RiskOfRain2Item) item;
+						if (!rorItem.isSpecial()) ITEM_SET.add(rorItem);
 					}
 				}
 			}

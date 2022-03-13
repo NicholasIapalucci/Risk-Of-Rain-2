@@ -14,7 +14,7 @@ public class SuperMassiveLeechBuff extends DurationBuff {
 	private static final ResourceLocation TEXUTRE = new ResourceLocation(RiskOfRain2Files.BUFFS + "super_massive_leech.png");
 	
 	public SuperMassiveLeechBuff() {
-		super((RiskOfRain2Item) RiskOfRain2Items.SUPER_MASSIVE_LEECH, 0, (int) TickHandler.fromSeconds(8));
+		super(RiskOfRain2Items.SUPER_MASSIVE_LEECH, 0, (int) TickHandler.fromSeconds(8));
 	}
 	
 	@Override

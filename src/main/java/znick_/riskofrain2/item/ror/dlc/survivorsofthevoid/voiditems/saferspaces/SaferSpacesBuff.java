@@ -10,7 +10,7 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 public class SaferSpacesBuff extends Buff {
 
 	public SaferSpacesBuff(int itemCount) {
-		super((RiskOfRain2Item) RiskOfRain2Items.SAFER_SPACES, itemCount);
+		super(RiskOfRain2Items.SAFER_SPACES, itemCount);
 	}
 
 	@Override
