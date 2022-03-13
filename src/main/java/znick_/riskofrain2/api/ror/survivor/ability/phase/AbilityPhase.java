@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 
 public interface AbilityPhase {
+	
 	public abstract void activatePhase(EntityPlayer player);
 	
 	public default Side sideToRunOn() {

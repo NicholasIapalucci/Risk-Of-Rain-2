@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import znick_.riskofrain2.RiskOfRain2;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class BasicBlock extends Block {
 

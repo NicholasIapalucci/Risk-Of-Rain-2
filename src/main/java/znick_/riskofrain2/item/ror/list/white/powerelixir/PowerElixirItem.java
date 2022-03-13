@@ -2,15 +2,15 @@ package znick_.riskofrain2.item.ror.list.white.powerelixir;
 
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.ConsumableItem;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.DLC;
-import znick_.riskofrain2.item.ror.dlc.DLCItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class PowerElixirItem extends DLCItem implements ConsumableItem, OnHurtItem {
+public class PowerElixirItem extends RiskOfRain2Item implements ConsumableItem, OnHurtItem {
 
 	public PowerElixirItem() {
 		super("power_elixir");
@@ -53,7 +53,7 @@ public class PowerElixirItem extends DLCItem implements ConsumableItem, OnHurtIt
 
 	@Override
 	public RiskOfRain2Item getBrokenItem() {
-		return null;
+		return RiskOfRain2Items.EMPTY_BOTTLE;
 	}
 
 }

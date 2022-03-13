@@ -5,7 +5,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class WarbannerBlock extends Block implements ITileEntityProvider {
 

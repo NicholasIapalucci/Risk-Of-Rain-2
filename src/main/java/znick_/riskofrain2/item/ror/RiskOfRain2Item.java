@@ -15,9 +15,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.CustomRarity;
+import znick_.riskofrain2.item.ror.dlc.DLC;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 /**
  * Class used for creating items that are in the Risk of Rain 2 game. 
@@ -82,6 +83,11 @@ public abstract class RiskOfRain2Item extends Item {
 			if (this.getCategory() != ItemCategory.UNKNOWN) {
 				String cat = Character.toString(this.getCategory().toString().charAt(0)).toUpperCase() + this.getCategory().toString().substring(1).toLowerCase();
 				info.add("Category: " + this.getCategory().getColor() + cat);
+			}
+			
+			// Add the DLC info
+			if (this.getDLC() != DLC.BASE_GAME) {
+				info.add("DLC: " + (this.getDLC().getColor() + this.getDLC().toString()));
 			}
 		}
 	}
@@ -188,5 +194,9 @@ public abstract class RiskOfRain2Item extends Item {
 	
 	public Achievement getAchievement() {
 		return null;
+	}
+	
+	public DLC getDLC() {
+		return DLC.BASE_GAME;
 	}
 }

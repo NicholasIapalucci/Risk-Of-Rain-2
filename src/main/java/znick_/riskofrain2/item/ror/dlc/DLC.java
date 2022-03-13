@@ -10,6 +10,7 @@ import znick_.riskofrain2.util.helper.StringHelper;
  * @author zNick_
  */
 public enum DLC {
+	BASE_GAME(null),
 	SURVIVORS_OF_THE_VOID(EnumChatFormatting.LIGHT_PURPLE);
 
 	private final EnumChatFormatting color;

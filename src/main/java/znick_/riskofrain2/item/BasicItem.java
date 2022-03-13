@@ -28,11 +28,6 @@ public class BasicItem extends Item {
 		this.setCreativeTab(tab);
 	}
 	
-	public BasicItem(String name, String folder, CreativeTabs tab, EnumChatFormatting color) {
-		this(name, folder, tab);
-		this.color = color;
-	}
-	
 	public BasicItem(String name, String folder, CreativeTabs tab, EnumRarity color) {
 		this(name, folder, tab);
 		this.rarity = color;

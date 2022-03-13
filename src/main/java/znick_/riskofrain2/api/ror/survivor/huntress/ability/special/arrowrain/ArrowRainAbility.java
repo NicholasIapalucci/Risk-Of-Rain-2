@@ -131,7 +131,6 @@ public class ArrowRainAbility extends Ability {
 		@SubscribeEvent
 		public void listenForActivation(InputEvent event) {
 			if (Minecraft.getMinecraft().gameSettings.keyBindAttack.isPressed()) {
-				System.out.println(ReflectionHelper.toDetailedString(ArrowRainAbility.this.phase2));
 				if (ArrowRainAbility.this.phase2.isActive()) {
 					ArrowRainAbility.this.phase2.deactivatePhase();
 					this.activate();

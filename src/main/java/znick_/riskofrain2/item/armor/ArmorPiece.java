@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class ArmorPiece extends ItemArmor {
 

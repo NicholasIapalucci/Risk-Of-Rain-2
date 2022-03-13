@@ -9,13 +9,12 @@ import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.ConsumableItem;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.DLC;
-import znick_.riskofrain2.item.ror.dlc.DLCItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class DelicateWatchItem extends DLCItem implements ConsumableItem, OnHurtItem, OnHitItem {
+public class DelicateWatchItem extends RiskOfRain2Item implements ConsumableItem, OnHurtItem, OnHitItem {
 
 	public DelicateWatchItem() {
 		super("delicate_watch");

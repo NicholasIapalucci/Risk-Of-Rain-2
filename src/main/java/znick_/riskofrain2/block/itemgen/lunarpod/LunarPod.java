@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.item.itemblock.ItemBlockLunarPod;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class LunarPod extends Block implements IBlockItem {
 
@@ -23,7 +23,7 @@ public class LunarPod extends Block implements IBlockItem {
 		this.setStepSound(soundTypeSnow);
 		this.setBlockUnbreakable();
 		this.setBlockTextureName(RiskOfRain2.MODID + ":lunar_pod"); //TODO: Add lunar pod textures
-		this.setCreativeTab(RiskOfRain2CreativeTabs.MISC);
+		this.setCreativeTab(RiskOfRain2CreativeTabs.BLOCKS);
 	}
 
 	@Override

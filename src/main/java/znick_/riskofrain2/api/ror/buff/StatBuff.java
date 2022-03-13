@@ -1,6 +1,5 @@
 package znick_.riskofrain2.api.ror.buff;
 
-import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 

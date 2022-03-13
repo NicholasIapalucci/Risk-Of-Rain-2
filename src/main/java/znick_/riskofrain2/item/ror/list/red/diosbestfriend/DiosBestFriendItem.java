@@ -6,16 +6,14 @@ import java.util.Map;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
+import znick_.riskofrain2.item.ror.ConsumableItem;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
-import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
-import znick_.riskofrain2.util.helper.MinecraftHelper;
 
-public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem {
+public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem, ConsumableItem {
 
 	private static final Map<EntityPlayer, Integer> IMMUNE_PLAYERS = new HashMap<>();
 	
@@ -27,7 +25,7 @@ public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem {
 	public void procOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
 		event.setCanceled(true);
 		player.addBuff(new DiosBestFriendBuff(itemCount));
-		MinecraftHelper.removeAmount(player.getPlayer(), RiskOfRain2Items.DIOS_BEST_FRIEND, 1);
+		this.consume(player);
 	}
 
 	@Override
@@ -48,6 +46,16 @@ public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem {
 	@Override
 	public String getDescription() {
 		return "Cheat death. Consumed on use.";
+	}
+
+	@Override
+	public void consume(PlayerData player) {
+		player.replaceItem(this, this.getBrokenItem());
+	}
+
+	@Override
+	public RiskOfRain2Item getBrokenItem() {
+		return RiskOfRain2Items.DIOS_BEST_FRIEND_CONSUMED;
 	}
 
 }

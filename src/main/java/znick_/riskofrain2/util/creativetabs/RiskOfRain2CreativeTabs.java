@@ -1,4 +1,4 @@
-package znick_.riskofrain2.util.misc.customs;
+package znick_.riskofrain2.util.creativetabs;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -20,7 +20,7 @@ public class RiskOfRain2CreativeTabs {
 	public static final CreativeTabs BLOCKS = new CreativeTabs("tabBlocks") {
 		@Override
 		public Item getTabIconItem() {
-			return new ItemStack(RiskOfRain2Blocks.HUNTRITE_ORE).getItem();
+			return new ItemStack(RiskOfRain2Blocks.CHEST).getItem();
 		}
 	};
 	
@@ -34,7 +34,7 @@ public class RiskOfRain2CreativeTabs {
 	public static final CreativeTabs MISC = new CreativeTabs("tabMisc") {
 		@Override
 		public Item getTabIconItem() {
-			return new ItemStack(RiskOfRain2Blocks.CHEST).getItem();
+			return new ItemStack(RiskOfRain2Items.RAW_HUNTRITE).getItem();
 		}
 	}; 
 	

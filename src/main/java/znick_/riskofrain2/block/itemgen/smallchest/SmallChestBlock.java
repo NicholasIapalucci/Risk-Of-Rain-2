@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.item.itemblock.ItemBlockChest;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class SmallChestBlock extends Block implements IBlockItem, ITileEntityProvider {
 
@@ -22,7 +22,7 @@ public class SmallChestBlock extends Block implements IBlockItem, ITileEntityPro
 		super(Material.rock);
 		this.setBlockName("risk_chest");
 		this.setBlockTextureName(RiskOfRain2.MODID + ":chest");
-		this.setCreativeTab(RiskOfRain2CreativeTabs.MISC);
+		this.setCreativeTab(RiskOfRain2CreativeTabs.BLOCKS);
 		this.setBlockUnbreakable();
 	}
 	

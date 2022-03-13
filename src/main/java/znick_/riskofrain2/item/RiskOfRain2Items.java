@@ -7,7 +7,7 @@ import java.util.Set;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumChatFormatting;
+import znick_.riskofrain2.api.mc.CustomRarity;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.item.armor.ArmorPiece;
 import znick_.riskofrain2.item.armor.ArmorType;
@@ -42,6 +42,7 @@ import znick_.riskofrain2.item.ror.list.red.BrilliantBehemothItem;
 import znick_.riskofrain2.item.ror.list.red.HardlightAfterburner;
 import znick_.riskofrain2.item.ror.list.red.HeadSet;
 import znick_.riskofrain2.item.ror.list.red.RejuvinationRack;
+import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendConsumed;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendItem;
 import znick_.riskofrain2.item.ror.list.red.fiftysevenleafclover.FiftySevenLeafClover;
 import znick_.riskofrain2.item.ror.list.white.BisonSteak;
@@ -65,18 +66,20 @@ import znick_.riskofrain2.item.ror.list.white.energydrink.EnergyDrinkItem;
 import znick_.riskofrain2.item.ror.list.white.goathoof.GoatHoofItem;
 import znick_.riskofrain2.item.ror.list.white.medkit.MedkitItem;
 import znick_.riskofrain2.item.ror.list.white.mocha.MochaItem;
+import znick_.riskofrain2.item.ror.list.white.oddlyshapedopal.OddlyShapedOpalItem;
 import znick_.riskofrain2.item.ror.list.white.powerelixir.EmptyBottleItem;
 import znick_.riskofrain2.item.ror.list.white.powerelixir.PowerElixirItem;
 import znick_.riskofrain2.item.ror.list.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.item.ror.list.white.topazbrooch.TopazBroochItem;
 import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerItem;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class RiskOfRain2Items {
 	
 	/**
-	 * The set of all items in the Risk Of Rain 2 game.
+	 * The set of all items in the Risk Of Rain 2 game. Special items such as consumed items or command
+	 * essence are not included here, only standard items that would be included in the logbook.
 	 */
 	public static final Set<RiskOfRain2Item> ITEM_SET = new LinkedHashSet<RiskOfRain2Item>();
 	
@@ -85,16 +88,14 @@ public class RiskOfRain2Items {
 	public static final Item HUNTRESS_LEGGINGS = new ArmorPiece(Survivor.HUNTRESS, ArmorType.LEGGINGS, "huntress");
 	public static final Item HUNTESS_BOOTS = new ArmorPiece(Survivor.HUNTRESS, ArmorType.BOOTS, "huntress");
 	
-	public static final Item RAW_HUNTRITE = new BasicItem("Raw Huntrite", "character/huntress/", RiskOfRain2CreativeTabs.MISC, EnumChatFormatting.RED);
-	public static final Item HUNTRITE_PLATE = new BasicItem("Huntrite Plate", "character/huntress/", RiskOfRain2CreativeTabs.MISC, EnumChatFormatting.RED);
-	public static final Item TRESSIUM_PLATE = new BasicItem("Tressium Plate", "character/huntress/", RiskOfRain2CreativeTabs.MISC, EnumChatFormatting.DARK_BLUE);
+	public static final Item RAW_HUNTRITE = new BasicItem("Raw Huntrite", "character/huntress/", RiskOfRain2CreativeTabs.MISC, CustomRarity.RED);
+	public static final Item HUNTRITE_PLATE = new BasicItem("Huntrite Plate", "character/huntress/", RiskOfRain2CreativeTabs.MISC, CustomRarity.RED);
+	public static final Item TRESSIUM_PLATE = new BasicItem("Tressium Plate", "character/huntress/", RiskOfRain2CreativeTabs.MISC, CustomRarity.DARK_BLUE);
 	public static final Item LENS_FRAME = new BasicItem("Lens Frame", "character/huntress/", RiskOfRain2CreativeTabs.MISC);
 	public static final Item LENS = new BasicItem("Lens", "character/huntress", RiskOfRain2CreativeTabs.MISC);
 	public static final Item LIGHT_BLUE_LENS = new BasicItem("Light Blue Lens", "character/huntress", RiskOfRain2CreativeTabs.MISC);
 	public static final Item LIGHT_BLUE_FRAMED_LENS = new BasicItem("Light Blue Framed Lens", "character/huntress", RiskOfRain2CreativeTabs.MISC);
 	public static final Item LIGHT_BLUE_FRAMED_LENS_PAIR = new BasicItem("Light Blue Framed Lens Pair", "character/huntress", RiskOfRain2CreativeTabs.MISC, EnumRarity.rare);
-	
-	//White Items
 	
 	/**
 	 * The "repulsion armor plate" item. Each time the player is hurt, they take 1 (+1 per item) half-heart less
@@ -132,11 +133,6 @@ public class RiskOfRain2Items {
 	public static final RiskOfRain2Item CROWBAR = new Crowbar();
 	public static final RiskOfRain2Item BISON_STEAK = new BisonSteak();
 	
-	/**
-	 * The broken form of the {@link #DELICATE_WATCH} item that's given after the delicate watch breaks.
-	 * Does nothing.
-	 */
-	public static final RiskOfRain2Item BROKEN_DELICATE_WATCH = new BrokenDelicateWatchItem();
 	
 	
 	/**
@@ -144,13 +140,18 @@ public class RiskOfRain2Items {
 	 */
 	public static final RiskOfRain2Item DELICATE_WATCH = new DelicateWatchItem();
 	/**
+	 * The broken form of the {@link #DELICATE_WATCH} item that's given after the delicate watch breaks.
+	 * Does nothing.
+	 */
+	public static final RiskOfRain2Item BROKEN_DELICATE_WATCH = new BrokenDelicateWatchItem();
+	/**
 	 * The "cautious slug" item. Activates when the player does not take damage for 7 seconds. Begins healing the
 	 * player at a rate of 1 (/2 per item) second per half-heart. Deactivates when the player takes damage.
 	 */
 	public static final RiskOfRain2Item CAUTIOUS_SLUG = new CautiousSlugItem();
 	
-	public static final RiskOfRain2Item EMPTY_BOTTLE = new EmptyBottleItem();
 	public static final RiskOfRain2Item POWER_ELIXIR = new PowerElixirItem();
+	public static final RiskOfRain2Item EMPTY_BOTTLE = new EmptyBottleItem();
 	/**
 	 * The "Paul's goat hoof" item. Adds 14% (+14% per item) boost to movement speed.
 	 */
@@ -171,6 +172,7 @@ public class RiskOfRain2Items {
 	 * 4 blocks of the player.
 	 */
 	public static final RiskOfRain2Item FOCUS_CRYSTAL = new FocusCrystal();
+	public static final RiskOfRain2Item ODDLY_SHAPED_OPAL = new OddlyShapedOpalItem();
 	public static final RiskOfRain2Item PERSONAL_SHIELD = new PersonalShield();
 	/**
 	 * The "white scrap" item. Does nothing, but is taken first when using white 3D printers.
@@ -240,11 +242,13 @@ public class RiskOfRain2Items {
 	 */
 	public static final RiskOfRain2Item BRILLIANT_BEHEMOTH = new BrilliantBehemothItem();
 	public static final RiskOfRain2Item FIFTY_SEVEN_LEAF_CLOVER = new FiftySevenLeafClover();
+	
 	/**
 	 * The "Dio's best friend" item. Allows the player to be saved from death followed by 10 seconds of
 	 * invincibility. Consumed on use.
 	 */
 	public static final RiskOfRain2Item DIOS_BEST_FRIEND = new DiosBestFriendItem();
+	public static final RiskOfRain2Item DIOS_BEST_FRIEND_CONSUMED = new DiosBestFriendConsumed();
 	/**
 	 * The "H3AD-5T v2" item. Makes the player jump significantly higher. 
 	 */

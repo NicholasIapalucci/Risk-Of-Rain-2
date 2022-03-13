@@ -1,6 +1,11 @@
 package znick_.riskofrain2.api.ror.buff;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
@@ -14,6 +19,8 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
  * @author zNick_
  */
 public abstract class Buff {
+	
+	private static final Set<EntityLiving> ENTITIES_WITH_BUFFS = new HashSet<>();
 	
 	/**The amount of the {@link #item} that the player has*/
 	private final int itemCount;
@@ -57,7 +64,7 @@ public abstract class Buff {
 	/**
 	 * Returns whether or not this is a buff that should repeatdly apply (apply every tick).
 	 * Normall this logic can be achieved without a buff by just applying the affects directly
-	 * in the {@link znick_.riskofrain2.item.ror.proc.type.OnUpdateItem#procOnUpdate(LivingEvent.LivingUpdateEvent, PlayerData, int)
+	 * in the {@link znick_.riskofrain2.item.ror.proc.type.OnUpdateItem#procOnUpdate(LivingEvent.LivingUpdateEvent, EntityLiving, int)
 	 * onUpdateItem(LivingUpdateEvent, PlayerData, int)} method, however certain items (such as weeping fungus)
 	 * require a buff to be rendered on screen and thus can make use of this method by handing the
 	 * logic here instead.

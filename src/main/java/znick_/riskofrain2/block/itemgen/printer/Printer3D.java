@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.ror.SuperBruh;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 /**
  * Class for creating the {@link znick_.riskofrain2.block.RiskOfRain2Blocks#PRINTER_3D 3DPrinter} block.

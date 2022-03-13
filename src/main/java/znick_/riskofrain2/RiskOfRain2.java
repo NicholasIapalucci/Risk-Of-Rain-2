@@ -18,9 +18,9 @@ import znick_.riskofrain2.event.RiskOfRain2Events;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.util.Registry;
+import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Achievements;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Commands;
-import znick_.riskofrain2.util.misc.customs.RiskOfRain2CreativeTabs;
 import znick_.riskofrain2.util.misc.customs.RiskOfRain2Recipes;
 
 /**

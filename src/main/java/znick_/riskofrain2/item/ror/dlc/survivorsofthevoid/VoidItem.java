@@ -4,11 +4,10 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.DLC;
-import znick_.riskofrain2.item.ror.dlc.DLCItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public abstract class VoidItem extends DLCItem {
+public abstract class VoidItem extends RiskOfRain2Item {
 
 	public VoidItem(String name) {
 		super(name);
