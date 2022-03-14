@@ -22,6 +22,10 @@ public class MathHelper {
 		else throw new ArithmeticException("Number to map must be within the interval!");
 	}
 	
+	public static Vec3 addVectors(Vec3 vec1, Vec3 vec2) {
+		return vec1.addVector(vec2.xCoord, vec2.yCoord, vec2.zCoord);
+	}
+	
 	public static double constrain(double a, double bottom, double top) {
 		return Math.max(bottom, Math.min(top, a));
 	}
@@ -31,9 +35,5 @@ public class MathHelper {
 		vector.yCoord *= scalar;
 		vector.zCoord *= scalar;
 		return vector;
-	}
-	
-	public static double getDistanceBetweenEntities(Entity first, Entity second) {
-		return Math.sqrt(Math.pow(first.posX - second.posX, 2) + Math.pow(first.posY - second.posY, 2) + Math.pow(first.posZ - second.posZ, 2));
 	}
 }

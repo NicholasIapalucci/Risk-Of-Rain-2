@@ -34,6 +34,8 @@ import znick_.riskofrain2.item.ror.list.green.OldWarStealthkit;
 import znick_.riskofrain2.item.ror.list.green.WaxQuail;
 import znick_.riskofrain2.item.ror.list.green.WillOTheWisp;
 import znick_.riskofrain2.item.ror.list.green.infusion.InfusionItem;
+import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapConsumedItem;
+import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapItem;
 import znick_.riskofrain2.item.ror.list.lunar.BeadsOfFealty;
 import znick_.riskofrain2.item.ror.list.lunar.Purity;
 import znick_.riskofrain2.item.ror.list.lunar.ShapedGlass;
@@ -42,6 +44,8 @@ import znick_.riskofrain2.item.ror.list.red.BrilliantBehemothItem;
 import znick_.riskofrain2.item.ror.list.red.HardlightAfterburner;
 import znick_.riskofrain2.item.ror.list.red.HeadSet;
 import znick_.riskofrain2.item.ror.list.red.RejuvinationRack;
+import znick_.riskofrain2.item.ror.list.red.bensraincoat.BensRaincoatItem;
+import znick_.riskofrain2.item.ror.list.red.defensivemicrobots.DefensiveMicrobotsItem;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendConsumed;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendItem;
 import znick_.riskofrain2.item.ror.list.red.fiftysevenleafclover.FiftySevenLeafClover;
@@ -63,6 +67,7 @@ import znick_.riskofrain2.item.ror.list.white.critglasses.CritGlassesItem;
 import znick_.riskofrain2.item.ror.list.white.delicatewatch.BrokenDelicateWatchItem;
 import znick_.riskofrain2.item.ror.list.white.delicatewatch.DelicateWatchItem;
 import znick_.riskofrain2.item.ror.list.white.energydrink.EnergyDrinkItem;
+import znick_.riskofrain2.item.ror.list.white.fireworks.FireworksItem;
 import znick_.riskofrain2.item.ror.list.white.goathoof.GoatHoofItem;
 import znick_.riskofrain2.item.ror.list.white.medkit.MedkitItem;
 import znick_.riskofrain2.item.ror.list.white.mocha.MochaItem;
@@ -131,9 +136,10 @@ public class RiskOfRain2Items {
 	 * 75% (+75% per item) more damage. 
 	 */
 	public static final RiskOfRain2Item CROWBAR = new Crowbar();
+	
+	public static final RiskOfRain2Item BUNDLE_OF_FIREWORKS = new FireworksItem();
+	
 	public static final RiskOfRain2Item BISON_STEAK = new BisonSteak();
-	
-	
 	
 	/**
 	 * The "Delicate Watch" item. Gives the player +20% damage, but breaks if the player falls below 25% health.
@@ -222,6 +228,8 @@ public class RiskOfRain2Items {
 	 * 40% movement speed for 5 seconds. Recharges every 30 seconds (-50% per item).
 	 */
 	public static final RiskOfRain2Item OLD_WAR_STEALTHKIT = new OldWarStealthkit();
+	public static final RiskOfRain2Item REGENERATING_SCRAP = new RegeneratingScrapItem();
+	public static final RiskOfRain2Item REGENERATING_SCRAP_CONSUMED = new RegeneratingScrapConsumedItem();
 	/**
 	 * The "green scrap" item. Does nothing, but is taken first when using green 3D printers.
 	 */
@@ -241,6 +249,7 @@ public class RiskOfRain2Items {
 	 * The "brilliant behemoth" item. All of the players attacks explode in a radius of 2 (+1 per item).
 	 */
 	public static final RiskOfRain2Item BRILLIANT_BEHEMOTH = new BrilliantBehemothItem();
+	public static final RiskOfRain2Item DEFENSIVE_MICROBOTS = new DefensiveMicrobotsItem();
 	public static final RiskOfRain2Item FIFTY_SEVEN_LEAF_CLOVER = new FiftySevenLeafClover();
 	
 	/**
@@ -253,6 +262,8 @@ public class RiskOfRain2Items {
 	 * The "H3AD-5T v2" item. Makes the player jump significantly higher. 
 	 */
 	public static final RiskOfRain2Item HEAD_SET = new HeadSet();
+	
+	public static final RiskOfRain2Item BENS_RAINCOAT = new BensRaincoatItem();
 	
 	/**
 	 * The "rejuvination rack" item. Adds 100% (+100% per stack) to all healing. 

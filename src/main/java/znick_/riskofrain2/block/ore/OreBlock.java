@@ -4,8 +4,11 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.world.World;
 import znick_.riskofrain2.block.BasicBlock;
+import znick_.riskofrain2.item.ror.list.white.fireworks.FireworkEntity;
 
 public class OreBlock extends BasicBlock {
 	
@@ -29,4 +32,5 @@ public class OreBlock extends BasicBlock {
 	public OreData getOreData() {
 		return this.oreData;
 	}
+	
 } 

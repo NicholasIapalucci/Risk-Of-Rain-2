@@ -1,5 +1,7 @@
-package znick_.riskofrain2.item.ror;
+package znick_.riskofrain2.item.ror.consume;
 
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.dlc.DLC;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
@@ -20,6 +22,11 @@ public abstract class ConsumedItem extends RiskOfRain2Item {
 	@Override
 	public ItemRarity getRarity() {
 		return this.item.getRarity();
+	}
+	
+	@Override
+	public DLC getDLC() {
+		return this.item.getDLC();
 	}
 	
 	@Override

@@ -20,12 +20,12 @@ public class OddlyShapedOpalBuff extends Buff {
 
 	@Override
 	public void applyEffect(PlayerData player) {
-		player.addToStat(PlayerStat.ARMOR, 100);
+		player.addToStat(PlayerStat.ARMOR, 100 * this.getItemCount());
 	}
 
 	@Override
 	public void removeEffect(PlayerData player) {
-		player.addToStat(PlayerStat.ARMOR, -100);
+		player.addToStat(PlayerStat.ARMOR, -100 * this.getItemCount());
 		player.addBuff(new OddlyShapedOpalCooldownBuff(this.getItemCount()));
 	}
 

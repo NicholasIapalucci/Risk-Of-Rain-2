@@ -7,6 +7,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraft.entity.item.EntityFireworkRocket;
 import znick_.riskofrain2.api.mc.RiskOfRain2Config;
 import znick_.riskofrain2.block.RiskOfRain2Blocks;
 import znick_.riskofrain2.block.RiskOfRain2TileEntities;

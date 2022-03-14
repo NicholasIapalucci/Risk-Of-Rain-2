@@ -12,7 +12,8 @@ import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.HuntressRainingArrow;
 
 public class RenderHuntressRainingArrow extends Render {
-    private static final ResourceLocation arrowTextures = new ResourceLocation(RiskOfRain2.MODID + ":textures/entity/character/huntress/raining_arrow.png");
+	
+    private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2.MODID + ":textures/entity/character/huntress/raining_arrow.png");
 
     public void doRender(HuntressRainingArrow arrow, double x, double y, double z, float parFloat, float parFloat2) {
     	GL11.glColor3f(1, 1, 1);
@@ -75,7 +76,7 @@ public class RenderHuntressRainingArrow extends Render {
     }
 
     protected ResourceLocation getEntityTexture(HuntressRainingArrow entityarrow) {
-        return arrowTextures;
+        return TEXTURE;
     }
 
     protected ResourceLocation getEntityTexture(Entity entity) {

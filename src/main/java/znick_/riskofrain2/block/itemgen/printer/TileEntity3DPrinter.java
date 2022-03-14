@@ -17,6 +17,7 @@ import znick_.riskofrain2.block.itemgen.TileEntityItemGenerator;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.list.ScrapItem;
+import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapItem;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
 public class TileEntity3DPrinter extends TileEntityItemGenerator {
@@ -134,11 +135,18 @@ public class TileEntity3DPrinter extends TileEntityItemGenerator {
 				RiskOfRain2Item riskItem = (RiskOfRain2Item) stackInSlot.getItem();
 				// Only continues if the item is a Risk Of Rain 2 item with the correct rarity
 				if (riskItem.getRarity() == this.getRarity()) {
-					// Prioritizes scrap
-					if (riskItem instanceof ScrapItem) {
+					
+					// Prioritize regenerating scrap
+					if (riskItem instanceof RegeneratingScrapItem) {
 						itemToTake = new AbstractMap.SimpleEntry<Integer, RiskOfRain2Item>(i, riskItem);
 						break;
 					}
+					
+					// Prioritize normal scrap
+					if (riskItem instanceof ScrapItem && itemToTake == null) {
+						itemToTake = new AbstractMap.SimpleEntry<Integer, RiskOfRain2Item>(i, riskItem);
+					}
+					
 					// If there is no scrap, adds the item to the set of potential items
 					potentialItems.put(i, riskItem);
 				}

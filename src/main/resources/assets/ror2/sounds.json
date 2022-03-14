@@ -108,6 +108,16 @@
 		]
 	},
 	
+	"fireworks_launch": {
+		"category": "player",
+		"sounds": [
+		{
+			"name": "ror2:items/fireworks/fireworks_launch",
+			"stream": false
+		}
+		]
+	},
+	
 	"tougher_times": {
 		"category": "player",
 		"sounds": [

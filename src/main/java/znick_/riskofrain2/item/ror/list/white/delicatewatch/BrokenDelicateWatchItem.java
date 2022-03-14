@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.delicatewatch;
 
 import znick_.riskofrain2.item.RiskOfRain2Items;
-import znick_.riskofrain2.item.ror.ConsumedItem;
+import znick_.riskofrain2.item.ror.consume.ConsumedItem;
 import znick_.riskofrain2.item.ror.dlc.DLC;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;

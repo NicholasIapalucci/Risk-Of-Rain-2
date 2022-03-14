@@ -15,6 +15,7 @@ import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.event.handler.EventHandler;
+import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.VoidItem;
@@ -24,12 +25,15 @@ import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
 import znick_.riskofrain2.item.ror.proc.type.OnJumpItem;
 import znick_.riskofrain2.item.ror.proc.type.OnKeyPressItem;
 import znick_.riskofrain2.item.ror.proc.type.OnKillItem;
+import znick_.riskofrain2.item.ror.proc.type.OnObjectInteractionItem;
 import znick_.riskofrain2.item.ror.proc.type.OnPickupXPItem;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.util.helper.MinecraftHelper;
 import znick_.riskofrain2.util.misc.UniqueDamageSource;
 
 public class ItemProccer extends EventHandler {
+	
+	private static int updateCounter = 0;
 	
 	/**
 	 * Called when the player attacks an enemy. Procs all on-hit items if they should.
@@ -159,7 +163,12 @@ public class ItemProccer extends EventHandler {
 			
 			// Add the player's movement speed multiplier
 			player.capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER)));
+			updateCounter++;
 		}
+	}
+	
+	public static int getUpdateCounter() {
+		return updateCounter;
 	}
 	
 	/**
@@ -225,24 +234,44 @@ public class ItemProccer extends EventHandler {
 			PlayerData data = PlayerData.get(player);
 			if (RiskOfRain2.DEBUG) System.out.println("Player " + player.getDisplayName() + " has taken damage...");
 			
-			//Proc all on-hurt items if able to
+			// Proc all on-hurt items if able to
 			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
 				int count = MinecraftHelper.amountOfItems(player, item);
-				//Check if the item is an on-hurt item and if the player has it
+				// Check if the item is an on-hurt item and if the player has it
 				if (count > 0 && item instanceof OnHurtItem) {
 					if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName());
 					OnHurtItem onHurt = (OnHurtItem) item;
-					//Rolls if the event should proc and if so, procs it
+					// Rolls if the event should proc and if so, procs it
 					if (onHurt.shouldProcOnHurt(event, data, count)) {
 						onHurt.procOnHurt(event, data, count);
 						if (RiskOfRain2.DEBUG) System.out.println("Sucessfully procced " + item.getClass().getSimpleName());
 					} else if (RiskOfRain2.DEBUG) System.out.println("Failed! Not proccing " + item.getClass().getSimpleName());
 				}
+				
+				// Stop checking items if the player didn't actually get hurt
+				if (event.isCanceled()) break;
 			}
 			
 			//Apply damage reduction from armor
 			double armor = data.getStat(PlayerStat.ARMOR);
 			event.ammount *= (1 - (armor/(100 + Math.abs(armor))));
+		}
+	}
+	
+	@SubscribeEvent
+	public void procOnInteractionItems(ObjectInteractionEvent event) {
+		EntityPlayer player = event.entityPlayer;
+		PlayerData data = PlayerData.get(player);
+		if (RiskOfRain2.DEBUG) System.out.println("Player " + player.getDisplayName() + " has taken damage...");
+			
+		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
+			if (event.isCanceled()) break;
+			int count = MinecraftHelper.amountOfItems(player, item);
+			if (count > 0 && item instanceof OnObjectInteractionItem) {
+				if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName());
+				OnObjectInteractionItem onInteraction = (OnObjectInteractionItem) item;
+				onInteraction.procOnInteraction(event, data, count);
+			}
 		}
 	}
 	

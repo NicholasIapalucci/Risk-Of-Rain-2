@@ -134,10 +134,18 @@ public class PlayerData implements IExtendedEntityProperties {
 	 * @return whether or not the buff was added.
 	 */
 	public boolean addBuff(Buff newBuff) {
-		//Prevent buffs from applying twice, such as stacking speed with more speed from the same item
+		
+		// Proc Ben's Raincoat if necessary
+		if (this.hasItem(RiskOfRain2Items.BENS_RAINCOAT) && newBuff.isDebuff()) return false;
+		
+		// Prevent buffs from applying twice, such as stacking speed with more speed from the same item
 		for (Buff buff : this.buffs) if (buff.getClass() == newBuff.getClass()) return false;
+		
+		// Add the buff and apply the effect
 		this.buffs.add(newBuff);
 		newBuff.applyEffect(this);
+		
+		// Mark the buff as added successfully
 		return true;
 	}
 	
@@ -355,7 +363,7 @@ public class PlayerData implements IExtendedEntityProperties {
 	 * @param entity The entity to get the distance from.
 	 */
 	public double distanceFrom(Entity entity) {
-		return MathHelper.getDistanceBetweenEntities(this.player, entity);
+		return this.player.getDistanceToEntity(entity);
 	}
 	
 	/**
@@ -572,6 +580,16 @@ public class PlayerData implements IExtendedEntityProperties {
 				else items[i] = null;
 			}
 		}
+	}
+	
+	public boolean hasItem(Item item) {
+		ItemStack[] items = this.player.inventory.mainInventory;
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] != null && items[i].getItem() == item) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

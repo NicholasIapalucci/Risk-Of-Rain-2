@@ -45,11 +45,11 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 	 * true if neither are cancelled and the item is generated successfully. 
 	 * 
 	 * @param player The player opening the loot holder
+	 * @return true iff the object was opened successfully
 	 */
 	public boolean open(EntityPlayer player) {
-		
+
 		// Run some checks
-		if (player.worldObj.isRemote) return false;
 		if (!this.beforeOpened(player)) return false;
 		
 		// Post the object interaction event and exit if it was canceled
@@ -64,27 +64,28 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		GenerateItemEvent genEvent = new GenerateItemEvent(GenerationSource.LUNAR_POD, generatedItem, player);
 		if (MinecraftForge.EVENT_BUS.post(genEvent)) return false;
 		if (RiskOfRain2.DEBUG) System.out.println("Item generation event not canceled. Continuing...");
-		
+				
 		// Refresh the item to drop in case an event listener changed it
 		RiskOfRain2Item toDrop = genEvent.getItem();
-
+		this.isOpened = true;
+		
 		// Open the loot holder
-		this.forceOpen(player, toDrop);
+		if (!this.worldObj.isRemote) this.forceOpen(player, toDrop);
 		this.afterOpened(player);
+		
 		return true;
 	}
 	
 	/**
 	 * Force opens the loot crate without firing any events. This should not be called directly, but rather
 	 * by {@link #open(EntityPlayer)} only. Otherwise, if you <i>really</i> need to bypass events, call this
-	 * through reflection. I'll at least make you work for it. 
+	 * through reflection. I'll at least make you work for it. Note that this also does not set {@link #isOpened}
+	 * to true, so you'd have to do that manually as well.
 	 * 
 	 * @param item The item to generate.
 	 */
 	private void forceOpen(EntityPlayer player, RiskOfRain2Item item) {
 		if (RiskOfRain2.DEBUG) System.out.println("Opening item generator");
-		// Mark this loot holder as opened
-		this.isOpened = true;
 		
 		// Create the item to drop
 		EntityItem entityItem = new EntityItem(this.worldObj, ((double) this.xCoord) + 0.5, this.yCoord + 1.2, ((double) this.zCoord) + 0.5, new ItemStack(item));
