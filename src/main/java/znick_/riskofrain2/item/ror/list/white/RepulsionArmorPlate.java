@@ -37,4 +37,9 @@ public class RepulsionArmorPlate extends RiskOfRain2Item implements OnHurtItem {
 	public String getDescription() {
 		return "Receive flat damage reduction from all attacks.";
 	}
+	
+	@Override
+	public String getArtist() {
+		return "PixelNebula303";
+	}
 }

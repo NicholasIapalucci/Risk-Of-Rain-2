@@ -1,6 +1,8 @@
 package znick_.riskofrain2.api.ror.buff;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import net.minecraft.entity.EntityLiving;
@@ -20,7 +22,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
  */
 public abstract class Buff {
 	
-	private static final Set<EntityLiving> ENTITIES_WITH_BUFFS = new HashSet<>();
+	private static final Map<EntityLiving, Set<Buff>> ENTITIES_WITH_BUFFS = new HashMap<>();
 	
 	/**The amount of the {@link #item} that the player has*/
 	private final int itemCount;
@@ -42,6 +44,19 @@ public abstract class Buff {
 	public abstract void applyEffect(PlayerData player);
 	/**Removes the effect from the player.*/
 	public abstract void removeEffect(PlayerData player);
+	
+	public void applyToEntity(EntityLiving entity) {
+		if (!ENTITIES_WITH_BUFFS.containsKey(entity)) ENTITIES_WITH_BUFFS.put(entity, new HashSet<>());
+		ENTITIES_WITH_BUFFS.get(entity).add(this);
+	}
+	
+	public void removeFromEntity(EntityLiving entity) {
+		ENTITIES_WITH_BUFFS.remove(entity);
+	}
+	
+	public static Buff[] getEntitiyBuffs(EntityLiving entity) {
+		return ENTITIES_WITH_BUFFS.containsKey(entity) ? ENTITIES_WITH_BUFFS.get(entity).toArray(new Buff[0]) : new Buff[] {};
+	}
 	
 	/**Returns the item that gives this effect*/
 	public RiskOfRain2Item getItem() {

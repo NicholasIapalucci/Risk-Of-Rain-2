@@ -34,8 +34,8 @@ public abstract class RiskOfRain2Item extends Item {
 	 * Creates a new {@code RiskOfRain2Item} with the given name.
 	 * 
 	 * @param name The name of the item. The name is used as the unlocalized name to register the item into
-	 * the game, the proper name to be rendered on the item, and the name of the location for the item's
-	 * texture. The name should be in all lowercase and not include whitespaces, but rather underscores.
+	 * the game and the name of the location for the item's texture. The name should be in all lowercase 
+	 * and not include whitespaces, but rather underscores.
 	 */
 	protected RiskOfRain2Item(String name) {
 		this.name = name;
@@ -44,6 +44,9 @@ public abstract class RiskOfRain2Item extends Item {
 		this.setCreativeTab(RiskOfRain2CreativeTabs.ITEMS);
 	}
 	
+	/**
+	 * Returns the texture of this item as a {@code ResourceLocation}.
+	 */
 	public ResourceLocation getTexture() {
 		return new ResourceLocation(RiskOfRain2.MODID + ":textures/items/items/" + this.name + ".png");
 	}
@@ -89,20 +92,31 @@ public abstract class RiskOfRain2Item extends Item {
 			if (this.getDLC() != DLC.BASE_GAME) {
 				info.add("DLC: " + (this.getDLC().getColor() + this.getDLC().toString()));
 			}
+			
+			// Add artist info
+			if (this.getArtist() != null) {
+				info.add(EnumChatFormatting.DARK_GRAY + "Art by " + this.getArtist());
+			}
 		}
+	}
+	
+	protected String getArtist() {
+		return null;
 	}
 	
 	/**
 	 * Returns the rarity of this item.
 	 * 
 	 * @param stack The item stack to get the rarity of.
+	 * 
+	 * @see znick_.riskofrain2.api.mc.CustomRarity CustomRarity
 	 */
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
 		switch(this.getRarity()) {
 		case GREEN: return CustomRarity.GREEN;
 		case RED: return CustomRarity.RED;
-		case LUNAR: return CustomRarity.LUNAR;
+		case LUNAR: return CustomRarity.BLUE;
 		case BOSS: return EnumRarity.uncommon;
 		case EQUIPMENT: return CustomRarity.EQUIPMENT;
 		case VOID: return EnumRarity.epic;

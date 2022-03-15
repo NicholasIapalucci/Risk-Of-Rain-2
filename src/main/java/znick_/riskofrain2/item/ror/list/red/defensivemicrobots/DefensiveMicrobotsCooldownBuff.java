@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class DefensiveMicrobotsCooldownBuff extends DurationBuff {
 
 	public DefensiveMicrobotsCooldownBuff(int itemCount) {
-		super(RiskOfRain2Items.DEFENSIVE_MICROBOTS, itemCount, 10);
+		super(RiskOfRain2Items.DEFENSIVE_MICROBOTS, itemCount, 10/(itemCount));
 	}
 
 	@Override

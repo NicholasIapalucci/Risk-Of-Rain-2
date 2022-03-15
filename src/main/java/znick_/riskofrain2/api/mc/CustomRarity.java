@@ -13,6 +13,7 @@ import sun.misc.Unsafe;
  * giving items custom colors in the names.
  * 
  * @author zNick_
+ * @see #createRarity(EnumChatFormatting)
  */
 public class CustomRarity {
 
@@ -21,7 +22,7 @@ public class CustomRarity {
 	/**The rarity for green Risk of Rain 2 items*/
 	public static final EnumRarity GREEN = createRarity(EnumChatFormatting.GREEN);
 	/**The rarity for lunar Risk of Rain 2 items*/
-	public static final EnumRarity LUNAR = createRarity(EnumChatFormatting.BLUE);
+	public static final EnumRarity BLUE = createRarity(EnumChatFormatting.BLUE);
 	/**The rarity for equipment Risk of Rain 2 items*/
 	public static final EnumRarity EQUIPMENT = createRarity(EnumChatFormatting.GOLD);
 	/**The rarity for any Risk Of Rain 2 items with dark blue names.*/

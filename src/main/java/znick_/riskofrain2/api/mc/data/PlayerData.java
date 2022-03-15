@@ -65,6 +65,9 @@ public class PlayerData implements IExtendedEntityProperties {
 	/**The set of items that the player has found in the world.*/
 	private final Set<RiskOfRain2Item> foundItems = new HashSet<>();
 	
+	private int money;
+	private int lunarCoins;
+	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
 	 * 
@@ -85,12 +88,16 @@ public class PlayerData implements IExtendedEntityProperties {
 			properties.setInteger("item_" + i, Item.getIdFromItem(item));
 			i++;
 		}
+		properties.setInteger("money", this.money);
+		properties.setInteger("lunarCoins", this.lunarCoins);
 		compound.setTag(EXT_PROP_NAME, properties);
 	}
 
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
+		this.money = properties.getInteger("money");
+		this.lunarCoins = properties.getInteger("lunarCoins");
 		int i = 0;
 		while(true) {
 			int id = properties.getInteger("item_" + i);
@@ -139,7 +146,7 @@ public class PlayerData implements IExtendedEntityProperties {
 		if (this.hasItem(RiskOfRain2Items.BENS_RAINCOAT) && newBuff.isDebuff()) return false;
 		
 		// Prevent buffs from applying twice, such as stacking speed with more speed from the same item
-		for (Buff buff : this.buffs) if (buff.getClass() == newBuff.getClass()) return false;
+		for (Buff buff : this.getBuffs()) if (buff.getClass() == newBuff.getClass()) this.buffs.remove(buff);
 		
 		// Add the buff and apply the effect
 		this.buffs.add(newBuff);
@@ -147,6 +154,14 @@ public class PlayerData implements IExtendedEntityProperties {
 		
 		// Mark the buff as added successfully
 		return true;
+	}
+	
+	public void stackBuff(Buff buff) {
+		this.buffs.add(buff);
+	}
+	
+	public int getBuffCount(Class<? extends Buff> buffClass) {
+		return this.buffs.stream().filter(buff -> buff.getClass().equals(buffClass)).toArray(Buff[]::new).length;
 	}
 	
 	/**
