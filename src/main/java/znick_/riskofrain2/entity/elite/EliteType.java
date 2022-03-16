@@ -1,10 +1,12 @@
-package znick_.riskofrain2.api.ror.enemy;
+package znick_.riskofrain2.entity.elite;
 
 public enum EliteType {
 	BLAZING,
 	CELESTINE,
 	GLACIAL,
 	MALACHITE,
+	MENDING,
 	OVERLOADING,
-	PERFECTED
+	PERFECTED,
+	VOIDTOUCHED;
 }

@@ -66,8 +66,16 @@ public class PlayerData implements IExtendedEntityProperties {
 	/**The set of items that the player has found in the world.*/
 	private final Set<RiskOfRain2Item> foundItems = new HashSet<>();
 	
+	/**The amount of money the player has*/
 	private int money;
+	/**The amount of lunar coins the player has*/
 	private int lunarCoins;
+	
+	/**
+	 * The chance of a lunar coin being dropped by an entity. Get's halved every time one drops. 
+	 * This is not saved to NBT, so it intentionally resets when the player dies.
+	 */
+	private double lunarCoinChance = 0.005;
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -91,6 +99,7 @@ public class PlayerData implements IExtendedEntityProperties {
 		}
 		properties.setInteger("money", this.money);
 		properties.setInteger("lunarCoins", this.lunarCoins);
+		properties.setDouble("lunarCoinChance", this.lunarCoinChance);
 		compound.setTag(EXT_PROP_NAME, properties);
 	}
 
@@ -99,6 +108,7 @@ public class PlayerData implements IExtendedEntityProperties {
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(EXT_PROP_NAME);
 		this.money = properties.getInteger("money");
 		this.lunarCoins = properties.getInteger("lunarCoins");
+		this.lunarCoinChance = properties.getDouble("lunarCoinChance");
 		int i = 0;
 		while(true) {
 			int id = properties.getInteger("item_" + i);

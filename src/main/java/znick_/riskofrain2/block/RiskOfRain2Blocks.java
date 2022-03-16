@@ -17,6 +17,8 @@ import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerBlock;
 
 public class RiskOfRain2Blocks {
 	
+	public static final Block DEV_BLOCK = new DevBlock();
+	
 	//Huntress
 	public static final Block HUNTRITE_ORE = new OreBlock("huntrite_ore", new OreData().setUpperY(30).setSpawnWeight(0.1f).setMaxVeinSize(1));
 	public static final Block TRESSIUM_ORE = new OreBlock("tressium_ore", new OreData().setUpperY(30).setSpawnWeight(0.1f).setMaxVeinSize(1));

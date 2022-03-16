@@ -7,15 +7,19 @@ import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 import znick_.riskofrain2.client.gui.menu.RiskOfRain2MainMenu;
+import znick_.riskofrain2.entity.elite.EliteEntity;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 public class GeneralEventHandler extends EventHandler {
@@ -24,6 +28,14 @@ public class GeneralEventHandler extends EventHandler {
 	public void registerExtendedPlayer(EntityConstructing event) {
 		if (event.entity instanceof EntityPlayer && PlayerData.get((EntityPlayer) event.entity) == null) {
 			PlayerData.register((EntityPlayer) event.entity);
+			return;
+		}
+	}
+	
+	@SubscribeEvent
+	public void handleEliteSpawns(EntityJoinWorldEvent event) {
+		if (event.entity instanceof EliteEntity) {
+			((EliteEntity) event.entity).onEntityCreation();
 		}
 	}
 	
@@ -31,6 +43,13 @@ public class GeneralEventHandler extends EventHandler {
 	public void renderGui(RenderGameOverlayEvent.Pre event) {
 		if (event.type != ElementType.AIR) return;
 		new RiskOfRain2Gui();
+	}
+	
+	@SubscribeEvent
+	public void saveAndLoadPlayerData(PlayerEvent.Clone event) {
+		NBTTagCompound nbt = new NBTTagCompound();
+		PlayerData.get(event.original).saveNBTData(nbt);
+		PlayerData.get(event.entityPlayer).loadNBTData(nbt);
 	}
 	
 	@SubscribeEvent

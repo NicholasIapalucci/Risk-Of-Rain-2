@@ -32,8 +32,7 @@ import znick_.riskofrain2.util.misc.customs.RiskOfRain2Recipes;
 @Mod(
 	modid = RiskOfRain2.MODID,
 	name = "Risk Of Rain 2", 
-	version = RiskOfRain2.VERSION,
-	dependencies = "required-after:difficultlife"
+	version = RiskOfRain2.VERSION
 )
 public class RiskOfRain2 {
 	

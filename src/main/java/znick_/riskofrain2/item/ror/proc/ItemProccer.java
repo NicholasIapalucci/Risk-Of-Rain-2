@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import znick_.riskofrain2.RiskOfRain2;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.entity.elite.EliteEntity;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -244,15 +245,20 @@ public class ItemProccer extends EventHandler {
 					// Rolls if the event should proc and if so, procs it
 					if (onHurt.shouldProcOnHurt(event, data, count)) {
 						onHurt.procOnHurt(event, data, count);
-						if (RiskOfRain2.DEBUG) System.out.println("Sucessfully procced " + item.getClass().getSimpleName());
-					} else if (RiskOfRain2.DEBUG) System.out.println("Failed! Not proccing " + item.getClass().getSimpleName());
+					}
 				}
 				
 				// Stop checking items if the player didn't actually get hurt
 				if (event.isCanceled()) break;
 			}
 			
-			//Apply damage reduction from armor
+			// Factor in elites dealing more damage
+			if (event.source.getEntity() instanceof EliteEntity) {
+				EliteEntity elite = (EliteEntity) event.source.getEntity();
+				event.ammount *= elite.getDamageMultiplier();
+			}
+			
+			// Factor in armor
 			double armor = data.getStat(PlayerStat.ARMOR);
 			event.ammount *= (1 - (armor/(100 + Math.abs(armor))));
 		}
