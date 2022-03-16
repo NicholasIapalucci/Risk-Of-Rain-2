@@ -6,6 +6,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
+import znick_.riskofrain2.item.util.Artist;
 
 public class RepulsionArmorPlate extends RiskOfRain2Item implements OnHurtItem {
 	
@@ -39,7 +40,7 @@ public class RepulsionArmorPlate extends RiskOfRain2Item implements OnHurtItem {
 	}
 	
 	@Override
-	public String getArtist() {
-		return "PixelNebula303";
+	public Artist getArtist() {
+		return Artist.AIDAN;
 	}
 }

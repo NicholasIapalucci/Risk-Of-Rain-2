@@ -23,6 +23,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.StackableBuff;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.event.handler.TickHandler;
@@ -146,7 +147,13 @@ public class PlayerData implements IExtendedEntityProperties {
 		if (this.hasItem(RiskOfRain2Items.BENS_RAINCOAT) && newBuff.isDebuff()) return false;
 		
 		// Prevent buffs from applying twice, such as stacking speed with more speed from the same item
-		for (Buff buff : this.getBuffs()) if (buff.getClass() == newBuff.getClass()) this.buffs.remove(buff);
+		if (!(newBuff instanceof StackableBuff)) {
+			for (Buff buff : this.getBuffs()) {
+				if (buff.getClass() == newBuff.getClass()) {
+					this.buffs.remove(buff);
+				}
+			}
+		}
 		
 		// Add the buff and apply the effect
 		this.buffs.add(newBuff);

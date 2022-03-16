@@ -18,6 +18,7 @@ import znick_.riskofrain2.api.mc.CustomRarity;
 import znick_.riskofrain2.item.ror.dlc.DLC;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
+import znick_.riskofrain2.item.util.Artist;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 /**
@@ -94,14 +95,14 @@ public abstract class RiskOfRain2Item extends Item {
 			}
 			
 			// Add artist info
-			if (this.getArtist() != null) {
+			if (this.getArtist() != Artist.NICK) {
 				info.add(EnumChatFormatting.DARK_GRAY + "Art by " + this.getArtist());
 			}
 		}
 	}
 	
-	protected String getArtist() {
-		return null;
+	protected Artist getArtist() {
+		return Artist.NICK;
 	}
 	
 	/**

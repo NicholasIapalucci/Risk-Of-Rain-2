@@ -4,6 +4,7 @@ import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.VoidItem;
+import znick_.riskofrain2.item.util.Artist;
 
 public class PluripotentLarvaItem extends VoidItem {
 
@@ -21,6 +22,11 @@ public class PluripotentLarvaItem extends VoidItem {
 	@Override
 	public RiskOfRain2Item[] getCorruptedItems() {
 		return new RiskOfRain2Item[] {RiskOfRain2Items.DIOS_BEST_FRIEND};
+	}
+	
+	@Override
+	public Artist getArtist() {
+		return Artist.AIDAN;
 	}
 
 }

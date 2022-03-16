@@ -11,6 +11,7 @@ import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.VoidItem;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.saferspaces.SaferSpacesBuffPacketHandler.SaferSpacesBuffPacket;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
+import znick_.riskofrain2.item.util.Artist;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 
 public class SaferSpacesItem extends VoidItem implements OnHurtItem, OnUpdateItem {
@@ -27,6 +28,11 @@ public class SaferSpacesItem extends VoidItem implements OnHurtItem, OnUpdateIte
 	@Override
 	public String getItemDescription() {
 		return "Block the next source of damage.";
+	}
+	
+	@Override
+	public Artist getArtist() {
+		return Artist.AIDAN;
 	}
 
 	@Override
