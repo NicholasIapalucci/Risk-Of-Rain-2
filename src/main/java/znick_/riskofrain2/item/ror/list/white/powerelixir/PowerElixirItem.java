@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.powerelixir;
 
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.consume.ConsumableItem;
@@ -37,17 +37,17 @@ public class PowerElixirItem extends RiskOfRain2Item implements ConsumableItem, 
 	}
 
 	@Override
-	public boolean shouldProcOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
 		return player.getHealth() < player.getMaxHealth() * 0.25;
 	}
 	
 	@Override
-	public void procOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
+	public void procOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
 		player.heal(player.getMaxHealth() * 0.75f);
 	}
 
 	@Override
-	public void consume(PlayerData player) {
+	public void consume(AbstractEntityData player) {
 		player.replaceItem(this, this.getBrokenItem());
 	}
 

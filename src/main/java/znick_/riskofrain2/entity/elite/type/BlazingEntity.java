@@ -1,11 +1,11 @@
 package znick_.riskofrain2.entity.elite.type;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.init.Blocks;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.entity.EntityLivingBase;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.entity.elite.EliteEntity;
 import znick_.riskofrain2.entity.elite.EliteType;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 
 public interface BlazingEntity extends EliteEntity {
 
@@ -17,17 +17,8 @@ public interface BlazingEntity extends EliteEntity {
 	@Override
 	public default void onEntityCreation() {
 		EliteEntity.super.onEntityCreation();
-		EntityLiving entity = (EntityLiving) this;
-		entity.addPotionEffect(new PotionEffect(Potion.fireResistance.id, Integer.MAX_VALUE, 0));
-		entity.setFire(Integer.MAX_VALUE);
-	}
-	
-	@Override
-	public default void updateEliteEntity() {
-		EntityLiving entity = (EntityLiving) this;
-		if (!entity.worldObj.isRemote) {
-			entity.worldObj.setBlock((int) entity.posX, (int) entity.posY, (int) entity.posZ, Blocks.fire);
-		}
+		EntityLivingBase entity = (EntityLivingBase) this;
+		((EntityData) AbstractEntityData.get(entity)).addItem(RiskOfRain2Items.IFRITS_DISTINCTION);
 	}
 	
 	@Override

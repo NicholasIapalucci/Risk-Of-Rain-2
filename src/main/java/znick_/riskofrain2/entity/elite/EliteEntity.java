@@ -24,6 +24,7 @@ public interface EliteEntity {
 	public default void onEntityCreation() {
 		EntityLiving entity = (EntityLiving) this;
 		entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(entity.getMaxHealth() * this.getHealthMultiplier());
+		entity.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(entity.getEntityAttribute(SharedMonsterAttributes.attackDamage).getBaseValue() * this.getDamageMultiplier());
 	}
 	
 	/**

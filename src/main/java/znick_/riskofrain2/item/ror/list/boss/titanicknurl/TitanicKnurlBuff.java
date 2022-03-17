@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.boss.titanicknurl;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class TitanicKnurlBuff extends Buff {
 
 	public TitanicKnurlBuff(int itemCount) {
-		super(RiskOfRain2Items.TITANIC_KNURL, itemCount);
+		super(itemCount, RiskOfRain2Items.TITANIC_KNURL);
 	}
 
 	@Override
@@ -18,12 +18,12 @@ public class TitanicKnurlBuff extends Buff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) {
+	public void applyEffect(AbstractEntityData player) {
 		player.addToMaxHealth(80 * this.getItemCount()); //TODO: Add titanic knurl increased regeneration
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
+	public void removeEffect(AbstractEntityData player) {
 		player.addToMaxHealth(-80 * this.getItemCount());
 	}
 

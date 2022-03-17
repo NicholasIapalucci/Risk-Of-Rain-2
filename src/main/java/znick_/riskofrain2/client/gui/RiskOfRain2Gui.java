@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
@@ -47,7 +47,7 @@ public class RiskOfRain2Gui extends Gui {
 		GuiIngameForge.renderHealth = false;
 		GuiIngameForge.renderExperiance = false;
 			
-		PlayerData player = PlayerData.get(Minecraft.getMinecraft().thePlayer);
+		AbstractEntityData player = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer);
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		String health = (int) (player.getHealth() + player.getBarrier())  + "/" + (int) player.getMaxHealth();
 		
@@ -84,7 +84,7 @@ public class RiskOfRain2Gui extends Gui {
 	}
 	
 	private void renderAbilities() {
-		Loadout loadout = PlayerData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
+		Loadout loadout = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
 		if (loadout == null) return;
 		this.renderAbility(loadout.getUtility(), this.width/2 + 128, this.height - 24, 12);
 		//this.renderAbility(loadout.getSpecial(), this.width/2 + 152, this.height - 24, 12); // TODO: CAUSING ISSUES
@@ -124,7 +124,7 @@ public class RiskOfRain2Gui extends Gui {
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		int i = 0;
-		for (Buff buff : PlayerData.get(Minecraft.getMinecraft().thePlayer).getBuffs()) {
+		for (Buff buff : AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).getBuffs()) {
 			if (buff.getIconTexture() == null) continue;
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().getTextureManager().bindTexture(buff.getIconTexture());

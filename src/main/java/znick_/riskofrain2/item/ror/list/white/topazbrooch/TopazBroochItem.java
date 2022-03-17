@@ -3,7 +3,7 @@ package znick_.riskofrain2.item.ror.list.white.topazbrooch;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
 import znick_.riskofrain2.item.ror.proc.type.OnKillItem;
@@ -32,7 +32,7 @@ public class TopazBroochItem extends RiskOfRain2Item implements OnKillItem {
 	}
 
 	@Override
-	public void procOnKill(LivingDeathEvent event, PlayerData player, EntityLivingBase enemy, int itemCount) {
+	public void procOnKill(LivingDeathEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
 		player.addBarrier(itemCount * 2);
 	}
 

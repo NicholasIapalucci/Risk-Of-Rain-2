@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white;
 
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnPickupXPItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -14,7 +14,7 @@ public class MonsterTooth extends RiskOfRain2Item implements OnPickupXPItem {
 	}
 	
 	@Override
-	public void procOnXPPickup(PlayerPickupXpEvent event, PlayerData player, int itemCount) {
+	public void procOnXPPickup(PlayerPickupXpEvent event, AbstractEntityData player, int itemCount) {
 		if (!player.getWorld().isRemote) player.heal(event.orb.getXpValue()/3 * itemCount);
 	}
 

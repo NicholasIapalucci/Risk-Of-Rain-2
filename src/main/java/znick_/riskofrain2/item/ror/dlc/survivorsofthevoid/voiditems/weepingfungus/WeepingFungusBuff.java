@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.weepingfungus;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -11,7 +11,7 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 public class WeepingFungusBuff extends Buff {
 
 	public WeepingFungusBuff(int itemCount) {
-		super(RiskOfRain2Items.WEEPING_FUNGUS, itemCount);
+		super(itemCount, RiskOfRain2Items.WEEPING_FUNGUS);
 	}
 
 	@Override
@@ -20,14 +20,14 @@ public class WeepingFungusBuff extends Buff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) {
+	public void applyEffect(AbstractEntityData player) {
 		if(!player.getWorld().isRemote) {
 			player.heal((float) ((player.getMaxHealth() * 0.02 * this.getItemCount()) / TickHandler.fromSeconds(1))); 
 		}
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
+	public void removeEffect(AbstractEntityData player) {
 		
 	}
 

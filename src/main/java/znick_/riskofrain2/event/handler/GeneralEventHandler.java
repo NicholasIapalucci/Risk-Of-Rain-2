@@ -4,6 +4,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,21 +15,24 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 import znick_.riskofrain2.client.gui.menu.RiskOfRain2MainMenu;
 import znick_.riskofrain2.entity.elite.EliteEntity;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
 
 public class GeneralEventHandler extends EventHandler {
 
 	@SubscribeEvent
-	public void registerExtendedPlayer(EntityConstructing event) {
-		if (event.entity instanceof EntityPlayer && PlayerData.get((EntityPlayer) event.entity) == null) {
-			PlayerData.register((EntityPlayer) event.entity);
+	public void registerEntityData(EntityConstructing event) {
+		if (event.entity instanceof EntityLivingBase && AbstractEntityData.get((EntityLivingBase) event.entity) == null) {
+			AbstractEntityData.register((EntityLivingBase) event.entity);
 			return;
 		}
 	}
@@ -40,6 +45,21 @@ public class GeneralEventHandler extends EventHandler {
 	}
 	
 	@SubscribeEvent
+	public void handleMobDrops(LivingDropsEvent event) {
+		if (event.entityLiving instanceof EliteEntity) {
+			if (Math.random() < 1d/4000d) {
+				event.drops.add(new EntityItem(
+					event.entityLiving.worldObj, 
+					event.entityLiving.posX, 
+					event.entityLiving.posY, 
+					event.entityLiving.posZ, 
+					new ItemStack(EliteEquipmentItem.getItemFromEliteType(((EliteEntity) event.entityLiving).getEliteType())))
+				);
+			}
+		}
+	}
+	
+	@SubscribeEvent
 	public void renderGui(RenderGameOverlayEvent.Pre event) {
 		if (event.type != ElementType.AIR) return;
 		new RiskOfRain2Gui();
@@ -48,8 +68,8 @@ public class GeneralEventHandler extends EventHandler {
 	@SubscribeEvent
 	public void saveAndLoadPlayerData(PlayerEvent.Clone event) {
 		NBTTagCompound nbt = new NBTTagCompound();
-		PlayerData.get(event.original).saveNBTData(nbt);
-		PlayerData.get(event.entityPlayer).loadNBTData(nbt);
+		AbstractEntityData.get(event.original).saveNBTData(nbt);
+		AbstractEntityData.get(event.entityPlayer).loadNBTData(nbt);
 	}
 	
 	@SubscribeEvent
@@ -60,7 +80,7 @@ public class GeneralEventHandler extends EventHandler {
 		// Initialize some helpful variables
 		ItemStack stack = event.pickedUp.getEntityItem();
 		Item item = stack.getItem();
-		PlayerData player = PlayerData.get(event.player);
+		PlayerData player = AbstractEntityData.get(event.player);
 		
 		// Check if the item is a Risk Of Rain 2 item
 		if (item instanceof RiskOfRain2Item) {
@@ -81,7 +101,7 @@ public class GeneralEventHandler extends EventHandler {
 	@SubscribeEvent
 	public void handleBarrier(LivingHurtEvent event) {
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		PlayerData player = PlayerData.get((EntityPlayer) event.entityLiving);
+		AbstractEntityData player = AbstractEntityData.get((EntityPlayer) event.entityLiving);
 		
 		// Check if the player's barrier is enough to soak up all the damage
 		if (player.getBarrier() >= event.ammount) {
@@ -103,7 +123,7 @@ public class GeneralEventHandler extends EventHandler {
 	@SubscribeEvent
 	public void handleBarrierDegen(LivingUpdateEvent event) {
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		PlayerData player = PlayerData.get((EntityPlayer) event.entityLiving);
+		AbstractEntityData player = AbstractEntityData.get((EntityPlayer) event.entityLiving);
 		if (player.getBarrier() > 0) player.degenBarrier();
 	}
 }

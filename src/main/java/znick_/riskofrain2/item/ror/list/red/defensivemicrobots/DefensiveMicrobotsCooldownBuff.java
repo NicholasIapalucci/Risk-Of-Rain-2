@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.red.defensivemicrobots;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -18,12 +18,12 @@ public class DefensiveMicrobotsCooldownBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) {
+	public void applyEffect(AbstractEntityData player) {
 		
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
+	public void removeEffect(AbstractEntityData player) {
 		
 	}
 

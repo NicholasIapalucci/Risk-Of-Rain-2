@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.critglasses;
 
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -14,12 +14,12 @@ public class CritGlassesItem extends RiskOfRain2Item implements OnUpdateItem {
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		player.addBuff(new CritGlassesBuff(itemCount));
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
 

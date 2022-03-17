@@ -19,6 +19,6 @@ public class RiskOfRain2Entities {
 	}
 	
 	private static void registerLivingEntity(Class<? extends Entity> entityClass, String name) {
-		EntityRegistry.registerModEntity(entityClass, name, nextID++, RiskOfRain2.instance, 64, 10, true);
+		EntityRegistry.registerModEntity(entityClass, name, nextID++, RiskOfRain2.instance, 64, 1, true);
 	}
 }

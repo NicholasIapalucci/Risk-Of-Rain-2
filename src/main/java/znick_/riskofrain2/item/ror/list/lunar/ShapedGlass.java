@@ -7,7 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
@@ -22,22 +22,22 @@ public class ShapedGlass extends RiskOfRain2Item implements OnHitItem, OnHurtIte
 	}
 	
 	@Override
-	public void procOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
+	public void procOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
 		event.ammount *= 2;
 	}
 
 	@Override
-	public boolean shouldProcOnHurt(LivingHurtEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
  
 	@Override
-	public void procOnHit(LivingAttackEvent event, PlayerData player, EntityLivingBase enemy, int itemCount) {
+	public void procOnHit(LivingAttackEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
 		player.addToStat(PlayerStat.DAMAGE_MULTIPLIER, itemCount);
 	}
 
 	@Override
-	public boolean shouldProcOnHit(LivingAttackEvent event, PlayerData player, EntityLivingBase enemy, int itemCount) {
+	public boolean shouldProcOnHit(LivingAttackEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
 		return true;
 	}
 

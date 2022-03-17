@@ -1,11 +1,10 @@
 package znick_.riskofrain2.item.ror.list.red.diosbestfriend;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
-import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.util.file.RiskOfRain2Files;
 
 public class DiosBestFriendBuff extends DurationBuff {
@@ -22,13 +21,13 @@ public class DiosBestFriendBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) {
-		player.getPlayer().capabilities.disableDamage = true;
+	public void applyEffect(AbstractEntityData player) {
+		player.setInvulnerable();
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
-		player.getPlayer().capabilities.disableDamage = false;
+	public void removeEffect(AbstractEntityData player) {
+		player.setVulnerable();
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class FriendlyExplosion extends Explosion {
 	 * @param z The z-coordinate of the explosion
 	 * @param size The size/power of the explosion
 	 */
-	private FriendlyExplosion(World world, EntityPlayer exploder, double x, double y, double z, float size) {
+	private FriendlyExplosion(World world, EntityLivingBase exploder, double x, double y, double z, float size) {
 		super(world, exploder, x, y, z, size);
 		this.getFields();
 	}
@@ -52,7 +52,7 @@ public class FriendlyExplosion extends Explosion {
 	 * @param exploder The exploder who is to avoid harm
 	 * @param power The power of the explosion
 	 */
-	public static void explodeMob(Entity mob, EntityPlayer exploder, int power) {
+	public static void explodeMob(Entity mob, EntityLivingBase exploder, int power) {
 		FriendlyExplosion explosion = new FriendlyExplosion(mob.worldObj, exploder, mob.posX, mob.posY + (mob.height/2), mob.posZ, power);
         explosion.isFlaming = false;
         explosion.isSmoking = true;

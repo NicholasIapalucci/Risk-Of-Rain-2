@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.equipment.ocularhud;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.event.handler.TickHandler;
@@ -20,12 +20,12 @@ public class OcularHudBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) {
+	public void applyEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.CRIT_CHANCE, 1);
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
+	public void removeEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.CRIT_CHANCE, -1);
 	}
 

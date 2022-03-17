@@ -2,7 +2,7 @@ package znick_.riskofrain2.item.ror.list.white;
 
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -15,12 +15,12 @@ public class PersonalShield extends RiskOfRain2Item implements OnUpdateItem {
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
-		player.getPlayer().addPotionEffect(new PotionEffect(22, 40, itemCount));
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+		player.getEntity().addPotionEffect(new PotionEffect(22, 40, itemCount));
 	}
 	
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
 	

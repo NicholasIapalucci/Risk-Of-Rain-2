@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.equipment.jadeelephant;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.event.handler.TickHandler;
@@ -23,12 +23,12 @@ public class JadeElephantBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) {
+	public void applyEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.ARMOR, 500);
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
+	public void removeEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.ARMOR, -500);
 	}
 

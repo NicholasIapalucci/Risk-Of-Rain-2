@@ -1,6 +1,6 @@
 package znick_.riskofrain2.item.ror.list.equipment;
 
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 
 /**
@@ -16,7 +16,7 @@ public class BlastShowerItem extends RiskOfRain2Equipment {
 	}
 
 	@Override
-	public void useEquipment(PlayerData player) {
+	public void useEquipment(AbstractEntityData player) {
 		for (Buff buff : player.getBuffs()) if (buff.isDebuff()) player.removeBuff(buff);
 	}
 

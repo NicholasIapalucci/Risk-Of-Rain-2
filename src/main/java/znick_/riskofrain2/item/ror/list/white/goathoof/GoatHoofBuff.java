@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.goathoof;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;

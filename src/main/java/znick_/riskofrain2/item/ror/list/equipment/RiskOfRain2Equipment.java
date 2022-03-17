@@ -6,7 +6,7 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnKeyPressItem;
@@ -24,26 +24,26 @@ public abstract class RiskOfRain2Equipment extends RiskOfRain2Item implements On
 		this.maxStackSize = 1;
 	}
 	
-	public abstract void useEquipment(PlayerData player);
+	public abstract void useEquipment(AbstractEntityData player);
 	
 	@Override
-	public boolean shouldProcOnKeypress(KeyInputEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnKeypress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		return RiskOfRain2KeyBinds.ACTIVE.getKeyBinding().isPressed() && player.getEquipmentCooldown() == 0;
 	}
 	
 	@Override
-	public void procOnKeyPress(KeyInputEvent event, PlayerData player, int itemCount) {
+	public void procOnKeyPress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		this.useEquipment(player);
 		player.setEquipmentCooldown(this.getCooldown());
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		player.tickEquipmentCooldown();
 	}
 	
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return player.getEquipmentCooldown() > 0;
 	}
 	

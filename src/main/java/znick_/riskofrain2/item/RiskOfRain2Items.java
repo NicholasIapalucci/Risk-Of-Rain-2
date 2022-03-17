@@ -22,6 +22,8 @@ import znick_.riskofrain2.item.ror.list.boss.titanicknurl.TitanicKnurlItem;
 import znick_.riskofrain2.item.ror.list.equipment.BlastShowerItem;
 import znick_.riskofrain2.item.ror.list.equipment.ForeignFruitItem;
 import znick_.riskofrain2.item.ror.list.equipment.RiskOfRain2Equipment;
+import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
+import znick_.riskofrain2.item.ror.list.equipment.elite.ifritsdistinction.IfritsDistinctionItem;
 import znick_.riskofrain2.item.ror.list.equipment.jadeelephant.JadeElephantItem;
 import znick_.riskofrain2.item.ror.list.equipment.ocularhud.OcularHudItem;
 import znick_.riskofrain2.item.ror.list.equipment.supermassiveleech.SuperMassiveLeechItem;
@@ -300,6 +302,8 @@ public class RiskOfRain2Items {
 	public static final RiskOfRain2Equipment SUPER_MASSIVE_LEECH = new SuperMassiveLeechItem();
 	public static final RiskOfRain2Equipment JADE_ELEPHANT = new JadeElephantItem();
 	public static final RiskOfRain2Equipment OCULAR_HUD = new OcularHudItem();
+	
+	public static final EliteEquipmentItem IFRITS_DISTINCTION = new IfritsDistinctionItem();
 	
 	public static final RiskOfRain2Item WHITE_COMMAND_ESSENCE = new CommandEssence(ItemRarity.WHITE);
 	public static final RiskOfRain2Item GREEN_COMMAND_ESSENCE = new CommandEssence(ItemRarity.GREEN);

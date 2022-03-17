@@ -6,7 +6,7 @@ import java.util.Map;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnKeyPressItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -14,6 +14,7 @@ import znick_.riskofrain2.item.ror.property.ItemRarity;
 
 public class HopooFeather extends RiskOfRain2Item implements OnKeyPressItem {
 
+	// TODO: Refactor with a stackable buff
 	private static final Map<EntityPlayer, Integer> JUMPS_REMAINING = new HashMap<>();
 	
 	public HopooFeather() {
@@ -21,20 +22,20 @@ public class HopooFeather extends RiskOfRain2Item implements OnKeyPressItem {
 	}
 	
 	@Override
-	public void procOnKeyPress(KeyInputEvent event, PlayerData player, int itemCount) {
+	public void procOnKeyPress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		if (Minecraft.getMinecraft().gameSettings.keyBindJump.isPressed()) {
-			if (player.getPlayer().onGround) {
-				JUMPS_REMAINING.put(player.getPlayer(), itemCount);
-			} else if (JUMPS_REMAINING.get(player.getPlayer()) > 0) {
-				player.getPlayer().motionY = 0.75;
+			if (player.getEntity().onGround) {
+				JUMPS_REMAINING.put((EntityPlayer) player.getEntity(), itemCount);
+			} else if (JUMPS_REMAINING.get(player.getEntity()) > 0) {
+				player.getEntity().motionY = 0.75;
 				player.playSound("ror2:hopoo_feather");
-				JUMPS_REMAINING.put(player.getPlayer(), JUMPS_REMAINING.get(player.getPlayer()) - 1);
+				JUMPS_REMAINING.put((EntityPlayer) player.getEntity(), JUMPS_REMAINING.get(player.getEntity()) - 1);
 			}
 		}
 	}
 	
 	@Override
-	public boolean shouldProcOnKeypress(KeyInputEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnKeypress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
 

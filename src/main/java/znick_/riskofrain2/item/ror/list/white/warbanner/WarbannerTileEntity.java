@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 
 public class WarbannerTileEntity extends TileEntity {
@@ -23,7 +24,7 @@ public class WarbannerTileEntity extends TileEntity {
 		List<EntityPlayer> players = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, aabb);
 		//Loop through all players in radius
 		for (EntityPlayer player : players) {
-			PlayerData data = PlayerData.get(player);
+			PlayerData data = AbstractEntityData.get(player);
 			WarbannerBuff buff = data.getBuff(WarbannerBuff.class);
 			//If the player doesn't have the buff, apply it
 			if (buff == null) data.addBuff(new WarbannerBuff(0));

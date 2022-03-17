@@ -11,8 +11,8 @@ public class EntityBlazingZombie extends EntityZombie implements BlazingEntity {
 		this.setCustomNameTag("Blazing Zombie");
 	}
 	
-	public EntityBlazingZombie(World world, int x, int y, int z) {
-		super(world);
+	public EntityBlazingZombie(World world, double x, double y, double z) {
+		this(world);
 		this.setPosition(x, y, z);
 	}
 	
@@ -21,5 +21,8 @@ public class EntityBlazingZombie extends EntityZombie implements BlazingEntity {
 		super.onUpdate();
 		this.updateEliteEntity();
 	}
+
+	@Override
+	public void updateEliteEntity() {}
 
 }

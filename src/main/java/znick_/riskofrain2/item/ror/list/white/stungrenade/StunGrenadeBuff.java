@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.stungrenade;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -14,10 +14,10 @@ public class StunGrenadeBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) { //TODO: Update buffs to be applicable to any entity
-		player.getPlayer().motionX = 0;
-		player.getPlayer().motionY = 0;
-		player.getPlayer().motionZ = 0;
+	public void applyEffect(AbstractEntityData player) { //TODO: Update buffs to be applicable to any entity
+		player.getEntity().motionX = 0;
+		player.getEntity().motionY = 0;
+		player.getEntity().motionZ = 0;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class StunGrenadeBuff extends DurationBuff {
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
+	public void removeEffect(AbstractEntityData player) {
 		
 	}
 

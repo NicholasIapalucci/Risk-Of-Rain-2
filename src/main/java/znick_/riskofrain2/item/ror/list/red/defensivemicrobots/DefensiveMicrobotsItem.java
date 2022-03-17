@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -38,12 +38,12 @@ public class DefensiveMicrobotsItem extends RiskOfRain2Item implements OnUpdateI
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return !player.hasBuff(DefensiveMicrobotsCooldownBuff.class);
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, PlayerData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		
 		// Get any projectiles near the player
 		AxisAlignedBB boundingBox = player.radialBox(2);
@@ -52,7 +52,7 @@ public class DefensiveMicrobotsItem extends RiskOfRain2Item implements OnUpdateI
 		
 		// Sort projectiles by how close they are to the player
 		Map<Entity, Double> distances = new HashMap<>();
-		for (Entity entity : projectiles) distances.put(entity, (double) entity.getDistanceToEntity(player.getPlayer()));
+		for (Entity entity : projectiles) distances.put(entity, (double) entity.getDistanceToEntity(player.getEntity()));
 		Map<Entity, Double> sortedDistances = MapHelper.sortByValue(distances);
 		
 		// Kill the closest projectile(s)

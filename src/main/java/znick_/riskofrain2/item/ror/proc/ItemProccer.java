@@ -1,8 +1,12 @@
 package znick_.riskofrain2.item.ror.proc;
 
+import java.util.Map;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -12,9 +16,9 @@ import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
-import znick_.riskofrain2.entity.elite.EliteEntity;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -48,20 +52,14 @@ public class ItemProccer extends EventHandler {
 		    event.source.getEntity() != null) {
 			
 			EntityPlayer player = (EntityPlayer) event.source.getEntity();
-			PlayerData data = PlayerData.get(player);
-			
+			AbstractEntityData data = AbstractEntityData.get(player);
+			Map<OnHitItem, Integer> itemMap = data.getRiskOfRain2Items(OnHitItem.class);
 			double originalDamageMultiplier = data.getStat(PlayerStat.DAMAGE_MULTIPLIER);
 			
 			//Loops through all RoR2 Items
-			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = data.itemCount(item);
-				//Checks if the item is on-hit and the player has some
-				if (count > 0 && item instanceof OnHitItem) {
-					OnHitItem onHit = (OnHitItem) item;
-					//Proc the item if it succeeds
-					if (onHit.shouldProcOnHit(event, data, event.entityLiving, count)) {
-						onHit.procOnHit(event, data, event.entityLiving, count);
-					}
+			for (Map.Entry<OnHitItem, Integer> itemEntry : itemMap.entrySet()) {
+				if (itemEntry.getKey().shouldProcOnHit(event, data, event.entityLiving, itemEntry.getValue())) {
+					itemEntry.getKey().procOnHit(event, data, event.entityLiving, itemEntry.getValue());
 				}
 			}
 			
@@ -108,19 +106,14 @@ public class ItemProccer extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void procOnKillItems(LivingDeathEvent event) {
-		if (event.source.getEntity() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.source.getEntity();
-			PlayerData data = PlayerData.get(player);
+		if (event.source.getEntity() instanceof EntityLivingBase) {
+			EntityLivingBase entity = (EntityLivingBase) event.source.getEntity();
+			AbstractEntityData data = AbstractEntityData.get(entity);
+			Map<OnKillItem, Integer> itemMap = data.getRiskOfRain2Items(OnKillItem.class);
 			
-			//Loop through all Risk of Rain 2 items
-			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = MinecraftHelper.amountOfItems(player, item);
-				//Check if the item is an on-kill item and if the player has it
-				if (count > 0 && item instanceof OnKillItem) {
-					OnKillItem onKill = (OnKillItem) item;
-					//Proc the item
-					onKill.procOnKill(event, data, event.entityLiving, count);
-				}
+			// Loop through all Risk Of Rain 2 Items
+			for (Map.Entry<OnKillItem, Integer> itemEntry : itemMap.entrySet()) {
+				itemEntry.getKey().procOnKill(event, data, event.entityLiving, itemEntry.getValue());
 			}
 		}
 	}
@@ -133,39 +126,32 @@ public class ItemProccer extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void procOnUpdateItems(LivingUpdateEvent event) {
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			PlayerData data = PlayerData.get(player);
-			data.updateBuffs();
-			
-			// Loop through all Risk Of Rain 2 Items
-			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = data.itemCount(item);
-				if (item instanceof OnUpdateItem) {
-					
-					// Proc the item if meant to
-					if (count > 0) {
-						OnUpdateItem onUpdate = (OnUpdateItem) item;
-						if (onUpdate.shouldProcOnUpdate(event, data, count)) {
-							onUpdate.procOnUpdate(event, data, count);
-						}
+		EntityLivingBase entity = event.entityLiving;
+		AbstractEntityData data = AbstractEntityData.get(entity);
+		Map<OnUpdateItem, Integer> itemMap = data.getRiskOfRain2Items(OnUpdateItem.class);
+		data.updateBuffs();
+		
+		// Loop through all Risk Of Rain 2 Items
+		for (Map.Entry<OnUpdateItem, Integer> itemEntry : itemMap.entrySet()) {
+			if (itemEntry.getKey().shouldProcOnUpdate(event, data, itemEntry.getValue())) {
+				itemEntry.getKey().procOnUpdate(event, data, itemEntry.getValue());
+			}
 						
-						// Check if the item is a void item
-						if (item instanceof VoidItem) {
-							VoidItem voidItem = (VoidItem) item;
-							// If it is, corrupt all items that it should corrupt
-							for (RiskOfRain2Item toCorrupt : voidItem.getCorruptedItems()) {
-								data.replaceAllItems(toCorrupt, voidItem);
-							}
-						}
-					}
+			// Check if the item is a void item
+			if (itemEntry.getKey() instanceof VoidItem) {
+				VoidItem voidItem = (VoidItem) itemEntry.getKey();
+				// If it is, corrupt all items that it should corrupt
+				for (RiskOfRain2Item toCorrupt : voidItem.getCorruptedItems()) {
+					data.replaceAllItems(toCorrupt, voidItem);
 				}
 			}
-			
-			// Add the player's movement speed multiplier
-			player.capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER)));
-			updateCounter++;
 		}
+			
+		// Add the entity's movement speed multiplier
+		data.setBaseMovementSpeed(entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue());
+		entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER) * data.getBaseMovementSpeed());
+		
+		updateCounter++;
 	}
 	
 	public static int getUpdateCounter() {
@@ -173,26 +159,18 @@ public class ItemProccer extends EventHandler {
 	}
 	
 	/**
-	 * Called when the player is healed. Procs all on-heal items if they should proc.
+	 * Called when an entity is healed. Procs all on-heal items if they should proc.
 	 * 
 	 * @param event The {@code LivingHealEvent} 
 	 */
 	@SubscribeEvent
 	public void procOnHealItems(LivingHealEvent event) {
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			PlayerData data = PlayerData.get(player);
-			
-			//Loop Through all Risk of Rain 2 Items
-			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = MinecraftHelper.amountOfItems(player, item);
-				//Check if the item is an on-heal item and the player has one
-				if (count > 0 && item instanceof OnHealItem) {
-					OnHealItem onHeal = (OnHealItem) item;
-					//Proc the item
-					onHeal.procOnHeal(event, data, count);
-				}
-			}
+		EntityLivingBase entity = (EntityLivingBase) event.entityLiving;
+		AbstractEntityData data = AbstractEntityData.get(entity);
+		Map<OnHealItem, Integer> itemMap = data.getRiskOfRain2Items(OnHealItem.class);
+		
+		for (Map.Entry<OnHealItem, Integer> itemEntry : itemMap.entrySet()) {
+			itemEntry.getKey().procOnHeal(event, data, itemEntry.getValue());
 		}
 	}
 	
@@ -203,81 +181,63 @@ public class ItemProccer extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void procOnJumpItems(LivingJumpEvent event) {
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			PlayerData data = PlayerData.get(player);
-			
-			//Loop through all Risk of Rain 2 Items
-			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = MinecraftHelper.amountOfItems(player, item);
-				//Check if the item is meant to proc on-jump and if the player has it
-				if (count > 0 && item instanceof OnJumpItem) {
-					OnJumpItem onJump = (OnJumpItem) item;
-					//Procs the item if it should
-					if (onJump.shouldProcOnJump(event, data, count)) {
-						onJump.procOnJump(event, data, count);
-					}
-				}
+		EntityLivingBase entity = (EntityLivingBase) event.entityLiving;
+		AbstractEntityData data = AbstractEntityData.get(entity);	
+		Map<OnJumpItem, Integer> itemMap = data.getRiskOfRain2Items(OnJumpItem.class);
+		
+		for (Map.Entry<OnJumpItem, Integer> itemEntry : itemMap.entrySet()) {
+			if (itemEntry.getKey().shouldProcOnJump(event, data, itemEntry.getValue())) {
+				itemEntry.getKey().procOnJump(event, data, itemEntry.getValue());
 			}
 		}
 	}
 	
 	/**
-	 * Called when an entity is hurt. If it is a player, it will proc all necessary items the player has
-	 * if they should proc.
+	 * Called when an entity is hurt. If the entity has any Risk of Rain 2 items that should proc when
+	 * the entity is hurt, they will proc.
 	 * 
 	 * @param event The {@code LivingHurtEvent}.
 	 */
 	@SubscribeEvent
 	public void procOnHurtItems(LivingHurtEvent event) {
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			PlayerData data = PlayerData.get(player);
-			if (RiskOfRain2.DEBUG) System.out.println("Player " + player.getDisplayName() + " has taken damage...");
+		AbstractEntityData data = AbstractEntityData.get(event.entityLiving instanceof EntityPlayer? (EntityPlayer) event.entityLiving : event.entityLiving);
+		Map<OnHurtItem, Integer> itemMap = data.getRiskOfRain2Items(OnHurtItem.class);	
+		
+		// Proc all on-hurt items if able to
+		for (Map.Entry<OnHurtItem, Integer> itemEntry : itemMap.entrySet()) {
 			
-			// Proc all on-hurt items if able to
-			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = MinecraftHelper.amountOfItems(player, item);
-				// Check if the item is an on-hurt item and if the player has it
-				if (count > 0 && item instanceof OnHurtItem) {
-					if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName());
-					OnHurtItem onHurt = (OnHurtItem) item;
-					// Rolls if the event should proc and if so, procs it
-					if (onHurt.shouldProcOnHurt(event, data, count)) {
-						onHurt.procOnHurt(event, data, count);
-					}
-				}
-				
-				// Stop checking items if the player didn't actually get hurt
-				if (event.isCanceled()) break;
+			// Stop checking items if the player didn't actually get hurt
+			if (event.isCanceled()) break;
+			
+			// Rolls if the event should proc and if so, procs it
+			if (itemEntry.getKey().shouldProcOnHurt(event, data, itemEntry.getValue())) {
+				itemEntry.getKey().procOnHurt(event, data, itemEntry.getValue());
 			}
-			
-			// Factor in elites dealing more damage
-			if (event.source.getEntity() instanceof EliteEntity) {
-				EliteEntity elite = (EliteEntity) event.source.getEntity();
-				event.ammount *= elite.getDamageMultiplier();
-			}
-			
-			// Factor in armor
-			double armor = data.getStat(PlayerStat.ARMOR);
-			event.ammount *= (1 - (armor/(100 + Math.abs(armor))));
 		}
+			
+		// Factor in armor
+		double armor = data.getStat(PlayerStat.ARMOR);
+		event.ammount *= (1 - (armor/(100 + Math.abs(armor))));
 	}
 	
+	/**
+	 * Called when the player interacts with a Risk of Rain2 interactible block such as a
+	 * chest or 3D printer. Fires any items that should fire upon such an event.
+	 * 
+	 * @param event The {@code ObjectInteractionEvent}.
+	 */
 	@SubscribeEvent
 	public void procOnInteractionItems(ObjectInteractionEvent event) {
 		EntityPlayer player = event.entityPlayer;
-		PlayerData data = PlayerData.get(player);
-		if (RiskOfRain2.DEBUG) System.out.println("Player " + player.getDisplayName() + " has taken damage...");
-			
-		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
+		PlayerData data = AbstractEntityData.get(player);
+		Map<OnObjectInteractionItem, Integer> itemMap = data.getRiskOfRain2Items(OnObjectInteractionItem.class);	
+		
+		// Proc all on-interact items if able to
+		for (Map.Entry<OnObjectInteractionItem, Integer> itemEntry : itemMap.entrySet()) {
+			// If the event was canceled, run away
 			if (event.isCanceled()) break;
-			int count = MinecraftHelper.amountOfItems(player, item);
-			if (count > 0 && item instanceof OnObjectInteractionItem) {
-				if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName());
-				OnObjectInteractionItem onInteraction = (OnObjectInteractionItem) item;
-				onInteraction.procOnInteraction(event, data, count);
-			}
+			// Otherwise, fire any object interaction items
+			itemEntry.getKey().procOnInteraction(event, data, itemEntry.getValue());
 		}
 	}
 	
@@ -290,19 +250,12 @@ public class ItemProccer extends EventHandler {
 	@SubscribeEvent
 	public void procOnKeyPressItems(KeyInputEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		PlayerData data = PlayerData.get(player);
+		PlayerData data = AbstractEntityData.get(player);
+		Map<OnKeyPressItem, Integer> itemMap = data.getRiskOfRain2Items(OnKeyPressItem.class);
 		
-		// Loop through all Risk Of Rain 2 items
-		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-			int count = MinecraftHelper.amountOfItems(player, item);
-			// Checks if the item procs on key press and if the player has any
-			if (count > 0 && item instanceof OnKeyPressItem) {
-				if (RiskOfRain2.DEBUG) System.out.println("Attempting to proc " + item.getClass().getSimpleName() + "...");
-				OnKeyPressItem onKeyPress = (OnKeyPressItem) item;
-				// Attempts to proc the item
-				if (onKeyPress.shouldProcOnKeypress(event, data, count)) {
-					onKeyPress.procOnKeyPress(event, data, count);
-				}
+		for (Map.Entry<OnKeyPressItem, Integer> itemEntry : itemMap.entrySet()) {
+			if (itemEntry.getKey().shouldProcOnKeypress(event, data, itemEntry.getValue())) {
+				itemEntry.getKey().procOnKeyPress(event, data, itemEntry.getValue());
 			}
 		}
 	}
@@ -315,20 +268,11 @@ public class ItemProccer extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void procOnXPPickupItems(PlayerPickupXpEvent event) {
-		if (event.entityLiving instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.entityLiving;
-			PlayerData data = PlayerData.get(player);
-			
-			//Loops through all Risk Of Rain 2 Items
-			for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-				int count = data.itemCount(item);
-				//Checks if the item is on-xp-pickup and if the player has it
-				if (count > 0 && item instanceof OnPickupXPItem) {
-					OnPickupXPItem onXP = (OnPickupXPItem) item;
-					//Procs the item
-					onXP.procOnXPPickup(event, data, count);
-				}
-			}
+		PlayerData data = AbstractEntityData.get(event.entityPlayer);
+		Map<OnPickupXPItem, Integer> itemMap = data.getRiskOfRain2Items(OnPickupXPItem.class);
+		
+		for (Map.Entry<OnPickupXPItem, Integer> itemEntry : itemMap.entrySet()) {
+			itemEntry.getKey().procOnXPPickup(event, data, itemEntry.getValue());
 		}
 	}
 	

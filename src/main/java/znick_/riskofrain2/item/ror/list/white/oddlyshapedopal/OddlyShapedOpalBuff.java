@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.oddlyshapedopal;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -10,7 +10,7 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 public class OddlyShapedOpalBuff extends Buff {
 
 	public OddlyShapedOpalBuff(int itemCount) {
-		super(RiskOfRain2Items.ODDLY_SHAPED_OPAL, itemCount);
+		super(itemCount, RiskOfRain2Items.ODDLY_SHAPED_OPAL);
 	}
 
 	@Override
@@ -19,12 +19,12 @@ public class OddlyShapedOpalBuff extends Buff {
 	}
 
 	@Override
-	public void applyEffect(PlayerData player) {
+	public void applyEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.ARMOR, 100 * this.getItemCount());
 	}
 
 	@Override
-	public void removeEffect(PlayerData player) {
+	public void removeEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.ARMOR, -100 * this.getItemCount());
 		player.addBuff(new OddlyShapedOpalCooldownBuff(this.getItemCount()));
 	}

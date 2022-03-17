@@ -5,14 +5,14 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.saferspaces.SaferSpacesBuffPacketHandler.SaferSpacesBuffPacket;
 
 public class SaferSpacesBuffPacketHandler implements IMessageHandler<SaferSpacesBuffPacket, IMessage> {
 
 	@Override
 	public IMessage onMessage(SaferSpacesBuffPacket message, MessageContext ctx) {
-		PlayerData.get(Minecraft.getMinecraft().thePlayer).removeBuff(SaferSpacesBuff.class);
+		AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).removeBuff(SaferSpacesBuff.class);
 		return null;
 	}
 	
