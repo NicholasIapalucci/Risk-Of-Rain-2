@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
+import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
@@ -49,7 +50,7 @@ public class RiskOfRain2Gui extends Gui {
 			
 		AbstractEntityData player = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer);
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		String health = (int) (player.getHealth() + player.getBarrier())  + "/" + (int) player.getMaxHealth();
+		String health = (int) (player.getHealth() + player.getStat(PlayerStat.BARRIER) + player.getStat(PlayerStat.SHIELD))  + "/" + (int) player.getMaxHealth();
 		
 		int width = this.width/4;
 		int left = this.width/20;
@@ -57,7 +58,10 @@ public class RiskOfRain2Gui extends Gui {
 		int bottom = this.height - 16;
 		
 		int healthRight =  (int) (left + width * (player.getHealth()  / player.getMaxHealth()));
-		int barrierRight = (int) (left + width * (player.getExactBarrier() / (player.getMaxHealth() * 100)));
+		int barrierRight = (int) (left + width * (player.getStat(PlayerStat.BARRIER) / (player.getMaxHealth())));
+		
+		int shieldWidth = (int) (player.getStat(PlayerStat.SHIELD) / player.getMaxHealth() * width);
+		int shieldLeft = left + width - shieldWidth;
 		
 		this.drawRect(left,            bottom + 1, left + width,       top,     new Color(50,  50,  50).getRGB()); //Base
 		this.drawRect(left,            bottom + 1, left + 1,           bottom,  new Color(67,  125, 26).getRGB()); //LCorner
@@ -68,8 +72,15 @@ public class RiskOfRain2Gui extends Gui {
 		this.drawRect(healthRight - 1, bottom + 1, healthRight,        bottom,  new Color(67,  125, 26).getRGB()); //RCorner
 		this.drawRect(left + 1,        bottom,     healthRight - 1,    top + 1, new Color(95,  170, 48).getRGB()); //Fill
 		
+		// Render shield
+		if (player.getStat(PlayerStat.SHIELD) > 0) {
+			this.drawRect(shieldLeft, top + 1,    left + width, top,    new Color(77, 105, 185).getRGB()); // Top Shield
+			this.drawRect(shieldLeft, bottom + 1, left + width, bottom, new Color(44, 64, 117).getRGB()); // Bottom Shield
+			this.drawRect(shieldLeft, top + 1,    left + width, bottom, new Color(50, 76, 147).getRGB()); // Fill shield
+		}
+		
 		// Render Barrier Overlay
-		if (player.getBarrier() > 0) {
+		if (player.getStat(PlayerStat.BARRIER) > 0) {
 			int barrierBorder = new Color(242, 218, 104).getRGB();
 		
 			this.drawRect(left + 1,         bottom + 1, barrierRight, bottom,  barrierBorder); //Bottom Barrier

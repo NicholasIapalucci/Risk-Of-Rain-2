@@ -9,6 +9,11 @@ import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 
+/**
+ * Class for creating the {@code Ifrit's Distinction} item. Given automatically to blazing enemies.
+ * 
+ * @author zNick_
+ */
 public class IfritsDistinctionItem extends EliteEquipmentItem implements OnUpdateItem, OnHitItem {
 
 	public IfritsDistinctionItem() {

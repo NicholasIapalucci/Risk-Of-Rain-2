@@ -13,7 +13,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.CustomRarity;
 import znick_.riskofrain2.item.ror.dlc.DLC;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -40,7 +40,7 @@ public abstract class RiskOfRain2Item extends Item {
 	 */
 	protected RiskOfRain2Item(String name) {
 		this.name = name;
-		this.setTextureName(RiskOfRain2.MODID + ":items/" + name);
+		this.setTextureName(RiskOfRain2Mod.MODID + ":items/" + name);
 		this.setUnlocalizedName(name);
 		this.setCreativeTab(RiskOfRain2CreativeTabs.ITEMS);
 	}
@@ -49,7 +49,7 @@ public abstract class RiskOfRain2Item extends Item {
 	 * Returns the texture of this item as a {@code ResourceLocation}.
 	 */
 	public ResourceLocation getTexture() {
-		return new ResourceLocation(RiskOfRain2.MODID + ":textures/items/items/" + this.name + ".png");
+		return new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/items/items/" + this.name + ".png");
 	}
 
 	/**

@@ -8,7 +8,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 public class ItemButton extends GuiButton {
@@ -25,7 +25,7 @@ public class ItemButton extends GuiButton {
 		super(id, x, y, 256, 256, "");
 		this.item = item;
 		this.scale = scale;
-		this.backgroundTexture = new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/logbook/"
+		this.backgroundTexture = new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/logbook/"
 				+ item.getRarity().name().toLowerCase() + "_background.png");
 		this.itemTexture = item.getTexture();
 	}

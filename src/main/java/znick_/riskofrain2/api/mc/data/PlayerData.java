@@ -12,9 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
-import znick_.riskofrain2.util.helper.MinecraftHelper;
 
 public class PlayerData extends AbstractEntityData<EntityPlayer> {
 
@@ -39,7 +39,9 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 	
 	protected PlayerData(EntityPlayer player) {
 		super(player);
-		System.out.println("Registering player data for player");
+		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
+			if (item.getAchievement() == null) this.unlockedItems.add(item);
+		}
 	}
 	
 	@Override

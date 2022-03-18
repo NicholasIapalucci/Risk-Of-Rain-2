@@ -30,16 +30,17 @@ import znick_.riskofrain2.util.misc.customs.RiskOfRain2Recipes;
  * @author zNick_
  */
 @Mod(
-	modid = RiskOfRain2.MODID,
-	name = "Risk Of Rain 2", 
-	version = RiskOfRain2.VERSION
+	modid = RiskOfRain2Mod.MODID,
+	name = RiskOfRain2Mod.MOD_NAME, 
+	version = RiskOfRain2Mod.VERSION
 )
-public class RiskOfRain2 {
+public class RiskOfRain2Mod {
 	
 	@Instance("ror2")
-	public static RiskOfRain2 instance;
+	public static RiskOfRain2Mod instance;
 	public static final String MODID = "ror2";
 	public static final String VERSION = "1.0";
+	public static final String MOD_NAME = "Risk Of Rain 2";
 	public static final boolean DEBUG = true;
 	
 	/**

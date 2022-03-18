@@ -15,7 +15,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
@@ -67,7 +67,7 @@ public class ItemProccer extends EventHandler {
 			boolean crit = data.rollStat(PlayerStat.CRIT_CHANCE);
 			
 			if (crit && !player.worldObj.isRemote) {
-				if (RiskOfRain2.DEBUG) System.out.println("Player procced critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
+				if (RiskOfRain2Mod.DEBUG) System.out.println("Player procced critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
 				data.addToStat(PlayerStat.DAMAGE_MULTIPLIER, 1);
 				data.playSound("ror2:crit_glasses");
 				
@@ -79,7 +79,7 @@ public class ItemProccer extends EventHandler {
 			} 
 			
 			else if (!player.worldObj.isRemote) {
-				if (RiskOfRain2.DEBUG) System.out.println("Failed to proc critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
+				if (RiskOfRain2Mod.DEBUG) System.out.println("Failed to proc critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
 			}
 			
 			/*
@@ -131,7 +131,7 @@ public class ItemProccer extends EventHandler {
 		Map<OnUpdateItem, Integer> itemMap = data.getRiskOfRain2Items(OnUpdateItem.class);
 		data.updateBuffs();
 		
-		// Loop through all Risk Of Rain 2 Items
+		// Loop through all on-update items the player has
 		for (Map.Entry<OnUpdateItem, Integer> itemEntry : itemMap.entrySet()) {
 			if (itemEntry.getKey().shouldProcOnUpdate(event, data, itemEntry.getValue())) {
 				itemEntry.getKey().procOnUpdate(event, data, itemEntry.getValue());
@@ -147,10 +147,12 @@ public class ItemProccer extends EventHandler {
 			}
 		}
 			
-		// Add the entity's movement speed multiplier
-		data.setBaseMovementSpeed(entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue());
-		entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER) * data.getBaseMovementSpeed());
-		
+		// Add the player's movement speed multiplier
+		if (entity instanceof EntityPlayer) ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER)));
+		else {
+			data.setBaseMovementSpeed(entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue());
+			entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER) * data.getBaseMovementSpeed());
+		}
 		updateCounter++;
 	}
 	

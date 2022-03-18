@@ -1,6 +1,7 @@
 package znick_.riskofrain2.entity.elite.mobs.zombie;
 
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import znick_.riskofrain2.entity.elite.type.BlazingEntity;
 

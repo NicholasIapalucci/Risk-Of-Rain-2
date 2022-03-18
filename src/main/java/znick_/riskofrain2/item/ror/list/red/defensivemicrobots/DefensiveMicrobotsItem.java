@@ -57,7 +57,11 @@ public class DefensiveMicrobotsItem extends RiskOfRain2Item implements OnUpdateI
 		
 		// Kill the closest projectile(s)
 		Iterator<Entity> iterator = sortedDistances.keySet().iterator();
-		for (int i = 0; iterator.hasNext() && i < itemCount; i++) iterator.next().setDead();
+		for (int i = 0; iterator.hasNext() && i < itemCount; i++) {
+			Entity entity = iterator.next();
+			entity.worldObj.spawnParticle("smoke", entity.posX, entity.posY, entity.posZ, 0, 0, 0);
+			entity.setDead();
+		}
 		
 		// Put the item on cooldown
 		player.addBuff(new DefensiveMicrobotsCooldownBuff(itemCount));

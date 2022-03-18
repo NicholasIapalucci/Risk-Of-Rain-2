@@ -1,21 +1,20 @@
-package znick_.riskofrain2.item.ror.list.white.armorpiercingrounds;
+package znick_.riskofrain2.item.ror.list.white.personalshieldgenerator;
 
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
-import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
-public class ArmorPiercingRoundsBuff extends StatBuff {
+public class PersonalShieldBuff extends StatBuff {
 
-	public ArmorPiercingRoundsBuff(int itemCount) {
-		super(PlayerStat.DAMAGE_MULTIPLIER, itemCount, RiskOfRain2Items.ARMOR_PIERCING_ROUNDS);
+	public PersonalShieldBuff(int itemCount) {
+		super(PlayerStat.MAX_SHIELD, itemCount, RiskOfRain2Items.PERSONAL_SHIELD);
 	}
 
 	@Override
 	public double getStatAdditionAmount(AbstractEntityData entity) {
-		return this.getItemCount() * 0.2;
+		return entity.getMaxHealth() * 0.08 * this.getItemCount();
 	}
 
 	@Override

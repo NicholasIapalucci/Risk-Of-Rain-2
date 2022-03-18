@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.RiskOfRain2Items;
 public class OddlyShapedOpalCooldownBuff extends DurationBuff {
 
 	public OddlyShapedOpalCooldownBuff(int itemCount) {
-		super(RiskOfRain2Items.ODDLY_SHAPED_OPAL, itemCount, TickHandler.fromSeconds(7));
+		super(itemCount, TickHandler.fromSeconds(7), RiskOfRain2Items.ODDLY_SHAPED_OPAL);
 	}
 
 	@Override

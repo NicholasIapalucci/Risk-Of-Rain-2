@@ -8,7 +8,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 
 /**
  * Class for creating custom crosshairs for different characters.
@@ -29,7 +29,7 @@ public class Crosshair {
 	 * @param scale The scale factor of the crosshair
 	 */
 	public Crosshair(String texture, double scale) {
-		this.texture = new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/survivor/" + texture);
+		this.texture = new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/survivor/" + texture);
 		this.scale = scale;
 	}
 	

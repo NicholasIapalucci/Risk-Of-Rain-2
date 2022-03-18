@@ -17,7 +17,7 @@ public class Crowbar extends RiskOfRain2Item implements OnHitItem {
 	
 	@Override
 	public void procOnHit(LivingAttackEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
-		player.multiplyStat(PlayerStat.DAMAGE_MULTIPLIER, 1 + 0.75 * itemCount);
+		player.addToStat(PlayerStat.DAMAGE_MULTIPLIER, 1 + 0.75 * itemCount);
 		player.playSound("ror2:crowbar");
 	}
 	

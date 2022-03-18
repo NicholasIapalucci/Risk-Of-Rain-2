@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.item.itemblock.ItemBlockLunarPod;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
@@ -22,7 +22,7 @@ public class LunarPod extends Block implements IBlockItem {
 		this.setBlockName("lunar_pod");
 		this.setStepSound(soundTypeSnow);
 		this.setBlockUnbreakable();
-		this.setBlockTextureName(RiskOfRain2.MODID + ":lunar_pod"); //TODO: Add lunar pod textures
+		this.setBlockTextureName(RiskOfRain2Mod.MODID + ":lunar_pod"); //TODO: Add lunar pod textures
 		this.setCreativeTab(RiskOfRain2CreativeTabs.BLOCKS);
 	}
 
@@ -31,19 +31,19 @@ public class LunarPod extends Block implements IBlockItem {
 		for (int i = 0; i < 6; i++) {
 			switch(i) {
 			case 0:
-				this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":lunarPod/bottom");
+				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":lunarPod/bottom");
 				break;
 			case 1:
-				this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":lunarPod/top");
+				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":lunarPod/top");
 				break;
 			case 2:
-				this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":lunarPod/back");
+				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":lunarPod/back");
 				break;
 			case 3:
-				this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":lunarPod/front");
+				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":lunarPod/front");
 				break;
 			default:
-				this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":lunarPod/side");
+				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":lunarPod/side");
 			}
 		}
 	}

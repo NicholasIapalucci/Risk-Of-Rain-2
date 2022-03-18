@@ -119,7 +119,8 @@ public class TileEntity3DPrinter extends TileEntityItemGenerator {
 	
 	private void consumeItem(EntityPlayer player, Map.Entry<Integer, RiskOfRain2Item> entry) {
 		ItemStack stack = player.inventory.getStackInSlot(entry.getKey());
-		stack.stackSize--;
+		if (stack.stackSize > 1) stack.stackSize--;
+		else player.inventory.mainInventory[entry.getKey()] = null;
 	}
 	
 	private Map.Entry<Integer, RiskOfRain2Item> getItemToConsume(EntityPlayer player) {

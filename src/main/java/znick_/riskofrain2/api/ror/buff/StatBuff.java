@@ -7,21 +7,21 @@ public abstract class StatBuff extends Buff {
 
 	private final PlayerStat stat;
 	
-	public StatBuff(RiskOfRain2Item item, PlayerStat stat, int itemCount) {
-		super(itemCount, item);
+	public StatBuff(PlayerStat stat, int itemCount, RiskOfRain2Item... items) {
+		super(itemCount, items);
 		this.stat = stat;
 	}
 
-	public abstract double getStatAdditionAmount();
+	public abstract double getStatAdditionAmount(AbstractEntityData entity);
 	
 	@Override
 	public void applyEffect(AbstractEntityData entity) {
-		entity.addToStat(this.stat, this.getStatAdditionAmount());
+		entity.addToStat(this.stat, this.getStatAdditionAmount(entity));
 	}
 
 	@Override
 	public void removeEffect(AbstractEntityData entity) {
-		entity.addToStat(this.stat, -this.getStatAdditionAmount());
+		entity.removeFromStat(this.stat, this.getStatAdditionAmount(entity));
 	}
 	
 	public PlayerStat getAffectedStat() {

@@ -36,8 +36,10 @@ import znick_.riskofrain2.item.ror.list.green.OldWarStealthkit;
 import znick_.riskofrain2.item.ror.list.green.WaxQuail;
 import znick_.riskofrain2.item.ror.list.green.WillOTheWisp;
 import znick_.riskofrain2.item.ror.list.green.infusion.InfusionItem;
+import znick_.riskofrain2.item.ror.list.green.redwhip.RedWhipItem;
 import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapConsumedItem;
 import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapItem;
+import znick_.riskofrain2.item.ror.list.green.rosebuckler.RoseBucklerItem;
 import znick_.riskofrain2.item.ror.list.lunar.BeadsOfFealty;
 import znick_.riskofrain2.item.ror.list.lunar.Purity;
 import znick_.riskofrain2.item.ror.list.lunar.ShapedGlass;
@@ -56,7 +58,6 @@ import znick_.riskofrain2.item.ror.list.white.Crowbar;
 import znick_.riskofrain2.item.ror.list.white.FocusCrystal;
 import znick_.riskofrain2.item.ror.list.white.Gasoline;
 import znick_.riskofrain2.item.ror.list.white.MonsterTooth;
-import znick_.riskofrain2.item.ror.list.white.PersonalShield;
 import znick_.riskofrain2.item.ror.list.white.RepulsionArmorPlate;
 import znick_.riskofrain2.item.ror.list.white.RustedKey;
 import znick_.riskofrain2.item.ror.list.white.SoldierSyringe;
@@ -74,6 +75,7 @@ import znick_.riskofrain2.item.ror.list.white.goathoof.GoatHoofItem;
 import znick_.riskofrain2.item.ror.list.white.medkit.MedkitItem;
 import znick_.riskofrain2.item.ror.list.white.mocha.MochaItem;
 import znick_.riskofrain2.item.ror.list.white.oddlyshapedopal.OddlyShapedOpalItem;
+import znick_.riskofrain2.item.ror.list.white.personalshieldgenerator.PersonalShieldGeneratorItem;
 import znick_.riskofrain2.item.ror.list.white.powerelixir.EmptyBottleItem;
 import znick_.riskofrain2.item.ror.list.white.powerelixir.PowerElixirItem;
 import znick_.riskofrain2.item.ror.list.white.stungrenade.StunGrenadeItem;
@@ -181,7 +183,7 @@ public class RiskOfRain2Items {
 	 */
 	public static final RiskOfRain2Item FOCUS_CRYSTAL = new FocusCrystal();
 	public static final RiskOfRain2Item ODDLY_SHAPED_OPAL = new OddlyShapedOpalItem();
-	public static final RiskOfRain2Item PERSONAL_SHIELD = new PersonalShield();
+	public static final RiskOfRain2Item PERSONAL_SHIELD = new PersonalShieldGeneratorItem();
 	/**
 	 * The "white scrap" item. Does nothing, but is taken first when using white 3D printers.
 	 */
@@ -244,6 +246,9 @@ public class RiskOfRain2Items {
 	 * The "chronobauble" item. Gives enemies the slowness potion effect on hit. 
 	 */
 	public static final RiskOfRain2Item CHRONOBAUBLE = new Chronobauble();
+	
+	public static final RiskOfRain2Item ROSE_BUCKLER = new RoseBucklerItem();
+	public static final RiskOfRain2Item RED_WHIP = new RedWhipItem();
 	
 	//Red Items
 	public static final RiskOfRain2Item ALIEN_HEAD = new AlienHead();

@@ -33,7 +33,8 @@ public class IfritsDistinctionBuff extends Buff {
 
 	@Override
 	public void removeEffect(AbstractEntityData entity) {
-		
+		entity.getEntity().removePotionEffect(Potion.fireResistance.id);
+		entity.getEntity().extinguish();
 	}
 
 }

@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.equipment.supermassiveleech;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
@@ -14,12 +14,12 @@ public class SuperMassiveLeechBuff extends DurationBuff {
 	private static final ResourceLocation TEXUTRE = new ResourceLocation(RiskOfRain2Files.BUFFS + "super_massive_leech.png");
 	
 	public SuperMassiveLeechBuff() {
-		super(RiskOfRain2Items.SUPER_MASSIVE_LEECH, 0, (int) TickHandler.fromSeconds(8));
+		super(0, (int) TickHandler.fromSeconds(8), RiskOfRain2Items.SUPER_MASSIVE_LEECH);
 	}
 	
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/buffs/super_massive_leech.png");
+		return new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/buffs/super_massive_leech.png");
 	}
 
 	@Override

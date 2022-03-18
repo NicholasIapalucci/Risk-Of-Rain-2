@@ -5,20 +5,26 @@ import java.util.Set;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.WorldData;
 import znick_.riskofrain2.api.ror.artifact.list.ArtifactOfCommand;
 import znick_.riskofrain2.util.helper.StringHelper;
 
 public abstract class Artifact {
 	
+	/**The set of all artifacts. All artifacts are added to this set during construction.*/
 	private static final Set<Artifact> ARTIFACTS = new LinkedHashSet<>();
 	
+	/**
+	 * The "Artifact of Command". Upon generating an item, chests instead generate "command essence"
+	 * which allows the player to choose their items.
+	 */
 	public static final ArtifactOfCommand COMMAND = new ArtifactOfCommand();
 	
 	protected static final Shape TRIANGLE = new Shape();
 	protected static final Shape SQUARE = new Shape();
 	protected static final Shape CIRCLE = new Shape();
+	protected static final Shape DIAMOND = new Shape();
 	
 	/**
 	 * The name of this artifact. The name should be one word in all lowercase, without the phrase "artifact of"
@@ -26,6 +32,9 @@ public abstract class Artifact {
 	 */
 	private final String name;
 	
+	/**
+	 * Returns the texture for this artifact icon as a {@code ResourceLocation}
+	 */
 	private final ResourceLocation texture;
 	
 	/**
@@ -35,7 +44,7 @@ public abstract class Artifact {
 	 */
 	protected Artifact(String name) {
 		this.name = name;
-		this.texture = new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/artifacts/" + name);
+		this.texture = new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/artifacts/" + name);
 		ARTIFACTS.add(this);
 	}
 	
@@ -58,6 +67,9 @@ public abstract class Artifact {
 		return ARTIFACTS.toArray(new Artifact[0]);
 	}
 	
+	/**
+	 * Returns the code name of this artifact.
+	 */
 	public String getName() {
 		return this.name;
 	}

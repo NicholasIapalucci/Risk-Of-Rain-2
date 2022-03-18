@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.warbanner;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
@@ -28,7 +28,7 @@ public class WarbannerBuff extends DurationBuff {
 	 * @param itemCount The level of the war banner.
 	 */
 	public WarbannerBuff(int itemCount) {
-		super(RiskOfRain2Items.WAR_BANNER, itemCount, (int) TickHandler.fromSeconds(3));
+		super(itemCount, (int) TickHandler.fromSeconds(3), RiskOfRain2Items.WAR_BANNER);
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,11 +20,13 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 import znick_.riskofrain2.client.gui.menu.RiskOfRain2MainMenu;
 import znick_.riskofrain2.entity.elite.EliteEntity;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
+import znick_.riskofrain2.item.ror.list.white.personalshieldgenerator.ShieldCooldownBuff;
 
 public class GeneralEventHandler extends EventHandler {
 
@@ -99,31 +100,47 @@ public class GeneralEventHandler extends EventHandler {
 	}
 	
 	@SubscribeEvent
-	public void handleBarrier(LivingHurtEvent event) {
-		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		AbstractEntityData player = AbstractEntityData.get((EntityPlayer) event.entityLiving);
+	public void handleBarrierAndShield(LivingHurtEvent event) {
+		AbstractEntityData entity = AbstractEntityData.get(event.entityLiving);
+		entity.addBuff(new ShieldCooldownBuff(0));
 		
 		// Check if the player's barrier is enough to soak up all the damage
-		if (player.getBarrier() >= event.ammount) {
+		if (entity.getStat(PlayerStat.BARRIER) >= event.ammount) {
 			// If so, make it so the player doesn't get damaged
 			event.setCanceled(true);
 			// And take away the damage from the barrier
-			player.removeBarrier((int) event.ammount);
+			entity.removeFromStat(PlayerStat.BARRIER, event.ammount);
 		}
 		
 		// Otherwise, handle the case where the barrier can't soak up all the damage
 		else {
 			// Deduct the barrier from the damage amount
-			event.ammount -= player.getBarrier();
+			event.ammount -= entity.getStat(PlayerStat.BARRIER);
 			// Remove the barrier
-			player.setBarrier(0);
+			entity.setStat(PlayerStat.BARRIER, 0);
+		}
+		
+		// Check if the player's shield is enough to soak up all the damage
+		if (entity.getStat(PlayerStat.SHIELD) >= event.ammount) {
+			event.setCanceled(true);
+			entity.removeFromStat(PlayerStat.SHIELD, event.ammount);
+		}
+		
+		// Otherwise, handle the case where the shield can't soak up all the damage
+		else {
+			event.ammount -= entity.getStat(PlayerStat.SHIELD);
+			entity.setStat(PlayerStat.SHIELD, 0);
 		}
 	}
 	
 	@SubscribeEvent
-	public void handleBarrierDegen(LivingUpdateEvent event) {
-		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		AbstractEntityData player = AbstractEntityData.get((EntityPlayer) event.entityLiving);
-		if (player.getBarrier() > 0) player.degenBarrier();
+	public void handleBarrierAndShield(LivingUpdateEvent event) {
+		AbstractEntityData entity = AbstractEntityData.get(event.entityLiving);
+		if (entity.getStat(PlayerStat.BARRIER) > 0) entity.removeFromStat(PlayerStat.BARRIER, 0.1);
+		if (entity.getStat(PlayerStat.SHIELD) < entity.getStat(PlayerStat.MAX_SHIELD) && !entity.hasBuff(ShieldCooldownBuff.class)) {
+			entity.addToStat(PlayerStat.SHIELD, 0.1);
+			if (entity.getStat(PlayerStat.SHIELD) > entity.getStat(PlayerStat.MAX_SHIELD));
+			entity.setStat(PlayerStat.SHIELD, entity.getStat(PlayerStat.MAX_SHIELD));
+		}
 	}
 }

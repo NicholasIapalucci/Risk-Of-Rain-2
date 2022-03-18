@@ -1,4 +1,4 @@
-package znick_.riskofrain2.item.ror.list.white.armorpiercingrounds;
+package znick_.riskofrain2.item.ror.list.green.rosebuckler;
 
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
@@ -7,15 +7,15 @@ import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
-public class ArmorPiercingRoundsBuff extends StatBuff {
+public class RoseBucklerBuff extends StatBuff {
 
-	public ArmorPiercingRoundsBuff(int itemCount) {
-		super(PlayerStat.DAMAGE_MULTIPLIER, itemCount, RiskOfRain2Items.ARMOR_PIERCING_ROUNDS);
+	public RoseBucklerBuff(int itemCount) {
+		super(PlayerStat.ARMOR, itemCount, RiskOfRain2Items.ROSE_BUCKLER);
 	}
 
 	@Override
 	public double getStatAdditionAmount(AbstractEntityData entity) {
-		return this.getItemCount() * 0.2;
+		return 30 * this.getItemCount();
 	}
 
 	@Override

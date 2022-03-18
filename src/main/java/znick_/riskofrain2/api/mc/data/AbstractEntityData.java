@@ -25,8 +25,8 @@ import znick_.riskofrain2.api.ror.buff.StackableBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.item.ror.list.white.topazbrooch.BarrierPacketHandler.BarrierPacket;
 import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
+import znick_.riskofrain2.net.PlayerStatUpdatePacketHandler.PlayerStatUpdatePacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.net.SoundPacketHandler;
 import znick_.riskofrain2.util.helper.MathHelper;
@@ -121,7 +121,7 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 		if (!(newBuff instanceof StackableBuff)) {
 			for (Buff buff : this.getBuffs()) {
 				if (buff.getClass() == newBuff.getClass()) {
-					this.buffs.remove(buff);
+					this.removeBuff(buff);
 				}
 			}
 		}
@@ -190,6 +190,7 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	 */
 	public void updateBuffs() {
 		for (Buff buff : this.getBuffs()) {
+			
 			// Remove all expired duration buffs
 			if (buff instanceof DurationBuff) {
 				DurationBuff db = (DurationBuff) buff;
@@ -202,15 +203,16 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 			if (buff.shouldRepeat()) buff.applyEffect(this);
 			
 			// Remove all buffs that correspond to items the player no longer has.
-			boolean hasAnItem = false;
+			boolean hasItem = false;
 			List<RiskOfRain2Item> items = Arrays.asList(buff.getItems());
 			for (RiskOfRain2Item item : this.getRiskOfRain2Items().keySet()) {
 				if (items.contains(item)) {
-					hasAnItem = true;
+					hasItem = true;
 					break;
 				}
 			}
-			if (!hasAnItem) this.removeBuff(buff);
+			if (buff instanceof DurationBuff && ((DurationBuff) buff).requiresItem()) hasItem = true;
+			if (!hasItem) this.removeBuff(buff);
 		}
 	}
 	
@@ -226,11 +228,11 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	 * @param addition The addition factor to the stat
 	 */
 	public void addToStat(PlayerStat stat, double addition) {
-		this.stats.put(stat, this.stats.get(stat) + addition);
+		this.setStat(stat, this.getStat(stat) + addition);
 	}
 	
-	public void multiplyStat(PlayerStat stat, double multiply) {
-		this.stats.put(stat, this.stats.get(stat) * multiply);
+	public void removeFromStat(PlayerStat stat, double subtraction) {
+		this.addToStat(stat, -subtraction);
 	}
 	
 	/**
@@ -241,9 +243,27 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	public double getStat(PlayerStat stat) {
 		return this.stats.get(stat);
 	}
-	
+
 	public void setStat(PlayerStat stat, double amount) {
+		this.setStat(stat, amount, true);
+	}
+	
+	public void setStat(PlayerStat stat, double amount, boolean sendPacket) {
+		if (this instanceof PlayerData && sendPacket) {
+			IMessage packet = new PlayerStatUpdatePacket(stat, amount);
+			if (this.getWorld().isRemote) RiskOfRain2Packets.NET.sendToServer(packet);
+			else RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.entity);
+		}
 		this.stats.put(stat, amount);
+		this.updateStats();
+	}
+	
+	/**
+	 * Updates stats to be within acceptable range, such as ensuring shield isn't over max shield.
+	 */
+	private void updateStats() {
+		if (this.getStat(PlayerStat.SHIELD) > this.getStat(PlayerStat.MAX_SHIELD)) this.setStat(PlayerStat.SHIELD, this.getStat(PlayerStat.MAX_SHIELD));
+		if (this.getStat(PlayerStat.BARRIER) > this.getMaxHealth()) this.setStat(PlayerStat.BARRIER, this.getMaxHealth());
 	}
 	
 	/**
@@ -281,7 +301,7 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 		 * If all rolls fail, return false.
 		 */
 		if (luck > 0) {
-			for (int i = 0; i <= luck; i++) {
+			for (int i = 0; i < luck; i++) {
 				success = chance < procChance;
 				if (success) return true;
 			}
@@ -293,7 +313,7 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 		 * If all rolls succeed, return true.
 		 */
 		else if (luck < 0) {
-			for (int i = 0; i >= luck; i--) {
+			for (int i = 0; i > luck; i--) {
 				success = chance < procChance;
 				if (!success) return false;
 			}
@@ -322,13 +342,6 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 			RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.entity);
 		}
 	}
-	
-	/**
-	 * Returns the amount of the given item in the players inventory
-	 * 
-	 * @param item The item to count.
-	 */
-	public abstract int itemCount(RiskOfRain2Item item);
 
 	/**Returns whether or not the player is sprinting.*/
 	public boolean isSprinting() {
@@ -424,67 +437,13 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	public void tickEquipmentCooldown() {
 		this.equipmentCooldown -= 1; 
 	}
-
+	
 	/**
-	 * Adds to the players barrier. Cannot exceed the player's max health amount. If you really have to
-	 * do that for some reason, use reflection. 
+	 * Returns the amount of the given item in the players inventory
 	 * 
-	 * @param barrierAmount The amount of barrier to add.
+	 * @param item The item to count.
 	 */
-	public void addBarrier(int barrierAmount) {
-		this.setBarrier(this.getBarrier() + barrierAmount);
-	}
-
-	/**
-	 * Retrieves the amount of barrier the player has.
-	 */
-	public int getBarrier() {
-		return (int) (this.getStat(PlayerStat.BARRIER) / 100d);
-	}
-	
-	/**
-	 * Returns the exact barrier amount, equivalent to 100x greater than the displayed/used barrier amount.
-	 * Used for decreasing the barrier amount with natural degeneration more fluidly. 
-	 */
-	public int getExactBarrier() {
-		return (int) this.getStat(PlayerStat.BARRIER);
-	}
-
-	public void removeBarrier(double barrierAmount) {
-		this.setBarrier((this.getStat(PlayerStat.BARRIER) - (barrierAmount * 100))/100);
-	}
-
-	/**
-	 * Sets the player's barrier. Sends a packet to the other side to synchronize it between
-	 * server and client.
-	 * 
-	 * @param barrier The amount of barrier for the player to have.
-	 */
-	public void setBarrier(double barrier) {
-		this.setBarrier((int) (barrier * 100), true);
-	} 
-	
-	public void setBarrier(int barrier, boolean sendPacket) {
-		if (sendPacket) {
-			IMessage packet = new BarrierPacket(barrier);
-			if (this.getWorld().isRemote) RiskOfRain2Packets.NET.sendToServer(packet);
-			else RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.entity);
-		}
-		
-		this.setBarrierManual(barrier);
-	} 
-	
-	private void setBarrierManual(int barrier) {
-		this.setStat(PlayerStat.BARRIER, (int) MathHelper.constrain(barrier, 0, this.getMaxHealth() * 100));
-	}
-	
-	/**
-	 * Handles barrier degeneration by decreasing the barrier by 1/100. Should be called every tick.
-	 */
-	public void degenBarrier() {
-		this.removeBarrier(0.1);
-	}
-	
+	public abstract int itemCount(RiskOfRain2Item item);
 	public abstract void replaceItem(RiskOfRain2Item toReplace, RiskOfRain2Item replaceWith);
 	public abstract void removeItem(RiskOfRain2Item toRemove);
 	public abstract boolean hasItem(RiskOfRain2Item item);

@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import scala.reflect.internal.Trees.This;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 
 public class BasicItem extends Item {
 
@@ -20,7 +20,7 @@ public class BasicItem extends Item {
 	public BasicItem(String name, String folder) {
 		this.name = name;
 		this.setUnlocalizedName(name.toLowerCase().replace(' ', '_'));
-		this.setTextureName(RiskOfRain2.MODID + ":" + folder + "/" + name.toLowerCase().replace(' ', '_'));
+		this.setTextureName(RiskOfRain2Mod.MODID + ":" + folder + "/" + name.toLowerCase().replace(' ', '_'));
 	}
 	
 	public BasicItem(String name, String folder, CreativeTabs tab) {

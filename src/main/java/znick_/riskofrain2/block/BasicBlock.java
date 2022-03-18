@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class BasicBlock extends Block {
@@ -27,7 +27,7 @@ public class BasicBlock extends Block {
 		this.setHardness(hardness);
 		this.setStepSound(sound);
 		this.setLightLevel(light);
-		this.setBlockTextureName(RiskOfRain2.MODID + ":" + folder + "/" + name);
+		this.setBlockTextureName(RiskOfRain2Mod.MODID + ":" + folder + "/" + name);
 		this.setCreativeTab(RiskOfRain2CreativeTabs.BLOCKS);
 	}
 	
@@ -46,18 +46,18 @@ public class BasicBlock extends Block {
 			for (int i = 0; i < 6; i++) {
 				switch(i) {
 				case 0:
-					this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":" + this.folder + "/" + this.name + "_bottom");
+					this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":" + this.folder + "/" + this.name + "_bottom");
 					break;
 				case 1:
-					this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":" + this.folder + "/" + this.name + "_top");
+					this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":" + this.folder + "/" + this.name + "_top");
 					break;
 				default:
-					this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":" + this.folder + "/" + this.name + "_side");
+					this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":" + this.folder + "/" + this.name + "_side");
 				}
 			}
 		} else {
 			for (int i = 0; i < 6; i++) {
-				this.textures[i] = reg.registerIcon(RiskOfRain2.MODID + ":" + this.folder + "/" + this.name);
+				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":" + this.folder + "/" + this.name);
 			}
 		}
     }

@@ -1,5 +1,8 @@
 package znick_.riskofrain2.api.ror.buff;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -17,6 +20,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
  */
 public abstract class Buff {
 		
+	private static final Map<Integer, Class<? extends Buff>> BUFF_IDS = new TreeMap<>();
 	/**The amount of the {@link #item} that the player has*/
 	private final int itemCount;
 	/**The Risk Of Rain 2 items that gives this buff*/
@@ -25,6 +29,7 @@ public abstract class Buff {
 	public Buff(int itemCount, RiskOfRain2Item... items) {
 		this.items = items;
 		this.itemCount = itemCount;
+		if (!BUFF_IDS.containsValue(this.getClass())) BUFF_IDS.put(BUFF_IDS.size(), this.getClass());
 	}
 	
 	/**
@@ -68,5 +73,10 @@ public abstract class Buff {
 	 */
 	public boolean shouldRepeat() {
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + "[" + this.itemCount + "]";
 	}
 }

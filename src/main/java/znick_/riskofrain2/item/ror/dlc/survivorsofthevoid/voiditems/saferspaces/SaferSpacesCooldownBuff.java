@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class SaferSpacesCooldownBuff extends DurationBuff {
 
 	public SaferSpacesCooldownBuff(int itemCount) {
-		super(RiskOfRain2Items.SAFER_SPACES, itemCount, (int) (TickHandler.fromSeconds(15) * Math.pow(0.9, itemCount)));
+		super(itemCount, (int) (TickHandler.fromSeconds(15) * Math.pow(0.9, itemCount)), RiskOfRain2Items.SAFER_SPACES);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.client.gui.GuiHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -30,7 +30,7 @@ public class LogbookGui extends GuiScreen {
 
 	private void drawBackground() {
 		GL11.glPushMatrix();
-		this.mc.getTextureManager().bindTexture(new ResourceLocation(RiskOfRain2.MODID + ":textures/gui/logbook/background.png"));
+		this.mc.getTextureManager().bindTexture(new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/logbook/background.png"));
 		int d = 256;
 		int s = 3;
 		int i = 0;

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.event.rorevents.GenerateItemEvent;
 import znick_.riskofrain2.event.rorevents.GenerateItemEvent.GenerationSource;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
@@ -53,17 +53,17 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		if (!this.beforeOpened(player)) return false;
 		
 		// Post the object interaction event and exit if it was canceled
-		if (RiskOfRain2.DEBUG) System.out.println("Posting object interaction event...");
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Posting object interaction event...");
 		ObjectInteractionEvent event = new ObjectInteractionEvent(player, this);
 		if (MinecraftForge.EVENT_BUS.post(event)) return false;
-		if (RiskOfRain2.DEBUG) System.out.println("Object interaction event not canceled. Continuing...");
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Object interaction event not canceled. Continuing...");
 		
 		// Post a generate item event and exit if it was canceled
-		if (RiskOfRain2.DEBUG) System.out.println("Posting item generation event...");
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Posting item generation event...");
 		RiskOfRain2Item generatedItem = this.generateItem(player);
 		GenerateItemEvent genEvent = new GenerateItemEvent(GenerationSource.LUNAR_POD, generatedItem, player);
 		if (MinecraftForge.EVENT_BUS.post(genEvent)) return false;
-		if (RiskOfRain2.DEBUG) System.out.println("Item generation event not canceled. Continuing...");
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Item generation event not canceled. Continuing...");
 				
 		// Refresh the item to drop in case an event listener changed it
 		RiskOfRain2Item toDrop = genEvent.getItem();
@@ -85,7 +85,7 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 	 * @param item The item to generate.
 	 */
 	private void forceOpen(EntityPlayer player, RiskOfRain2Item item) {
-		if (RiskOfRain2.DEBUG) System.out.println("Opening item generator");
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Opening item generator");
 		
 		// Create the item to drop
 		EntityItem entityItem = new EntityItem(this.worldObj, ((double) this.xCoord) + 0.5, this.yCoord + 1.2, ((double) this.zCoord) + 0.5, new ItemStack(item));
@@ -104,7 +104,7 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 	 * @return a string starting with "ror2:item_spawn_"
 	 */
 	private String getSoundName(RiskOfRain2Item item) {
-		return RiskOfRain2.MODID + ":item_spawn_" + item.getRarity().name().toLowerCase();
+		return RiskOfRain2Mod.MODID + ":item_spawn_" + item.getRarity().name().toLowerCase();
 	}
 	
 	/**

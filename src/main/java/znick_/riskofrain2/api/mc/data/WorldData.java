@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import net.minecraft.world.storage.MapStorage;
-import znick_.riskofrain2.RiskOfRain2;
+import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.ror.artifact.Artifact;
 
 public class WorldData extends WorldSavedData {
@@ -36,13 +36,13 @@ public class WorldData extends WorldSavedData {
 	public void enableArtifact(Artifact artifact) {
 		this.artifacts.put(artifact, true);
 		this.markDirty();
-		if (RiskOfRain2.DEBUG) System.out.println("Enabling artifact \"" + artifact + "\"");
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Enabling artifact \"" + artifact + "\"");
 	}
 	
 	public void disableArtifact(Artifact artifact) {
 		this.artifacts.put(artifact, false);
 		this.markDirty();
-		if (RiskOfRain2.DEBUG) System.out.println("Disabling artifact \"" + artifact + "\"");
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Disabling artifact \"" + artifact + "\"");
 	}
 	
 	public boolean isArtifactEnabled(Artifact artifact) {
