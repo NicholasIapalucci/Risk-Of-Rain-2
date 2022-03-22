@@ -10,14 +10,14 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class StunGrenadeBuff extends DurationBuff {
 
 	public StunGrenadeBuff(int itemCount) {
-		super(itemCount, TickHandler.fromSeconds(2), RiskOfRain2Items.STUN_GRENADE);
+		super(itemCount, TickHandler.fromSeconds(2));
 	}
 
 	@Override
-	public void applyEffect(AbstractEntityData player) { //TODO: Update buffs to be applicable to any entity
-		player.getEntity().motionX = 0;
-		player.getEntity().motionY = 0;
-		player.getEntity().motionZ = 0;
+	public void applyEffect(AbstractEntityData entity) {
+		entity.getEntity().motionX = 0;
+		entity.getEntity().motionY = 0;
+		entity.getEntity().motionZ = 0;
 	}
 
 	@Override
@@ -31,7 +31,17 @@ public class StunGrenadeBuff extends DurationBuff {
 	}
 
 	@Override
+	public boolean shouldRepeat() {
+		return true;
+	}
+	
+	@Override
 	public boolean isDebuff() {
 		return true;
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.STUN_GRENADE};
 	}
 }

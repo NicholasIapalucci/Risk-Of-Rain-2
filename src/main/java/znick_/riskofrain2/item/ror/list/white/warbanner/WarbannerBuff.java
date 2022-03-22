@@ -28,7 +28,7 @@ public class WarbannerBuff extends DurationBuff {
 	 * @param itemCount The level of the war banner.
 	 */
 	public WarbannerBuff(int itemCount) {
-		super(itemCount, (int) TickHandler.fromSeconds(3), RiskOfRain2Items.WAR_BANNER);
+		super(itemCount, (int) TickHandler.fromSeconds(3));
 	}
 
 	@Override
@@ -45,10 +45,10 @@ public class WarbannerBuff extends DurationBuff {
 	public void removeEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, -0.3);
 	}
-
+	
 	@Override
-	public boolean isDebuff() {
-		return false;
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.WAR_BANNER};
 	}
 
 }

@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class TitanicKnurlBuff extends Buff {
 
 	public TitanicKnurlBuff(int itemCount) {
-		super(itemCount, RiskOfRain2Items.TITANIC_KNURL);
+		super(itemCount);
 	}
 
 	@Override
@@ -28,8 +28,8 @@ public class TitanicKnurlBuff extends Buff {
 	}
 
 	@Override
-	public boolean isDebuff() {
-		return false;
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.TITANIC_KNURL};
 	}
 
 }

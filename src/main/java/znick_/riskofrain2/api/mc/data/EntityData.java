@@ -14,10 +14,21 @@ public class EntityData extends AbstractEntityData<EntityLivingBase> {
 	
 	private final Map<RiskOfRain2Item, Integer> items = new LinkedHashMap<>();
 	
+	private double baseMovementSpeed;
+	
 	protected EntityData(EntityLivingBase entity) {
 		super(entity);
 	}
 
+	public void setBaseMovementSpeed(double speed) {
+		if (this.baseMovementSpeed != 0) return;
+		this.baseMovementSpeed = speed;
+	}
+	
+	public double getBaseMovementSpeed() {
+		return this.baseMovementSpeed;
+	}
+	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
 		NBTTagCompound properties = new NBTTagCompound();

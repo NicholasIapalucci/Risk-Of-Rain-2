@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class RedWhipCooldownBuff extends DurationBuff {
 
 	public RedWhipCooldownBuff(int itemCount) {
-		super(itemCount, TickHandler.fromSeconds(5), RiskOfRain2Items.RED_WHIP);
+		super(itemCount, TickHandler.fromSeconds(5));
 	}
 
 	@Override
@@ -26,6 +26,11 @@ public class RedWhipCooldownBuff extends DurationBuff {
 	@Override
 	public void removeEffect(AbstractEntityData entity) {
 
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.RED_WHIP};
 	}
 
 }

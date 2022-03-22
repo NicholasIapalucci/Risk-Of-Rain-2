@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class MochaBuff extends Buff {
 
 	public MochaBuff(int itemCount) {
-		super(itemCount, RiskOfRain2Items.MOCHA);
+		super(itemCount);
 	}
 
 	@Override
@@ -26,6 +26,11 @@ public class MochaBuff extends Buff {
 	@Override
 	public void removeEffect(AbstractEntityData player) {
 		player.addToStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, -0.07 * this.getItemCount());
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.MOCHA};
 	}
 
 }

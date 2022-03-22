@@ -25,11 +25,11 @@ import znick_.riskofrain2.api.ror.buff.StackableBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.net.BuffPacketHandler;
 import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
 import znick_.riskofrain2.net.PlayerStatUpdatePacketHandler.PlayerStatUpdatePacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.net.SoundPacketHandler;
-import znick_.riskofrain2.util.helper.MathHelper;
 
 /**
  * Main superclass for entity data. Entity data is broken up into two main classes: {@link PlayerData} and
@@ -51,8 +51,6 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	/**The current amount of ticks left until the player can use equipment again.*/
 	protected int equipmentCooldown = 0;
 	
-	private double baseMovementSpeed;
-	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
 	 * 
@@ -62,15 +60,6 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 		if (get(entity) != null) throw new IllegalArgumentException("Entity already registered.");
 		this.entity = entity;
 		for (PlayerStat stat : PlayerStat.values()) this.resetStat(stat);
-	}
-	
-	public void setBaseMovementSpeed(double speed) {
-		if (this.baseMovementSpeed != 0) return;
-		this.baseMovementSpeed = speed;
-	}
-	
-	public double getBaseMovementSpeed() {
-		return this.baseMovementSpeed;
 	}
 	
 	/**
@@ -112,34 +101,40 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	 * 
 	 * @return whether or not the buff was added.
 	 */
-	public boolean addBuff(Buff newBuff) {
+	public void addBuff(Buff newBuff) {
+		this.addBuff(newBuff, this instanceof PlayerData);
+	}
+	
+	public void addBuff(Buff newBuff, boolean sendPacket) {
+		if (sendPacket) {
+			IMessage packet = new BuffPacketHandler.BuffPacket(newBuff);
+			if (this.getWorld().isRemote) RiskOfRain2Packets.NET.sendToServer(packet);
+			else RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.entity);
+		}
+		this.addBuffManually(newBuff);
+	}
+	
+	private void addBuffManually(Buff newBuff) {
 		
 		// Proc Ben's Raincoat if necessary
-		if (this.hasItem(RiskOfRain2Items.BENS_RAINCOAT) && newBuff.isDebuff()) return false;
-		
+		if (this.hasItem(RiskOfRain2Items.BENS_RAINCOAT) && newBuff.isDebuff()) return;
+						
 		// Prevent buffs from applying twice, such as stacking speed with more speed from the same item
-		if (!(newBuff instanceof StackableBuff)) {
+		if (!(newBuff.getClass().isAnnotationPresent(StackableBuff.class))) {
 			for (Buff buff : this.getBuffs()) {
 				if (buff.getClass() == newBuff.getClass()) {
 					this.removeBuff(buff);
 				}
 			}
 		}
-		
+
 		// Add the buff and apply the effect
 		this.buffs.add(newBuff);
 		newBuff.applyEffect(this);
-		
-		// Mark the buff as added successfully
-		return true;
-	}
-	
-	public void stackBuff(Buff buff) {
-		this.buffs.add(buff);
 	}
 	
 	public int getBuffCount(Class<? extends Buff> buffClass) {
-		return this.buffs.stream().filter(buff -> buff.getClass().equals(buffClass)).toArray(Buff[]::new).length;
+		return (int) this.buffs.stream().filter(buff -> buff.getClass().equals(buffClass)).count();
 	}
 	
 	/**

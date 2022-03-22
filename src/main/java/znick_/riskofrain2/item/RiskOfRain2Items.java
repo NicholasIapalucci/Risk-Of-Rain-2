@@ -165,7 +165,7 @@ public class RiskOfRain2Items {
 	/**
 	 * The "Paul's goat hoof" item. Adds 14% (+14% per item) boost to movement speed.
 	 */
-	public static final RiskOfRain2Item GOAT_HOOF = new GoatHoofItem();
+	public static final RiskOfRain2Item PAULS_GOAT_HOOF = new GoatHoofItem();
 	
 	/**
 	 * The "gasoline" item. When the player kills an enemy, all enemies around the killed enemy are lit on fire

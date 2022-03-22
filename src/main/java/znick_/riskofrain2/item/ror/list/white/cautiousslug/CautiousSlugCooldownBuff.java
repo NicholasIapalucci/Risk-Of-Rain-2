@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class CautiousSlugCooldownBuff extends DurationBuff {
 
 	public CautiousSlugCooldownBuff(int itemCount) {
-		super(itemCount, TickHandler.fromSeconds(7), RiskOfRain2Items.CAUTIOUS_SLUG);
+		super(itemCount, TickHandler.fromSeconds(7));
 	}
 
 	@Override
@@ -26,6 +26,11 @@ public class CautiousSlugCooldownBuff extends DurationBuff {
 	@Override
 	public void removeEffect(AbstractEntityData player) {
 		
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.CAUTIOUS_SLUG};
 	}
 
 }

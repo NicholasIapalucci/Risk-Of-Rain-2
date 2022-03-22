@@ -1,6 +1,6 @@
 package znick_.riskofrain2.api.ror.buff;
 
-public interface StackableBuff {
+import java.lang.annotation.Inherited;
 
-	
-}
+@Inherited
+public @interface StackableBuff {}

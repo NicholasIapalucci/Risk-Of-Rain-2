@@ -13,8 +13,8 @@ public abstract class DurationBuff extends Buff {
 	private int startTick;
 	private int duration;
 	
-	public DurationBuff(int itemCount, int duration, RiskOfRain2Item... items) {
-		super(itemCount, items);
+	public DurationBuff(int itemCount, int duration) {
+		super(itemCount);
 		this.startTick = TickHandler.server();
 		this.duration = duration;
 	}

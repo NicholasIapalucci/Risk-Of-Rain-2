@@ -14,7 +14,7 @@ public class JadeElephantBuff extends DurationBuff {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "jade_elephant.png");
 	
 	public JadeElephantBuff() {
-		super(0, TickHandler.fromSeconds(5), RiskOfRain2Items.JADE_ELEPHANT);
+		super(0, TickHandler.fromSeconds(5));
 	}
 
 	@Override
@@ -33,8 +33,8 @@ public class JadeElephantBuff extends DurationBuff {
 	}
 
 	@Override
-	public boolean isDebuff() {
-		return false;
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.JADE_ELEPHANT};
 	}
 
 }

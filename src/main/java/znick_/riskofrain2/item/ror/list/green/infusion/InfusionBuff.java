@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class InfusionBuff extends Buff {
 
 	public InfusionBuff(int itemCount) {
-		super(itemCount, RiskOfRain2Items.INFUSION);
+		super(itemCount);
 	}
 
 	@Override
@@ -26,10 +26,11 @@ public class InfusionBuff extends Buff {
 	public void removeEffect(AbstractEntityData player) {
 		player.addToMaxHealth(-this.getItemCount() * 4);
 	}
-
+	
 	@Override
-	public boolean isDebuff() {
-		return false;
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.INFUSION};
 	}
+	
 
 }

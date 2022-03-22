@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class EnergyDrinkBuff extends StatBuff {
 
 	public EnergyDrinkBuff(int itemCount) {
-		super(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, itemCount, RiskOfRain2Items.ENERGY_DRINK);
+		super(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, itemCount);
 	}
 
 	@Override
@@ -21,5 +21,10 @@ public class EnergyDrinkBuff extends StatBuff {
 	@Override
 	public double getStatAdditionAmount(AbstractEntityData entity) {
 		return 0.2 * this.getItemCount();
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.ENERGY_DRINK};
 	}
 }

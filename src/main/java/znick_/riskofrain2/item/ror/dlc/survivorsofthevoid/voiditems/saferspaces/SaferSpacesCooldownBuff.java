@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class SaferSpacesCooldownBuff extends DurationBuff {
 
 	public SaferSpacesCooldownBuff(int itemCount) {
-		super(itemCount, (int) (TickHandler.fromSeconds(15) * Math.pow(0.9, itemCount)), RiskOfRain2Items.SAFER_SPACES);
+		super(itemCount, (int) (TickHandler.fromSeconds(15) * Math.pow(0.9, itemCount)));
 	}
 
 	@Override
@@ -26,6 +26,11 @@ public class SaferSpacesCooldownBuff extends DurationBuff {
 	@Override
 	public void removeEffect(AbstractEntityData player) {
 		player.addBuff(new SaferSpacesBuff(this.getItemCount()));
+	}
+
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.SAFER_SPACES};
 	}
 
 }

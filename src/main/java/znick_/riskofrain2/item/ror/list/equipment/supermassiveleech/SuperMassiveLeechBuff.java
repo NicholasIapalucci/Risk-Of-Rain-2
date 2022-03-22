@@ -11,15 +11,15 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 
 public class SuperMassiveLeechBuff extends DurationBuff {
 	
-	private static final ResourceLocation TEXUTRE = new ResourceLocation(RiskOfRain2Files.BUFFS + "super_massive_leech.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "super_massive_leech.png");
 	
 	public SuperMassiveLeechBuff() {
-		super(0, (int) TickHandler.fromSeconds(8), RiskOfRain2Items.SUPER_MASSIVE_LEECH);
+		super(0, TickHandler.fromSeconds(8));
 	}
 	
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/buffs/super_massive_leech.png");
+		return TEXTURE;
 	}
 
 	@Override
@@ -33,8 +33,8 @@ public class SuperMassiveLeechBuff extends DurationBuff {
 	}
 
 	@Override
-	public boolean isDebuff() {
-		return false;
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.SUPER_MASSIVE_LEECH};
 	}
 
 }

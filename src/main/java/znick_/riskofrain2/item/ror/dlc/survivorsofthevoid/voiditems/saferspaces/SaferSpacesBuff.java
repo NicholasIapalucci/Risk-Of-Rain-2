@@ -10,7 +10,7 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 public class SaferSpacesBuff extends Buff {
 
 	public SaferSpacesBuff(int itemCount) {
-		super(itemCount, RiskOfRain2Items.SAFER_SPACES);
+		super(itemCount);
 	}
 
 	@Override
@@ -26,6 +26,11 @@ public class SaferSpacesBuff extends Buff {
 	@Override
 	public void removeEffect(AbstractEntityData player) {
 		player.addBuff(new SaferSpacesCooldownBuff(this.getItemCount()));
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.SAFER_SPACES};
 	}
 
 }

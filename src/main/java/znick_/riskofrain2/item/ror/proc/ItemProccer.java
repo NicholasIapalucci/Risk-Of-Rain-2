@@ -17,6 +17,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.PlayerStat;
 import znick_.riskofrain2.event.handler.EventHandler;
@@ -150,8 +151,8 @@ public class ItemProccer extends EventHandler {
 		// Add the player's movement speed multiplier
 		if (entity instanceof EntityPlayer) ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER)));
 		else {
-			data.setBaseMovementSpeed(entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue());
-			entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER) * data.getBaseMovementSpeed());
+			((EntityData) data).setBaseMovementSpeed(entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue());
+			entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER) * ((EntityData) data).getBaseMovementSpeed());
 		}
 		updateCounter++;
 	}

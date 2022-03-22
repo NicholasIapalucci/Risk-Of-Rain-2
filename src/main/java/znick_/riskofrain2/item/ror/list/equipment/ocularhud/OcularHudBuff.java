@@ -11,7 +11,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class OcularHudBuff extends DurationBuff {
 
 	public OcularHudBuff() {
-		super(0, TickHandler.fromSeconds(8), RiskOfRain2Items.OCULAR_HUD);
+		super(0, TickHandler.fromSeconds(8));
 	}
 
 	@Override
@@ -32,6 +32,11 @@ public class OcularHudBuff extends DurationBuff {
 	@Override
 	public boolean isDebuff() {
 		return false;
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.OCULAR_HUD};
 	}
 
 }

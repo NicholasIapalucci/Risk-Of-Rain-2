@@ -9,7 +9,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class DefensiveMicrobotsCooldownBuff extends DurationBuff {
 
 	public DefensiveMicrobotsCooldownBuff(int itemCount) {
-		super(itemCount, 10/(itemCount), RiskOfRain2Items.DEFENSIVE_MICROBOTS);
+		super(itemCount, (int) (10d/(itemCount)));
 	}
 
 	@Override
@@ -25,6 +25,11 @@ public class DefensiveMicrobotsCooldownBuff extends DurationBuff {
 	@Override
 	public void removeEffect(AbstractEntityData player) {
 		
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.DEFENSIVE_MICROBOTS};
 	}
 
 }

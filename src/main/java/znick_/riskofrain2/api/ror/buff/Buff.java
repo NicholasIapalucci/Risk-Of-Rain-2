@@ -1,7 +1,7 @@
 package znick_.riskofrain2.api.ror.buff;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
@@ -20,16 +20,14 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
  */
 public abstract class Buff {
 		
-	private static final Map<Integer, Class<? extends Buff>> BUFF_IDS = new TreeMap<>();
+	private static final Map<Class<? extends Buff>, Integer> BUFF_IDS = new LinkedHashMap<>();
 	/**The amount of the {@link #item} that the player has*/
 	private final int itemCount;
 	/**The Risk Of Rain 2 items that gives this buff*/
-	private final RiskOfRain2Item[] items;
 	
-	public Buff(int itemCount, RiskOfRain2Item... items) {
-		this.items = items;
+	public Buff(int itemCount) {
 		this.itemCount = itemCount;
-		if (!BUFF_IDS.containsValue(this.getClass())) BUFF_IDS.put(BUFF_IDS.size(), this.getClass());
+		if (!BUFF_IDS.containsKey(this.getClass())) BUFF_IDS.put(this.getClass(), BUFF_IDS.size());
 	}
 	
 	/**
@@ -42,11 +40,8 @@ public abstract class Buff {
 	public abstract void applyEffect(AbstractEntityData entity);
 	/**Removes the effect from the entity.*/
 	public abstract void removeEffect(AbstractEntityData entity);
-	
-	/**Returns the item that gives this effect*/
-	public RiskOfRain2Item[] getItems() {
-		return this.items;
-	}
+	/**Returns the items that give this effect*/
+	public abstract RiskOfRain2Item[] getItems();
 	
 	/**
 	 * Returns whether or not this buff gives a negative effect. Used by blast shower to detect whether or 
@@ -78,5 +73,14 @@ public abstract class Buff {
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + "[" + this.itemCount + "]";
+	}
+
+	public int getID() {
+		return BUFF_IDS.get(this.getClass());
+	}
+
+	public static Class<? extends Buff> fromID(int id) {
+		for (Map.Entry<Class<? extends Buff>, Integer> buffEntry : BUFF_IDS.entrySet()) if (buffEntry.getValue() == id) return buffEntry.getKey();
+		return null;
 	}
 }

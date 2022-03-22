@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class RoseBucklerBuff extends StatBuff {
 
 	public RoseBucklerBuff(int itemCount) {
-		super(PlayerStat.ARMOR, itemCount, RiskOfRain2Items.ROSE_BUCKLER);
+		super(PlayerStat.ARMOR, itemCount);
 	}
 
 	@Override
@@ -21,6 +21,11 @@ public class RoseBucklerBuff extends StatBuff {
 	@Override
 	public ResourceLocation getIconTexture() {
 		return null;
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.ROSE_BUCKLER};
 	}
 
 }

@@ -7,8 +7,8 @@ public abstract class StatBuff extends Buff {
 
 	private final PlayerStat stat;
 	
-	public StatBuff(PlayerStat stat, int itemCount, RiskOfRain2Item... items) {
-		super(itemCount, items);
+	public StatBuff(PlayerStat stat, int itemCount) {
+		super(itemCount);
 		this.stat = stat;
 	}
 

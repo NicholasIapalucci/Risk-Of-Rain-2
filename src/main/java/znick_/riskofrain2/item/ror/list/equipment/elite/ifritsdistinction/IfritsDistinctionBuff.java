@@ -13,7 +13,7 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 public class IfritsDistinctionBuff extends Buff {
 
 	public IfritsDistinctionBuff() {
-		super(1, RiskOfRain2Items.IFRITS_DISTINCTION);
+		super(1);
 	}
 
 	@Override
@@ -35,6 +35,11 @@ public class IfritsDistinctionBuff extends Buff {
 	public void removeEffect(AbstractEntityData entity) {
 		entity.getEntity().removePotionEffect(Potion.fireResistance.id);
 		entity.getEntity().extinguish();
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.IFRITS_DISTINCTION};
 	}
 
 }

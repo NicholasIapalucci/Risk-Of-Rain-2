@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class ArmorPiercingRoundsBuff extends StatBuff {
 
 	public ArmorPiercingRoundsBuff(int itemCount) {
-		super(PlayerStat.DAMAGE_MULTIPLIER, itemCount, RiskOfRain2Items.ARMOR_PIERCING_ROUNDS);
+		super(PlayerStat.DAMAGE_MULTIPLIER, itemCount);
 	}
 
 	@Override
@@ -21,6 +21,11 @@ public class ArmorPiercingRoundsBuff extends StatBuff {
 	@Override
 	public ResourceLocation getIconTexture() {
 		return null;
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.ARMOR_PIERCING_ROUNDS};
 	}
 
 }

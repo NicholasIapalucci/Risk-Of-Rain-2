@@ -10,17 +10,22 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class CritGlassesBuff extends StatBuff {
 
 	public CritGlassesBuff(int itemCount) {
-		super(PlayerStat.CRIT_CHANCE, itemCount, RiskOfRain2Items.CRIT_GLASSES);
+		super(PlayerStat.CRIT_CHANCE, itemCount);
 	}
 
 	@Override
 	public double getStatAdditionAmount(AbstractEntityData entity) {
-		return this.getItemCount() * 0.1; //Can go over 1, will not particularly affect crit. Any value over 1 will just crit every hit.
+		return this.getItemCount() * 0.1; 
 	}
 
 	@Override
 	public ResourceLocation getIconTexture() {
 		return null;
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.CRIT_GLASSES};
 	}
 
 }

@@ -13,7 +13,7 @@ public class MedkitBuff extends DurationBuff {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "medkit.png");
 		
 	public MedkitBuff(int itemCount) {
-		super(itemCount, (int) TickHandler.fromSeconds(2), RiskOfRain2Items.MEDKIT);
+		super(itemCount, TickHandler.fromSeconds(2));
 	}
 	
 	@Override
@@ -34,6 +34,11 @@ public class MedkitBuff extends DurationBuff {
 	@Override
 	public boolean isDebuff() {
 		return false;
+	}
+	
+	@Override
+	public RiskOfRain2Item[] getItems() {
+		return new RiskOfRain2Item[] {RiskOfRain2Items.MEDKIT};
 	}
 
 }
