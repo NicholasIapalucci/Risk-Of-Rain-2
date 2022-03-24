@@ -2,9 +2,9 @@ package znick_.riskofrain2.item.ror.list.white.warbanner;
 
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -37,13 +37,13 @@ public class WarbannerBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(AbstractEntityData player) {
-		player.addToStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, 0.3);
+	public void applyEffect(EntityData player) {
+		player.addToStat(EntityStat.MOVEMENT_SPEED_MULTIPLIER, 0.3);
 	}
 	
 	@Override
-	public void removeEffect(AbstractEntityData player) {
-		player.addToStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, -0.3);
+	public void removeEffect(EntityData player) {
+		player.addToStat(EntityStat.MOVEMENT_SPEED_MULTIPLIER, -0.3);
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class PlayerData extends AbstractEntityData<EntityPlayer> {
+public class PlayerData extends EntityData<EntityPlayer> {
 
 	public static final String PROPERTY_ID = "player_data";
 	

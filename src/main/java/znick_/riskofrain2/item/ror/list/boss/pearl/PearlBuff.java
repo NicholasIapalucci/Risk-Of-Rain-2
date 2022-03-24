@@ -1,9 +1,9 @@
 package znick_.riskofrain2.item.ror.list.boss.pearl;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -11,7 +11,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class PearlBuff extends StatBuff {
 
 	public PearlBuff(int itemCount) {
-		super(PlayerStat.MAXIMUM_HEALTH_MULTIPLIER, itemCount);
+		super(EntityStat.MAXIMUM_HEALTH_MULTIPLIER, itemCount);
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class PearlBuff extends StatBuff {
 	}
 
 	@Override
-	public double getStatAdditionAmount(AbstractEntityData entity) {
+	public double getStatAdditionAmount(EntityData entity) {
 		return this.getItemCount() * 0.1;
 	}
 

@@ -1,8 +1,8 @@
 package znick_.riskofrain2.item.ror.list.white.energydrink;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -10,7 +10,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class EnergyDrinkBuff extends StatBuff {
 
 	public EnergyDrinkBuff(int itemCount) {
-		super(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, itemCount);
+		super(EntityStat.MOVEMENT_SPEED_MULTIPLIER, itemCount);
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class EnergyDrinkBuff extends StatBuff {
 	}
 
 	@Override
-	public double getStatAdditionAmount(AbstractEntityData entity) {
+	public double getStatAdditionAmount(EntityData entity) {
 		return 0.2 * this.getItemCount();
 	}
 	

@@ -46,7 +46,7 @@ public class TickHandler extends EventHandler {
 		return ((float) tick) / 20f;
 	}
 
-	public static int fromSeconds(int seconds) {
-		return seconds * 20;
+	public static int fromSeconds(double seconds) {
+		return (int) (seconds * 20);
 	}
 }

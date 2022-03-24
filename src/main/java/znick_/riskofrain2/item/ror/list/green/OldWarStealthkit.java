@@ -7,8 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
@@ -22,14 +22,14 @@ public class OldWarStealthkit extends RiskOfRain2Item implements OnUpdateItem {
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		player.getEntity().addPotionEffect(new PotionEffect(Potion.invisibility.id, 100, 0));
-		player.addToStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER, 0.4);
+		player.addToStat(EntityStat.MOVEMENT_SPEED_MULTIPLIER, 0.4);
 		//TODO: Cooldown buff
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		// Return false if on cooldown
 		return player.getHealth() < player.getMaxHealth() * 0.25;
 	}

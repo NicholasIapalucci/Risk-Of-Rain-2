@@ -54,10 +54,6 @@ public class RiskOfRain2Mod {
 		RiskOfRain2Config.initConfig(event);
 		RiskOfRain2TileEntities.registerTileEntities();
 		RiskOfRain2Packets.registerPackets();
-	}
-
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
 		RiskOfRain2Items.registerItems();
 		RiskOfRain2CreativeTabs.registerCreativeTabs();
 		RiskOfRain2Blocks.registerBlocks();
@@ -67,6 +63,10 @@ public class RiskOfRain2Mod {
 		RiskOfRain2Events.registerEvents();
 		RiskOfRain2KeyBinds.registerKeyBinds();
 		RiskOfRain2Achievements.registerAchievements();
+	}
+
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
 		RiskOfRain2Recipes.registerRecipes();
 	}
 

@@ -6,9 +6,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
-import znick_.riskofrain2.item.ror.SuperBruh;
+import znick_.riskofrain2.block.itemgen.ItemGenerator;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 /**
@@ -31,7 +31,14 @@ public class Printer3D extends Block implements ITileEntityProvider {
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileEntity3DPrinter(SuperBruh.generateSmallChestItem()); //TODO: Add Boss printer
+		return new TileEntity3DPrinter(generateItem()); //TODO: Add Boss printer
+	}
+	
+	private static RiskOfRain2Item generateItem() {
+		double rand = Math.random();
+		if (rand < 0.099) return ItemGenerator.generateItem(ItemRarity.RED);
+		if (rand < 0.198) return ItemGenerator.generateItem(ItemRarity.GREEN);
+		return ItemGenerator.generateItem(ItemRarity.WHITE);
 	}
 	
 	/**

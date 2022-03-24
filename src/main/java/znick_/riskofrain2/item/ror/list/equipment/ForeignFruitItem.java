@@ -3,17 +3,17 @@ package znick_.riskofrain2.item.ror.list.equipment;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import ibxm.Player;
 import net.minecraft.entity.SharedMonsterAttributes;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 
 public class ForeignFruitItem extends RiskOfRain2Equipment {
 	
 	public ForeignFruitItem() {
 		super("foreign_fruit");
-		this.setCooldown(900);
+		this.setBaseCooldown(900);
 	}
 	
 	@Override
-	public void useEquipment(AbstractEntityData player) {
+	public void activateEffect(EntityData player) {
 		player.heal((int) (player.getMaxHealth() * 0.5f));
 	}
 	

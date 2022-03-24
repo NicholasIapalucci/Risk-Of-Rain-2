@@ -9,7 +9,7 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
@@ -32,7 +32,7 @@ public class SurvivorEventHandler extends EventHandler {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		for (Survivor survivor : Survivor.getSurvivors()) {
 			if (survivor.isPlayer(player)) {
-				PlayerData data = AbstractEntityData.get(player);
+				PlayerData data = EntityData.get(player);
 				Loadout loadout = data.getLoadout();
 
 				// If the utility key was pressed, activate the utility ability

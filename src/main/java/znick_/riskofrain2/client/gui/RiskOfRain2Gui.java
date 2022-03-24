@@ -1,6 +1,9 @@
 package znick_.riskofrain2.client.gui;
 
 import java.awt.Color;
+import java.util.AbstractMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.lwjgl.opengl.GL11;
@@ -10,12 +13,13 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import scala.actors.threadpool.Arrays;
+import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.Buff;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
@@ -48,9 +52,9 @@ public class RiskOfRain2Gui extends Gui {
 		GuiIngameForge.renderHealth = false;
 		GuiIngameForge.renderExperiance = false;
 			
-		AbstractEntityData player = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer);
+		EntityData player = EntityData.get(Minecraft.getMinecraft().thePlayer);
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		String health = (int) (player.getHealth() + player.getStat(PlayerStat.BARRIER) + player.getStat(PlayerStat.SHIELD))  + "/" + (int) player.getMaxHealth();
+		String health = (int) (player.getHealth() + player.getStat(EntityStat.BARRIER) + player.getStat(EntityStat.SHIELD))  + "/" + (int) player.getMaxHealth();
 		
 		int width = this.width/4;
 		int left = this.width/20;
@@ -58,9 +62,9 @@ public class RiskOfRain2Gui extends Gui {
 		int bottom = this.height - 16;
 		
 		int healthRight =  (int) (left + width * (player.getHealth()  / player.getMaxHealth()));
-		int barrierRight = (int) (left + width * (player.getStat(PlayerStat.BARRIER) / (player.getMaxHealth())));
+		int barrierRight = (int) (left + width * (player.getStat(EntityStat.BARRIER) / (player.getMaxHealth())));
 		
-		int shieldWidth = (int) (player.getStat(PlayerStat.SHIELD) / player.getMaxHealth() * width);
+		int shieldWidth = (int) (player.getStat(EntityStat.SHIELD) / player.getMaxHealth() * width);
 		int shieldLeft = left + width - shieldWidth;
 		
 		this.drawRect(left,            bottom + 1, left + width,       top,     new Color(50,  50,  50).getRGB()); //Base
@@ -73,14 +77,14 @@ public class RiskOfRain2Gui extends Gui {
 		this.drawRect(left + 1,        bottom,     healthRight - 1,    top + 1, new Color(95,  170, 48).getRGB()); //Fill
 		
 		// Render shield
-		if (player.getStat(PlayerStat.SHIELD) > 0) {
+		if (player.getStat(EntityStat.SHIELD) > 0) {
 			this.drawRect(shieldLeft, top + 1,    left + width, top,    new Color(77, 105, 185).getRGB()); // Top Shield
 			this.drawRect(shieldLeft, bottom + 1, left + width, bottom, new Color(44, 64, 117).getRGB()); // Bottom Shield
 			this.drawRect(shieldLeft, top + 1,    left + width, bottom, new Color(50, 76, 147).getRGB()); // Fill shield
 		}
 		
 		// Render Barrier Overlay
-		if (player.getStat(PlayerStat.BARRIER) > 0) {
+		if (player.getStat(EntityStat.BARRIER) > 0) {
 			int barrierBorder = new Color(242, 218, 104).getRGB();
 		
 			this.drawRect(left + 1,         bottom + 1, barrierRight, bottom,  barrierBorder); //Bottom Barrier
@@ -95,7 +99,7 @@ public class RiskOfRain2Gui extends Gui {
 	}
 	
 	private void renderAbilities() {
-		Loadout loadout = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
+		Loadout loadout = EntityData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
 		if (loadout == null) return;
 		this.renderAbility(loadout.getUtility(), this.width/2 + 128, this.height - 24, 12);
 		//this.renderAbility(loadout.getSpecial(), this.width/2 + 152, this.height - 24, 12); // TODO: CAUSING ISSUES
@@ -134,16 +138,37 @@ public class RiskOfRain2Gui extends Gui {
 		GL11.glEnable(GL11.GL_BLEND);
 		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
+		Map<Class<? extends Buff>, Map.Entry<Integer, Integer>> renderedBuffs = new LinkedHashMap<>();
 		int i = 0;
-		for (Buff buff : AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).getBuffs()) {
+		
+		for (Buff buff : EntityData.get(Minecraft.getMinecraft().thePlayer).getBuffs()) {
+			
+			// If the buff has no texture, just skip it.
 			if (buff.getIconTexture() == null) continue;
+			
+			// Check if a player already has a stack of it
+			if (renderedBuffs.containsKey(buff.getClass())) {
+				Map.Entry<Integer, Integer> buffEntry = renderedBuffs.get(buff.getClass());
+				buffEntry.setValue(buffEntry.getValue() + 1);
+				continue;
+			}
+			
+			// Otherwise, render the buff icon normally 
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().getTextureManager().bindTexture(buff.getIconTexture());
 			GL11.glColor3f(1, 1, 1);
 			GL11.glScaled(0.1, 0.1, 0.1);
+			
 			this.drawTexturedModalRect(40 + i, 40, 0, 0, 256, 256);
+			
 			i++;
+			renderedBuffs.put(buff.getClass(), new AbstractMap.SimpleEntry<>(4 + i, 1));
 			GL11.glPopMatrix();
+		}
+		
+		for (Map.Entry<Integer, Integer> buffEntry : renderedBuffs.values()) {
+			this.drawString(Minecraft.getMinecraft().fontRenderer, "x" + buffEntry.getValue(), buffEntry.getKey() + 2, 6, Color.WHITE.getRGB());
 		}
 	}
 	

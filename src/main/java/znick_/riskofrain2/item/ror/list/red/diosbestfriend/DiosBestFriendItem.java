@@ -5,7 +5,7 @@ import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.consume.ConsumableItem;
@@ -22,14 +22,14 @@ public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem, C
 	}
 
 	@Override
-	public void procOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnHurt(LivingHurtEvent event, EntityData player, int itemCount) {
 		event.setCanceled(true);
 		player.addBuff(new DiosBestFriendBuff(itemCount));
 		this.consume(player);
 	}
 
 	@Override
-	public boolean shouldProcOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnHurt(LivingHurtEvent event, EntityData player, int itemCount) {
 		return event.ammount >= player.getHealth();
 	}
 
@@ -49,7 +49,7 @@ public class DiosBestFriendItem extends RiskOfRain2Item implements OnHurtItem, C
 	}
 
 	@Override
-	public void consume(AbstractEntityData player) {
+	public void consume(EntityData player) {
 		player.replaceItem(this, this.getBrokenItem());
 	}
 

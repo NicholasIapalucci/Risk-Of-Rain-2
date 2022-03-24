@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.red;
 
 import net.minecraftforge.event.entity.living.LivingHealEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHealItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -21,7 +21,7 @@ public class RejuvinationRack extends RiskOfRain2Item implements OnHealItem {
 	}
 	
 	@Override
-	public void procOnHeal(LivingHealEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnHeal(LivingHealEvent event, EntityData player, int itemCount) {
 		if (!player.getEntity().worldObj.isRemote) event.amount *= (itemCount + 1);
 	}
 	

@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import znick_.riskofrain2.block.character.huntress.TressiumPlateBlock;
 import znick_.riskofrain2.block.itemblock.BlockItem;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
 import znick_.riskofrain2.block.itemgen.lunarpod.LunarPod;
@@ -24,6 +25,7 @@ public class RiskOfRain2Blocks {
 	public static final Block TRESSIUM_ORE = new OreBlock("tressium_ore", new OreData().setUpperY(30).setSpawnWeight(0.1f).setMaxVeinSize(1));
 	public static final Block HUNTRITE_BLOCK = new BlockItem("huntrite_block", "cosmetic", 5, Material.iron, Block.soundTypeMetal);
 	public static final Block TRESSIUM_BLOCK = new BlockItem("tressium_block", "cosmetic", 5, Material.iron, Block.soundTypeMetal);
+	public static final Block TRESSIUM_PLATE = new TressiumPlateBlock();
 	
 	//Items
 	public static final Block WARBANNER_BLOCK = new WarbannerBlock();

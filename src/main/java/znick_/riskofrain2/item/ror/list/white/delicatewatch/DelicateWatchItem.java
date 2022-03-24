@@ -3,8 +3,8 @@ package znick_.riskofrain2.item.ror.list.white.delicatewatch;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.consume.ConsumableItem;
@@ -41,27 +41,27 @@ public class DelicateWatchItem extends RiskOfRain2Item implements ConsumableItem
 	}
 	
 	@Override
-	public boolean shouldProcOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnHurt(LivingHurtEvent event, EntityData player, int itemCount) {
 		return true;
 	}
 	
 	@Override
-	public void procOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnHurt(LivingHurtEvent event, EntityData player, int itemCount) {
 		if (player.getHealth() < player.getMaxHealth() * 0.25) this.consume(player);
 	}
 
 	@Override
-	public boolean shouldProcOnHit(LivingAttackEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
+	public boolean shouldProcOnHit(LivingAttackEvent event, EntityData player, EntityLivingBase enemy, int itemCount) {
 		return true;
 	}
 	
 	@Override
-	public void procOnHit(LivingAttackEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
-		player.addToStat(PlayerStat.DAMAGE_MULTIPLIER, 0.2);
+	public void procOnHit(LivingAttackEvent event, EntityData player, EntityLivingBase enemy, int itemCount) {
+		player.addToStat(EntityStat.DAMAGE_MULTIPLIER, 0.2);
 	}
 
 	@Override
-	public void consume(AbstractEntityData player) {
+	public void consume(EntityData player) {
 		player.replaceAllItems(this, this.getBrokenItem());
 	}
 

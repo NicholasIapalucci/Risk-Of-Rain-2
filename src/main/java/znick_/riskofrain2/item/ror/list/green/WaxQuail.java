@@ -2,7 +2,7 @@ package znick_.riskofrain2.item.ror.list.green;
 
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnJumpItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -15,14 +15,14 @@ public class WaxQuail extends RiskOfRain2Item implements OnJumpItem {
 	}
 	
 	@Override
-	public void procOnJump(LivingJumpEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnJump(LivingJumpEvent event, EntityData player, int itemCount) {
 		Vec3 lookVector = player.getLookVector();
 		player.getEntity().addVelocity(0.5 * lookVector.xCoord * itemCount, 0, 0.5 * lookVector.zCoord * itemCount);
 		if (player.getWorld().isRemote) player.playSound("ror2:wax_quail");
 	}
 	
 	@Override
-	public boolean shouldProcOnJump(LivingJumpEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnJump(LivingJumpEvent event, EntityData player, int itemCount) {
 		return player.isSprinting();
 	}
 

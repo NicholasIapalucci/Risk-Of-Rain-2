@@ -5,7 +5,7 @@ package znick_.riskofrain2.api.ror.buff;
  * 
  * @author zNick_
  */
-public enum PlayerStat {
+public enum EntityStat {
 	
 	ARMOR(0),
 	BARRIER(0),
@@ -16,11 +16,12 @@ public enum PlayerStat {
 	MOVEMENT_SPEED_MULTIPLIER(1),
 	REGEN_SPEED_MULTIPLIER(1),
 	MAX_SHIELD(0),
-	SHIELD(0);
+	SHIELD(0),
+	EQUIPMENT_COOLDOWN_REDUCTION_PERCENTAGE(0);
 
 	private final double defaultValue;
 	
-	private PlayerStat(double defaultValue) {
+	private EntityStat(double defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 	

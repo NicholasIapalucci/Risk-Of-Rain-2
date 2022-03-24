@@ -1,30 +1,30 @@
 package znick_.riskofrain2.api.ror.buff;
 
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 public abstract class StatBuff extends Buff {
 
-	private final PlayerStat stat;
+	private final EntityStat stat;
 	
-	public StatBuff(PlayerStat stat, int itemCount) {
+	public StatBuff(EntityStat stat, int itemCount) {
 		super(itemCount);
 		this.stat = stat;
 	}
 
-	public abstract double getStatAdditionAmount(AbstractEntityData entity);
+	public abstract double getStatAdditionAmount(EntityData entity);
 	
 	@Override
-	public void applyEffect(AbstractEntityData entity) {
+	public void applyEffect(EntityData entity) {
 		entity.addToStat(this.stat, this.getStatAdditionAmount(entity));
 	}
 
 	@Override
-	public void removeEffect(AbstractEntityData entity) {
+	public void removeEffect(EntityData entity) {
 		entity.removeFromStat(this.stat, this.getStatAdditionAmount(entity));
 	}
 	
-	public PlayerStat getAffectedStat() {
+	public EntityStat getAffectedStat() {
 		return this.stat;
 	}
 

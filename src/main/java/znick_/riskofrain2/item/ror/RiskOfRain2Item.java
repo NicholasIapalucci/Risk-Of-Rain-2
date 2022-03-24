@@ -60,10 +60,10 @@ public abstract class RiskOfRain2Item extends Item {
 	 * @param player The player who has the item.
 	 * @param info The tooltip list of strings to add to the description. Each string entry in the list
 	 * is one line in the description.
-	 * @param someParam honestly no idea about this one.
+	 * @param isAdvanced Whether or not advanced tooltips are enabled.
 	 */
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean someParam) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean isAdvanced) {
 		
 		// Check if the shift key is NOT down
 		if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
@@ -101,6 +101,12 @@ public abstract class RiskOfRain2Item extends Item {
 		}
 	}
 	
+	/**
+	 * Returns the artist that drew the texture for this item. By default it is me, Nick.
+	 * If it is not me, the artist will be credited in the item description.
+	 * 
+	 * @return The artist who made the sprite texture for this item. 
+	 */
 	protected Artist getArtist() {
 		return Artist.NICK;
 	}
@@ -181,7 +187,7 @@ public abstract class RiskOfRain2Item extends Item {
 		return splicedDesc;
 	}
 	
-	/**Returns the category of this item.*/
+	/**Returns the category of this item. Used by category chests to determine if an item is valid for it.*/
 	public abstract ItemCategory getCategory();
 	
 	/**Returns the rarity of this item.*/

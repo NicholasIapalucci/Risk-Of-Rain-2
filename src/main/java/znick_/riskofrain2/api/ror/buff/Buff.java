@@ -3,10 +3,11 @@ package znick_.riskofrain2.api.ror.buff;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 /**
@@ -19,9 +20,14 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
  * @author zNick_
  */
 public abstract class Buff {
-		
+	
+	/**
+	 * Map of buff classes and their unique IDs. Used for sending packets with buffs between
+	 * server and client to synchronize the buffs that an entity has.
+	 */
 	private static final Map<Class<? extends Buff>, Integer> BUFF_IDS = new LinkedHashMap<>();
-	/**The amount of the {@link #item} that the player has*/
+	
+	/**The amount of the {@link #getItems() items} that the player has.*/
 	private final int itemCount;
 	/**The Risk Of Rain 2 items that gives this buff*/
 	
@@ -36,10 +42,15 @@ public abstract class Buff {
 	 */
 	public abstract ResourceLocation getIconTexture();
 	
-	/**Applies the effect to the entity.*/
-	public abstract void applyEffect(AbstractEntityData entity);
+	/**
+	 * Applies the effect to the entity.
+	 * 
+	 * @param entity The {@code EntityData} associated with the entity with the buff.
+	 */
+	public abstract void applyEffect(EntityData entity);
+	
 	/**Removes the effect from the entity.*/
-	public abstract void removeEffect(AbstractEntityData entity);
+	public abstract void removeEffect(EntityData entity);
 	/**Returns the items that give this effect*/
 	public abstract RiskOfRain2Item[] getItems();
 	
@@ -82,5 +93,19 @@ public abstract class Buff {
 	public static Class<? extends Buff> fromID(int id) {
 		for (Map.Entry<Class<? extends Buff>, Integer> buffEntry : BUFF_IDS.entrySet()) if (buffEntry.getValue() == id) return buffEntry.getKey();
 		return null;
+	}
+	
+	public boolean requiresItem() {
+		return !(this instanceof DurationBuff);
+	}
+	
+	/**
+	 * Returns the side that this buff should apply and remove its effect on. Used to prevent
+	 * effects from being run twice and messing up its effect. Set to server by default.
+	 *  
+	 * @return the side to run on, or {@code null} for both. 
+	 */
+	public Side getSide() {
+		return Side.SERVER;
 	}
 }

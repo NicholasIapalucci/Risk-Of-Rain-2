@@ -1,6 +1,8 @@
 package znick_.riskofrain2.api.ror.buff;
 
-import java.lang.annotation.Inherited;
-
-@Inherited
-public @interface StackableBuff {}
+public interface StackableBuff {
+	
+	public default int getMaxStackCount() {
+		return Integer.MAX_VALUE;
+	}
+}

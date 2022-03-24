@@ -2,7 +2,7 @@ package znick_.riskofrain2.item.ror.list.white.oddlyshapedopal;
 
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.DLC;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
@@ -17,22 +17,22 @@ public class OddlyShapedOpalItem extends RiskOfRain2Item implements OnHurtItem, 
 	}
 
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		player.addBuff(new OddlyShapedOpalBuff(itemCount));
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		return !(player.hasBuff(OddlyShapedOpalBuff.class) || player.hasBuff(OddlyShapedOpalCooldownBuff.class));
 	}
 
 	@Override
-	public boolean shouldProcOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnHurt(LivingHurtEvent event, EntityData player, int itemCount) {
 		return player.hasBuff(OddlyShapedOpalBuff.class);
 	}
 	
 	@Override
-	public void procOnHurt(LivingHurtEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnHurt(LivingHurtEvent event, EntityData player, int itemCount) {
 		player.removeBuff(OddlyShapedOpalBuff.class);
 	}
 

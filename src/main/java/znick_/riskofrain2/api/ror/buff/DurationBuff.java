@@ -19,7 +19,12 @@ public abstract class DurationBuff extends Buff {
 		this.duration = duration;
 	}
 	
-	public  int getStartTick() {
+	public DurationBuff setDuration(int duration) {
+		this.duration = duration;
+		return this;
+	}
+	
+	public int getStartTick() {
 		return this.startTick;
 	}
 	
@@ -34,8 +39,5 @@ public abstract class DurationBuff extends Buff {
 	public int getDuration() {
 		return this.duration;
 	}
-	
-	public boolean requiresItem() {
-		return false;
-	}
+
 }

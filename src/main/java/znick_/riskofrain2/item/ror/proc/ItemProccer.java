@@ -16,10 +16,10 @@ import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.NonPlayerEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -53,9 +53,9 @@ public class ItemProccer extends EventHandler {
 		    event.source.getEntity() != null) {
 			
 			EntityPlayer player = (EntityPlayer) event.source.getEntity();
-			AbstractEntityData data = AbstractEntityData.get(player);
+			EntityData data = EntityData.get(player);
 			Map<OnHitItem, Integer> itemMap = data.getRiskOfRain2Items(OnHitItem.class);
-			double originalDamageMultiplier = data.getStat(PlayerStat.DAMAGE_MULTIPLIER);
+			double originalDamageMultiplier = data.getStat(EntityStat.DAMAGE_MULTIPLIER);
 			
 			//Loops through all RoR2 Items
 			for (Map.Entry<OnHitItem, Integer> itemEntry : itemMap.entrySet()) {
@@ -65,11 +65,11 @@ public class ItemProccer extends EventHandler {
 			}
 			
 			//Check for & handle critical strike
-			boolean crit = data.rollStat(PlayerStat.CRIT_CHANCE);
+			boolean crit = data.rollStat(EntityStat.CRIT_CHANCE);
 			
 			if (crit && !player.worldObj.isRemote) {
-				if (RiskOfRain2Mod.DEBUG) System.out.println("Player procced critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
-				data.addToStat(PlayerStat.DAMAGE_MULTIPLIER, 1);
+				if (RiskOfRain2Mod.DEBUG) System.out.println("Player procced critical strike with chance " + data.getStat(EntityStat.CRIT_CHANCE) * 100 + "%");
+				data.addToStat(EntityStat.DAMAGE_MULTIPLIER, 1);
 				data.playSound("ror2:crit_glasses");
 				
 				// Proc Harvester's Scythe if the player has it
@@ -80,7 +80,7 @@ public class ItemProccer extends EventHandler {
 			} 
 			
 			else if (!player.worldObj.isRemote) {
-				if (RiskOfRain2Mod.DEBUG) System.out.println("Failed to proc critical strike with chance " + data.getStat(PlayerStat.CRIT_CHANCE) * 100 + "%");
+				if (RiskOfRain2Mod.DEBUG) System.out.println("Failed to proc critical strike with chance " + data.getStat(EntityStat.CRIT_CHANCE) * 100 + "%");
 			}
 			
 			/*
@@ -90,13 +90,13 @@ public class ItemProccer extends EventHandler {
 			 * value with reflection, but I'm unsure about whether it would actually affect the
 			 * damage or how it would behave, so this is safest.
 			 */
-			if (data.getStat(PlayerStat.DAMAGE_MULTIPLIER) != 1) {
+			if (data.getStat(EntityStat.DAMAGE_MULTIPLIER) != 1) {
 				event.setCanceled(true);
-				event.entity.attackEntityFrom(new UniqueDamageSource(player), (float) (event.ammount * data.getStat(PlayerStat.DAMAGE_MULTIPLIER)));
+				event.entity.attackEntityFrom(new UniqueDamageSource(player), (float) (event.ammount * data.getStat(EntityStat.DAMAGE_MULTIPLIER)));
 			}
 			
 			// Reset to original damage multiplier
-			data.setStat(PlayerStat.DAMAGE_MULTIPLIER, originalDamageMultiplier);
+			data.setStat(EntityStat.DAMAGE_MULTIPLIER, originalDamageMultiplier);
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class ItemProccer extends EventHandler {
 	public void procOnKillItems(LivingDeathEvent event) {
 		if (event.source.getEntity() instanceof EntityLivingBase) {
 			EntityLivingBase entity = (EntityLivingBase) event.source.getEntity();
-			AbstractEntityData data = AbstractEntityData.get(entity);
+			EntityData data = EntityData.get(entity);
 			Map<OnKillItem, Integer> itemMap = data.getRiskOfRain2Items(OnKillItem.class);
 			
 			// Loop through all Risk Of Rain 2 Items
@@ -128,7 +128,8 @@ public class ItemProccer extends EventHandler {
 	@SubscribeEvent
 	public void procOnUpdateItems(LivingUpdateEvent event) {
 		EntityLivingBase entity = event.entityLiving;
-		AbstractEntityData data = AbstractEntityData.get(entity);
+		if (entity.worldObj.isRemote) return;
+		EntityData data = EntityData.get(entity);
 		Map<OnUpdateItem, Integer> itemMap = data.getRiskOfRain2Items(OnUpdateItem.class);
 		data.updateBuffs();
 		
@@ -149,10 +150,10 @@ public class ItemProccer extends EventHandler {
 		}
 			
 		// Add the player's movement speed multiplier
-		if (entity instanceof EntityPlayer) ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER)));
+		if (entity instanceof EntityPlayer) ((EntityPlayer) entity).capabilities.setPlayerWalkSpeed((float) (0.1 * data.getStat(EntityStat.MOVEMENT_SPEED_MULTIPLIER)));
 		else {
-			((EntityData) data).setBaseMovementSpeed(entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue());
-			entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(data.getStat(PlayerStat.MOVEMENT_SPEED_MULTIPLIER) * ((EntityData) data).getBaseMovementSpeed());
+			((NonPlayerEntityData) data).setBaseMovementSpeed(entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue());
+			entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(data.getStat(EntityStat.MOVEMENT_SPEED_MULTIPLIER) * ((NonPlayerEntityData) data).getBaseMovementSpeed());
 		}
 		updateCounter++;
 	}
@@ -169,7 +170,7 @@ public class ItemProccer extends EventHandler {
 	@SubscribeEvent
 	public void procOnHealItems(LivingHealEvent event) {
 		EntityLivingBase entity = (EntityLivingBase) event.entityLiving;
-		AbstractEntityData data = AbstractEntityData.get(entity);
+		EntityData data = EntityData.get(entity);
 		Map<OnHealItem, Integer> itemMap = data.getRiskOfRain2Items(OnHealItem.class);
 		
 		for (Map.Entry<OnHealItem, Integer> itemEntry : itemMap.entrySet()) {
@@ -185,7 +186,7 @@ public class ItemProccer extends EventHandler {
 	@SubscribeEvent
 	public void procOnJumpItems(LivingJumpEvent event) {
 		EntityLivingBase entity = (EntityLivingBase) event.entityLiving;
-		AbstractEntityData data = AbstractEntityData.get(entity);	
+		EntityData data = EntityData.get(entity);	
 		Map<OnJumpItem, Integer> itemMap = data.getRiskOfRain2Items(OnJumpItem.class);
 		
 		for (Map.Entry<OnJumpItem, Integer> itemEntry : itemMap.entrySet()) {
@@ -203,7 +204,7 @@ public class ItemProccer extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void procOnHurtItems(LivingHurtEvent event) {
-		AbstractEntityData data = AbstractEntityData.get(event.entityLiving instanceof EntityPlayer? (EntityPlayer) event.entityLiving : event.entityLiving);
+		EntityData data = EntityData.get(event.entityLiving instanceof EntityPlayer? (EntityPlayer) event.entityLiving : event.entityLiving);
 		Map<OnHurtItem, Integer> itemMap = data.getRiskOfRain2Items(OnHurtItem.class);	
 		
 		// Proc all on-hurt items if able to
@@ -219,7 +220,7 @@ public class ItemProccer extends EventHandler {
 		}
 			
 		// Factor in armor
-		double armor = data.getStat(PlayerStat.ARMOR);
+		double armor = data.getStat(EntityStat.ARMOR);
 		event.ammount *= (1 - (armor/(100 + Math.abs(armor))));
 	}
 	
@@ -232,7 +233,7 @@ public class ItemProccer extends EventHandler {
 	@SubscribeEvent
 	public void procOnInteractionItems(ObjectInteractionEvent event) {
 		EntityPlayer player = event.entityPlayer;
-		PlayerData data = AbstractEntityData.get(player);
+		PlayerData data = EntityData.get(player);
 		Map<OnObjectInteractionItem, Integer> itemMap = data.getRiskOfRain2Items(OnObjectInteractionItem.class);	
 		
 		// Proc all on-interact items if able to
@@ -253,7 +254,7 @@ public class ItemProccer extends EventHandler {
 	@SubscribeEvent
 	public void procOnKeyPressItems(KeyInputEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		PlayerData data = AbstractEntityData.get(player);
+		PlayerData data = EntityData.get(player);
 		Map<OnKeyPressItem, Integer> itemMap = data.getRiskOfRain2Items(OnKeyPressItem.class);
 		
 		for (Map.Entry<OnKeyPressItem, Integer> itemEntry : itemMap.entrySet()) {
@@ -271,7 +272,7 @@ public class ItemProccer extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void procOnXPPickupItems(PlayerPickupXpEvent event) {
-		PlayerData data = AbstractEntityData.get(event.entityPlayer);
+		PlayerData data = EntityData.get(event.entityPlayer);
 		Map<OnPickupXPItem, Integer> itemMap = data.getRiskOfRain2Items(OnPickupXPItem.class);
 		
 		for (Map.Entry<OnPickupXPItem, Integer> itemEntry : itemMap.entrySet()) {

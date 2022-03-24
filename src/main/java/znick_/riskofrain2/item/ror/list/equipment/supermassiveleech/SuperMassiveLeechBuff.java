@@ -2,7 +2,7 @@ package znick_.riskofrain2.item.ror.list.equipment.supermassiveleech;
 
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -23,12 +23,12 @@ public class SuperMassiveLeechBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(AbstractEntityData player) {
+	public void applyEffect(EntityData player) {
 		
 	}
 
 	@Override
-	public void removeEffect(AbstractEntityData player) {
+	public void removeEffect(EntityData player) {
 		
 	}
 

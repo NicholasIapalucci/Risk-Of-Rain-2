@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import scala.actors.threadpool.Arrays;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
@@ -33,23 +33,23 @@ public class RedWhipItem extends RiskOfRain2Item implements OnHitItem, OnUpdateI
 	}
 	
 	@Override
-	public boolean shouldProcOnHit(LivingAttackEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
+	public boolean shouldProcOnHit(LivingAttackEvent event, EntityData player, EntityLivingBase enemy, int itemCount) {
 		return true;
 	}
 	
 	@Override
-	public void procOnHit(LivingAttackEvent event, AbstractEntityData entity, EntityLivingBase enemy, int itemCount) {
+	public void procOnHit(LivingAttackEvent event, EntityData entity, EntityLivingBase enemy, int itemCount) {
 		entity.addBuff(new RedWhipCooldownBuff(itemCount));
 		entity.removeBuff(RedWhipBuff.class);
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		return !player.hasBuff(RedWhipCooldownBuff.class);
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		player.addBuff(new RedWhipBuff(itemCount));
 	}
 

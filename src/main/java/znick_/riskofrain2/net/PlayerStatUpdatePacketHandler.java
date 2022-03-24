@@ -6,7 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.net.PlayerStatUpdatePacketHandler.PlayerStatUpdatePacket;
 
 public class PlayerStatUpdatePacketHandler implements IMessageHandler<PlayerStatUpdatePacket, IMessage> {
@@ -19,10 +19,10 @@ public class PlayerStatUpdatePacketHandler implements IMessageHandler<PlayerStat
 	
 	public static class PlayerStatUpdatePacket implements IMessage {
 		
-		private PlayerStat stat;
+		private EntityStat stat;
 		private double amount;
 		
-		public PlayerStatUpdatePacket(PlayerStat stat, double amount) {
+		public PlayerStatUpdatePacket(EntityStat stat, double amount) {
 			this.stat = stat;
 			this.amount = amount;
 		}
@@ -31,7 +31,7 @@ public class PlayerStatUpdatePacketHandler implements IMessageHandler<PlayerStat
 
 		@Override
 		public void fromBytes(ByteBuf buf) {
-			this.stat = PlayerStat.values()[buf.readInt()];
+			this.stat = EntityStat.values()[buf.readInt()];
 			this.amount = buf.readDouble();
 		}
 

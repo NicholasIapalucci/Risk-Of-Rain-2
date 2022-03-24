@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -38,12 +38,12 @@ public class DefensiveMicrobotsItem extends RiskOfRain2Item implements OnUpdateI
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		return !player.hasBuff(DefensiveMicrobotsCooldownBuff.class);
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		
 		// Get any projectiles near the player
 		AxisAlignedBB boundingBox = player.radialBox(2);

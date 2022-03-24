@@ -1,7 +1,12 @@
 package znick_.riskofrain2.entity.elite;
 
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.NonPlayerEntityData;
+import znick_.riskofrain2.item.RiskOfRain2Items;
+import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 public interface EliteEntity {
 
@@ -18,13 +23,14 @@ public interface EliteEntity {
 	
 	/**
 	 * Called when the entity joins the world. Sets the entity's max health to its original health
-	 * multiplied by {@link #getHealthMultiplier()}. Also used to apply effects such as setting blazing 
-	 * enemies on fire and giving them fire resistance. This is only called once.
+	 * multiplied by {@link #getHealthMultiplier()}, and it's damage to its original multiplied by
+	 * {@link #getDamageMultiplier()}. Also used to give entities their respective elite item.
 	 */
 	public default void onEntityCreation() {
 		EntityLiving entity = (EntityLiving) this;
 		entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(entity.getMaxHealth() * this.getHealthMultiplier());
 		entity.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(entity.getEntityAttribute(SharedMonsterAttributes.attackDamage).getBaseValue() * this.getDamageMultiplier());
+		((NonPlayerEntityData) EntityData.get(entity)).addItem(this.getEliteType().getItem());
 	}
 	
 	/**

@@ -18,9 +18,9 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.PlayerStat;
+import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 import znick_.riskofrain2.client.gui.menu.RiskOfRain2MainMenu;
 import znick_.riskofrain2.entity.elite.EliteEntity;
@@ -32,8 +32,8 @@ public class GeneralEventHandler extends EventHandler {
 
 	@SubscribeEvent
 	public void registerEntityData(EntityConstructing event) {
-		if (event.entity instanceof EntityLivingBase && AbstractEntityData.get((EntityLivingBase) event.entity) == null) {
-			AbstractEntityData.register((EntityLivingBase) event.entity);
+		if (event.entity instanceof EntityLivingBase && EntityData.get((EntityLivingBase) event.entity) == null) {
+			EntityData.register((EntityLivingBase) event.entity);
 			return;
 		}
 	}
@@ -69,8 +69,8 @@ public class GeneralEventHandler extends EventHandler {
 	@SubscribeEvent
 	public void saveAndLoadPlayerData(PlayerEvent.Clone event) {
 		NBTTagCompound nbt = new NBTTagCompound();
-		AbstractEntityData.get(event.original).saveNBTData(nbt);
-		AbstractEntityData.get(event.entityPlayer).loadNBTData(nbt);
+		EntityData.get(event.original).saveNBTData(nbt);
+		EntityData.get(event.entityPlayer).loadNBTData(nbt);
 	}
 	
 	@SubscribeEvent
@@ -81,7 +81,7 @@ public class GeneralEventHandler extends EventHandler {
 		// Initialize some helpful variables
 		ItemStack stack = event.pickedUp.getEntityItem();
 		Item item = stack.getItem();
-		PlayerData player = AbstractEntityData.get(event.player);
+		PlayerData player = EntityData.get(event.player);
 		
 		// Check if the item is a Risk Of Rain 2 item
 		if (item instanceof RiskOfRain2Item) {
@@ -101,46 +101,46 @@ public class GeneralEventHandler extends EventHandler {
 	
 	@SubscribeEvent
 	public void handleBarrierAndShield(LivingHurtEvent event) {
-		AbstractEntityData entity = AbstractEntityData.get(event.entityLiving);
+		EntityData entity = EntityData.get(event.entityLiving);
 		entity.addBuff(new ShieldCooldownBuff(0));
 		
 		// Check if the player's barrier is enough to soak up all the damage
-		if (entity.getStat(PlayerStat.BARRIER) >= event.ammount) {
+		if (entity.getStat(EntityStat.BARRIER) >= event.ammount) {
 			// If so, make it so the player doesn't get damaged
 			event.setCanceled(true);
 			// And take away the damage from the barrier
-			entity.removeFromStat(PlayerStat.BARRIER, event.ammount);
+			entity.removeFromStat(EntityStat.BARRIER, event.ammount);
 		}
 		
 		// Otherwise, handle the case where the barrier can't soak up all the damage
 		else {
 			// Deduct the barrier from the damage amount
-			event.ammount -= entity.getStat(PlayerStat.BARRIER);
+			event.ammount -= entity.getStat(EntityStat.BARRIER);
 			// Remove the barrier
-			entity.setStat(PlayerStat.BARRIER, 0);
+			entity.setStat(EntityStat.BARRIER, 0);
 		}
 		
 		// Check if the player's shield is enough to soak up all the damage
-		if (entity.getStat(PlayerStat.SHIELD) >= event.ammount) {
+		if (entity.getStat(EntityStat.SHIELD) >= event.ammount) {
 			event.setCanceled(true);
-			entity.removeFromStat(PlayerStat.SHIELD, event.ammount);
+			entity.removeFromStat(EntityStat.SHIELD, event.ammount);
 		}
 		
 		// Otherwise, handle the case where the shield can't soak up all the damage
 		else {
-			event.ammount -= entity.getStat(PlayerStat.SHIELD);
-			entity.setStat(PlayerStat.SHIELD, 0);
+			event.ammount -= entity.getStat(EntityStat.SHIELD);
+			entity.setStat(EntityStat.SHIELD, 0);
 		}
 	}
 	
 	@SubscribeEvent
 	public void handleBarrierAndShield(LivingUpdateEvent event) {
-		AbstractEntityData entity = AbstractEntityData.get(event.entityLiving);
-		if (entity.getStat(PlayerStat.BARRIER) > 0) entity.removeFromStat(PlayerStat.BARRIER, 0.1);
-		if (entity.getStat(PlayerStat.SHIELD) < entity.getStat(PlayerStat.MAX_SHIELD) && !entity.hasBuff(ShieldCooldownBuff.class)) {
-			entity.addToStat(PlayerStat.SHIELD, 0.1);
-			if (entity.getStat(PlayerStat.SHIELD) > entity.getStat(PlayerStat.MAX_SHIELD));
-			entity.setStat(PlayerStat.SHIELD, entity.getStat(PlayerStat.MAX_SHIELD));
+		EntityData entity = EntityData.get(event.entityLiving);
+		if (entity.getStat(EntityStat.BARRIER) > 0) entity.removeFromStat(EntityStat.BARRIER, 0.1);
+		if (entity.getStat(EntityStat.SHIELD) < entity.getStat(EntityStat.MAX_SHIELD) && !entity.hasBuff(ShieldCooldownBuff.class)) {
+			entity.addToStat(EntityStat.SHIELD, 0.1);
+			if (entity.getStat(EntityStat.SHIELD) > entity.getStat(EntityStat.MAX_SHIELD));
+			entity.setStat(EntityStat.SHIELD, entity.getStat(EntityStat.MAX_SHIELD));
 		}
 	}
 }

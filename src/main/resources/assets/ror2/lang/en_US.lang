@@ -3,12 +3,16 @@ itemGroup.tabArmor=Risk Of Rain 2 Armory
 itemGroup.tabMisc=Risk Of Rain 2 Miscellaneous
 itemGroup.tabBlocks=Risk Of Rain 2 Blocks
 
+# Keybinds --------------------------------------------------------------------------------------------------------
+
 key.primary.desc=Primary
 key.secondary.desc=Secondary
 key.utility.desc=Utility
 key.special.desc=Special
 key.active.desc=Equipment
 key.riskofrain2.category=Risk Of Rain 2
+
+# Achievements ----------------------------------------------------------------------------------------------------
 
 achievement.toughertimes=Learning Process
 achievement.toughertimes.desc=Die 5 times
@@ -29,7 +33,8 @@ achievement.harvestersscythe.desc=Complete a Prismatic Trial
 achievement.infusion=Slaughter
 achievement.infusion.desc=Defeat 3000 enemies
 
-item.monster_tooth_orb.name=Monster Tooth Orb
+# Huntress ---------------------------------------------------------------------------------------------------------
+
 item.huntress_helmet.name=Huntress Helmet
 item.huntress_chestplate.name=Huntress Chestplate
 item.huntress_leggings.name=Huntress Leggings
@@ -100,6 +105,7 @@ item.runalds_band.name=Runald's Band
 item.infusion.name=Infusion
 item.wax_quail.name=Wax Quail
 item.atg_missle.name=ATG Missile
+item.hunters_harpoon.name=Hunter's Harpoon
 item.old_war_stealthkit.name=Old War Stealthkit
 item.regenerating_scrap.name=Regenerating Scrap
 item.regenerating_scrap_consumed.name=Regenerating Scrap (Consumed)
