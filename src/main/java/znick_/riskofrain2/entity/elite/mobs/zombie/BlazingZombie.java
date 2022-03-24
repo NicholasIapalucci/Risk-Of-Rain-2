@@ -5,14 +5,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import znick_.riskofrain2.entity.elite.type.BlazingEntity;
 
-public class EntityBlazingZombie extends EntityZombie implements BlazingEntity {
+public class BlazingZombie extends EntityZombie implements BlazingEntity {
 
-	public EntityBlazingZombie(World world) {
+	public BlazingZombie(World world) {
 		super(world);
 		this.setCustomNameTag("Blazing Zombie");
 	}
 	
-	public EntityBlazingZombie(World world, double x, double y, double z) {
+	public BlazingZombie(World world, double x, double y, double z) {
 		this(world);
 		this.setPosition(x, y, z);
 	}

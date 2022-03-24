@@ -1,4 +1,4 @@
-package znick_.riskofrain2.item.ror.list.equipment.elite.ifritsdistinction;
+package znick_.riskofrain2.item.ror.list.equipment.elite.nkuhanasretort;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -9,22 +9,12 @@ import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 
-/**
- * Class for creating the {@code Ifrit's Distinction} item. Given automatically to blazing enemies.
- * 
- * @author zNick_
- */
-public class IfritsDistinctionItem extends EliteEquipmentItem implements OnUpdateItem, OnHitItem {
+public class NkuhanasRetortItem extends EliteEquipmentItem implements OnUpdateItem, OnHitItem {
 
-	public IfritsDistinctionItem() {
-		super("ifrits_distinction", EliteType.BLAZING);
+	public NkuhanasRetortItem() {
+		super("nkuhanas_retort", EliteType.MALACHITE);
 	}
-
-	@Override
-	public String getDescription() {
-		return "Become an aspect of fire.";
-	}
-
+	
 	@Override
 	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
 		return true;
@@ -32,7 +22,7 @@ public class IfritsDistinctionItem extends EliteEquipmentItem implements OnUpdat
 	
 	@Override
 	public void procOnUpdate(LivingUpdateEvent event, EntityData entity, int itemCount) {
-		entity.addBuff(new IfritsDistinctionBuff(itemCount));
+		entity.addBuff(new NkuhanasRetortBuff(itemCount));
 	}
 
 	@Override
@@ -41,7 +31,13 @@ public class IfritsDistinctionItem extends EliteEquipmentItem implements OnUpdat
 	}
 	
 	@Override
-	public void procOnHit(LivingAttackEvent event, EntityData player, EntityLivingBase enemy, int itemCount) {
-		enemy.setFire(2);
+	public void procOnHit(LivingAttackEvent event, EntityData attacker, EntityLivingBase attacked, int itemCount) {
+		EntityData.get(attacked).addBuff(new HealingDisabledBuff(itemCount));
 	}
+
+	@Override
+	public String getDescription() {
+		return "Become an aspect of corruption.";
+	}
+
 }

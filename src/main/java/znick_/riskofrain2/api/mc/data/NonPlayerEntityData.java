@@ -74,6 +74,7 @@ public class NonPlayerEntityData extends EntityData<EntityLivingBase> {
 	}
 	
 	public void addItem(RiskOfRain2Item item) {
+		if (item == null) throw new NullPointerException("Item cannot be null!");
 		this.addItem(item, 1);
 	}
 	

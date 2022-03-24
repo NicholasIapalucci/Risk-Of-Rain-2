@@ -171,6 +171,12 @@ public class ItemProccer extends EventHandler {
 	public void procOnHealItems(LivingHealEvent event) {
 		EntityLivingBase entity = (EntityLivingBase) event.entityLiving;
 		EntityData data = EntityData.get(entity);
+		
+		if (!data.canHeal()) {
+			event.setCanceled(true);
+			return;
+		}
+		
 		Map<OnHealItem, Integer> itemMap = data.getRiskOfRain2Items(OnHealItem.class);
 		
 		for (Map.Entry<OnHealItem, Integer> itemEntry : itemMap.entrySet()) {

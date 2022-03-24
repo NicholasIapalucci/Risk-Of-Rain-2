@@ -12,8 +12,8 @@ import znick_.riskofrain2.util.file.RiskOfRain2Files;
 
 public class IfritsDistinctionBuff extends Buff {
 
-	public IfritsDistinctionBuff() {
-		super(1);
+	public IfritsDistinctionBuff(int itemCount) {
+		super(itemCount);
 	}
 
 	@Override
@@ -29,6 +29,11 @@ public class IfritsDistinctionBuff extends Buff {
 		int y = (int) entity.getEntity().posY;
 		int z = (int) entity.getEntity().posZ;
 		if (!entity.getWorld().isRemote && entity.getWorld().getBlock(x, y, z) == Blocks.air) entity.getWorld().setBlock(x, y, z, Blocks.fire);
+	}
+	
+	@Override
+	public boolean shouldRepeat() {
+		return true;
 	}
 
 	@Override

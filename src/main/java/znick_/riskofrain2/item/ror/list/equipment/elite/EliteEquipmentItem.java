@@ -17,6 +17,7 @@ public abstract class EliteEquipmentItem extends RiskOfRain2Item {
 	protected EliteEquipmentItem(String name, EliteType type) {
 		super(name);
 		this.eliteType = type;
+		type.setItem(this);
 		ELITE_ITEMS.put(type, this);
 	}
 	

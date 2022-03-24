@@ -1,6 +1,7 @@
 package znick_.riskofrain2.api.mc.data;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +19,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
-import scala.actors.threadpool.Arrays;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.EntityStat;
@@ -51,6 +51,8 @@ public abstract class EntityData<T extends EntityLivingBase> implements IExtende
 	protected final Map<EntityStat, Double> stats = new HashMap<>();
 	/**The current amount of ticks left until the player can use equipment again.*/
 	protected int equipmentCooldown = 0;
+	
+	private boolean isHealingEnabled = true;
 	
 	/**
 	 * Creates a new {@code PlayerData} instance for the given player.
@@ -124,7 +126,6 @@ public abstract class EntityData<T extends EntityLivingBase> implements IExtende
 		if (this.hasItem(RiskOfRain2Items.BENS_RAINCOAT) && buff.isDebuff()) return;
 		
 		// Add the buff
-		System.out.println("Adding " + buff + " on side " + this.getSide());
 		this.buffs.add(buff);
 		
 		//If currently running on the correct side, apply the buff effect
@@ -144,7 +145,6 @@ public abstract class EntityData<T extends EntityLivingBase> implements IExtende
 	}
 
 	public void removeBuff(Class<? extends Buff> buff, boolean sendPacket) {
-		System.out.println("Removing " + buff.getSimpleName() + " on side " + this.getSide());
 		if (sendPacket) {
 			IMessage packet = new BuffPacketHandler.BuffPacket(buff);
 			if (this.getWorld().isRemote) RiskOfRain2Packets.NET.sendToServer(packet);
@@ -516,5 +516,17 @@ public abstract class EntityData<T extends EntityLivingBase> implements IExtende
 	
 	public Side getSide() {
 		return this.getWorld().isRemote? Side.CLIENT : Side.SERVER;
+	}
+
+	public void disableHealing() {
+		this.isHealingEnabled = false;
+	}
+	
+	public void enableHealing() {
+		this.isHealingEnabled = true;
+	}
+
+	public boolean canHeal() {
+		return this.isHealingEnabled;
 	}
 } 
