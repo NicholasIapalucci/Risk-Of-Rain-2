@@ -1,4 +1,4 @@
-package znick_.riskofrain2.client.render;
+package znick_.riskofrain2.client.render.entity;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;

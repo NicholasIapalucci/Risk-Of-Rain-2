@@ -5,6 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainPacket;
+import znick_.riskofrain2.client.gui.commandessence.DropItemPacketHandler;
 
 public class RiskOfRain2Packets {
 
@@ -18,6 +19,7 @@ public class RiskOfRain2Packets {
 		registerMessage(SoundPacketHandler.class, SoundPacketHandler.SoundPacket.class);
 		registerMessage(PlayerStatUpdatePacketHandler.class, PlayerStatUpdatePacketHandler.PlayerStatUpdatePacket.class);
 		registerMessage(BuffPacketHandler.class, BuffPacketHandler.BuffPacket.class);
+		registerMessage(DropItemPacketHandler.class, DropItemPacketHandler.DropItemPacket.class);
 	}
 	
 	private static void registerMessage(Class handler, Class packet) {

@@ -9,7 +9,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.mc.data.NonPlayerEntityData;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public interface EliteEntity {
 

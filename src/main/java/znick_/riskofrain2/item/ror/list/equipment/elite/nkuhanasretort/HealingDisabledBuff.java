@@ -5,7 +5,7 @@ import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class HealingDisabledBuff extends DurationBuff {
 
@@ -20,7 +20,7 @@ public class HealingDisabledBuff extends DurationBuff {
 
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2Files.BUFFS + "healing_disabled.png");
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "healing_disabled.png");
 	}
 
 	@Override

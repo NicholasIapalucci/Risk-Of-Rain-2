@@ -34,5 +34,10 @@ public abstract class EliteEquipmentItem extends RiskOfRain2Item {
 	public ItemRarity getRarity() {
 		return ItemRarity.EQUIPMENT;
 	}
+	
+	@Override
+	public boolean isSpecial() {
+		return true;
+	}
 
 }

@@ -6,7 +6,7 @@ import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class WeepingFungusBuff extends Buff {
 
@@ -16,7 +16,7 @@ public class WeepingFungusBuff extends Buff {
 
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2Files.BUFFS + "weeping_fungus.png");
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "weeping_fungus.png");
 	}
 
 	@Override

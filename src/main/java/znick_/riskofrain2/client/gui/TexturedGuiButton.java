@@ -9,6 +9,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class TexturedGuiButton extends GuiButton {
 
@@ -17,7 +18,7 @@ public class TexturedGuiButton extends GuiButton {
 	
 	public TexturedGuiButton(int id, int x, int y, int width, int height, double scale, String texture) {
 		super(id, (int) (x/scale), (int) (y/scale), width, height, "");
-		this.texture = new ResourceLocation(texture);
+		this.texture = RiskOfRain2Resources.get(texture);
 		this.scale = scale;
 	}
 

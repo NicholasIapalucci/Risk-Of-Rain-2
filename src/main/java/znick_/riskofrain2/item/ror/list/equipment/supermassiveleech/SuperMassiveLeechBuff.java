@@ -7,19 +7,17 @@ import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class SuperMassiveLeechBuff extends DurationBuff {
-	
-	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "super_massive_leech.png");
-	
+		
 	public SuperMassiveLeechBuff() {
 		super(0, TickHandler.fromSeconds(8));
 	}
 	
 	@Override
 	public ResourceLocation getIconTexture() {
-		return TEXTURE;
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "super_massive_leech.png");
 	}
 
 	@Override

@@ -6,11 +6,9 @@ import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class MedkitBuff extends DurationBuff {
-
-	private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Files.BUFFS + "medkit.png");
 		
 	public MedkitBuff(int itemCount) {
 		super(itemCount, TickHandler.fromSeconds(2));
@@ -18,7 +16,7 @@ public class MedkitBuff extends DurationBuff {
 	
 	@Override
 	public ResourceLocation getIconTexture() {
-		return TEXTURE;
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "medkit");
 	}
 
 	@Override
@@ -28,7 +26,7 @@ public class MedkitBuff extends DurationBuff {
 	
 	@Override
 	public void removeEffect(EntityData player) {
-		if (player.getWorld().isRemote) player.heal(2 + 2 * this.getItemCount());
+		if (player.getSide().isClient()) player.heal(2 + 2 * this.getItemCount());
 	}
 	
 	@Override

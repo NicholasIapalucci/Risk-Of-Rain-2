@@ -529,4 +529,8 @@ public abstract class EntityData<T extends EntityLivingBase> implements IExtende
 	public boolean canHeal() {
 		return this.isHealingEnabled;
 	}
+	
+	public boolean isPlayer() {
+		return this instanceof PlayerData;
+	}
 } 

@@ -11,6 +11,7 @@ import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public abstract class Ability {
 	
@@ -31,7 +32,7 @@ public abstract class Ability {
 		this.name = name;
 		this.baseCooldown = baseCooldown;
 		this.cooldown = baseCooldown;
-		this.texture = new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/survivor/" + survivor.getName().toLowerCase() + "/abilities/" + name + ".png");
+		this.texture = RiskOfRain2Resources.get(RiskOfRain2Resources.GUI + "survivor/" + survivor.getName().toLowerCase() + "/abilities/" + name);
 	}
 	
 	protected void addPhase(AbilityPhase phase) {

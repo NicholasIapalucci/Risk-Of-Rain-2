@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.WorldData;
 import znick_.riskofrain2.api.ror.artifact.list.ArtifactOfCommand;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 import znick_.riskofrain2.util.helper.StringHelper;
 
 public abstract class Artifact {
@@ -44,7 +45,7 @@ public abstract class Artifact {
 	 */
 	protected Artifact(String name) {
 		this.name = name;
-		this.texture = new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/gui/artifacts/" + name);
+		this.texture = RiskOfRain2Resources.get(RiskOfRain2Resources.TEXTURES + "gui/artifacts/" + name);
 		ARTIFACTS.add(this);
 	}
 	

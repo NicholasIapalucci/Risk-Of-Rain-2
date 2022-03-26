@@ -6,7 +6,7 @@ import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class RedWhipBuff extends StatBuff {
 
@@ -16,7 +16,7 @@ public class RedWhipBuff extends StatBuff {
 
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2Files.BUFFS + "red_whip.png");
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "red_whip.png");
 	}
 
 	@Override

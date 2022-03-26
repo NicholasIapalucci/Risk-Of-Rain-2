@@ -19,6 +19,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.realms.RealmsBridge;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 /**
  * The Risk of Rain 2 mod's custom main menu screen.
@@ -87,7 +88,7 @@ public class RiskOfRain2MainMenu extends GuiMainMenu {
 		double s = 0.4;
 		double s1 = 1d/s;
 		GL11.glScaled(s, s, s);
-		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("ror2:textures/gui/menu/cursor.png"));
+		Minecraft.getMinecraft().getTextureManager().bindTexture(RiskOfRain2Resources.get("ror2:textures/gui/menu/cursor.png"));
 		this.drawTexturedModalRect((int) (mouseX * s1), (int) (mouseY * s1), 0, 0, 256, 256);
 		GL11.glPopMatrix();
 	}
@@ -96,7 +97,7 @@ public class RiskOfRain2MainMenu extends GuiMainMenu {
 	 * Renders the Risk Of Rain 2 background image onto the menu screen.
 	 */
 	private void renderBackground() {
-		this.mc.getTextureManager().bindTexture(new ResourceLocation("ror2:textures/gui/menu/background.png"));
+		this.mc.getTextureManager().bindTexture(RiskOfRain2Resources.get("ror2:textures/gui/menu/background.png"));
 		this.drawTexturedRect(0, 0, 1920, 1080, this.width, this.height);
 	}
 	
@@ -117,7 +118,7 @@ public class RiskOfRain2MainMenu extends GuiMainMenu {
 	 */
 	private void renderMinecraftTitle() {
 		int f = this.width/2 - 137;
-		this.mc.getTextureManager().bindTexture(new ResourceLocation("textures/gui/title/minecraft.png"));
+		this.mc.getTextureManager().bindTexture(RiskOfRain2Resources.get("textures/gui/title/minecraft.png"));
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.drawTexturedModalRect(f + 0, 30, 0, 0, 155, 44);

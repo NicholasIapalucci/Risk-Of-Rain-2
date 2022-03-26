@@ -1,4 +1,4 @@
-package znick_.riskofrain2.client.render;
+package znick_.riskofrain2.client.render.entity;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class RenderSpecialArrow extends Render {
 
@@ -17,7 +18,7 @@ public class RenderSpecialArrow extends Render {
 	private final Item item;
 
 	public RenderSpecialArrow(String texture, Item item) {
-		this.texture = new ResourceLocation(texture);
+		this.texture = RiskOfRain2Resources.get(texture);
 		this.item = item;
 	}
 

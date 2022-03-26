@@ -12,7 +12,7 @@ public enum ItemCategory {
 	DAMAGE(EnumChatFormatting.RED), 
 	HEALING(EnumChatFormatting.GREEN), 
 	UTILITY(EnumChatFormatting.LIGHT_PURPLE), 
-	ACTIVE(EnumChatFormatting.GOLD),
+	EQUIPMENT(EnumChatFormatting.GOLD),
 	UNKNOWN(EnumChatFormatting.GRAY);
 
 	private EnumChatFormatting color;

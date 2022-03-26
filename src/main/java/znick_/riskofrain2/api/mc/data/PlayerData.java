@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -187,5 +188,9 @@ public class PlayerData extends EntityData<EntityPlayer> {
 			}
 		}
 		return itemMap;
+	}
+
+	public void addMoney(int money) {
+		this.money += money;
 	}
 }

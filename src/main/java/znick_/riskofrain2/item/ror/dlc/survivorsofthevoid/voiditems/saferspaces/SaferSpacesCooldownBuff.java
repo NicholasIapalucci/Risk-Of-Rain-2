@@ -6,7 +6,7 @@ import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class SaferSpacesCooldownBuff extends DurationBuff {
 
@@ -16,7 +16,7 @@ public class SaferSpacesCooldownBuff extends DurationBuff {
 
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2Files.BUFFS + "safer_spaces_cooldown.png");
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "safer_spaces_cooldown.png");
 	}
 
 	@Override

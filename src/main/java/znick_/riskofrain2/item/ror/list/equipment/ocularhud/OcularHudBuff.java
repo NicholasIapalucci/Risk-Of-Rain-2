@@ -7,7 +7,7 @@ import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class OcularHudBuff extends DurationBuff {
 
@@ -17,7 +17,7 @@ public class OcularHudBuff extends DurationBuff {
 
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2Files.BUFFS + "ocular_hud.png");
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "ocular_hud");
 	}
 
 	@Override

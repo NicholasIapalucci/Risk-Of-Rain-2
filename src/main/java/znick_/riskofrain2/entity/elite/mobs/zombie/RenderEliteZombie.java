@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.entity.elite.EliteType;
 import znick_.riskofrain2.entity.elite.RenderEliteEntity;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class RenderEliteZombie extends RenderZombie implements RenderEliteEntity {
 
@@ -16,7 +17,7 @@ public class RenderEliteZombie extends RenderZombie implements RenderEliteEntity
 
 	public RenderEliteZombie(EliteType type) {
 		this.eliteType = type;
-		this.texture = new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/entity/mob/zombie/" + this.eliteType.toString().toLowerCase() + ".png");
+		this.texture = RiskOfRain2Resources.get(RiskOfRain2Mod.MODID + ":textures/entity/mob/zombie/" + this.eliteType.toString().toLowerCase() + ".png");
 	}
 	
 	@Override

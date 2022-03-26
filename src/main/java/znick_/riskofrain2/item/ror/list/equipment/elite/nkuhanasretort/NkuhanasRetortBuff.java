@@ -5,7 +5,7 @@ import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class NkuhanasRetortBuff extends Buff {
 
@@ -15,7 +15,7 @@ public class NkuhanasRetortBuff extends Buff {
 
 	@Override
 	public ResourceLocation getIconTexture() {
-		return new ResourceLocation(RiskOfRain2Files.BUFFS + "nkuhanas_retort.png");
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + "nkuhanas_retort.png");
 	}
 
 	@Override

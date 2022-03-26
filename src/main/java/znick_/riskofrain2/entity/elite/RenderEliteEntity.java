@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.util.file.RiskOfRain2Files;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public interface RenderEliteEntity {
 
@@ -59,7 +59,6 @@ public interface RenderEliteEntity {
 			tessellator.addVertex((double) ( j + 1), (double) (-1 + b0), 0.0D);
 			tessellator.draw();
 			
-			
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			fontrenderer.drawString(name, -fontrenderer.getStringWidth(name) / 2, b0, 553648127);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -75,7 +74,7 @@ public interface RenderEliteEntity {
 	
 	public default void renderEliteIcon(Tessellator tessellator, double x, double y, double d) {
 		String name = this.getEliteTypeForRender().getItem().getUnlocalizedName().substring(5);
-		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(RiskOfRain2Files.BUFFS + name + ".png"));
+		Minecraft.getMinecraft().getTextureManager().bindTexture(RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + name + ".png"));
 		GL11.glPushMatrix();
 		GL11.glColor3f(1, 1, 1);
 		GL11.glEnable(GL11.GL_BLEND);

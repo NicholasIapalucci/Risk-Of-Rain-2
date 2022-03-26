@@ -10,10 +10,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.HuntressRainingArrow;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class RenderHuntressRainingArrow extends Render {
 	
-    private static final ResourceLocation TEXTURE = new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/entity/character/huntress/raining_arrow.png");
+    private static final ResourceLocation TEXTURE = RiskOfRain2Resources.get(RiskOfRain2Mod.MODID + ":textures/entity/character/huntress/raining_arrow.png");
 
     public void doRender(HuntressRainingArrow arrow, double x, double y, double z, float parFloat, float parFloat2) {
     	GL11.glColor3f(1, 1, 1);

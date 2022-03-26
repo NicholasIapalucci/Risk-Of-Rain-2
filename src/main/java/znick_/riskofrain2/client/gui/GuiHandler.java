@@ -21,8 +21,8 @@ public class GuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		try {return GUIS.get(ID).newInstance();} 
-		catch (InstantiationException | IllegalAccessException e) {throw new RuntimeException(e);}
+		try {return GUIS.get(ID).getConstructor(int.class, int.class, int.class).newInstance(x, y, z);} 
+		catch (Exception e) {throw new RuntimeException(e);}
 	}
 	
 	public static int getNextID(Class<? extends Gui> gui) {

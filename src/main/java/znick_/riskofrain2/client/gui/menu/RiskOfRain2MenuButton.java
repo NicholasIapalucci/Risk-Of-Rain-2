@@ -11,6 +11,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.client.gui.TexturedGuiButton;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 public class RiskOfRain2MenuButton extends TexturedGuiButton {
 
@@ -19,7 +20,7 @@ public class RiskOfRain2MenuButton extends TexturedGuiButton {
 	
 	public RiskOfRain2MenuButton(int id, int x, int y, int width, int height, double scale, String label) {
 		super(id, x, y, width, height, scale, "ror2:textures/gui/menu/" + label + ".png");
-		this.hoverTexture = new ResourceLocation("ror2:textures/gui/menu/" + label + "_selected.png");
+		this.hoverTexture = RiskOfRain2Resources.get("ror2:textures/gui/menu/" + label + "_selected.png");
 	}
 	
 	@Override

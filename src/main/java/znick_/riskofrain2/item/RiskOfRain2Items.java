@@ -23,6 +23,7 @@ import znick_.riskofrain2.item.ror.list.equipment.BlastShowerItem;
 import znick_.riskofrain2.item.ror.list.equipment.ForeignFruitItem;
 import znick_.riskofrain2.item.ror.list.equipment.RiskOfRain2Equipment;
 import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
+import znick_.riskofrain2.item.ror.list.equipment.elite.herbitingembrace.HerBitingEmbraceItem;
 import znick_.riskofrain2.item.ror.list.equipment.elite.ifritsdistinction.IfritsDistinctionItem;
 import znick_.riskofrain2.item.ror.list.equipment.elite.nkuhanasretort.NkuhanasRetortItem;
 import znick_.riskofrain2.item.ror.list.equipment.jadeelephant.JadeElephantItem;
@@ -80,6 +81,7 @@ import znick_.riskofrain2.item.ror.list.white.oddlyshapedopal.OddlyShapedOpalIte
 import znick_.riskofrain2.item.ror.list.white.personalshieldgenerator.PersonalShieldGeneratorItem;
 import znick_.riskofrain2.item.ror.list.white.powerelixir.EmptyBottleItem;
 import znick_.riskofrain2.item.ror.list.white.powerelixir.PowerElixirItem;
+import znick_.riskofrain2.item.ror.list.white.rollofpennies.RollOfPenniesItem;
 import znick_.riskofrain2.item.ror.list.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.item.ror.list.white.topazbrooch.TopazBroochItem;
 import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerItem;
@@ -90,7 +92,16 @@ public class RiskOfRain2Items {
 	
 	/**
 	 * The set of all items in the Risk Of Rain 2 game. Special items such as consumed items or command
-	 * essence are not included here, only standard items that would be included in the logbook.
+	 * essence are not included here, only standard items that would be included in the logbook. Specifically,
+	 * the following types of items are not included in this set:
+	 * 
+	 * <ul>
+	 *	<li>Command essences such as {@link #WHITE_COMMAND_ESSENCE}
+	 *	<li>Elite equipment items such as {@link #IFRITS_DISTINCTION}
+	 *	<li>Consumed items such as {@link #BROKEN_DELICATE_WATCH}
+	 * </ul>
+	 * 
+	 * In general, this set is exactly equal to the set of items shown in the logbook. 
 	 */
 	public static final Set<RiskOfRain2Item> ITEM_SET = new LinkedHashSet<RiskOfRain2Item>();
 	
@@ -156,6 +167,9 @@ public class RiskOfRain2Items {
 	 * Does nothing.
 	 */
 	public static final RiskOfRain2Item BROKEN_DELICATE_WATCH = new BrokenDelicateWatchItem();
+	
+	public static final RiskOfRain2Item ROLL_OF_PENNIES = new RollOfPenniesItem();
+	
 	/**
 	 * The "cautious slug" item. Activates when the player does not take damage for 7 seconds. Begins healing the
 	 * player at a rate of 1 (/2 per item) second per half-heart. Deactivates when the player takes damage.
@@ -312,6 +326,7 @@ public class RiskOfRain2Items {
 	public static final RiskOfRain2Equipment OCULAR_HUD = new OcularHudItem();
 	
 	public static final EliteEquipmentItem IFRITS_DISTINCTION = new IfritsDistinctionItem();
+	public static final EliteEquipmentItem HER_BITING_EMBRACE = new HerBitingEmbraceItem();
 	public static final EliteEquipmentItem NKUHANAS_RETORT = new NkuhanasRetortItem();
 	
 	public static final RiskOfRain2Item WHITE_COMMAND_ESSENCE = new CommandEssence(ItemRarity.WHITE);

@@ -20,6 +20,7 @@ import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.item.util.Artist;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
 /**
  * Class used for creating items that are in the Risk of Rain 2 game. 
@@ -49,7 +50,7 @@ public abstract class RiskOfRain2Item extends Item {
 	 * Returns the texture of this item as a {@code ResourceLocation}.
 	 */
 	public ResourceLocation getTexture() {
-		return new ResourceLocation(RiskOfRain2Mod.MODID + ":textures/items/items/" + this.name + ".png");
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.ITEMS + "items/" + this.name + ".png");
 	}
 
 	/**

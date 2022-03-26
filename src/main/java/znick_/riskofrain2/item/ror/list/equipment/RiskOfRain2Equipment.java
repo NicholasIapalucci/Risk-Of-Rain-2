@@ -87,7 +87,7 @@ public abstract class RiskOfRain2Equipment extends RiskOfRain2Item implements On
 
 	@Override
 	public ItemCategory getCategory() {
-		return ItemCategory.ACTIVE;
+		return ItemCategory.EQUIPMENT;
 	}
 
 	@Override
