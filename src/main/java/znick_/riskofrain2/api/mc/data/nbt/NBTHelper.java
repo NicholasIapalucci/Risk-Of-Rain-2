@@ -1,9 +1,13 @@
 package znick_.riskofrain2.api.mc.data.nbt;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import org.apache.commons.lang3.reflect.ConstructorUtils;
+
 import net.minecraft.nbt.NBTTagCompound;
+import znick_.riskofrain2.api.mc.data.nbt.savers.Saver;
 
 public class NBTHelper {
 
@@ -12,6 +16,7 @@ public class NBTHelper {
 	 * either there is a method in the {@code NBTTagCompound} class for it by default (such as
 	 * {@link NBTTagCompound#setInteger(String, int)} or the field implements {@link SavableToNBT}.
 	 * These fields can later be read using {@link #readFieldsFromNBT(NBTTagCompound, Object)}.
+	 * Alternatively, fields that are annotated with {@link #SavableWith} can be written as well.
 	 * Also, arrays and collections of such fields can be written and read.
 	 * 
 	 * @param nbt The {@code NBTTagCompound} to write to
@@ -22,20 +27,33 @@ public class NBTHelper {
 		// Loop through all fields in the class
 		for (Field field : object.getClass().getDeclaredFields()) {
 			
-			// Ignore static and final fields (final fields cannot be set during reading, so there's no point writing)
-			if (Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) continue;
+			// Ignore static fields
+			if (Modifier.isStatic(field.getModifiers())) continue;
 			
 			try {
-				// Get the value of the field
+				field.setAccessible(true);
 				Object value = field.get(object);
+				
 				// Ignore null values
 				if (value == null) continue;
+				
 				// If the field isn't specified to be unsaved, continue
 				if (!field.isAnnotationPresent(Unsaved.class)) {
+					
 					// Write the field to NBT if it's primitive
 					if (existsDefaultMethodFor(value)) writePrimitiveField(nbt, field.getName(), value);
+					
 					// Write the field to NBT if it implements SavableToNBT
 					else if (value instanceof SavableToNBT) ((SavableToNBT) value).writeToNBT(nbt, field.getName());
+					
+					// Write the field to NBT if it has a saver class
+					else if (field.isAnnotationPresent(SavableWith.class)) {
+						Class<? extends Saver> saverClass = field.getAnnotation(SavableWith.class).saver();
+						Constructor<? extends Saver> constructor = ConstructorUtils.getMatchingAccessibleConstructor(saverClass, field.getType());
+						Saver saver = constructor.newInstance(value);
+						saver.writeToNBT(nbt, field.getName());
+					}
+					
 					// Otherwise, don't write the field
 				}
 			} 
@@ -51,6 +69,7 @@ public class NBTHelper {
 	 * either there is a method in the {@code NBTTagCompound} class for it by default (such as
 	 * {@link NBTTagCompound#getInteger(String)} or the field implements {@link SavableToNBT}.
 	 * These fields must be written beforehand using {@link #writeFieldsToNBT(NBTTagCompound, Object)}.
+	 * Alternatively, fields that are annotated with {@link #SavableWith} can be read as well.
 	 * 
 	 * @param nbt The {@code NBTTagCompound} to read from
 	 * @param object The object that has the fields to read
@@ -58,11 +77,23 @@ public class NBTHelper {
 	public static void readFieldsFromNBT(NBTTagCompound nbt, Object object) {
 		for (Field field : object.getClass().getDeclaredFields()) {
 			try {
+				field.setAccessible(true);
 				Object value = field.get(object);
 				if (!field.isAnnotationPresent(Unsaved.class)) {
-					field.setAccessible(true);
+					
+					// Write the field to NBT if it's primitive
 					if (existsDefaultMethodFor(value)) field.set(object, readPrimitiveField(nbt, field.getName(), value));
+					
+					// Write the field to NBT if it implements SavableToNBT
 					else if (value instanceof SavableToNBT) field.set(object, ((SavableToNBT) value).readFromNBT(nbt, field.getName()));
+					
+					// Read the field from NBT if it has a saver class
+					else if (field.isAnnotationPresent(SavableWith.class)) {
+						Class<? extends Saver> saverClass = field.getAnnotation(SavableWith.class).saver();
+						Constructor<? extends Saver> constructor = ConstructorUtils.getMatchingAccessibleConstructor(saverClass, field.getType());
+						Saver saver = constructor.newInstance(value);
+						field.set(object, saver.readFromNBT(nbt, field.getName()));
+					}
 				}
 			} 
 			

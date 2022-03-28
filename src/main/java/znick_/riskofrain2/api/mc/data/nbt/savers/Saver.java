@@ -11,7 +11,7 @@ import znick_.riskofrain2.api.mc.data.nbt.SavableToNBT;
  * <br><br>
  * Several subclasses for this are written by default, though this class also exists
  * so that any addons to this mod can use it as well. For a simple example on how to
- * use this class, see {@link UUIDSaver}.
+ * use this class, see {@link UUIDSaver} or {@link ItemSaver}.
  * 
  * @author zNick_
  *

@@ -19,6 +19,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import znick_.riskofrain2.api.mc.data.nbt.Unsaved;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.api.ror.buff.EntityStat;
@@ -43,6 +44,7 @@ import znick_.riskofrain2.net.SoundPacketHandler;
 public abstract class AbstractEntityData<T extends EntityLivingBase> implements IExtendedEntityProperties {
 
 	/**The player to hold the data of.*/
+	@Unsaved
 	protected final T entity;
 	
 	/**The {@code Buffs} that the player has.*/
@@ -51,7 +53,7 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	protected final Map<EntityStat, Double> stats = new HashMap<>();
 	/**The current amount of ticks left until the player can use equipment again.*/
 	protected int equipmentCooldown = 0;
-	
+	/**Whether or not the entity is allowed to heal.*/
 	private boolean isHealingEnabled = true;
 	
 	/**

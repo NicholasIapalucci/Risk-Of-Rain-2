@@ -9,12 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.api.mc.data.nbt.SavableToNBT;
 import znick_.riskofrain2.item.ror.dlc.DLC;
 import znick_.riskofrain2.item.ror.property.CustomRarity;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -28,7 +26,7 @@ import znick_.riskofrain2.util.file.RiskOfRain2Resources;
  * 
  * @author zNick_ 
  */
-public abstract class RiskOfRain2Item extends Item implements SavableToNBT<RiskOfRain2Item> {
+public abstract class RiskOfRain2Item extends Item {
 	
 	/**The name of the item.*/
 	private final String name;
@@ -221,14 +219,5 @@ public abstract class RiskOfRain2Item extends Item implements SavableToNBT<RiskO
 
 	public boolean isUnlockedByDefault() {
 		return true;
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound nbt, String key) {
-		nbt.setInteger(key, Item.getIdFromItem(this));
-	}
-	
-	public RiskOfRain2Item readFromNBT(NBTTagCompound nbt, String key) {
-		return (RiskOfRain2Item) Item.getItemById(nbt.getInteger(key));
 	}
 }
