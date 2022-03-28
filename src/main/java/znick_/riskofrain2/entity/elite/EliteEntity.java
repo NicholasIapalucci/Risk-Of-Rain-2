@@ -7,10 +7,19 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.EntityData;
-import znick_.riskofrain2.api.mc.data.NonPlayerEntityData;
 import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
+/**
+ * Interface used for elite entity classes. This is an interface to allow for multiple inheritance,
+ * so that an elite zombie can simply extend {@code EntityZombie} and then implement these methods
+ * instead of copying all of the zombie code. Note that none of those classes should implement
+ * this directly, but rather its subinterfaces such as 
+ * {@link znick_.riskofrain2.entity.elite.type.BlazingEntity BlazingEntity}.
+ * 
+ * @author zNick_
+ */
 public interface EliteEntity {
 
 	/**
@@ -33,7 +42,7 @@ public interface EliteEntity {
 		EntityLiving entity = (EntityLiving) this;
 		entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(entity.getMaxHealth() * this.getHealthMultiplier());
 		entity.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(entity.getEntityAttribute(SharedMonsterAttributes.attackDamage).getBaseValue() * this.getDamageMultiplier());
-		((NonPlayerEntityData) EntityData.get(entity)).addItem(this.getEliteType().getItem());
+		((EntityData) AbstractEntityData.get(entity)).addItem(this.getEliteType().getItem());
 	}
 	
 	/**

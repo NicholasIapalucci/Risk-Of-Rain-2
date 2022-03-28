@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.red.fiftysevenleafclover;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.buff.StatBuff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -24,7 +24,7 @@ public class FiftySevenLeafCloverBuff extends StatBuff {
 	}
 
 	@Override
-	public double getStatAdditionAmount(EntityData entity) {
+	public double getStatAdditionAmount(AbstractEntityData entity) {
 		return this.getItemCount();
 	}
 

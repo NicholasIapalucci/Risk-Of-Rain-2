@@ -1,7 +1,7 @@
 package znick_.riskofrain2.util.helper;
 
 import net.minecraft.util.Vec3;
-import znick_.riskofrain2.api.mc.Axis;
+import znick_.riskofrain2.api.mc.enums.Axis;
 
 public class MathHelper {
 	

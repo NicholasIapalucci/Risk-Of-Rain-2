@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.stungrenade;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -14,7 +14,7 @@ public class StunGrenadeBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(EntityData entity) {
+	public void applyEffect(AbstractEntityData entity) {
 		entity.getEntity().motionX = 0;
 		entity.getEntity().motionY = 0;
 		entity.getEntity().motionZ = 0;
@@ -26,7 +26,7 @@ public class StunGrenadeBuff extends DurationBuff {
 	}
 
 	@Override
-	public void removeEffect(EntityData player) {
+	public void removeEffect(AbstractEntityData player) {
 		
 	}
 

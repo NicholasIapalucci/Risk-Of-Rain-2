@@ -2,12 +2,12 @@ package znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain;
 
 import java.util.Random;
 
+import org.lwjgl.input.Mouse;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
-import cpw.mods.fml.common.gameevent.InputEvent.MouseInputEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
@@ -22,17 +22,23 @@ import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.RepeatingAbilityPhase;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.util.helper.MathHelper;
-import znick_.riskofrain2.util.helper.ReflectionHelper;
 
 public class ArrowRainAbility extends Ability {
 
-	private final ArrowRainPhase1 phase1 = this.new ArrowRainPhase1();
-	private final ArrowRainPhase2 phase2 = this.new ArrowRainPhase2();
-	private final ArrowRainPhase3 phase3 = this.new ArrowRainPhase3();
+	public static final ArrowRainAbility MAIN_INSTANCE = new ArrowRainAbility();
+	
+	private final ArrowRainPhase1 phase1;
+	private final ArrowRainPhase2 phase2;
+	private final ArrowRainPhase3 phase3;
 	private EntityPlayer player;
 	
 	public ArrowRainAbility() {
 		super(Survivor.HUNTRESS, AbilityType.SPECIAL, "arrow_rain", TickHandler.fromSeconds(12));
+		
+		this.phase1 = this.new ArrowRainPhase1();
+		this.phase2 = this.new ArrowRainPhase2();
+		this.phase3 = this.new ArrowRainPhase3();
+		
 		this.addPhase(phase1);
 		this.addPhase(phase2);
 		this.addPhase(phase3);
@@ -40,9 +46,12 @@ public class ArrowRainAbility extends Ability {
 	
 	private class ArrowRainPhase1 implements AbilityPhase {
 
+		private ArrowRainPhase1() {
+			
+		}
+		
 		@Override
 		public void activatePhase(EntityPlayer player) {
-			ArrowRainAbility.this.player = player;
 			player.playSound("ror2:huntress_arrowrain_start", 1, 1);
 			player.addVelocity(0, 5, 0);
 		}	
@@ -50,6 +59,10 @@ public class ArrowRainAbility extends Ability {
 	
 	private class ArrowRainPhase2 implements AbilityPhase, DelayedAbilityPhase, RepeatingAbilityPhase {
 
+		private ArrowRainPhase2() {
+			
+		}
+		
 		private Position blockToRainOn;
 		private boolean isActive;
 		
@@ -95,7 +108,7 @@ public class ArrowRainAbility extends Ability {
 		}
 	}
 	
-	public class ArrowRainPhase3 implements AbilityPhase, ActivatedAbilityPhase<InputEvent>, RepeatingAbilityPhase {
+	public class ArrowRainPhase3 implements AbilityPhase, ActivatedAbilityPhase<TickEvent.ClientTickEvent>, RepeatingAbilityPhase {
 		
 		public Position arrowRainBlock;
 		private boolean isActive;
@@ -129,8 +142,9 @@ public class ArrowRainAbility extends Ability {
 
 		@Override
 		@SubscribeEvent
-		public void listenForActivation(InputEvent event) {
-			if (Minecraft.getMinecraft().gameSettings.keyBindAttack.isPressed()) {
+		public void listenForActivation(TickEvent.ClientTickEvent event) {
+			
+			if (Mouse.isButtonDown(0)) {
 				if (ArrowRainAbility.this.phase2.isActive()) {
 					ArrowRainAbility.this.phase2.deactivatePhase();
 					this.activate();

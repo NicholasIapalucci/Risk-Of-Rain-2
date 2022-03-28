@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.list.ScrapItem;
@@ -23,7 +23,7 @@ public interface ItemGenerator {
 	 */
 	public default RiskOfRain2Item generateItem(ItemRarity rarity, EntityPlayer player) {
 		// Create an array of all items of the given rarity
-		RiskOfRain2Item[] items = EntityData.get(player).getUnlockedItems(rarity);
+		RiskOfRain2Item[] items = AbstractEntityData.get(player).getUnlockedItems(rarity);
 		// Remove item scrap
 		items = Arrays.stream(items).filter(item -> !(item instanceof ScrapItem)).toArray(RiskOfRain2Item[]::new);
 		// Return a random item from the array

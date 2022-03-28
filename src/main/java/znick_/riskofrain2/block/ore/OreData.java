@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import scala.actors.threadpool.Arrays;
-import znick_.riskofrain2.api.mc.VanillaDimension;
+import znick_.riskofrain2.api.mc.enums.VanillaDimension;
 
 public class OreData {
 

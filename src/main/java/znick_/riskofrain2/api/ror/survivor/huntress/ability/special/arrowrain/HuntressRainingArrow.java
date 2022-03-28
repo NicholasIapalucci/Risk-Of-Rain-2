@@ -3,6 +3,7 @@ package znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBat;
@@ -55,43 +56,17 @@ public class HuntressRainingArrow extends EntityArrow {
 		if (this.inGround) this.setDead();
 	}
 	
-	private void getFields() {
-		try {
-			
-			Field xField = EntityArrow.class.getDeclaredField("field_145791_d");
-			Field yField = EntityArrow.class.getDeclaredField("field_145792_e");
-			Field zField = EntityArrow.class.getDeclaredField("field_145789_f");
-			Field inGroundField = EntityArrow.class.getDeclaredField("inGround");
-			Field blockField = EntityArrow.class.getDeclaredField("field_145790_g");
-			Field ticksInGroundField = EntityArrow.class.getDeclaredField("ticksInGround");
-			Field ticksInAirField = EntityArrow.class.getDeclaredField("ticksInAir");
-			Field knockbackField = EntityArrow.class.getDeclaredField("knockbackStrength");
-			Field inDataField = EntityArrow.class.getDeclaredField("inData");
-			Field damageField = EntityArrow.class.getDeclaredField("damage");
-			
-			xField.setAccessible(true);
-			yField.setAccessible(true);
-			zField.setAccessible(true);
-			inGroundField.setAccessible(true);
-			blockField.setAccessible(true);
-			ticksInGroundField.setAccessible(true);
-			ticksInAirField.setAccessible(true);
-			knockbackField.setAccessible(true);
-			inDataField.setAccessible(true);
-			damageField.setAccessible(true);
-			
-			this.x = (Integer) xField.get(this);
-			this.y = (Integer) yField.get(this);
-			this.z = (Integer) zField.get(this);
-			this.inGround = (Boolean) inGroundField.get(this);
-			this.block = (Block) blockField.get(this);
-			this.ticksInGround = (Integer) ticksInGroundField.get(this);
-			this.ticksInAir = (Integer) ticksInAirField.get(this);
-			this.knockbackStrength = (Integer) knockbackField.get(this);
-			this.inData = (Integer) inDataField.get(this);
-			this.damage = (Double) damageField.get(this);
-			
-		} catch (Exception e) {e.printStackTrace();}
+	private void getFields() {		
+		this.x = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "field_145791_d");
+		this.y = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "field_145792_e");
+		this.z = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "field_145789_f");
+		this.inGround = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "inGround");
+		this.block = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "field_145790_g");
+		this.ticksInGround = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "ticksInGround");
+		this.ticksInAir = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "ticksInAir");
+		this.knockbackStrength = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "knockbackStrength");
+		this.inData = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "inData");
+		this.damage = ObfuscationReflectionHelper.getPrivateValue(EntityArrow.class, this, "damage");
 	}
 
 	private void superUpdate() {

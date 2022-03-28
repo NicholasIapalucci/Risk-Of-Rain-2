@@ -24,21 +24,5 @@ public class ArtifactOfCommand extends Artifact {
 			TRIANGLE, TRIANGLE, TRIANGLE
 		};
 	}
-	
-	/**
-	 * Returns the instance of the command essence item with the specified rarity.
-	 * 
-	 * @param rarity The rarity of the command essence
-	 */
-	public static RiskOfRain2Item getEssenceFromRarity(ItemRarity rarity) {
-		switch(rarity) {
-		case WHITE: return RiskOfRain2Items.WHITE_COMMAND_ESSENCE;
-		case GREEN: return RiskOfRain2Items.GREEN_COMMAND_ESSENCE;
-		case RED: return RiskOfRain2Items.RED_COMMAND_ESSENCE;
-		case BOSS: return RiskOfRain2Items.BOSS_COMMAND_ESSENCE;
-		case LUNAR: return RiskOfRain2Items.LUNAR_COMMAND_ESSENCE;
-		default: return null;
-		}
-	}
 
 }

@@ -1,6 +1,6 @@
 package znick_.riskofrain2.item.ror.list.equipment.ocularhud;
 
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.list.equipment.RiskOfRain2Equipment;
 
 /**
@@ -15,8 +15,8 @@ public class OcularHudItem extends RiskOfRain2Equipment {
 	}
 
 	@Override
-	public void activateEffect(EntityData player) {
-		player.addBuff(new OcularHudBuff());
+	public void activateEffect(AbstractEntityData player) {
+		player.addBuff(new OcularHudBuff(1));
 	}
 
 	@Override

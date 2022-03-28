@@ -2,9 +2,9 @@ package znick_.riskofrain2.item.ror.list.green;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import znick_.riskofrain2.api.mc.FriendlyExplosion;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
+import znick_.riskofrain2.item.ror.list.red.brilliantbehemoth.FriendlyExplosion;
 import znick_.riskofrain2.item.ror.proc.type.OnKillItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
@@ -16,7 +16,7 @@ public class WillOTheWisp extends RiskOfRain2Item implements OnKillItem {
 	}
 	
 	@Override
-	public void procOnKill(LivingDeathEvent event, EntityData player, EntityLivingBase enemy, int itemCount) {
+	public void procOnKill(LivingDeathEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
 		FriendlyExplosion.explodeMob(enemy, player.getEntity(), itemCount);
 	}
 

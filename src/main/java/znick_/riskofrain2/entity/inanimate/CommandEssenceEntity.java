@@ -1,33 +1,29 @@
 package znick_.riskofrain2.entity.inanimate;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.client.gui.commandessence.CommandEssenceGui;
-import znick_.riskofrain2.item.ror.list.CommandEssence;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
 public class CommandEssenceEntity extends Entity {
 
-	private ItemRarity rarity = ItemRarity.WHITE;
-	private final CommandEssenceCube[] cubes = new CommandEssenceCube[10];
+	private ItemRarity rarity;
+	private final CommandEssenceCube[] cubes = new CommandEssenceCube[15];
 	
 	public CommandEssenceEntity(World world) {
 		super(world);
 		for (int i = 0; i < this.cubes.length; i++) {
-			CommandEssenceCube cube = new CommandEssenceCube(this.worldObj, this.posX, this.posY, this.posZ);
+			CommandEssenceCube cube = new CommandEssenceCube(this);
 			this.cubes[i] = cube;
 			this.worldObj.spawnEntityInWorld(cube);
 		}
 		this.setSize(1, 1);
 	}
 	
-	public CommandEssenceEntity(World world, double x, double y, double z) {
+	public CommandEssenceEntity(World world, double x, double y, double z, ItemRarity rarity) {
 		this(world);
 		this.setPosition(x + this.width/2, y, z + this.width/2);
+		this.rarity = rarity;
 	}
 	
 	@Override
@@ -71,6 +67,10 @@ public class CommandEssenceEntity extends Entity {
 	@Override
 	public boolean canBeCollidedWith() {
 	    return true;
+	}
+
+	public ItemRarity getRarity() {
+		return this.rarity;
 	}
 
 }

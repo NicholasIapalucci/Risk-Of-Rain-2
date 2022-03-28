@@ -1,5 +1,7 @@
 package znick_.riskofrain2.client.gui.logbook;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -55,7 +57,7 @@ public class ItemButton extends GuiButton {
 					mouseX < this.xPosition + this.width && 
 					mouseY < this.yPosition + this.height;
 
-			boolean isSelected = this.getHoverState(this.field_146123_n) == 2;
+			boolean isSelected = this.isSelected();
 
 			int k = this.getHoverState(this.field_146123_n);
 			GL11.glEnable(GL11.GL_BLEND);
@@ -79,11 +81,11 @@ public class ItemButton extends GuiButton {
 			mc.getTextureManager().bindTexture(this.backgroundTexture);
 			RenderHelper.drawRect2D(this.xPosition, this.yPosition, this.width, this.height);
 			
-			// Black out the item if the player hasnt found it
-			if (this.requiresUnlock && !PlayerData.get(Minecraft.getMinecraft().thePlayer).hasFound(this.item)) GL11.glColor3f(0, 0, 0);
+			// Black out the item if the player has unlocked it but not found it
+			if (this.requiresUnlock && !PlayerData.get(Minecraft.getMinecraft().thePlayer).hasFound(this.item) && PlayerData.get(Minecraft.getMinecraft().thePlayer).hasUnlocked(this.item)) GL11.glColor3f(0, 0, 0);
 			else GL11.glColor3f(1, 1, 1);
 
-			// Draw the item
+			// Draw the item 
 			mc.getTextureManager().bindTexture(this.itemTexture);
 			RenderHelper.drawRect2D(this.xPosition, this.yPosition, this.width, this.height);
 			
@@ -95,6 +97,10 @@ public class ItemButton extends GuiButton {
 
 	public RiskOfRain2Item getItem() {
 		return this.item;
+	}
+	
+	public boolean isSelected() {
+		return this.getHoverState(this.field_146123_n) == 2;
 	}
 
 }

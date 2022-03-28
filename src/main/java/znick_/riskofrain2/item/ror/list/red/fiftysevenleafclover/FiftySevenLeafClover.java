@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.red.fiftysevenleafclover;
 
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -14,12 +14,12 @@ public class FiftySevenLeafClover extends RiskOfRain2Item implements OnUpdateIte
 	}
 
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		player.addBuff(new FiftySevenLeafCloverBuff(itemCount));
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
 

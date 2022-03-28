@@ -9,13 +9,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.api.mc.CustomRarity;
+import znick_.riskofrain2.api.mc.data.nbt.SavableToNBT;
 import znick_.riskofrain2.item.ror.dlc.DLC;
+import znick_.riskofrain2.item.ror.property.CustomRarity;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.item.util.Artist;
@@ -25,9 +26,9 @@ import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 /**
  * Class used for creating items that are in the Risk of Rain 2 game. 
  * 
- * @author zNick_
+ * @author zNick_ 
  */
-public abstract class RiskOfRain2Item extends Item {
+public abstract class RiskOfRain2Item extends Item implements SavableToNBT<RiskOfRain2Item> {
 	
 	/**The name of the item.*/
 	private final String name;
@@ -117,7 +118,7 @@ public abstract class RiskOfRain2Item extends Item {
 	 * 
 	 * @param stack The item stack to get the rarity of.
 	 * 
-	 * @see znick_.riskofrain2.api.mc.CustomRarity CustomRarity
+	 * @see znick_.riskofrain2.item.ror.property.CustomRarity CustomRarity
 	 */
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
@@ -214,11 +215,20 @@ public abstract class RiskOfRain2Item extends Item {
 		return "Risk Of Rain 2 Item: " + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name");
 	}
 	
-	public Achievement getAchievement() {
-		return null;
-	}
-	
 	public DLC getDLC() {
 		return DLC.BASE_GAME;
+	}
+
+	public boolean isUnlockedByDefault() {
+		return true;
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbt, String key) {
+		nbt.setInteger(key, Item.getIdFromItem(this));
+	}
+	
+	public RiskOfRain2Item readFromNBT(NBTTagCompound nbt, String key) {
+		return (RiskOfRain2Item) Item.getItemById(nbt.getInteger(key));
 	}
 }

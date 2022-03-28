@@ -79,7 +79,7 @@ public class CustomRegenHandler extends FoodStats {
 		this.updateFields();
 		EnumDifficulty difficulty = player.worldObj.difficultySetting;
 		
-		//Handle food exhaustion
+		//Handle hunger depletion
 		this.prevFoodLevel = this.getFoodLevel();
 		if (this.foodExhaustionLevel > 4.0F) {
 			this.setFoodExhaustionLevel(this.foodExhaustionLevel - 4.0F);

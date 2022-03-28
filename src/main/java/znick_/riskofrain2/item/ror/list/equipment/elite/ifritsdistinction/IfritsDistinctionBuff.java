@@ -4,7 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -22,7 +22,7 @@ public class IfritsDistinctionBuff extends Buff {
 	}
 
 	@Override
-	public void applyEffect(EntityData entity) {
+	public void applyEffect(AbstractEntityData entity) {
 		entity.getEntity().addPotionEffect(new PotionEffect(Potion.fireResistance.id, Integer.MAX_VALUE, 0));
 		entity.getEntity().setFire(Integer.MAX_VALUE);
 		int x = (int) entity.getEntity().posX;
@@ -37,7 +37,7 @@ public class IfritsDistinctionBuff extends Buff {
 	}
 
 	@Override
-	public void removeEffect(EntityData entity) {
+	public void removeEffect(AbstractEntityData entity) {
 		entity.getEntity().removePotionEffect(Potion.fireResistance.id);
 		entity.getEntity().extinguish();
 	}

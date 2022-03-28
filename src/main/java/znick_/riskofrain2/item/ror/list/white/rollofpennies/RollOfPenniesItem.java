@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.white.rollofpennies;
 
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
@@ -30,12 +30,12 @@ public class RollOfPenniesItem extends RiskOfRain2Item implements OnHurtItem {
 	}
 
 	@Override
-	public boolean shouldProcOnHurt(LivingHurtEvent event, EntityData entity, int itemCount) {
+	public boolean shouldProcOnHurt(LivingHurtEvent event, AbstractEntityData entity, int itemCount) {
 		return entity.isPlayer();
 	}
 	
 	@Override
-	public void procOnHurt(LivingHurtEvent event, EntityData entity, int itemCount) {
+	public void procOnHurt(LivingHurtEvent event, AbstractEntityData entity, int itemCount) {
 		((PlayerData) entity).addMoney(3 * itemCount);
 	}
 

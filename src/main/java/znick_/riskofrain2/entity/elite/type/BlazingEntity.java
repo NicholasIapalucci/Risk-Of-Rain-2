@@ -1,8 +1,8 @@
 package znick_.riskofrain2.entity.elite.type;
 
 import net.minecraft.entity.EntityLivingBase;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.EntityData;
-import znick_.riskofrain2.api.mc.data.NonPlayerEntityData;
 import znick_.riskofrain2.entity.elite.EliteEntity;
 import znick_.riskofrain2.entity.elite.EliteType;
 import znick_.riskofrain2.item.RiskOfRain2Items;

@@ -9,7 +9,7 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
@@ -32,13 +32,13 @@ public class SurvivorEventHandler extends EventHandler {
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		for (Survivor survivor : Survivor.getSurvivors()) {
 			if (survivor.isPlayer(player)) {
-				PlayerData data = EntityData.get(player);
+				PlayerData data = AbstractEntityData.get(player);
 				Loadout loadout = data.getLoadout();
 
 				// If the utility key was pressed, activate the utility ability
 				if (RiskOfRain2KeyBinds.UTILITY.getKeyBinding().isPressed()) {
 					try {
-						loadout.getUtility().newInstance().activate(player);
+						loadout.getUtility().getClass().newInstance().activate(player);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
@@ -47,7 +47,7 @@ public class SurvivorEventHandler extends EventHandler {
 				// If the special key was pressed, activate the special ability
 				if (RiskOfRain2KeyBinds.SPECIAL.getKeyBinding().isPressed()) {
 					try {
-						loadout.getSpecial().newInstance().activate(player);
+						loadout.getSpecial().getClass().newInstance().activate(player);
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}

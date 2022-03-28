@@ -1,6 +1,7 @@
 package znick_.riskofrain2.item.ror.list.equipment.jadeelephant;
 
-import znick_.riskofrain2.api.mc.data.EntityData;
+import java.util.Arrays;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.list.equipment.RiskOfRain2Equipment;
 
 public class JadeElephantItem extends RiskOfRain2Equipment {
@@ -10,8 +11,8 @@ public class JadeElephantItem extends RiskOfRain2Equipment {
 	}
 
 	@Override
-	public void activateEffect(EntityData player) {
-		player.addBuff(new JadeElephantBuff());
+	public void activateEffect(AbstractEntityData player) {
+		player.addBuff(new JadeElephantBuff(1));
 	}
 
 	@Override

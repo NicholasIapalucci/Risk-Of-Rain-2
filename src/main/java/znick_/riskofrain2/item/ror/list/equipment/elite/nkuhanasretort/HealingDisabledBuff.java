@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.equipment.elite.nkuhanasretort;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -24,12 +24,12 @@ public class HealingDisabledBuff extends DurationBuff {
 	}
 
 	@Override
-	public void applyEffect(EntityData entity) {
+	public void applyEffect(AbstractEntityData entity) {
 		entity.disableHealing();
 	}
 
 	@Override
-	public void removeEffect(EntityData entity) {
+	public void removeEffect(AbstractEntityData entity) {
 		entity.enableHealing();
 	}
 

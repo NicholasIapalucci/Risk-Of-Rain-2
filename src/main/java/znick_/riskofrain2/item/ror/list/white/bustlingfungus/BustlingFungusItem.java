@@ -5,7 +5,7 @@ import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
@@ -34,12 +34,12 @@ public class BustlingFungusItem extends RiskOfRain2Item implements OnUpdateItem 
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		//TODO: Bungus
 	}
 

@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.list.green.regeneratingscrap;
 
 import net.minecraft.util.EnumChatFormatting;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.consume.ConsumableItem;
 import znick_.riskofrain2.item.ror.dlc.DLC;
@@ -30,7 +30,7 @@ public class RegeneratingScrapItem extends RiskOfRain2Item implements Consumable
 	}
 	
 	@Override
-	public void consume(EntityData player) {
+	public void consume(AbstractEntityData player) {
 		player.replaceItem(this, this.getBrokenItem());
 	}
 	

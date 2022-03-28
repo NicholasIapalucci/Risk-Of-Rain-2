@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
@@ -43,32 +43,32 @@ public abstract class RiskOfRain2Equipment extends RiskOfRain2Item implements On
 	 * cases (such as scavengers) can use equipment as non-player entities, so implementations
 	 * of this method should not assume the activator was a player.
 	 */
-	public abstract void activateEffect(EntityData entity);
+	public abstract void activateEffect(AbstractEntityData entity);
 	
-	private void activate(EntityData player) {
+	private void activate(AbstractEntityData player) {
 		EquipmentUsedEvent event = new EquipmentUsedEvent(player.getEntity(), this);
 		if (MinecraftForge.EVENT_BUS.post(event)) return;
 		this.activateEffect(player);
 	}
 	
 	@Override
-	public boolean shouldProcOnKeypress(KeyInputEvent event, EntityData player, int itemCount) {
+	public boolean shouldProcOnKeypress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		return RiskOfRain2KeyBinds.ACTIVE.getKeyBinding().isPressed() && player.getEquipmentCooldown() == 0;
 	}
 	
 	@Override
-	public void procOnKeyPress(KeyInputEvent event, EntityData player, int itemCount) {
+	public void procOnKeyPress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		this.activate(player);
 		player.setEquipmentCooldown(this.getBaseCooldown());
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, EntityData entity, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData entity, int itemCount) {
 		entity.tickEquipmentCooldown();
 	}
 	
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData entity, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData entity, int itemCount) {
 		return entity.getEquipmentCooldown() > 0;
 	}
 	
@@ -81,7 +81,7 @@ public abstract class RiskOfRain2Equipment extends RiskOfRain2Item implements On
 		return this.baseCooldown;
 	}
 	
-	public int getModifiedCooldown(EntityData entity) {
+	public int getModifiedCooldown(AbstractEntityData entity) {
 		return this.getBaseCooldown() * (int) entity.getStat(EntityStat.EQUIPMENT_COOLDOWN_REDUCTION_PERCENTAGE);
 	}
 

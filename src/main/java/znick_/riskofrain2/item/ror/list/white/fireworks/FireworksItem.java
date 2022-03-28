@@ -4,7 +4,7 @@ import java.util.Map;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.ItemProccer;
@@ -38,7 +38,7 @@ public class FireworksItem extends RiskOfRain2Item implements OnObjectInteractio
 	}
 
 	@Override
-	public void procOnInteraction(ObjectInteractionEvent event, EntityData player, int itemCount) {
+	public void procOnInteraction(ObjectInteractionEvent event, AbstractEntityData player, int itemCount) {
 		this.tile = event.getInteractedObject();
 		this.shootFirework(player, tile, itemCount);
 	}
@@ -50,7 +50,7 @@ public class FireworksItem extends RiskOfRain2Item implements OnObjectInteractio
 	 * @param tile The chest tile entity that the fireworks are shooting out of
 	 * @param itemCount The amount of bundles of fireworks that the player has
 	 */
-	private void shootFirework(EntityData player, TileEntity tile, int itemCount) {
+	private void shootFirework(AbstractEntityData player, TileEntity tile, int itemCount) {
 		player.getWorld().spawnEntityInWorld(new FireworkEntity(player.getWorld(),tile.xCoord + Math.random(), tile.yCoord + 1, tile.zCoord + Math.random()));
 		if (player.getWorld().isRemote) {
 			player.playSound("ror2:fireworks_launch");
@@ -62,12 +62,12 @@ public class FireworksItem extends RiskOfRain2Item implements OnObjectInteractio
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return this.fireworksShot != 0 && ItemProccer.getUpdateCounter() % 3 == 0;
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		this.shootFirework(player, this.tile, itemCount);
 	}
 

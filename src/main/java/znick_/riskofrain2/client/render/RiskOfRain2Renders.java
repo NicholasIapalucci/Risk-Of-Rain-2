@@ -30,7 +30,7 @@ public class RiskOfRain2Renders {
 		RenderingRegistry.registerEntityRenderingHandler(HuntressRainingArrow.class, new RenderHuntressRainingArrow());
 		RenderingRegistry.registerEntityRenderingHandler(FireworkEntity.class, new RenderSnowballWithRotation(Items.fireworks));
 		RenderingRegistry.registerEntityRenderingHandler(CommandEssenceEntity.class, new RenderCommandEssence(ItemRarity.WHITE));
-		RenderingRegistry.registerEntityRenderingHandler(CommandEssenceCube.class, new RenderCommandEssenceCube(ItemRarity.WHITE));
+		RenderingRegistry.registerEntityRenderingHandler(CommandEssenceCube.class, new RenderCommandEssenceCube());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntity3DPrinter.class, new Render3DPrinter());
 	}

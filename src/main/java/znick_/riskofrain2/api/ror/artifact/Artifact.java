@@ -4,9 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.api.mc.data.WorldData;
 import znick_.riskofrain2.api.ror.artifact.list.ArtifactOfCommand;
 import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 import znick_.riskofrain2.util.helper.StringHelper;
@@ -87,15 +84,6 @@ public abstract class Artifact {
 	 */
 	public ResourceLocation getTexture() {
 		return this.texture;
-	}
-	
-	/**
-	 * Returns whether or not this artifact is currently enabled in the current world. 
-	 * 
-	 * @return
-	 */
-	public boolean isEnabled(World world) {
-		return WorldData.forWorld(world).isArtifactEnabled(this);
 	}
 	
 	/**Returns the description of this artifact.*/

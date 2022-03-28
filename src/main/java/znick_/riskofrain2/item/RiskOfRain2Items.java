@@ -7,7 +7,6 @@ import java.util.Set;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import znick_.riskofrain2.api.mc.CustomRarity;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.item.armor.ArmorPiece;
 import znick_.riskofrain2.item.armor.ArmorType;
@@ -15,7 +14,6 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.pluripotentlarva.PluripotentLarvaItem;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.saferspaces.SaferSpacesItem;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.weepingfungus.WeepingFungusItem;
-import znick_.riskofrain2.item.ror.list.CommandEssence;
 import znick_.riskofrain2.item.ror.list.ScrapItem;
 import znick_.riskofrain2.item.ror.list.boss.pearl.PearlItem;
 import znick_.riskofrain2.item.ror.list.boss.titanicknurl.TitanicKnurlItem;
@@ -34,24 +32,25 @@ import znick_.riskofrain2.item.ror.list.green.FuelCell;
 import znick_.riskofrain2.item.ror.list.green.HarvestersScythe;
 import znick_.riskofrain2.item.ror.list.green.HopooFeather;
 import znick_.riskofrain2.item.ror.list.green.LeechingSeed;
-import znick_.riskofrain2.item.ror.list.green.OldWarStealthkit;
 import znick_.riskofrain2.item.ror.list.green.WaxQuail;
 import znick_.riskofrain2.item.ror.list.green.WillOTheWisp;
 import znick_.riskofrain2.item.ror.list.green.huntersharpoon.HuntersHarpoonItem;
 import znick_.riskofrain2.item.ror.list.green.infusion.InfusionItem;
+import znick_.riskofrain2.item.ror.list.green.oldwarstealthkit.OldWarStealthkit;
 import znick_.riskofrain2.item.ror.list.green.redwhip.RedWhipItem;
 import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapConsumedItem;
 import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapItem;
 import znick_.riskofrain2.item.ror.list.green.rosebuckler.RoseBucklerItem;
+import znick_.riskofrain2.item.ror.list.green.warhorn.WarHornItem;
 import znick_.riskofrain2.item.ror.list.lunar.BeadsOfFealty;
 import znick_.riskofrain2.item.ror.list.lunar.Purity;
 import znick_.riskofrain2.item.ror.list.lunar.ShapedGlass;
 import znick_.riskofrain2.item.ror.list.red.AlienHead;
-import znick_.riskofrain2.item.ror.list.red.BrilliantBehemothItem;
 import znick_.riskofrain2.item.ror.list.red.HardlightAfterburner;
 import znick_.riskofrain2.item.ror.list.red.HeadSet;
 import znick_.riskofrain2.item.ror.list.red.RejuvinationRack;
 import znick_.riskofrain2.item.ror.list.red.bensraincoat.BensRaincoatItem;
+import znick_.riskofrain2.item.ror.list.red.brilliantbehemoth.BrilliantBehemothItem;
 import znick_.riskofrain2.item.ror.list.red.defensivemicrobots.DefensiveMicrobotsItem;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendConsumed;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendItem;
@@ -64,7 +63,6 @@ import znick_.riskofrain2.item.ror.list.white.MonsterTooth;
 import znick_.riskofrain2.item.ror.list.white.RepulsionArmorPlate;
 import znick_.riskofrain2.item.ror.list.white.RustedKey;
 import znick_.riskofrain2.item.ror.list.white.SoldierSyringe;
-import znick_.riskofrain2.item.ror.list.white.TougherTimes;
 import znick_.riskofrain2.item.ror.list.white.TriTipDagger;
 import znick_.riskofrain2.item.ror.list.white.armorpiercingrounds.ArmorPiercingRoundsItem;
 import znick_.riskofrain2.item.ror.list.white.bustlingfungus.BustlingFungusItem;
@@ -84,7 +82,9 @@ import znick_.riskofrain2.item.ror.list.white.powerelixir.PowerElixirItem;
 import znick_.riskofrain2.item.ror.list.white.rollofpennies.RollOfPenniesItem;
 import znick_.riskofrain2.item.ror.list.white.stungrenade.StunGrenadeItem;
 import znick_.riskofrain2.item.ror.list.white.topazbrooch.TopazBroochItem;
+import znick_.riskofrain2.item.ror.list.white.toughertimes.TougherTimesItem;
 import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerItem;
+import znick_.riskofrain2.item.ror.property.CustomRarity;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
@@ -132,7 +132,7 @@ public class RiskOfRain2Items {
 	 * The "tougher times" item. Gives the player a 15% (+15% per item) chance to take no damage upon getting hurt.
 	 * Stacks hyperbolically instead of linearly, meaning it is impossible to reach 100% block chance. 
 	 */
-	public static final RiskOfRain2Item TOUGHER_TIMES = new TougherTimes();
+	public static final RiskOfRain2Item TOUGHER_TIMES = new TougherTimesItem();
 	/**
 	 * The "tri-tip dagger" item. Gives the player a 15% (+15% per item) chance per hit to apply wither 2 to
 	 * the attacked enemy for 5 seconds.
@@ -223,7 +223,7 @@ public class RiskOfRain2Items {
 	public static final RiskOfRain2Item RUSTED_KEY = new RustedKey();
 	public static final RiskOfRain2Item WAR_BANNER = new WarbannerItem();
 	
-	//Green Items
+	public static final RiskOfRain2Item WAR_HORN = new WarHornItem();
 	public static final RiskOfRain2Item FUEL_CELL = new FuelCell();
 	/**
 	 * The "will-o-the wisp" item. When an enemy dies, it explodes.
@@ -328,14 +328,6 @@ public class RiskOfRain2Items {
 	public static final EliteEquipmentItem IFRITS_DISTINCTION = new IfritsDistinctionItem();
 	public static final EliteEquipmentItem HER_BITING_EMBRACE = new HerBitingEmbraceItem();
 	public static final EliteEquipmentItem NKUHANAS_RETORT = new NkuhanasRetortItem();
-	
-	public static final RiskOfRain2Item WHITE_COMMAND_ESSENCE = new CommandEssence(ItemRarity.WHITE);
-	public static final RiskOfRain2Item GREEN_COMMAND_ESSENCE = new CommandEssence(ItemRarity.GREEN);
-	public static final RiskOfRain2Item RED_COMMAND_ESSENCE = new CommandEssence(ItemRarity.RED);
-	public static final RiskOfRain2Item BOSS_COMMAND_ESSENCE = new CommandEssence(ItemRarity.BOSS);
-	public static final RiskOfRain2Item LUNAR_COMMAND_ESSENCE = new CommandEssence(ItemRarity.LUNAR);
-	public static final RiskOfRain2Item EQUIPMENT_COMMAND_ESSENCE = new CommandEssence(ItemRarity.EQUIPMENT);
-	
 	
 	/**
 	 * Registers all items into the game.

@@ -9,7 +9,10 @@ import net.minecraft.util.EnumChatFormatting;
  * @author zNick_
  */
 public enum ItemCategory {
+	
+	/**the {@code DAMAGE} item category that appear in red damage chests.*/
 	DAMAGE(EnumChatFormatting.RED), 
+	
 	HEALING(EnumChatFormatting.GREEN), 
 	UTILITY(EnumChatFormatting.LIGHT_PURPLE), 
 	EQUIPMENT(EnumChatFormatting.GOLD),

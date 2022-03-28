@@ -13,13 +13,10 @@ public class CommandEssenceCube extends Entity {
 		super(world);
 	}
 	
-	public CommandEssenceCube(World world, double x, double y, double z) {
-		this(world);
-		this.setPosition(x + Math.random() - 0.5, y + Math.random(), z + Math.random() - 0.5);
-	}
-	
 	public CommandEssenceCube(CommandEssenceEntity entity) {
-		this(entity.worldObj, entity.posX, entity.posY, entity.posZ);
+		this(entity.worldObj);
+		this.setPosition(entity.posX + Math.random() - 0.5, entity.posY + Math.random(), entity.posZ + Math.random() - 0.5);
+		this.commandEssence = entity;
 	}
 	
 	@Override
@@ -28,7 +25,6 @@ public class CommandEssenceCube extends Entity {
 		this.size -= 0.01;
 		this.setSize((float) this.size, (float) this.size); 
 		if (this.size <= 0) this.setDead();
-		
 	}
 
 	@Override
@@ -48,5 +44,9 @@ public class CommandEssenceCube extends Entity {
 
 	public double getSize() {
 		return this.size;
+	}
+
+	public CommandEssenceEntity getCommandEssenceEntity() {
+		return this.commandEssence;
 	}
 }

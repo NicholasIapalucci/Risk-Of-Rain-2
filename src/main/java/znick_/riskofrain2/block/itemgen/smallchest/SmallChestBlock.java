@@ -20,7 +20,7 @@ public class SmallChestBlock extends Block implements IBlockItem, ITileEntityPro
 	
 	public SmallChestBlock() {
 		super(Material.rock);
-		this.setBlockName("risk_chest");
+		this.setBlockName("small_chest");
 		this.setBlockTextureName(RiskOfRain2Mod.MODID + ":chest");
 		this.setCreativeTab(RiskOfRain2CreativeTabs.BLOCKS);
 		this.setBlockUnbreakable();

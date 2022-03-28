@@ -9,6 +9,7 @@ import net.minecraft.util.EnumChatFormatting;
  */
 public enum ItemRarity {
 	
+	/**The white rarity, used for common items.*/
 	WHITE(EnumChatFormatting.WHITE),
 	GREEN(EnumChatFormatting.GREEN),
 	RED(EnumChatFormatting.RED),

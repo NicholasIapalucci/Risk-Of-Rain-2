@@ -7,6 +7,7 @@ package znick_.riskofrain2.api.ror.buff;
  */
 public enum EntityStat {
 	
+	ATTACK_SPEED_MULTIPLIER(1),
 	ARMOR(0),
 	BARRIER(0),
 	DAMAGE_MULTIPLIER(1),

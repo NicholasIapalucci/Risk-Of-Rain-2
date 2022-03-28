@@ -1,18 +1,15 @@
 package znick_.riskofrain2.api.ror.survivor.huntress;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.common.util.EnumHelper;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
-import znick_.riskofrain2.api.ror.survivor.huntress.ability.BlinkAbility;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainAbility;
+import znick_.riskofrain2.api.ror.survivor.huntress.ability.utility.BlinkAbility;
 import znick_.riskofrain2.client.gui.Crosshair;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.armor.ArmorType;
@@ -60,6 +57,6 @@ public class Huntress extends Survivor {
 
 	@Override
 	public Loadout getDefaultLoadout() {
-		return new Loadout(null, null, BlinkAbility.class, ArrowRainAbility.class);
+		return new Loadout(null, null, BlinkAbility.MAIN_INSTANCE, ArrowRainAbility.MAIN_INSTANCE);
 	}
 }

@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 /**
@@ -47,10 +47,10 @@ public abstract class Buff {
 	 * 
 	 * @param entity The {@code EntityData} associated with the entity with the buff.
 	 */
-	public abstract void applyEffect(EntityData entity);
+	public abstract void applyEffect(AbstractEntityData entity);
 	
 	/**Removes the effect from the entity.*/
-	public abstract void removeEffect(EntityData entity);
+	public abstract void removeEffect(AbstractEntityData entity);
 	/**Returns the items that give this effect*/
 	public abstract RiskOfRain2Item[] getItems();
 	

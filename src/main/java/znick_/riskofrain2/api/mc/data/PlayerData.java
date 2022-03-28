@@ -5,19 +5,26 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import znick_.riskofrain2.RiskOfRain2Mod;
+import znick_.riskofrain2.api.mc.data.nbt.NBTHelper;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
+import znick_.riskofrain2.net.FindItemPacketHandler.FindItemPacket;
+import znick_.riskofrain2.net.RiskOfRain2Packets;
+import znick_.riskofrain2.util.achievement.RiskOfRain2Achievements;
+import znick_.riskofrain2.util.helper.MathHelper;
 
-public class PlayerData extends EntityData<EntityPlayer> {
+public class PlayerData extends AbstractEntityData<EntityPlayer> {
 
 	public static final String PROPERTY_ID = "player_data";
 	
@@ -30,46 +37,64 @@ public class PlayerData extends EntityData<EntityPlayer> {
 	private int money;
 	/**The amount of lunar coins the player has*/
 	private int lunarCoins;
-	/**
-	 * The chance of a lunar coin being dropped by an entity. Get's halved every time one drops. 
-	 * This is not saved to NBT, so it intentionally resets when the player dies.
-	 */
+	/**The chance of a lunar coin being dropped by an entity. Get's halved every time one drops.*/
 	private double lunarCoinChance = 0.005;
+	
+	/**
+	 * The amount of times the player has died. Recorded to give the tougher times achievement,
+	 * which unlockes when the player dies 5 times.
+	 */
+	private int deaths = 0;
 	
 	private Loadout loadout = Survivor.HUNTRESS.getDefaultLoadout();
 	
 	protected PlayerData(EntityPlayer player) {
 		super(player);
 		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-			if (item.getAchievement() == null) this.unlockedItems.add(item);
+			if (item.isUnlockedByDefault()) this.unlockedItems.add(item);
 		}
 	}
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
 		NBTTagCompound properties = new NBTTagCompound();
-		int i = 0;
+		NBTHelper.writeFieldsToNBT(properties, this);
+		
+		int i = 1;
 		for (RiskOfRain2Item item : this.unlockedItems) {
-			properties.setInteger("item_" + i, Item.getIdFromItem(item));
+			properties.setInteger("unlocked_item_" + i, Item.getIdFromItem(item));
 			i++;
 		}
-		properties.setInteger("money", this.money);
-		properties.setInteger("lunarCoins", this.lunarCoins);
-		properties.setDouble("lunarCoinChance", this.lunarCoinChance);
+		
+		i = 1;
+		for (RiskOfRain2Item item : this.foundItems) {
+			if (RiskOfRain2Mod.DEBUG) System.out.println("Saving that " + this.entity.getDisplayName() + " has found " + item.getClass().getSimpleName());
+			properties.setInteger("found_item_" + i, Item.getIdFromItem(item));
+			i++;
+		}
+		
 		compound.setTag(PROPERTY_ID, properties);
 	}
 	
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
+		System.out.println("Loading NBT data for " + this.entity.getDisplayName() + " on side " + this.getSide());
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(PROPERTY_ID);
-		this.money = properties.getInteger("money");
-		this.lunarCoins = properties.getInteger("lunarCoins");
-		this.lunarCoinChance = properties.getDouble("lunarCoinChance");
-		int i = 0;
+		NBTHelper.readFieldsFromNBT(properties, this);
+		
+		int i = 1;
 		while(true) {
-			int id = properties.getInteger("item_" + i);
+			int id = properties.getInteger("unlocked_item_" + i);
 			if (id == 0) break;
 			this.unlockedItems.add((RiskOfRain2Item) Item.getItemById(id));
+			i++;
+		}
+		
+		i = 1;
+		while(true) {
+			int id = properties.getInteger("found_item_" + i);
+			if (id == 0) break;
+			this.foundItems.add((RiskOfRain2Item) Item.getItemById(id));
 			i++;
 		}
 	}
@@ -93,6 +118,7 @@ public class PlayerData extends EntityData<EntityPlayer> {
 	 */
 	public void unlock(RiskOfRain2Item item) {
 		this.unlockedItems.add(item);
+		this.entity.addStat(RiskOfRain2Achievements.fromItem(item), 1);
 	}
 	
 	/**
@@ -128,6 +154,19 @@ public class PlayerData extends EntityData<EntityPlayer> {
 	}
 	
 	public void find(RiskOfRain2Item item) {
+		this.find(item, true);
+	}
+	
+	public void find(RiskOfRain2Item item, boolean sendPacket) {
+		if (sendPacket) {
+			IMessage packet = new FindItemPacket(item);
+			if (this.getWorld().isRemote) RiskOfRain2Packets.NET.sendToServer(packet);
+			else RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.entity);
+		}
+		this.findManually(item);
+	}
+	
+	public void findManually(RiskOfRain2Item item) {
 		this.foundItems.add(item);
 	}
 	
@@ -192,5 +231,27 @@ public class PlayerData extends EntityData<EntityPlayer> {
 
 	public void addMoney(int money) {
 		this.money += money;
+	}
+	
+	public void consumeMoney(int money) {
+		this.money = (int) MathHelper.constrain(money, 0, Integer.MAX_VALUE);
+	}
+	
+	public int getMoney() {
+		return this.money;
+	}
+	
+	public void updateItems() {
+		for (RiskOfRain2Item item : this.getRiskOfRain2Items().keySet()) {
+			if (!this.hasFound(item)) this.find(item);
+		}
+	}
+
+	public int getDeathCount() {
+		return this.deaths;
+	}
+
+	public void addDeath() {
+		this.deaths++;
 	}
 }

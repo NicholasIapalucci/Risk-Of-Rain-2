@@ -2,13 +2,13 @@ package znick_.riskofrain2.api.ror.survivor.ability;
 
 public class Loadout {
 
-	private Class<? extends Ability> primary;
-	private Class<? extends Ability> secondary;
-	private Class<? extends Ability> utility;
-	private Class<? extends Ability> special;
+	private Ability primary;
+	private Ability secondary;
+	private Ability utility;
+	private Ability special;
 	private int uniqueID;
 	
-	public Loadout(Class<? extends Ability> primary, Class<? extends Ability> secondary, Class<? extends Ability> utility, Class<? extends Ability> special) {
+	public Loadout(Ability primary, Ability secondary, Ability utility, Ability special) {
 		this.primary = primary;
 		this.secondary = secondary;
 		this.utility = utility;
@@ -17,14 +17,13 @@ public class Loadout {
 	}
 	
 	private void generateUniqueID() {
-		
 	}
 	
-	public Class<? extends Ability> getUtility() {
+	public Ability getUtility() {
 		return this.utility;
 	}
 
-	public Class<? extends Ability> getSpecial() {
+	public Ability getSpecial() {
 		return this.special;
 	}
 }

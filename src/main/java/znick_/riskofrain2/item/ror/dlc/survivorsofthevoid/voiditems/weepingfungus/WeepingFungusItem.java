@@ -1,7 +1,7 @@
 package znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.voiditems.weepingfungus;
 
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.VoidItem;
@@ -24,12 +24,12 @@ public class WeepingFungusItem extends VoidItem implements OnUpdateItem {
 	}
 
 	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
 	
 	@Override
-	public void procOnUpdate(LivingUpdateEvent event, EntityData player, int itemCount) {
+	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData player, int itemCount) {
 		if (player.isSprinting()) player.addBuff(new WeepingFungusBuff(itemCount));
 		else player.removeBuff(WeepingFungusBuff.class);
 	}

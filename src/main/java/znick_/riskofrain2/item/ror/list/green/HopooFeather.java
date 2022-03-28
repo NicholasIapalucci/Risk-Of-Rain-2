@@ -6,7 +6,7 @@ import java.util.Map;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import znick_.riskofrain2.api.mc.data.EntityData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnKeyPressItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
@@ -22,7 +22,7 @@ public class HopooFeather extends RiskOfRain2Item implements OnKeyPressItem {
 	}
 	
 	@Override
-	public void procOnKeyPress(KeyInputEvent event, EntityData player, int itemCount) {
+	public void procOnKeyPress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		if (Minecraft.getMinecraft().gameSettings.keyBindJump.isPressed()) {
 			if (player.getEntity().onGround) {
 				JUMPS_REMAINING.put((EntityPlayer) player.getEntity(), itemCount);
@@ -35,7 +35,7 @@ public class HopooFeather extends RiskOfRain2Item implements OnKeyPressItem {
 	}
 	
 	@Override
-	public boolean shouldProcOnKeypress(KeyInputEvent event, EntityData player, int itemCount) {
+	public boolean shouldProcOnKeypress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
 		return true;
 	}
 

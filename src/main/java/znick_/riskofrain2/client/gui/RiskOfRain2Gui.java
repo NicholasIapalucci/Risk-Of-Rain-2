@@ -15,14 +15,13 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
-import scala.actors.threadpool.Arrays;
-import znick_.riskofrain2.api.mc.data.EntityData;
-import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
+import znick_.riskofrain2.client.render.RenderHelper;
 
 public class RiskOfRain2Gui extends Gui {
 
@@ -37,10 +36,10 @@ public class RiskOfRain2Gui extends Gui {
 		
 		if (Minecraft.getMinecraft().thePlayer == null) return;
 		
+		this.renderAbilities();
 		this.renderBuffs();
 		this.renderCrosshair();
 		this.renderHealth();
-		this.renderAbilities();
 	}
 	
 	/**
@@ -52,7 +51,7 @@ public class RiskOfRain2Gui extends Gui {
 		GuiIngameForge.renderHealth = false;
 		GuiIngameForge.renderExperiance = false;
 			
-		EntityData player = EntityData.get(Minecraft.getMinecraft().thePlayer);
+		AbstractEntityData player = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer);
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		String health = (int) (player.getHealth() + player.getStat(EntityStat.BARRIER) + player.getStat(EntityStat.SHIELD))  + "/" + (int) player.getMaxHealth();
 		
@@ -99,10 +98,10 @@ public class RiskOfRain2Gui extends Gui {
 	}
 	
 	private void renderAbilities() {
-		Loadout loadout = EntityData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
+		Loadout loadout = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
 		if (loadout == null) return;
-		this.renderAbility(loadout.getUtility(), this.width/2 + 128, this.height - 24, 12);
-		//this.renderAbility(loadout.getSpecial(), this.width/2 + 152, this.height - 24, 12); // TODO: CAUSING ISSUES
+		this.renderAbility(loadout.getUtility(), this.width/2 + 128, this.height - 24);
+		this.renderAbility(loadout.getSpecial(), this.width/2 + 152, this.height - 24); // TODO: CAUSING ISSUES
 	}
 	
 	/**
@@ -113,22 +112,12 @@ public class RiskOfRain2Gui extends Gui {
 	 * @param y The y-coordinate on the screen to render it on.
 	 * @param s The scale to render it at; The larger the scale the smaller the texture. 
 	 */
-	private void renderAbility(Class<? extends Ability> abilityClass, int x, int y, double s) {
-		try {
-			Ability ability = abilityClass.newInstance();
-			ResourceLocation texture = ability.getTexture();
-			
-			GL11.glPushMatrix();
-			GL11.glColor3f(1, 1, 1);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
-			GL11.glScaled(1d/s, 1d/s, 1d/s);
-			this.drawTexturedModalRect((int) (x * s), (int) (y * s), 0, 0, 256, 256);
-			GL11.glPopMatrix();
-		} 
-		
-		catch(Exception e) {
-			throw new RuntimeException(e);
-		}
+	private void renderAbility(Ability ability, int x, int y) {
+		GL11.glPushMatrix();
+		GL11.glColor3f(1, 1, 1);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(ability.getTexture());
+		RenderHelper.drawRect2D(x, y, 21, 21);
+		GL11.glPopMatrix();
 	}
 	
 	/**
@@ -142,7 +131,7 @@ public class RiskOfRain2Gui extends Gui {
 		Map<Class<? extends Buff>, Map.Entry<Integer, Integer>> renderedBuffs = new LinkedHashMap<>();
 		int i = 0;
 		
-		for (Buff buff : EntityData.get(Minecraft.getMinecraft().thePlayer).getBuffs()) {
+		for (Buff buff : AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).getBuffs()) {
 			
 			// If the buff has no texture, just skip it.
 			if (buff.getIconTexture() == null) continue;
@@ -158,17 +147,15 @@ public class RiskOfRain2Gui extends Gui {
 			GL11.glPushMatrix();
 			Minecraft.getMinecraft().getTextureManager().bindTexture(buff.getIconTexture());
 			GL11.glColor3f(1, 1, 1);
-			GL11.glScaled(0.1, 0.1, 0.1);
 			
-			this.drawTexturedModalRect(40 + i, 40, 0, 0, 256, 256);
-			
+			RenderHelper.drawRect2D(4 + (i * 26), 4, 26, 26);
+			renderedBuffs.put(buff.getClass(), new AbstractMap.SimpleEntry<>(4 + (i * 26), 1));
 			i++;
-			renderedBuffs.put(buff.getClass(), new AbstractMap.SimpleEntry<>(4 + i, 1));
 			GL11.glPopMatrix();
 		}
 		
 		for (Map.Entry<Integer, Integer> buffEntry : renderedBuffs.values()) {
-			this.drawString(Minecraft.getMinecraft().fontRenderer, "x" + buffEntry.getValue(), buffEntry.getKey() + 2, 6, Color.WHITE.getRGB());
+			if (buffEntry.getValue() > 1) this.drawString(Minecraft.getMinecraft().fontRenderer, "x" + buffEntry.getValue(), buffEntry.getKey() + 15, 24, Color.WHITE.getRGB());
 		}
 	}
 	

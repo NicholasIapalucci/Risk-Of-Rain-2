@@ -8,6 +8,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import znick_.riskofrain2.item.ror.property.CustomRarity;
 
 public class ItemBlockChest extends ItemBlock {
 
@@ -17,13 +18,7 @@ public class ItemBlockChest extends ItemBlock {
 	
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
-        return EnumRarity.rare;
+        return CustomRarity.BLUE;
     }
-	
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean someParam) {
-		info.clear();
-		info.add(EnumChatFormatting.BLUE + "Risk Of Rain 2 Chest");
-	}
 
 }
