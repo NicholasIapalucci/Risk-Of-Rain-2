@@ -51,8 +51,6 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	protected final Set<Buff> buffs = new HashSet<>();
 	/**A map between the {@code PlayerStats} and their values that the player has.*/
 	protected final Map<EntityStat, Double> stats = new HashMap<>();
-	/**The current amount of ticks left until the player can use equipment again.*/
-	protected int equipmentCooldown = 0;
 	/**Whether or not the entity is allowed to heal.*/
 	private boolean isHealingEnabled = true;
 	
@@ -412,26 +410,6 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	public Vec3 getLookVector() {
 		return this.entity.getLookVec();
 	}
-
-	/**Returns the player's current cooldown on equipment.*/
-	public int getEquipmentCooldown() {
-		return this.equipmentCooldown;
-	}
-	
-	/**
-	 * Sets the equipment cooldown to the given value.
-	 * 
-	 * @param cooldown The new equipment cooldown.
-	 * 
-	 */
-	public void setEquipmentCooldown(int cooldown) {
-		this.equipmentCooldown = cooldown;
-	}
-
-	/**Lowers the player's equipment cooldown by 1 tick.*/
-	public void tickEquipmentCooldown() {
-		this.equipmentCooldown -= 1; 
-	}
 	
 	/**
 	 * Returns the amount of the given item in the players inventory
@@ -546,5 +524,17 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 
 	public boolean isInvisible() {
 		return this.entity.isInvisible();
+	}
+	
+	public double x() {
+		return this.entity.posX;
+	}
+	
+	public double y() {
+		return this.entity.posY;
+	}
+	
+	public double z() {
+		return this.entity.posZ;
 	}
 } 

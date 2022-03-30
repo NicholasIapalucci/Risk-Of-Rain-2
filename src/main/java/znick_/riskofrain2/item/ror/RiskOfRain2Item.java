@@ -18,6 +18,7 @@ import znick_.riskofrain2.item.ror.property.CustomRarity;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.item.util.Artist;
+import znick_.riskofrain2.util.achievement.RiskOfRain2Achievement;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
@@ -218,6 +219,10 @@ public abstract class RiskOfRain2Item extends Item {
 	}
 
 	public boolean isUnlockedByDefault() {
-		return true;
+		return this.getAchievement() == null;
+	}
+	
+	public RiskOfRain2Achievement getAchievement() {
+		return null;
 	}
 }

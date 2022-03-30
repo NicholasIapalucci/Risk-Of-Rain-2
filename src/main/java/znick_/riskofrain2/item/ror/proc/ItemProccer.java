@@ -25,6 +25,7 @@ import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.dlc.survivorsofthevoid.VoidItem;
+import znick_.riskofrain2.item.ror.proc.type.onDeathListener;
 import znick_.riskofrain2.item.ror.proc.type.OnHealItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;
@@ -34,7 +35,6 @@ import znick_.riskofrain2.item.ror.proc.type.OnKillItem;
 import znick_.riskofrain2.item.ror.proc.type.OnObjectInteractionItem;
 import znick_.riskofrain2.item.ror.proc.type.OnPickupXPItem;
 import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
-import znick_.riskofrain2.util.helper.MinecraftHelper;
 import znick_.riskofrain2.util.misc.UniqueDamageSource;
 
 public class ItemProccer extends EventHandler {
@@ -285,6 +285,24 @@ public class ItemProccer extends EventHandler {
 		
 		for (Map.Entry<OnPickupXPItem, Integer> itemEntry : itemMap.entrySet()) {
 			itemEntry.getKey().procOnXPPickup(event, data, itemEntry.getValue());
+		}
+	}
+	
+	@SubscribeEvent
+	public void procOnDeathItems(LivingDeathEvent event) {
+		AbstractEntityData data = AbstractEntityData.get(event.entityLiving instanceof EntityPlayer? (EntityPlayer) event.entityLiving : event.entityLiving);
+		Map<onDeathListener, Integer> itemMap = data.getRiskOfRain2Items(onDeathListener.class);	
+		
+		// Proc all on-hurt items if able to
+		for (Map.Entry<onDeathListener, Integer> itemEntry : itemMap.entrySet()) {
+			
+			// Stop checking items if the player didn't actually get hurt
+			if (event.isCanceled()) break;
+			
+			// Rolls if the event should proc and if so, procs it
+			if (itemEntry.getKey().shouldProcOnDeath(event, data, itemEntry.getValue())) {
+				itemEntry.getKey().procOnDeath(event, data, itemEntry.getValue());
+			}
 		}
 	}
 	

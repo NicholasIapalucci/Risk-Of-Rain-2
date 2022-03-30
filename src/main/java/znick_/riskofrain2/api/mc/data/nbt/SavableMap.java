@@ -7,13 +7,9 @@ import java.lang.annotation.Target;
 
 import znick_.riskofrain2.api.mc.data.nbt.savers.Saver;
 
-/**
- * Marks that a field can be read and written to NBT with the given {@link Saver}.
- * 
- * @author zNick_
- */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface SavableWith {
-	Class<? extends Saver> value();
+public @interface SavableMap {
+	public Class<? extends Saver> keySaver() default Saver.class;
+	public Class<? extends Saver> valueSaver() default Saver.class;
 }

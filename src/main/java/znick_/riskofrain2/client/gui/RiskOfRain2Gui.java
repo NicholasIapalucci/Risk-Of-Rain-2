@@ -20,6 +20,7 @@ import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
+import znick_.riskofrain2.api.ror.survivor.ability.AbilityType;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.client.render.RenderHelper;
 
@@ -100,8 +101,11 @@ public class RiskOfRain2Gui extends Gui {
 	private void renderAbilities() {
 		Loadout loadout = AbstractEntityData.get(Minecraft.getMinecraft().thePlayer).getLoadout();
 		if (loadout == null) return;
-		this.renderAbility(loadout.getUtility(), this.width/2 + 128, this.height - 24);
-		this.renderAbility(loadout.getSpecial(), this.width/2 + 152, this.height - 24); // TODO: CAUSING ISSUES
+		int i = 0;
+		for (AbilityType type : AbilityType.values()) {
+			this.renderAbility(loadout.getAbility(type), this.width/2 + 128 + 24 * i, this.height - 24);
+			i++;
+		}
 	}
 	
 	/**

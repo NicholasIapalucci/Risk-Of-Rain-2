@@ -1,7 +1,9 @@
 package znick_.riskofrain2.util.achievement;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.item.Item;
 import net.minecraft.stats.Achievement;
+import net.minecraftforge.common.MinecraftForge;
 
 public class RiskOfRain2Achievement extends Achievement {
 	
@@ -10,6 +12,8 @@ public class RiskOfRain2Achievement extends Achievement {
 	
 	public RiskOfRain2Achievement(Item item) {
 		super(item.getUnlocalizedName().substring(5), item.getUnlocalizedName().substring(5), x++, y++, item, null);
+		MinecraftForge.EVENT_BUS.register(this);
+		FMLCommonHandler.instance().bus().register(this);
 	}
 
 }

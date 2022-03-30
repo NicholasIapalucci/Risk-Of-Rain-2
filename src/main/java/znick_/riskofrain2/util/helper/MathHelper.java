@@ -1,5 +1,9 @@
 package znick_.riskofrain2.util.helper;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+
 import net.minecraft.util.Vec3;
 import znick_.riskofrain2.api.mc.enums.Axis;
 
@@ -63,5 +67,30 @@ public class MathHelper {
 		vector.yCoord *= scalar;
 		vector.zCoord *= scalar;
 		return vector;
+	}
+	
+	public static int[] primeFactorize(int n) {
+		return Arrays.stream(factorize(n)).filter(i -> isPrime(i)).toArray();
+	}
+	
+	public static boolean isPrime(int n) {
+		for (int i = 2; i <= Math.sqrt(n); i++) if (n % i == 0) return false;
+		return true;
+	}
+	
+	/**
+	 * Returns an array containing the factors of a number in ascending order.
+	 * 
+	 * @param n The number to get the factors of.
+	 */
+	public static int[] factorize(int n) {
+		Set<Integer> factors = new TreeSet<Integer>();
+		for (int i = 1; i <= Math.sqrt(n); i++) {
+			if (n % i == 0) {
+				factors.add(i);
+				factors.add(n/i);
+			}
+		}
+		return factors.stream().mapToInt(i -> i).toArray();
 	}
 }

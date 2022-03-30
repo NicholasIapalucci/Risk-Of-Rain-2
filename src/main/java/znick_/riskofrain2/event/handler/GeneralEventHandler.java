@@ -2,6 +2,7 @@ package znick_.riskofrain2.event.handler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ModContainer;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -44,7 +45,7 @@ import znick_.riskofrain2.net.SyncPlayerDataPacketHandler.SyncPlayerDataPacket;
 
 public class GeneralEventHandler extends EventHandler {
 
-	@SubscribeEvent
+	@SubscribeEvent(priority=EventPriority.HIGHEST)
 	public void registerEntityData(EntityConstructing event) {
 		if (event.entity instanceof EntityLivingBase && AbstractEntityData.get((EntityLivingBase) event.entity) == null) {
 			AbstractEntityData.register((EntityLivingBase) event.entity);
@@ -86,8 +87,9 @@ public class GeneralEventHandler extends EventHandler {
 		new RiskOfRain2Gui();
 	}
 	
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void saveAndLoadPlayerData(PlayerEvent.Clone event) {
+		System.out.println("Reloading player data...");
 		NBTTagCompound nbt = new NBTTagCompound();
 		AbstractEntityData.get(event.original).saveNBTData(nbt);
 		AbstractEntityData.get(event.entityPlayer).loadNBTData(nbt);

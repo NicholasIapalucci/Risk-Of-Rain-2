@@ -20,12 +20,13 @@ import znick_.riskofrain2.api.ror.survivor.ability.phase.AbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.ActivatedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.RepeatingAbilityPhase;
+import znick_.riskofrain2.api.ror.survivor.huntress.ability.utility.BlinkAbility;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.util.helper.MathHelper;
 
-public class ArrowRainAbility extends Ability {
+public class ArrowRainAbility extends Ability<ArrowRainAbility> {
 
-	public static final ArrowRainAbility MAIN_INSTANCE = new ArrowRainAbility();
+	public static final ArrowRainAbility MAIN_INSTANCE = new ArrowRainAbility(true);
 	
 	private final ArrowRainPhase1 phase1;
 	private final ArrowRainPhase2 phase2;
@@ -33,7 +34,11 @@ public class ArrowRainAbility extends Ability {
 	private EntityPlayer player;
 	
 	public ArrowRainAbility() {
-		super(Survivor.HUNTRESS, AbilityType.SPECIAL, "arrow_rain", TickHandler.fromSeconds(12));
+		this(false);
+	}
+	
+	private ArrowRainAbility(boolean isMainInstance) {
+		super(Survivor.HUNTRESS, AbilityType.SPECIAL, "arrow_rain", TickHandler.fromSeconds(12), isMainInstance);
 		
 		this.phase1 = this.new ArrowRainPhase1();
 		this.phase2 = this.new ArrowRainPhase2();
@@ -42,6 +47,11 @@ public class ArrowRainAbility extends Ability {
 		this.addPhase(phase1);
 		this.addPhase(phase2);
 		this.addPhase(phase3);
+	}
+	
+	@Override
+	public ArrowRainAbility newInstance() {
+		return new ArrowRainAbility();
 	}
 	
 	private class ArrowRainPhase1 implements AbilityPhase {

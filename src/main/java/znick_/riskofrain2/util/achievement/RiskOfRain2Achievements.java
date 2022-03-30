@@ -17,7 +17,7 @@ public class RiskOfRain2Achievements {
 		Map<RiskOfRain2Item, Achievement> achievements = new LinkedHashMap<RiskOfRain2Item, Achievement>();
 		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
 			if (!item.isUnlockedByDefault()) {
-				Achievement achievement = new RiskOfRain2Achievement(item);
+				Achievement achievement = item.getAchievement();
 				achievement.initIndependentStat().registerStat();
 				achievements.put(item, achievement);
 			}

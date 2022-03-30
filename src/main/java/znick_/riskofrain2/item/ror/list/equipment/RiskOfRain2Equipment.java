@@ -18,7 +18,7 @@ import znick_.riskofrain2.item.ror.proc.type.OnUpdateItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public abstract class RiskOfRain2Equipment extends RiskOfRain2Item implements OnKeyPressItem, OnUpdateItem {
+public abstract class RiskOfRain2Equipment extends RiskOfRain2Item {
 
 	/**
 	 * The base cooldown for this equipment, meaning it is before any reductions from items 
@@ -49,27 +49,6 @@ public abstract class RiskOfRain2Equipment extends RiskOfRain2Item implements On
 		EquipmentUsedEvent event = new EquipmentUsedEvent(player.getEntity(), this);
 		if (MinecraftForge.EVENT_BUS.post(event)) return;
 		this.activateEffect(player);
-	}
-	
-	@Override
-	public boolean shouldProcOnKeypress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
-		return RiskOfRain2KeyBinds.ACTIVE.getKeyBinding().isPressed() && player.getEquipmentCooldown() == 0;
-	}
-	
-	@Override
-	public void procOnKeyPress(KeyInputEvent event, AbstractEntityData player, int itemCount) {
-		this.activate(player);
-		player.setEquipmentCooldown(this.getBaseCooldown());
-	}
-	
-	@Override
-	public void procOnUpdate(LivingUpdateEvent event, AbstractEntityData entity, int itemCount) {
-		entity.tickEquipmentCooldown();
-	}
-	
-	@Override
-	public boolean shouldProcOnUpdate(LivingUpdateEvent event, AbstractEntityData entity, int itemCount) {
-		return entity.getEquipmentCooldown() > 0;
 	}
 	
 	protected void setBaseCooldown(int ticks) {

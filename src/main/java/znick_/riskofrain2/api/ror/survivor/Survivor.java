@@ -1,7 +1,6 @@
 package znick_.riskofrain2.api.ror.survivor;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -20,17 +19,17 @@ import znick_.riskofrain2.item.armor.ArmorType;
 
 public abstract class Survivor {
 	
-	private static final Set<Survivor> SURVIVORS = new HashSet<>();
-
+	private static final Map<Integer, Survivor> SURVIVOR_IDS = new HashMap<>();
+	
 	public static final Huntress HUNTRESS = new Huntress();
 	
 	private final Map<AbilityType, Set<Ability>> abilities = new HashMap<>();
+	private final int id;
 	
 	protected Survivor() {
-		SURVIVORS.add(this);
-		for (AbilityType type : AbilityType.values()) {
-			abilities.put(type, new LinkedHashSet<>());
-		}
+		this.id = SURVIVOR_IDS.size() + 1;
+		SURVIVOR_IDS.put(this.id, this);
+		for (AbilityType type : AbilityType.values()) abilities.put(type, new LinkedHashSet<>());
 	}
 	
 	public abstract Loadout getDefaultLoadout();
@@ -50,12 +49,16 @@ public abstract class Survivor {
 	
 	public void renderCrosshair(Gui gui) {}
 	
+	public int getUniqueID() {
+		return this.id;
+	}
+	
 	public void addAbility(Ability ability) {
 		this.abilities.get(ability.getAbilityType()).add(ability);
 	}
 	
 	public static Survivor[] getSurvivors() {
-		return SURVIVORS.toArray(new Survivor[0]);
+		return SURVIVOR_IDS.values().toArray(new Survivor[0]);
 	}
 	
 	public static Optional<Survivor> fromPlayer(EntityPlayer player) {
@@ -63,6 +66,10 @@ public abstract class Survivor {
 			if (survivor.isPlayer(player)) return Optional.of(survivor);
 		}
 		return Optional.empty();
+	}
+
+	public static Survivor fromID(int id) {
+		return SURVIVOR_IDS.get(id);
 	}
 	
 }

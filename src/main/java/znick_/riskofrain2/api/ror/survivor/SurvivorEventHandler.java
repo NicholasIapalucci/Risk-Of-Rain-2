@@ -28,37 +28,6 @@ public class SurvivorEventHandler extends EventHandler {
 	private static Optional<AbilityPhase> repeatingPhase = Optional.empty();
 
 	@SubscribeEvent
-	public void listenForAbilityActivation(KeyInputEvent event) {
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		for (Survivor survivor : Survivor.getSurvivors()) {
-			if (survivor.isPlayer(player)) {
-				PlayerData data = AbstractEntityData.get(player);
-				Loadout loadout = data.getLoadout();
-
-				// If the utility key was pressed, activate the utility ability
-				if (RiskOfRain2KeyBinds.UTILITY.getKeyBinding().isPressed()) {
-					try {
-						loadout.getUtility().getClass().newInstance().activate(player);
-					} catch (Exception e) {
-						throw new RuntimeException(e);
-					}
-				}
-
-				// If the special key was pressed, activate the special ability
-				if (RiskOfRain2KeyBinds.SPECIAL.getKeyBinding().isPressed()) {
-					try {
-						loadout.getSpecial().getClass().newInstance().activate(player);
-					} catch (Exception e) {
-						throw new RuntimeException(e);
-					}
-				}
-
-				break;
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void activateAbilities(TickEvent.ClientTickEvent event) {
 		if (abilityQueue.isEmpty()) return;
 		int clientTick = TickHandler.client();

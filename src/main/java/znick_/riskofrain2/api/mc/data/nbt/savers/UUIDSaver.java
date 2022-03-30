@@ -7,7 +7,11 @@ import znick_.riskofrain2.api.mc.data.nbt.SavableToNBT;
 
 public class UUIDSaver extends Saver<UUID> {
 
-	public UUIDSaver(UUID object) {
+	public UUIDSaver() {
+		super();
+	}
+	
+	private UUIDSaver(UUID object) {
 		super(object);
 	}
 

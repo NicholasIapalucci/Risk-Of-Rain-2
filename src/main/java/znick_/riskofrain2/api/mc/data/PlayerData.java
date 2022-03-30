@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.item.EntityItem;
@@ -14,6 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.nbt.NBTHelper;
+import znick_.riskofrain2.api.mc.data.nbt.SavableMap;
+import znick_.riskofrain2.api.mc.data.nbt.SavableWith;
+import znick_.riskofrain2.api.mc.data.nbt.savers.ItemSaver;
+import znick_.riskofrain2.api.mc.data.nbt.savers.SurvivorSaver;
+import znick_.riskofrain2.api.mc.data.nbt.savers.UUIDSaver;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -28,10 +34,19 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 
 	public static final String PROPERTY_ID = "player_data";
 	
-	/**The set of items that the player has unlocked.o*/
+	/**The set of items that the player has unlocked.*/
+	@SavableWith(ItemSaver.class)
 	private final Set<RiskOfRain2Item> unlockedItems = new HashSet<>();
+	
 	/**The set of items that the player has found in the world.*/
+	@SavableWith(ItemSaver.class)
 	private final Set<RiskOfRain2Item> foundItems = new HashSet<>();
+	
+	@SavableMap(keySaver = SurvivorSaver.class)
+	private final Map<Survivor, Loadout> loadouts = new HashMap<>();
+	
+	@SavableMap(keySaver = UUIDSaver.class)
+	private final Map<UUID, Object> savedObjects = new HashMap<>();
 	
 	/**The amount of money the player has*/
 	private int money;
@@ -40,63 +55,26 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 	/**The chance of a lunar coin being dropped by an entity. Get's halved every time one drops.*/
 	private double lunarCoinChance = 0.005;
 	
-	/**
-	 * The amount of times the player has died. Recorded to give the tougher times achievement,
-	 * which unlockes when the player dies 5 times.
-	 */
-	private int deaths = 0;
-	
-	private Loadout loadout = Survivor.HUNTRESS.getDefaultLoadout();
-	
 	protected PlayerData(EntityPlayer player) {
 		super(player);
-		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) {
-			if (item.isUnlockedByDefault()) this.unlockedItems.add(item);
-		}
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Constructing PlayerData");
+		
+		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) if (item.isUnlockedByDefault()) this.unlockedItems.add(item);
+		for (Survivor survivor : Survivor.getSurvivors()) this.loadouts.put(survivor, survivor.getDefaultLoadout());
 	}
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
 		NBTTagCompound properties = new NBTTagCompound();
 		NBTHelper.writeFieldsToNBT(properties, this);
-		
-		int i = 1;
-		for (RiskOfRain2Item item : this.unlockedItems) {
-			properties.setInteger("unlocked_item_" + i, Item.getIdFromItem(item));
-			i++;
-		}
-		
-		i = 1;
-		for (RiskOfRain2Item item : this.foundItems) {
-			if (RiskOfRain2Mod.DEBUG) System.out.println("Saving that " + this.entity.getDisplayName() + " has found " + item.getClass().getSimpleName());
-			properties.setInteger("found_item_" + i, Item.getIdFromItem(item));
-			i++;
-		}
-		
 		compound.setTag(PROPERTY_ID, properties);
 	}
 	
 	@Override
 	public void loadNBTData(NBTTagCompound compound) {
-		System.out.println("Loading NBT data for " + this.entity.getDisplayName() + " on side " + this.getSide());
+		if (RiskOfRain2Mod.DEBUG) System.out.println("Loading NBT data for " + this.entity.getDisplayName() + " on side " + this.getSide());
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(PROPERTY_ID);
 		NBTHelper.readFieldsFromNBT(properties, this);
-		
-		int i = 1;
-		while(true) {
-			int id = properties.getInteger("unlocked_item_" + i);
-			if (id == 0) break;
-			this.unlockedItems.add((RiskOfRain2Item) Item.getItemById(id));
-			i++;
-		}
-		
-		i = 1;
-		while(true) {
-			int id = properties.getInteger("found_item_" + i);
-			if (id == 0) break;
-			this.foundItems.add((RiskOfRain2Item) Item.getItemById(id));
-			i++;
-		}
 	}
 	
 	@Override
@@ -212,7 +190,16 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 	}
 
 	public Loadout getLoadout() {
-		return this.loadout;
+		if (this.isSurvivor()) return this.loadouts.get(this.getSurvivor());
+		return null;
+	}
+	
+	public boolean isSurvivor() {
+		return Survivor.fromPlayer(this.entity).isPresent();
+	}
+	
+	public Survivor getSurvivor() {
+		return Survivor.fromPlayer(this.entity).get();
 	}
 
 	@Override
@@ -246,12 +233,12 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 			if (!this.hasFound(item)) this.find(item);
 		}
 	}
-
-	public int getDeathCount() {
-		return this.deaths;
+	
+	public <E> E getSavedObject(UUID key, Class<E> eClass) {
+		return (E) this.savedObjects.get(key);
 	}
-
-	public void addDeath() {
-		this.deaths++;
+	
+	public <E> void saveObject(UUID key, E object) {
+		this.savedObjects.put(key, object);
 	}
 }

@@ -5,6 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemSaver extends Saver<Item> {
 
+	public ItemSaver() {
+		super();
+	}
+	
 	public ItemSaver(Item object) {
 		super(object);
 	}
