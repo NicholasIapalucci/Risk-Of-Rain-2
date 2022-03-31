@@ -25,7 +25,7 @@ public class HomingProjectile extends Entity implements IProjectile {
 	
 	public HomingProjectile(World world) {
 		super(world);
-		this.searchRadius = 10;
+		this.searchRadius = 25;
 		this.target = this.findTarget();
 		this.speed = DEFAULT_SPEED;
 	}
@@ -33,7 +33,7 @@ public class HomingProjectile extends Entity implements IProjectile {
 	public HomingProjectile(World world, double x, double y, double z) {
 		super(world);
 		this.setPosition(x, y, z);
-		this.searchRadius = 10;
+		this.searchRadius = 25;
 		this.target = this.findTarget();
 		this.speed = DEFAULT_SPEED;
 	}
@@ -47,7 +47,7 @@ public class HomingProjectile extends Entity implements IProjectile {
 	
 	public HomingProjectile(World world, EntityLiving target, double speed) {
 		super(world);
-		this.searchRadius = 10;
+		this.searchRadius = 25;
 		this.target = target;
 		this.speed = speed;
 	}

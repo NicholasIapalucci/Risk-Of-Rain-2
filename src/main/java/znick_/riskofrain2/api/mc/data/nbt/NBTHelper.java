@@ -24,8 +24,8 @@ import znick_.riskofrain2.util.helper.ReflectionHelper;
  */
 public class NBTHelper {
 
-	private static final boolean WRITING_DEBUG = false;
-	private static final boolean READING_DEBUG = false;
+	private static final boolean WRITING_DEBUG = true;
+	private static final boolean READING_DEBUG = true;
 	
 	/**
 	 * Writes all fields in this class to NBT if they are able to. Fields can be written to NBT iff
@@ -112,6 +112,7 @@ public class NBTHelper {
 			System.out.println();
 			System.out.println("--------------------------------------------------------------------------");
 			System.out.println("Attempting to write " + key + " with annotations " + Arrays.toString(annotations));
+			System.out.println(value);
 		}
 		
 		// Write the field to NBT if it's primitive
@@ -375,7 +376,7 @@ public class NBTHelper {
 				}
 				
 				// Read the field from NBT
-				Object obj = readObjectFromNBT(nbt, field.getName(), field.getType(), ReflectionHelper.getFieldGenerics(field), field.getAnnotations());
+				Object obj = readObjectFromNBT(nbt, field.getName(), field.get(object).getClass(), ReflectionHelper.getFieldGenerics(field), field.getAnnotations());
 				field.set(object, obj);
 			} 
 			
@@ -556,7 +557,9 @@ public class NBTHelper {
 	private static <T> Collection<T> readCollectionFromNBT(NBTTagCompound nbt, String key, Class<Collection<?>> objectClass, Class<T> genericClass, Annotation[] annotations) {
 		Collection<T> collection = null;
 		try {
+			if (READING_DEBUG) System.out.println("Creating instance of collection...");
 			collection = (Collection<T>) objectClass.newInstance();
+			if (READING_DEBUG) System.out.println("Instance created! iterating...");
 			for (int i = 0; i < Integer.MAX_VALUE; i++) {
 				T obj = (T) readObjectFromNBT(nbt, key + "_element_" + i, genericClass, new Class<?>[0], annotations);
 				if (obj == null) return collection;
@@ -566,6 +569,8 @@ public class NBTHelper {
 		}
 		
 		catch(Exception e) {
+			if (READING_DEBUG) System.out.println("Error reading Collection from NBT: " + e.getClass().getSimpleName());
+			e.printStackTrace();
 			return collection;
 		}
 	}

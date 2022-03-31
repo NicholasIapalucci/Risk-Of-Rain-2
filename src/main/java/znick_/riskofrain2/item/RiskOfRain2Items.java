@@ -51,6 +51,7 @@ import znick_.riskofrain2.item.ror.list.red.HeadSet;
 import znick_.riskofrain2.item.ror.list.red.RejuvinationRack;
 import znick_.riskofrain2.item.ror.list.red.bensraincoat.BensRaincoatItem;
 import znick_.riskofrain2.item.ror.list.red.brilliantbehemoth.BrilliantBehemothItem;
+import znick_.riskofrain2.item.ror.list.red.ceremonialdagger.CeremonialDaggerItem;
 import znick_.riskofrain2.item.ror.list.red.defensivemicrobots.DefensiveMicrobotsItem;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendConsumed;
 import znick_.riskofrain2.item.ror.list.red.diosbestfriend.DiosBestFriendItem;
@@ -275,6 +276,8 @@ public class RiskOfRain2Items {
 	public static final RiskOfRain2Item BRILLIANT_BEHEMOTH = new BrilliantBehemothItem();
 	public static final RiskOfRain2Item DEFENSIVE_MICROBOTS = new DefensiveMicrobotsItem();
 	public static final RiskOfRain2Item FIFTY_SEVEN_LEAF_CLOVER = new FiftySevenLeafClover();
+	
+	public static final RiskOfRain2Item CEREMONIAL_DAGGER = new CeremonialDaggerItem();
 	
 	/**
 	 * The "Dio's best friend" item. Allows the player to be saved from death followed by 10 seconds of
