@@ -51,7 +51,7 @@ public class FireworksItem extends RiskOfRain2Item implements OnObjectInteractio
 	 * @param itemCount The amount of bundles of fireworks that the player has
 	 */
 	private void shootFirework(AbstractEntityData player, TileEntity tile, int itemCount) {
-		player.getWorld().spawnEntityInWorld(new FireworkEntity(player.getWorld(),tile.xCoord + Math.random(), tile.yCoord + 1, tile.zCoord + Math.random()));
+		player.getWorld().spawnEntityInWorld(new FireworkEntity(player.getWorld(), tile.xCoord + Math.random(), tile.yCoord + 1, tile.zCoord + Math.random()));
 		if (player.getWorld().isRemote) {
 			player.playSound("ror2:fireworks_launch");
 			if (++this.fireworksShot > 4 + 4 * itemCount) {
