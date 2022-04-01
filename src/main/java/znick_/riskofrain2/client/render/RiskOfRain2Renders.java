@@ -17,6 +17,7 @@ import znick_.riskofrain2.entity.inanimate.CommandEssenceCube;
 import znick_.riskofrain2.entity.inanimate.CommandEssenceEntity;
 import znick_.riskofrain2.entity.inanimate.RenderCommandEssence;
 import znick_.riskofrain2.entity.inanimate.RenderCommandEssenceCube;
+import znick_.riskofrain2.item.ror.list.green.atgmissile.ATGMissileEntity;
 import znick_.riskofrain2.item.ror.list.red.ceremonialdagger.CeremonialDaggerEntity;
 import znick_.riskofrain2.item.ror.list.white.fireworks.FireworkEntity;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
@@ -33,7 +34,8 @@ public class RiskOfRain2Renders {
 		RenderingRegistry.registerEntityRenderingHandler(FireworkEntity.class, new RenderEntity2D(Items.fireworks));
 		RenderingRegistry.registerEntityRenderingHandler(CommandEssenceEntity.class, new RenderCommandEssence(ItemRarity.WHITE));
 		RenderingRegistry.registerEntityRenderingHandler(CommandEssenceCube.class, new RenderCommandEssenceCube());
-		RenderingRegistry.registerEntityRenderingHandler(CeremonialDaggerEntity.class, new RenderEntity2D("ror2:textures/entity/item/ceremonial_dagger"));
+		RenderingRegistry.registerEntityRenderingHandler(CeremonialDaggerEntity.class, new RenderEntity2D("ror2:textures/entity/items/ceremonial_dagger"));
+		RenderingRegistry.registerEntityRenderingHandler(ATGMissileEntity.class, new RenderEntity2D("ror2:textures/entity/items/atg_missile"));
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntity3DPrinter.class, new Render3DPrinter());
 	}

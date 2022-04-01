@@ -9,6 +9,7 @@ import znick_.riskofrain2.entity.elite.mobs.zombie.GlacialZombie;
 import znick_.riskofrain2.entity.elite.mobs.zombie.MalachiteZombie;
 import znick_.riskofrain2.entity.inanimate.CommandEssenceCube;
 import znick_.riskofrain2.entity.inanimate.CommandEssenceEntity;
+import znick_.riskofrain2.item.ror.list.green.atgmissile.ATGMissileEntity;
 import znick_.riskofrain2.item.ror.list.red.ceremonialdagger.CeremonialDaggerEntity;
 import znick_.riskofrain2.item.ror.list.white.fireworks.FireworkEntity;
 
@@ -20,6 +21,7 @@ public class RiskOfRain2Entities {
 		registerStandardEntity(HuntressRainingArrow.class, "huntress_raining_arrow");
 		registerStandardEntity(FireworkEntity.class, "bundle_of_fireworks");
 		registerStandardEntity(CeremonialDaggerEntity.class, "ceremonial_dagger");
+		registerStandardEntity(ATGMissileEntity.class, "atg_missile");
 		registerStandardEntity(CommandEssenceEntity.class, "command_essence");
 		registerStandardEntity(CommandEssenceCube.class, "command_essence_cube");
 		

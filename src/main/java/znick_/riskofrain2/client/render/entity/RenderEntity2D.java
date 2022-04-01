@@ -15,11 +15,12 @@ import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 public class RenderEntity2D extends Render {
 
 	private IIcon icon;
+	private Item item;
 	private ResourceLocation texture;
 	private int metadata;
 
 	public RenderEntity2D(Item item, int meta) {
-        this.icon = item.getIconFromDamage(this.metadata);
+		this.item = item;
         this.metadata = meta;
     }
 
@@ -36,6 +37,7 @@ public class RenderEntity2D extends Render {
 	}
 
 	public void doRender(Entity entity, double x, double y, double z, float float1, float float2) {
+		this.icon = this.item.getIconFromDamage(this.metadata);
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) x, (float) y, (float) z);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);

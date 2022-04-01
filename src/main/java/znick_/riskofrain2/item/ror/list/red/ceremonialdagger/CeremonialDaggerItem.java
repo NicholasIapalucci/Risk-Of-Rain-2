@@ -16,7 +16,9 @@ public class CeremonialDaggerItem extends RiskOfRain2Item implements OnKillItem 
 
 	@Override
 	public void procOnKill(LivingDeathEvent event, AbstractEntityData player, EntityLivingBase enemy, int itemCount) {
-		player.getWorld().spawnEntityInWorld(new CeremonialDaggerEntity(player.getWorld(), enemy.posX, enemy.posY, enemy.posZ));
+		for (int i = 0; i < 3; i++) {
+			player.getWorld().spawnEntityInWorld(new CeremonialDaggerEntity(player.getWorld(), enemy.posX + Math.random(), enemy.posY + Math.random(), enemy.posZ + Math.random(), itemCount));
+		}
 	}
 
 	@Override

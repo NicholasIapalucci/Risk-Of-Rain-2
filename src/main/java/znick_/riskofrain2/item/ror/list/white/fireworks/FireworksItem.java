@@ -52,13 +52,12 @@ public class FireworksItem extends RiskOfRain2Item implements OnObjectInteractio
 	 */
 	private void shootFirework(AbstractEntityData player, TileEntity tile, int itemCount) {
 		player.getWorld().spawnEntityInWorld(new FireworkEntity(player.getWorld(), tile.xCoord + Math.random(), tile.yCoord + 1, tile.zCoord + Math.random()));
-		if (player.getWorld().isRemote) {
-			player.playSound("ror2:fireworks_launch");
-			if (++this.fireworksShot > 4 + 4 * itemCount) {
-				this.fireworksShot = 0;
-				this.tile = null;
-			}
+		this.fireworksShot++;
+		if (this.fireworksShot > 4 + 4 * itemCount) {
+			this.fireworksShot = 0;
+			this.tile = null;
 		}
+		player.playSound("ror2:fireworks_launch");
 	}
 
 	@Override

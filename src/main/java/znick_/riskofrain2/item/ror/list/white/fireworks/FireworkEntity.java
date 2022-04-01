@@ -1,10 +1,10 @@
 package znick_.riskofrain2.item.ror.list.white.fireworks;
 
-import net.minecraft.client.renderer.entity.RenderFireball;
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import znick_.riskofrain2.entity.util.HomingProjectile;
-import znick_.riskofrain2.event.handler.TickHandler;
 
 public class FireworkEntity extends HomingProjectile {
 
@@ -26,6 +26,7 @@ public class FireworkEntity extends HomingProjectile {
 
 	@Override
 	protected void onCollisionWithTarget() {
+		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, this.target, 0, "lastDamage");
 		this.target.attackEntityFrom(DamageSource.generic, 2);
 		this.explode();
 	}

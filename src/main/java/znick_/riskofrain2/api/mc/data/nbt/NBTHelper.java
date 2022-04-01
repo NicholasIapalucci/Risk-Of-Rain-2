@@ -24,8 +24,8 @@ import znick_.riskofrain2.util.helper.ReflectionHelper;
  */
 public class NBTHelper {
 
-	private static final boolean WRITING_DEBUG = true;
-	private static final boolean READING_DEBUG = true;
+	private static final boolean WRITING_DEBUG = false;
+	private static final boolean READING_DEBUG = false;
 	
 	/**
 	 * Writes all fields in this class to NBT if they are able to. Fields can be written to NBT iff

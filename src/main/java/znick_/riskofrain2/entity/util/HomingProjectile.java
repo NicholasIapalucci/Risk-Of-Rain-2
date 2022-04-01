@@ -17,7 +17,7 @@ public class HomingProjectile extends Entity implements IProjectile {
 	protected EntityLiving target;
 	private final double speed;
 	private final int searchRadius;
-	private static final double DEFAULT_SPEED = 0.2;
+	private static final double DEFAULT_SPEED = 0.5;
 	
 	protected int lifespan = TickHandler.fromSeconds(10);
 	protected int ticksExisted;

@@ -34,6 +34,7 @@ import znick_.riskofrain2.item.ror.list.green.HopooFeather;
 import znick_.riskofrain2.item.ror.list.green.LeechingSeed;
 import znick_.riskofrain2.item.ror.list.green.WaxQuail;
 import znick_.riskofrain2.item.ror.list.green.WillOTheWisp;
+import znick_.riskofrain2.item.ror.list.green.atgmissile.ATGMissileItem;
 import znick_.riskofrain2.item.ror.list.green.huntersharpoon.HuntersHarpoonItem;
 import znick_.riskofrain2.item.ror.list.green.infusion.InfusionItem;
 import znick_.riskofrain2.item.ror.list.green.oldwarstealthkit.OldWarStealthkit;
@@ -244,6 +245,7 @@ public class RiskOfRain2Items {
 	 * The "wax quail" item. Boosts the player forward when jumping while springing.
 	 */
 	public static final RiskOfRain2Item WAX_QUAIL = new WaxQuail();
+	public static final RiskOfRain2Item ATG_MISSILE = new ATGMissileItem();
 	public static final RiskOfRain2Item HUNTERS_HARPOON = new HuntersHarpoonItem();
 	/**
 	 * The "old war stealthkit" item. Falling below 25% health causes the player to become invisible and gain
