@@ -15,7 +15,8 @@ public interface ItemGenerator {
 	public abstract RiskOfRain2Item generateItem(EntityPlayer player);
 	
 	/**
-	 * Generates a random item with the given rarity.
+	 * Generates a random item with the given rarity. Does not include "special" items such as consumed
+	 * items or item scrap.
 	 * 
 	 * @param rarity The rarity of the item to generate
 	 * 

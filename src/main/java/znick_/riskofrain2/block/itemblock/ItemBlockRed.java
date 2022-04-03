@@ -1,4 +1,4 @@
-package znick_.riskofrain2.item.itemblock.color;
+package znick_.riskofrain2.block.itemblock;
 
 import java.util.List;
 

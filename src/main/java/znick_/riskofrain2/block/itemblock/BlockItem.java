@@ -3,7 +3,6 @@ package znick_.riskofrain2.block.itemblock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import znick_.riskofrain2.block.BasicBlock;
-import znick_.riskofrain2.item.itemblock.color.ItemBlockRed;
 
 /**The default implementation of {@code IBlockItem}.*/
 public class BlockItem extends BasicBlock implements IBlockItem {

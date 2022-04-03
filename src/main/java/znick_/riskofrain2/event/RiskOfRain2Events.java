@@ -1,5 +1,6 @@
 package znick_.riskofrain2.event;
 
+import znick_.riskofrain2.api.ror.artifact.ArtifactEventHandler;
 import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.event.handler.GeneralEventHandler;
@@ -14,6 +15,7 @@ public class RiskOfRain2Events {
 	public static final EventHandler TICK_HANDLER = new TickHandler();
 	public static final EventHandler GENERAL_EVENT_HANDLER = new GeneralEventHandler();
 	public static final EventHandler KEYBIND_LISTENER = new KeyBindListener();
+	public static final EventHandler ARTIFACT_EVENT_HANDLER = new ArtifactEventHandler();
 	
 	public static void registerEvents() {}
 }

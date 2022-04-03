@@ -9,7 +9,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
-import znick_.riskofrain2.item.itemblock.ItemBlockLunarPod;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class LunarPod extends Block implements IBlockItem {

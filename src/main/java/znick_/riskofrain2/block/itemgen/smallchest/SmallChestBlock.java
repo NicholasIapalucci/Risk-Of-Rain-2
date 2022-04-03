@@ -11,12 +11,11 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
-import znick_.riskofrain2.item.itemblock.ItemBlockChest;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
 public class SmallChestBlock extends Block implements IBlockItem, ITileEntityProvider {
 
-	private final IIcon[] textures = new IIcon[6];
+	private final IIcon[] closedTextures = new IIcon[6];
 	
 	public SmallChestBlock() {
 		super(Material.rock);
@@ -36,26 +35,27 @@ public class SmallChestBlock extends Block implements IBlockItem, ITileEntityPro
 		for (int i = 0; i < 6; i++) {
 			switch(i) {
 			case 0:
-				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/bottom");
+				this.closedTextures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/bottom");
 				break;
 			case 1:
-				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/top");
+				this.closedTextures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/top");
 				break;
 			case 2:
-				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/back");
+				this.closedTextures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/back");
 				break;
 			case 3:
-				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/front");
+				this.closedTextures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/front");
 				break;
 			default:
-				this.textures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/side");
+				this.closedTextures[i] = reg.registerIcon(RiskOfRain2Mod.MODID + ":chest/side");
 			}
 		}
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		return this.textures[side];
+		System.out.println(meta);
+		return this.closedTextures[side];
 	}
 	
 	@Override

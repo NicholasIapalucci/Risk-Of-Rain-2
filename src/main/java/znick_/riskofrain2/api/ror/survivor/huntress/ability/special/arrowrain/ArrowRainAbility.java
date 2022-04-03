@@ -1,5 +1,6 @@
 package znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain;
 
+import java.awt.Color;
 import java.util.Random;
 
 import org.lwjgl.input.Mouse;
@@ -8,6 +9,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
@@ -21,7 +23,9 @@ import znick_.riskofrain2.api.ror.survivor.ability.phase.ActivatedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.DelayedAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.ability.phase.RepeatingAbilityPhase;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.utility.BlinkAbility;
+import znick_.riskofrain2.client.render.RenderHelper;
 import znick_.riskofrain2.event.handler.TickHandler;
+import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.util.helper.MathHelper;
 
 public class ArrowRainAbility extends Ability<ArrowRainAbility> {
@@ -91,6 +95,7 @@ public class ArrowRainAbility extends Ability<ArrowRainAbility> {
 				//Check if the block exists
 				if (pos.getBlock(player.worldObj) != Blocks.air) {
 					//TODO: Add block highlighting
+					RenderHelper.renderCube(pos.getIntX(), pos.getIntY(), pos.getIntZ(), 1, new Color(0, 255, 255));
 					this.blockToRainOn = pos;
 					break;
 				}
@@ -116,6 +121,11 @@ public class ArrowRainAbility extends Ability<ArrowRainAbility> {
 		public void activateFirst(EntityPlayer player) {
 			player.playSound("ror2:huntress_arrowrain_loop", 1, 1);
 		}
+
+		@Override
+		public int getDuration() {
+			return TickHandler.fromSeconds(5);
+		}
 	}
 	
 	public class ArrowRainPhase3 implements AbilityPhase, ActivatedAbilityPhase<TickEvent.ClientTickEvent>, RepeatingAbilityPhase {
@@ -129,6 +139,19 @@ public class ArrowRainAbility extends Ability<ArrowRainAbility> {
 
 		@Override
 		public void activatePhase(EntityPlayer player) {
+			
+			// If we're on the client, send a packet to the server.
+			if (player.worldObj.isRemote) {
+				IMessage packet = new ArrowRainPacketHandler.ArrowRainPacket(
+					ArrowRainAbility.this.phase2.blockToRainOn.getIntX(), 
+					ArrowRainAbility.this.phase2.blockToRainOn.getIntY(), 
+					ArrowRainAbility.this.phase2.blockToRainOn.getIntZ()
+				);
+				RiskOfRain2Packets.NET.sendToServer(packet);
+				return;
+			}
+			
+			// If we're on the server, do the stuff
 			for (int i = 0; i < 3; i++) {
 				HuntressRainingArrow arrow = new HuntressRainingArrow(player.worldObj, player);
 				Random random = new Random();
@@ -154,11 +177,10 @@ public class ArrowRainAbility extends Ability<ArrowRainAbility> {
 		@SubscribeEvent
 		public void listenForActivation(TickEvent.ClientTickEvent event) {
 			
-			if (Mouse.isButtonDown(0)) {
-				if (ArrowRainAbility.this.phase2.isActive()) {
-					ArrowRainAbility.this.phase2.deactivatePhase();
-					this.activate();
-				}
+			// Activate if the phase 2 is active and left click is pressed
+			if (Mouse.isButtonDown(0) && ArrowRainAbility.this.phase2.isActive()) {
+				ArrowRainAbility.this.phase2.deactivatePhase();
+				this.activatePhase(Minecraft.getMinecraft().thePlayer);
 			}
 		}
 
@@ -171,16 +193,10 @@ public class ArrowRainAbility extends Ability<ArrowRainAbility> {
 		public void activateFirst(EntityPlayer player) {
 			player.playSound("ror2:huntress_arrowrain_loop", 1, 1);
 		}
-		
+
 		@Override
-		public Side sideToRunOn() {
-			return Side.SERVER;
-		}
-		
-		@Override
-		public IMessage createPacket() {
-			Position pos = ArrowRainAbility.this.phase2.blockToRainOn;
-			return new ArrowRainPacket.ArrowRainMessage(pos.getIntX(), pos.getIntY(), pos.getIntZ());
+		public int getDuration() {
+			return TickHandler.fromSeconds(5);
 		}
 	}
 

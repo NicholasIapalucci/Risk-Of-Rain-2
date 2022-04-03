@@ -15,4 +15,6 @@ public interface RepeatingAbilityPhase {
 	 * to play sounds and such. 
 	 */
 	public default void activateFirst(EntityPlayer player) {}
+	
+	public abstract int getDuration();
 }

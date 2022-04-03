@@ -2,6 +2,7 @@ package znick_.riskofrain2.event.rorevents;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
@@ -18,7 +19,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class GenerateItemEvent extends PlayerEvent {
 
 	private RiskOfRain2Item item;
-	private final GenerationSource source;
+	private final TileEntity generationSource;
 	
 	/**
 	 * Creates a new {@code GenerateItemEvent}.
@@ -26,10 +27,10 @@ public class GenerateItemEvent extends PlayerEvent {
 	 * @param source The source that generated the item
 	 * @param item The item that was generated
 	 */
-	public GenerateItemEvent(GenerationSource source, RiskOfRain2Item item, EntityPlayer player) {
+	public GenerateItemEvent(TileEntity tile, RiskOfRain2Item item, EntityPlayer player) {
 		super(player);
 		this.item = item;
-		this.source = source;
+		this.generationSource = tile;
 	}
 	
 	public void setItem(RiskOfRain2Item item) {
@@ -40,19 +41,9 @@ public class GenerateItemEvent extends PlayerEvent {
 		return this.item;
 	}
 	
-	private GenerationSource getSource() {
-		return this.source;
+	public TileEntity getSource() {
+		return this.generationSource;
 	}
 
-	public static enum GenerationSource {
-		SMALL_CHEST,
-		LARGE_CHEST,
-		RUSTY_LOCKBOX,
-		LUNAR_POD,
-		EQUIPMENT_BARREL,
-		GOLD_CHEST,
-		PRINTER_3D,
-		SHOP_TERMINAL;
-	}
 	
 }

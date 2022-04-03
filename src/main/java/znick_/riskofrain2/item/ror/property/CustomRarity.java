@@ -28,6 +28,9 @@ public class CustomRarity {
 	/**The rarity for any Risk Of Rain 2 items with dark blue names.*/
 	public static final EnumRarity DARK_BLUE = createRarity(EnumChatFormatting.DARK_BLUE);
 	
+	public static final EnumRarity BLACK = createRarity(EnumChatFormatting.BLACK);
+	public static final EnumRarity GRAY = createRarity(EnumChatFormatting.GRAY);
+	
 	/**
 	 * Creates a new {@link net.minecraft.item.EnumRarity EnumRarity} instance through various unsafe and
 	 * highly inefficient methods. But that's what happens when you use enums for things that should be

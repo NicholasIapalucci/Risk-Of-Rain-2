@@ -8,6 +8,8 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
+import znick_.riskofrain2.api.ror.survivor.huntress.ability.primary.StrafeAbility;
+import znick_.riskofrain2.api.ror.survivor.huntress.ability.secondary.LaserGlaiveAbility;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainAbility;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.utility.BlinkAbility;
 import znick_.riskofrain2.client.gui.Crosshair;
@@ -57,6 +59,6 @@ public class Huntress extends Survivor {
 
 	@Override
 	public Loadout getDefaultLoadout() {
-		return new Loadout(null, null, BlinkAbility.MAIN_INSTANCE, ArrowRainAbility.MAIN_INSTANCE);
+		return new Loadout(StrafeAbility.MAIN_INSTANCE, LaserGlaiveAbility.MAIN_INSTANCE, BlinkAbility.MAIN_INSTANCE, ArrowRainAbility.MAIN_INSTANCE);
 	}
 }

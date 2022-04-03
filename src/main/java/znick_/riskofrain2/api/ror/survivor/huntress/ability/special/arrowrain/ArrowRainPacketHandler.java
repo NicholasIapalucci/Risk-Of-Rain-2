@@ -7,12 +7,12 @@ import io.netty.buffer.ByteBuf;
 import znick_.riskofrain2.api.mc.Position;
 import znick_.riskofrain2.api.ror.survivor.SurvivorEventHandler;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainAbility.ArrowRainPhase3;
-import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainPacket.ArrowRainMessage;
+import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainPacketHandler.ArrowRainPacket;
 
-public class ArrowRainPacket implements IMessageHandler<ArrowRainMessage, IMessage> {
+public class ArrowRainPacketHandler implements IMessageHandler<ArrowRainPacket, IMessage> {
 
 	@Override
-	public ArrowRainMessage onMessage(ArrowRainMessage message, MessageContext ctx) {
+	public ArrowRainPacket onMessage(ArrowRainPacket message, MessageContext ctx) {
 		if (ctx.side.isServer()) {
 			ArrowRainPhase3 phase = new ArrowRainAbility().new ArrowRainPhase3();
 			phase.arrowRainBlock = new Position(message.x, message.y, message.z);
@@ -21,15 +21,15 @@ public class ArrowRainPacket implements IMessageHandler<ArrowRainMessage, IMessa
 		return null;
 	}
 	
-	public static class ArrowRainMessage implements IMessage {
+	public static class ArrowRainPacket implements IMessage {
 
 		private int x;
 		private int y;
 		private int z;
 		
-		public ArrowRainMessage() {}
+		public ArrowRainPacket() {}
 		
-		public ArrowRainMessage(int x, int y, int z) {
+		public ArrowRainPacket(int x, int y, int z) {
 			this.x = x;
 			this.y = y;
 			this.z = z;

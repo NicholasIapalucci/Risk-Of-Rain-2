@@ -19,6 +19,7 @@ public class RenderCommandEssenceCube extends Render {
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		CommandEssenceEntity cube = ((CommandEssenceCube) entity).getCommandEssenceEntity();
+		System.out.println(cube.getRarity());
 		return RiskOfRain2Resources.get(RiskOfRain2Resources.TEXTURES + "entity/items/command_essence/" + cube.getRarity().toString().toLowerCase());
 	}
 }

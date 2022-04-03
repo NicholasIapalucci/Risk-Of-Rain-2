@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import znick_.riskofrain2.block.character.huntress.TressiumPlateBlock;
 import znick_.riskofrain2.block.itemblock.BlockItem;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
+import znick_.riskofrain2.block.itemgen.cloakedchest.CloakedChest;
 import znick_.riskofrain2.block.itemgen.lunarpod.LunarPod;
 import znick_.riskofrain2.block.itemgen.printer.Printer3D;
 import znick_.riskofrain2.block.itemgen.smallchest.SmallChestBlock;
@@ -19,6 +20,8 @@ import znick_.riskofrain2.item.ror.list.white.warbanner.WarbannerBlock;
 public class RiskOfRain2Blocks {
 	
 	public static final Block DEV_BLOCK = new DevBlock();
+	
+	public static final Block CLOAKED_CHEST = new CloakedChest();
 	
 	//Huntress
 	public static final Block HUNTRITE_ORE = new OreBlock("huntrite_ore", new OreData().setUpperY(30).setSpawnWeight(0.1f).setMaxVeinSize(1));

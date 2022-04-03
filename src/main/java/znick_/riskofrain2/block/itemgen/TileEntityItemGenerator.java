@@ -8,12 +8,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.event.rorevents.GenerateItemEvent;
-import znick_.riskofrain2.event.rorevents.GenerateItemEvent.GenerationSource;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
+/**
+ * Main abstract parent class for tile entities that can generate items. This includes blocks
+ * such as 3D printers, chests, shop terminals, etc.
+ * 
+ * @author zNick_
+ */
 public abstract class TileEntityItemGenerator extends TileEntity implements ItemGenerator {
 
+	/**Whether or not this item generator has been opened yet.*/
 	private boolean isOpened = false;
 	
 	/**
@@ -29,13 +35,16 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
+        NBTTagCompound compound = (NBTTagCompound) nbt.getTag("compound");
         this.isOpened = nbt.getBoolean("opened");
     }
 
 	@Override
     public void writeToNBT(NBTTagCompound nbt) {
     	super.writeToNBT(nbt);
-    	nbt.setBoolean("opened", this.isOpened);
+    	NBTTagCompound compound = new NBTTagCompound();
+    	compound.setBoolean("opened", this.isOpened);
+    	nbt.setTag("compound", compound);
     }
 	
 	/**
@@ -61,7 +70,7 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		// Post a generate item event and exit if it was canceled
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Posting item generation event...");
 		RiskOfRain2Item generatedItem = this.generateItem(player);
-		GenerateItemEvent genEvent = new GenerateItemEvent(GenerationSource.LUNAR_POD, generatedItem, player);
+		GenerateItemEvent genEvent = new GenerateItemEvent(this, generatedItem, player);
 		if (MinecraftForge.EVENT_BUS.post(genEvent)) return false;
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Item generation event not canceled. Continuing...");
 				
@@ -94,6 +103,9 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		
 		// Play the sound effect
 		this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, this.getSoundName(item), 1, 1);
+		
+		// Update the block
+		this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 1, 3);
 	}
 	
 	/**
@@ -101,7 +113,7 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 	 * 
 	 * @param item The item to get the sound name of
 	 * 
-	 * @return a string starting with "ror2:item_spawn_"
+	 * @return a string starting with {@code "ror2:item_spawn_"}
 	 */
 	private String getSoundName(RiskOfRain2Item item) {
 		return RiskOfRain2Mod.MODID + ":item_spawn_" + item.getRarity().name().toLowerCase();
@@ -119,15 +131,18 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 
 	/**
 	 * Called before the item generator is attempted to be opened. Note that the opening process may not be
-	 * fulfilled as it could be canceled, so do not rely on the generator actually opening. For example, in
-	 * a 3D printer, the printer does not consume a player's item here, as the item generation could be
-	 * canceled and that would result in consuming an item for nothing. Instead, that logic is handled in
-	 * {@link #afterOpened(EntityPlayer)}. However, the printer <i>does</i> use this method to check if the
-	 * player actually has an item that can be consumed, so that it knows not to continue if the player does
-	 * not. This method is mainly for checks, whereas actual actions are generally performed in 
-	 * {@link #afterOpened(EntityPlayer)}.
+	 * fulfilled as it could be canceled, so do not rely on the generator actually opening. 
+	 * <br><br>
+	 * For example, in a 3D printer, the printer does not consume a player's item here, as the 
+	 * item generation could be canceled and that would result in consuming an item for nothing. Instead, 
+	 * that logic is handled in {@link #afterOpened(EntityPlayer)}. 
+	 * <br><br>
+	 * However, the printer <i>does</i> use this method to check if the player actually has an item that 
+	 * can be consumed, so that it knows not to continue if the player does not. This method is mainly for 
+	 * checks, whereas actual actions are generally performed in {@link #afterOpened(EntityPlayer)}.
 	 * 
 	 * @param player The player who is opening this item generator
+	 * 
 	 * @return true if the opening process should continue, false to cancel the opening
 	 */
 	protected boolean beforeOpened(EntityPlayer player) {

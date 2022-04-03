@@ -29,6 +29,7 @@ public class FireworkEntity extends HomingProjectile {
 		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, this.target, 0, "lastDamage");
 		this.target.attackEntityFrom(DamageSource.generic, 2);
 		this.explode();
+		this.setDead();
 	}
 	
 	private void explode() {

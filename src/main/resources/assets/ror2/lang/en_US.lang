@@ -45,13 +45,15 @@ item.lens_frame.name=Lens Frame
 item.light_blue_lens.name=Light Blue Lens
 item.light_blue_framed_lens.name=Light Blue Framed Lens
 item.light_blue_framed_lens_pair.name=Light Blue Framed Lens Pair
-
 tile.huntrite_block.name=Huntrite Block
 tile.huntrite_ore.name=Huntrite Ore
 tile.tressium_ore.name=Tressium Ore
+
+# Blocks ------------------------------------------------------------------------------------------------------------
 tile.small_chest.name=Small Chest
 tile.lunar_pod.name=Lunar Pod
 tile.printer.name=3D Printer
+tile.cloaked_chest.name=Cloaked Chest
 
 # White Items -----------------------------------------------------------------------------------
 
@@ -197,11 +199,3 @@ item.ifrits_distinction.name=Ifrit's Distinction
 item.her_biting_embrace.name=Her Biting Embrace
 item.nkuhanas_retort.name=N'kunana's Retort
 
-# Miscellaneous Items ---------------------------------------------------------------------------------
-
-item.white_command_essence.name=Command Essence (White)
-item.green_command_essence.name=Command Essence (Green)
-item.red_command_essence.name=Command Essence (Red)
-item.boss_command_essence.name=Command Essence (Boss)
-item.lunar_command_essence.name=Command Essence (Lunar)
-item.equipment_command_essence.name=Command Essence (Equipment)

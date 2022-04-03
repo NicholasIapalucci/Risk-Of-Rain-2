@@ -10,16 +10,15 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import znick_.riskofrain2.RiskOfRain2Mod;
-import znick_.riskofrain2.api.mc.data.nbt.NBTHelper;
 import znick_.riskofrain2.api.mc.data.nbt.SavableMap;
 import znick_.riskofrain2.api.mc.data.nbt.SavableWith;
 import znick_.riskofrain2.api.mc.data.nbt.savers.ItemSaver;
 import znick_.riskofrain2.api.mc.data.nbt.savers.SurvivorSaver;
 import znick_.riskofrain2.api.mc.data.nbt.savers.UUIDSaver;
+import znick_.riskofrain2.api.ror.artifact.Artifact;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.item.RiskOfRain2Items;
@@ -48,6 +47,8 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 	@SavableMap(keySaver = UUIDSaver.class)
 	private final Map<UUID, Object> savedObjects = new HashMap<>();
 	
+	private final Set<Artifact> enabledArtifacts = new HashSet<>();
+	
 	/**The amount of money the player has*/
 	private int money;
 	/**The amount of lunar coins the player has*/
@@ -61,12 +62,15 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 		
 		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) if (item.isUnlockedByDefault()) this.unlockedItems.add(item);
 		for (Survivor survivor : Survivor.getSurvivors()) this.loadouts.put(survivor, survivor.getDefaultLoadout());
+		
+		enabledArtifacts.add(Artifact.COMMAND);
 	}
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
+		System.out.println("Saving NBT data for " + this.entity.getDisplayName() + " on side " + this.getSide());
 		NBTTagCompound properties = new NBTTagCompound();
-		NBTHelper.writeFieldsToNBT(properties, this);
+		//NBTHelper.writeFieldsToNBT(properties, this);
 		compound.setTag(PROPERTY_ID, properties);
 	}
 	
@@ -74,7 +78,7 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 	public void loadNBTData(NBTTagCompound compound) {
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Loading NBT data for " + this.entity.getDisplayName() + " on side " + this.getSide());
 		NBTTagCompound properties = (NBTTagCompound) compound.getTag(PROPERTY_ID);
-		NBTHelper.readFieldsFromNBT(properties, this);
+		//NBTHelper.readFieldsFromNBT(properties, this);
 	}
 	
 	@Override
@@ -240,5 +244,13 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 	
 	public <E> void saveObject(UUID key, E object) {
 		this.savedObjects.put(key, object);
+	}
+
+	public boolean hasArtifactEnabled(Artifact artifact) {
+		return this.enabledArtifacts.contains(artifact);
+	}
+
+	public Artifact[] getEnabledArtifacts() {
+		return this.enabledArtifacts.toArray(new Artifact[0]);
 	}
 }

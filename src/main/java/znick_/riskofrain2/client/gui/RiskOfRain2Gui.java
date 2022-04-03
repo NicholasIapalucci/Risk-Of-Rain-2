@@ -8,14 +8,17 @@ import java.util.Optional;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockLog;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.ror.artifact.Artifact;
 import znick_.riskofrain2.api.ror.buff.Buff;
 import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
@@ -39,8 +42,29 @@ public class RiskOfRain2Gui extends Gui {
 		
 		this.renderAbilities();
 		this.renderBuffs();
+		this.renderArtifacts();
 		this.renderCrosshair();
 		this.renderHealth();
+	}
+	
+	/**
+	 * Renders the players enabled artifacts onto the screen.
+	 */
+	private void renderArtifacts() {
+		GL11.glEnable(GL11.GL_BLEND);
+		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		
+		int i = 0;
+		for (Artifact artifact : PlayerData.get(Minecraft.getMinecraft().thePlayer).getEnabledArtifacts()) {
+			GL11.glPushMatrix();
+			Minecraft.getMinecraft().getTextureManager().bindTexture(artifact.getTexture());
+			GL11.glColor3f(1, 1, 1);
+			
+			RenderHelper.drawRect2D(this.width - (30 + (i * 26)), 4, 26, 26);
+			i++;
+			GL11.glPopMatrix();
+		}
 	}
 	
 	/**
@@ -103,6 +127,7 @@ public class RiskOfRain2Gui extends Gui {
 		if (loadout == null) return;
 		int i = 0;
 		for (AbilityType type : AbilityType.values()) {
+			if (type == AbilityType.EQUIPMENT) continue;
 			this.renderAbility(loadout.getAbility(type), this.width/2 + 128 + 24 * i, this.height - 24);
 			i++;
 		}

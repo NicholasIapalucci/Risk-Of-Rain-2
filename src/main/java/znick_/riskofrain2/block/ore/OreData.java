@@ -10,17 +10,32 @@ import net.minecraft.item.Item;
 import scala.actors.threadpool.Arrays;
 import znick_.riskofrain2.api.mc.enums.VanillaDimension;
 
+/**
+ * The {@code OreData} class is used for storing properties of an ore block.
+ * 
+ * @author zNick_
+ */
 public class OreData {
 
+	/**The maximum y-value that the ore can spawn at.*/
 	private int upperY;
+	/**The minimum y-value that thie ore can spawn at.*/
 	private int lowerY;
+	/**The maximum amount of ore blocks that can spawn in a single vein.*/
 	private int maxVein;
+	/**The minimum amount of ore blocks that can spawn in a single vein.*/
 	private int minVein;
+	/**The spawn weight; Determines how common the ore is.*/
 	private float spawnWeight;
+	/**The dimensions in which the ore can spawn.*/
 	private Set<VanillaDimension> dimensions;
+	/**The surrounding block for the ore; Typically stone.*/
 	private Block spawnIn;
+	/**The item the ore drops when broken.*/
 	private Item toDrop;
+	/**The maximum amount of items the ore can drop when broken.*/
 	private int maxDrop;
+	/**The minimum amount of items the ore can drop when broken.*/
 	private int minDrop;
 	
 	public OreData() {
