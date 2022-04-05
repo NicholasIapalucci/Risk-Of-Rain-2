@@ -12,6 +12,18 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 
+/**
+ * Interface for rendering elite entities. Render classes should extend the default entity renderer
+ * and implement this. For example, the elite zombie renderer is declared as follows:
+ * <br><br>
+ * 
+ * &emsp; {@code public class RenderEliteZombie extends RenderZombie implements RenderEliteEntity}
+ * 
+ * <br><br>
+ * This allows for classes to just extend vanilla renders instead of having to rewrite them.
+ * 
+ * @author zNick_
+ */
 public interface RenderEliteEntity {
 
 	/**
@@ -72,6 +84,14 @@ public interface RenderEliteEntity {
 		}
 	}
 	
+	/**
+	 * Renders the small elite icon next to the enemy's name.
+	 * 
+	 * @param tessellator The tessellator to render with
+	 * @param x The x-coordinate
+	 * @param y The y-coordinate
+	 * @param d The dimensions of the icon
+	 */
 	public default void renderEliteIcon(Tessellator tessellator, double x, double y, double d) {
 		String name = this.getEliteTypeForRender().getItem().getUnlocalizedName().substring(5);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(RiskOfRain2Resources.get(RiskOfRain2Resources.BUFFS + name + ".png"));
@@ -90,5 +110,8 @@ public interface RenderEliteEntity {
 		GL11.glPopMatrix();
 	}
 	
+	/**
+	 * Returns the {@code EliteType} of this entity; Used by the renderer.
+	 */
 	public abstract EliteType getEliteTypeForRender();
 }

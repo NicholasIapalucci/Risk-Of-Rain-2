@@ -9,6 +9,19 @@ import znick_.riskofrain2.api.mc.enums.Axis;
 
 public class MathHelper {
 	
+	/**
+	 * Maps a number from one interval to another. The percentage of the way through the interval is kept
+	 * constant. For example, mapping 5 from the interval (0, 20) to the interval (0, 40) will result in
+	 * 10, because 5 is 25% of the way through (0, 20) and 10 is 20% of the way through the interval (0, 40).
+	 * 
+	 * @param n The number to map
+	 * @param lower The lower bound of the original interval
+	 * @param higher The upper bound of the original interval
+	 * @param newLower The lower bound of the new interval
+	 * @param newHigher The upper bound of the original interval
+	 * 
+	 * @return The mapped value
+	 */
 	public static double map(double n, double lower, double higher, double newLower, double newHigher) {
 		if (n >= lower && n <= higher) {
 			
@@ -56,10 +69,6 @@ public class MathHelper {
 	
 	public static Vec3 addVectors(Vec3 vec1, Vec3 vec2) {
 		return vec1.addVector(vec2.xCoord, vec2.yCoord, vec2.zCoord);
-	}
-	
-	public static double constrain(double a, double bottom, double top) {
-		return Math.max(bottom, Math.min(top, a));
 	}
 	
 	public static Vec3 multiplyVectorByScalar(Vec3 vector, double scalar) {

@@ -9,7 +9,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.client.keybind.RiskOfRain2KeyBinds;
 import znick_.riskofrain2.event.rorevents.EquipmentUsedEvent;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;

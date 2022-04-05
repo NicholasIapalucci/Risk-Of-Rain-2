@@ -19,7 +19,7 @@ import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.EntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.event.handler.EventHandler;
 import znick_.riskofrain2.event.rorevents.ObjectInteractionEvent;
 import znick_.riskofrain2.item.RiskOfRain2Items;

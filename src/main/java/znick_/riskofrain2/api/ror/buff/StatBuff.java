@@ -1,6 +1,7 @@
 package znick_.riskofrain2.api.ror.buff;
 
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 public abstract class StatBuff extends Buff {

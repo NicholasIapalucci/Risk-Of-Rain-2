@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.consume.ConsumableItem;

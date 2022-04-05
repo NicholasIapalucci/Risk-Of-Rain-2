@@ -8,7 +8,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.proc.type.OnHitItem;
 import znick_.riskofrain2.item.ror.proc.type.OnHurtItem;

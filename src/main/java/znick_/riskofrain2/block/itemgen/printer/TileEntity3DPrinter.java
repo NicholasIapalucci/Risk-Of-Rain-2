@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.block.itemgen.TileEntityItemGenerator;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;

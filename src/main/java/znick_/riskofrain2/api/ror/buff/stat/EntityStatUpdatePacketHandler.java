@@ -1,4 +1,4 @@
-package znick_.riskofrain2.net;
+package znick_.riskofrain2.api.ror.buff.stat;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -6,28 +6,27 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
-import znick_.riskofrain2.net.PlayerStatUpdatePacketHandler.PlayerStatUpdatePacket;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStatUpdatePacketHandler.EntityStatUpdatePacket;
 
-public class PlayerStatUpdatePacketHandler implements IMessageHandler<PlayerStatUpdatePacket, IMessage> {
+public class EntityStatUpdatePacketHandler implements IMessageHandler<EntityStatUpdatePacket, IMessage> {
 
 	@Override
-	public IMessage onMessage(PlayerStatUpdatePacket message, MessageContext ctx) {
+	public IMessage onMessage(EntityStatUpdatePacket message, MessageContext ctx) {
 		PlayerData.get(ctx.side.isServer()? ctx.getServerHandler().playerEntity : Minecraft.getMinecraft().thePlayer).setStat(message.stat, message.amount, false);
 		return null;
 	}
 	
-	public static class PlayerStatUpdatePacket implements IMessage {
+	public static class EntityStatUpdatePacket implements IMessage {
 		
 		private EntityStat stat;
 		private double amount;
 		
-		public PlayerStatUpdatePacket(EntityStat stat, double amount) {
+		public EntityStatUpdatePacket(EntityStat stat, double amount) {
 			this.stat = stat;
 			this.amount = amount;
 		}
 		
-		public PlayerStatUpdatePacket() {}
+		public EntityStatUpdatePacket() {}
 
 		@Override
 		public void fromBytes(ByteBuf buf) {

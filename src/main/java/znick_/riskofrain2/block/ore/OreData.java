@@ -38,6 +38,9 @@ public class OreData {
 	/**The minimum amount of items the ore can drop when broken.*/
 	private int minDrop;
 	
+	/**
+	 * Creates a new {@code OreData} with default attributes.
+	 */
 	public OreData() {
 		this.upperY = 256;
 		this.lowerY = 1;
@@ -51,11 +54,21 @@ public class OreData {
 		this.minDrop = 1;
 	}
 	
+	/**
+	 * Sets the {@link #upperY} for this {@code OreData}. 
+	 * 
+	 * @param upperY The upper y value
+	 * 
+	 * @return The modified {@code OreData} object
+	 */
 	public OreData setUpperY(int upperY) {
 		this.upperY = upperY;
 		return this;
 	}
 	
+	/**
+	 * Returns the {@link #upperY} for this {@code OreData}
+	 */
 	public int getUpperY() {
 		return this.upperY;
 	}
@@ -96,15 +109,32 @@ public class OreData {
 		return this.spawnWeight;
 	}
 	
-	public OreData addDimension(VanillaDimension d) {
-		this.dimensions.add(d);
+	/**
+	 * Adds a dimension that the ore can spawn in. 
+	 * 
+	 * @param dimension The dimension to add
+	 * 
+	 * @return The modified {@code OreData} object.
+	 */
+	public OreData addDimension(VanillaDimension dimension) {
+		this.dimensions.add(dimension);
 		return this;
 	}
 	
-	public boolean generatesInDimension(VanillaDimension d) {
-		return this.dimensions.contains(d);
+	/**
+	 * Returns whether or not the ore can generate in the given dimension.
+	 * 
+	 * @param dimension The dimension to check.
+	 * 
+	 * @return true iff the ore can generate in the dimension.
+	 */
+	public boolean generatesInDimension(VanillaDimension dimension) {
+		return this.dimensions.contains(dimension);
 	}
 	
+	/**
+	 * Returns the {@link #dimensions} for this {@code OreData}.
+	 */
 	public Set<VanillaDimension> getDimensions() {
 		return this.dimensions;
 	}

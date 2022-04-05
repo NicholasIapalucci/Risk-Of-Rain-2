@@ -20,7 +20,7 @@ import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.artifact.Artifact;
 import znick_.riskofrain2.api.ror.buff.Buff;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Ability;
 import znick_.riskofrain2.api.ror.survivor.ability.AbilityType;

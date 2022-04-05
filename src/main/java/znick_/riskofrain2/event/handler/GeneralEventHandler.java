@@ -31,7 +31,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
+import znick_.riskofrain2.api.mc.data.packets.SyncPlayerDataPacketHandler.SyncPlayerDataPacket;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.client.gui.RiskOfRain2Gui;
 import znick_.riskofrain2.client.gui.commandessence.CommandEssenceGui;
 import znick_.riskofrain2.client.gui.menu.RiskOfRain2MainMenu;
@@ -41,7 +42,6 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
 import znick_.riskofrain2.item.ror.list.white.personalshieldgenerator.ShieldCooldownBuff;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
-import znick_.riskofrain2.net.SyncPlayerDataPacketHandler.SyncPlayerDataPacket;
 
 public class GeneralEventHandler extends EventHandler {
 

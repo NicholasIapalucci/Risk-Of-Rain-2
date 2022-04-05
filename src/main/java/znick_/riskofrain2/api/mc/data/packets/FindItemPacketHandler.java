@@ -1,4 +1,4 @@
-package znick_.riskofrain2.net;
+package znick_.riskofrain2.api.mc.data.packets;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -8,8 +8,8 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import znick_.riskofrain2.api.mc.data.PlayerData;
+import znick_.riskofrain2.api.mc.data.packets.FindItemPacketHandler.FindItemPacket;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.net.FindItemPacketHandler.FindItemPacket;
 
 public class FindItemPacketHandler implements IMessageHandler<FindItemPacket, IMessage> {
 

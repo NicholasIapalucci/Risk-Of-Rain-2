@@ -1,4 +1,4 @@
-package znick_.riskofrain2.net;
+package znick_.riskofrain2.api.mc.data.packets;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import znick_.riskofrain2.api.mc.data.PlayerData;
-import znick_.riskofrain2.net.SyncPlayerDataPacketHandler.SyncPlayerDataPacket;
+import znick_.riskofrain2.api.mc.data.packets.SyncPlayerDataPacketHandler.SyncPlayerDataPacket;
 
 public class SyncPlayerDataPacketHandler implements IMessageHandler<SyncPlayerDataPacket, IMessage> {
 

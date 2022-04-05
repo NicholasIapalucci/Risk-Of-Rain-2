@@ -10,6 +10,11 @@ import znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem;
  */
 public enum EliteType {
 	
+	/**
+	 * The {@code Blazing} elite type. Blazing elites have 2 times damage and 4 times health.
+	 * They spawn fire blocks at their feet wherever they walk and light enemies on fire when
+	 * they hit them.
+	 */
 	BLAZING,
 	CELESTINE,
 	GLACIAL,
@@ -22,8 +27,7 @@ public enum EliteType {
 	/**
 	 * The {@link znick_.riskofrain2.item.ror.list.equipment.elite.EliteEquipmentItem EliteEquipmenItem}
 	 * associated with this {@code EliteType}. Given to mobs to give them the effect of the elite. Also
-	 * can be dropped with a 1/4000 chance to be obtainable for the player. Set in the item constructor.
-	 */
+	 * can be dropped with a 1/4000 chance to be obtainable for the player.*/
 	private EliteEquipmentItem item;
 	
 	/**

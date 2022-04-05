@@ -6,5 +6,10 @@ package znick_.riskofrain2.api.mc.enums;
  * @author zNick_
  */
 public enum Axis {
-	X, Y, Z;
+	/**The x-axis*/
+	X, 
+	/**The y-axis*/
+	Y, 
+	/**The z-axis*/
+	Z;
 }

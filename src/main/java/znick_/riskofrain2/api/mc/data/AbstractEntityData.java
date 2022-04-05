@@ -20,16 +20,16 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import znick_.riskofrain2.api.mc.data.nbt.Unsaved;
+import znick_.riskofrain2.api.mc.data.packets.PlayerHealPacketHandler.PlayerHealPacket;
 import znick_.riskofrain2.api.ror.buff.Buff;
+import znick_.riskofrain2.api.ror.buff.BuffPacketHandler;
 import znick_.riskofrain2.api.ror.buff.DurationBuff;
-import znick_.riskofrain2.api.ror.buff.EntityStat;
 import znick_.riskofrain2.api.ror.buff.StackableBuff;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
+import znick_.riskofrain2.api.ror.buff.stat.EntityStatUpdatePacketHandler.EntityStatUpdatePacket;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
-import znick_.riskofrain2.net.BuffPacketHandler;
-import znick_.riskofrain2.net.PlayerHealPacketHandler.PlayerHealPacket;
-import znick_.riskofrain2.net.PlayerStatUpdatePacketHandler.PlayerStatUpdatePacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.net.SoundPacketHandler;
 
@@ -251,7 +251,7 @@ public abstract class AbstractEntityData<T extends EntityLivingBase> implements 
 	
 	public void setStat(EntityStat stat, double amount, boolean sendPacket) {
 		if (this instanceof PlayerData && sendPacket) {
-			IMessage packet = new PlayerStatUpdatePacket(stat, amount);
+			IMessage packet = new EntityStatUpdatePacket(stat, amount);
 			if (this.getWorld().isRemote) RiskOfRain2Packets.NET.sendToServer(packet);
 			else RiskOfRain2Packets.NET.sendTo(packet, (EntityPlayerMP) this.entity);
 		}

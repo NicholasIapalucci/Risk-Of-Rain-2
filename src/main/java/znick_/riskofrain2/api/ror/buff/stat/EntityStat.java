@@ -1,4 +1,4 @@
-package znick_.riskofrain2.api.ror.buff;
+package znick_.riskofrain2.api.ror.buff.stat;
 
 /**
  * Enum of different stats saved to the player. Used to prevent item effects from multiplying instead of adding.

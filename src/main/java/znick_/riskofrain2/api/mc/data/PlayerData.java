@@ -12,22 +12,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.nbt.SavableMap;
 import znick_.riskofrain2.api.mc.data.nbt.SavableWith;
 import znick_.riskofrain2.api.mc.data.nbt.savers.ItemSaver;
 import znick_.riskofrain2.api.mc.data.nbt.savers.SurvivorSaver;
 import znick_.riskofrain2.api.mc.data.nbt.savers.UUIDSaver;
+import znick_.riskofrain2.api.mc.data.packets.FindItemPacketHandler.FindItemPacket;
 import znick_.riskofrain2.api.ror.artifact.Artifact;
 import znick_.riskofrain2.api.ror.survivor.Survivor;
 import znick_.riskofrain2.api.ror.survivor.ability.Loadout;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
-import znick_.riskofrain2.net.FindItemPacketHandler.FindItemPacket;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 import znick_.riskofrain2.util.achievement.RiskOfRain2Achievements;
-import znick_.riskofrain2.util.helper.MathHelper;
 
 public class PlayerData extends AbstractEntityData<EntityPlayer> {
 
@@ -225,7 +225,7 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 	}
 	
 	public void consumeMoney(int money) {
-		this.money = (int) MathHelper.constrain(money, 0, Integer.MAX_VALUE);
+		this.money = (int) MathHelper.clamp_int(money, 0, Integer.MAX_VALUE);
 	}
 	
 	public int getMoney() {
