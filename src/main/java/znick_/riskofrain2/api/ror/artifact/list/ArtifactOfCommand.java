@@ -5,8 +5,16 @@ import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
+/**
+ * The class for creating the "artifact of command" artifact.
+ * 
+ * @author zNick_
+ */
 public class ArtifactOfCommand extends Artifact {
 
+	/**
+	 * Creates a new artifact of command
+	 */
 	public ArtifactOfCommand() {
 		super("command");
 	}

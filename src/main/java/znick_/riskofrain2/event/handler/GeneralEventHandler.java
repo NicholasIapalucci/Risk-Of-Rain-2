@@ -184,7 +184,6 @@ public class GeneralEventHandler extends EventHandler {
 				gui.setCommandEssenceEntity((CommandEssenceEntity) event.target);
 				FMLCommonHandler.instance().showGuiScreen(guiContainer);
 			}
-			event.target.setDead();
 		}
 	}
 	

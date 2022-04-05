@@ -6,6 +6,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import znick_.riskofrain2.entity.util.HomingProjectile;
 
+/**
+ * The firework entity for the Risk of Rain 2 fireworks item. The entity is a {@link HomingProjectile}.
+ * 
+ * @author zNick_
+ */
 public class FireworkEntity extends HomingProjectile {
 
 	public FireworkEntity(World world) {
@@ -29,7 +34,6 @@ public class FireworkEntity extends HomingProjectile {
 		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, this.target, 0, "lastDamage");
 		this.target.attackEntityFrom(DamageSource.generic, 2);
 		this.explode();
-		this.setDead();
 	}
 	
 	private void explode() {

@@ -58,10 +58,21 @@ public class Position {
 		return new Position((int) this.x, (int) this.y, (int) this.z);
 	}
 	
+	/**
+	 * Sets the block at this position's coordinates.
+	 * 
+	 * @param world The world to set the block in 
+	 * @param block The block to set
+	 */
 	public void setBlock(World world, Block block) {
 		world.setBlock(this.getIntX(), this.getIntY(), this.getIntZ(), block);
 	}
 	
+	/**
+	 * Returns the block at this position's coordinates. 
+	 * 
+	 * @param world The world the block is in
+	 */
 	public Block getBlock(World world) {
 		return world.getBlock(this.getIntX(), this.getIntY(), this.getIntZ());
 	}

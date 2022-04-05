@@ -105,7 +105,7 @@ public class RiskOfRain2Items {
 	 * 
 	 * In general, this set is exactly equal to the set of items shown in the logbook. 
 	 */
-	public static final Set<RiskOfRain2Item> ITEM_SET = new LinkedHashSet<RiskOfRain2Item>();
+	private static final Set<RiskOfRain2Item> ITEM_SET = new LinkedHashSet<RiskOfRain2Item>();
 	
 	public static final Item HUNTRESS_HELMET = new ArmorPiece(Survivor.HUNTRESS, ArmorType.HELMET, "huntress");
 	public static final Item HUNTRESS_CHESTPLATE = new ArmorPiece(Survivor.HUNTRESS, ArmorType.CHESTPLATE, "huntress");
@@ -127,8 +127,14 @@ public class RiskOfRain2Items {
 	 */
 	public static final RiskOfRain2Item REPULSION_ARMOR_PLATE = new RepulsionArmorPlate();
 	
+	/**
+	 * The "mocha" item. Increases movement speed by 7% per stack. 
+	 */
 	public static final RiskOfRain2Item MOCHA = new MochaItem();
 	
+	/**
+	 * The "topaz brooch" item. Upon killing an enemy, the player gains barrier. 
+	 */
 	public static final RiskOfRain2Item TOPAZ_BROOCH = new TopazBroochItem();
 	/**
 	 * The "tougher times" item. Gives the player a 15% (+15% per item) chance to take no damage upon getting hurt.
@@ -276,9 +282,22 @@ public class RiskOfRain2Items {
 	 * The "brilliant behemoth" item. All of the players attacks explode in a radius of 2 (+1 per item).
 	 */
 	public static final RiskOfRain2Item BRILLIANT_BEHEMOTH = new BrilliantBehemothItem();
+	
+	/**
+	 * The "defensive microbots" item. Any projectiles coming towards the player are deleted with a 
+	 * 0.5 second cooldown.
+	 */
 	public static final RiskOfRain2Item DEFENSIVE_MICROBOTS = new DefensiveMicrobotsItem();
+	
+	/**
+	 * The "fifty-seven leaf clover" item. Increases the players luck stat by 1 per stat. 
+	 */
 	public static final RiskOfRain2Item FIFTY_SEVEN_LEAF_CLOVER = new FiftySevenLeafClover();
 	
+	/**
+	 * The "ceremonial dagger" item. When the player kills an enemy, 3 homing daggers are shot at the
+	 * location of the enemy's death. 
+	 */
 	public static final RiskOfRain2Item CEREMONIAL_DAGGER = new CeremonialDaggerItem();
 	
 	/**
@@ -357,5 +376,9 @@ public class RiskOfRain2Items {
 				}
 			}
 		} catch(Exception e) {throw new RuntimeException(e);}
+	}
+	
+	public static RiskOfRain2Item[] itemSet() {
+		return ITEM_SET.toArray(new RiskOfRain2Item[0]);
 	}
 }

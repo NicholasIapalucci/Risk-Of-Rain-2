@@ -60,7 +60,7 @@ public class PlayerData extends AbstractEntityData<EntityPlayer> {
 		super(player);
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Constructing PlayerData");
 		
-		for (RiskOfRain2Item item : RiskOfRain2Items.ITEM_SET) if (item.isUnlockedByDefault()) this.unlockedItems.add(item);
+		for (RiskOfRain2Item item : RiskOfRain2Items.itemSet()) if (item.isUnlockedByDefault()) this.unlockedItems.add(item);
 		for (Survivor survivor : Survivor.getSurvivors()) this.loadouts.put(survivor, survivor.getDefaultLoadout());
 		
 		enabledArtifacts.add(Artifact.COMMAND);

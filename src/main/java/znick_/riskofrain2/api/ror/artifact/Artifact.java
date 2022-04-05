@@ -8,6 +8,11 @@ import znick_.riskofrain2.api.ror.artifact.list.ArtifactOfCommand;
 import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 import znick_.riskofrain2.util.helper.StringHelper;
 
+/**
+ * Artifacts are modifiers from the Risk of Rain 2 game
+ * @author nick
+ *
+ */
 public abstract class Artifact {
 	
 	/**The set of all artifacts. All artifacts are added to this set during construction.*/

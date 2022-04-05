@@ -33,7 +33,7 @@ public interface ItemGenerator {
 	
 	public static RiskOfRain2Item generateItem(ItemRarity rarity) {
 		// Create an array of all items of the given rarity
-		RiskOfRain2Item[] items = RiskOfRain2Items.ITEM_SET.toArray(new RiskOfRain2Item[0]);
+		RiskOfRain2Item[] items = RiskOfRain2Items.itemSet();
 		// Remove item scrap
 		items = Arrays.stream(items).filter(item -> !(item instanceof ScrapItem)).toArray(RiskOfRain2Item[]::new);
 		// Return a random item from the array

@@ -214,14 +214,25 @@ public abstract class RiskOfRain2Item extends Item {
 		return "Risk Of Rain 2 Item: " + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name");
 	}
 	
+	/**
+	 * Returns the DLC pack that this item is from.
+	 */
 	public DLC getDLC() {
 		return DLC.BASE_GAME;
 	}
 
+	/**
+	 * Returns whether or not this item is unlocked by default, meaning it does not require any steps or
+	 * achievement to unlock.
+	 */
 	public boolean isUnlockedByDefault() {
 		return this.getAchievement() == null;
 	}
 	
+	/**
+	 * Returns the achievement required to unlock this item. null by default. Subclasses for items
+	 * that require unlocking should override this and put an achievement
+	 */
 	public RiskOfRain2Achievement getAchievement() {
 		return null;
 	}

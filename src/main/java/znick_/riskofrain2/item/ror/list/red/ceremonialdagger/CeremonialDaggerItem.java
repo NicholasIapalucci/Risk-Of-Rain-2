@@ -8,6 +8,11 @@ import znick_.riskofrain2.item.ror.proc.type.OnKillItem;
 import znick_.riskofrain2.item.ror.property.ItemCategory;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
+/**
+ * The class for creating the Risk of Rain 2 "ceremonial dagger" item.
+ * 
+ * @author zNick_
+ */
 public class CeremonialDaggerItem extends RiskOfRain2Item implements OnKillItem {
 
 	public CeremonialDaggerItem() {

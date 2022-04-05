@@ -4,14 +4,17 @@ import cpw.mods.fml.common.eventhandler.Cancelable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import znick_.riskofrain2.block.itemgen.TileEntityItemGenerator;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 
 /**
  * The {@code GenerateItemEvent} is fired when a Risk Of Rain 2 item is generated into the world. The event
  * is cancelable, and if it is canceled, the item will not generate. However, certain consequences of the
  * item being generated will still happen. For example, if a small chest is opened and the event to generate
- * the item is canceled, the small chest will still be opened and unopenable in the future. Each generation
- * source has their own events to affect that behavior.
+ * the item is canceled, the small chest will still be opened and unopenable in the future. In order to fully
+ * fully prevent an interactable from being opened, see 
+ * {@link znick_.riskofrain2.event.rorevents.ObjectInteractionEvent ObjectInteractionEvent}. To check what
+ * type of interactable generated the item, use an {@code instanceof} check on {@link #getSource()}
  * 
  * @author zNick_
  */
@@ -19,7 +22,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 public class GenerateItemEvent extends PlayerEvent {
 
 	private RiskOfRain2Item item;
-	private final TileEntity generationSource;
+	private final TileEntityItemGenerator generationSource;
 	
 	/**
 	 * Creates a new {@code GenerateItemEvent}.
@@ -27,7 +30,7 @@ public class GenerateItemEvent extends PlayerEvent {
 	 * @param source The source that generated the item
 	 * @param item The item that was generated
 	 */
-	public GenerateItemEvent(TileEntity tile, RiskOfRain2Item item, EntityPlayer player) {
+	public GenerateItemEvent(TileEntityItemGenerator tile, RiskOfRain2Item item, EntityPlayer player) {
 		super(player);
 		this.item = item;
 		this.generationSource = tile;
@@ -41,7 +44,7 @@ public class GenerateItemEvent extends PlayerEvent {
 		return this.item;
 	}
 	
-	public TileEntity getSource() {
+	public TileEntityItemGenerator getSource() {
 		return this.generationSource;
 	}
 

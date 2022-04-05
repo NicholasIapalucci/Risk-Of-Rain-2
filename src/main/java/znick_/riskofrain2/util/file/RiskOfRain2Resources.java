@@ -13,7 +13,14 @@ import znick_.riskofrain2.RiskOfRain2Mod;
  * @author zNick_
  */
 public class RiskOfRain2Resources {
-
+	
+	/**
+	 * The map of strings to their respective cached {@code ResourceLocations}. When resource locations are
+	 * fetched using {@link #get(String)}, they are saved into this map if they are not already. If they are
+	 * already, then they are reused from this map. Resource locations are immutable and thus can be safely
+	 * reused; Caching them improves performance and saves memory by not having to create new resource locations
+	 * every tick or every time one is referenced. 
+	 */
 	private static final Map<String, ResourceLocation> CACHED_RESOURCE_LOCATIONS = new HashMap<>();
 	
 	public static final String BUFFS = RiskOfRain2Mod.MODID + ":textures/gui/buffs/";
@@ -34,8 +41,18 @@ public class RiskOfRain2Resources {
 	 * @return A {@code ResourceLocation} object with the specified location.
 	 */
 	public static ResourceLocation get(String resource) {
+		
+		// If it doesn't end with ".png", make it so
 		if (!resource.endsWith(".png")) resource += ".png";
-		if (!CACHED_RESOURCE_LOCATIONS.containsKey(resource)) CACHED_RESOURCE_LOCATIONS.put(resource, new ResourceLocation(resource));
+		
+		// If it's not cached, cache it and return it
+		if (!CACHED_RESOURCE_LOCATIONS.containsKey(resource)) {
+			ResourceLocation rl = new ResourceLocation(resource);
+			CACHED_RESOURCE_LOCATIONS.put(resource, rl);
+			return rl;
+		}
+		
+		// If it is already cached, just fetch and return it
 		return CACHED_RESOURCE_LOCATIONS.get(resource);
 	}
 }

@@ -12,7 +12,13 @@ import net.minecraft.world.World;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.util.helper.MathHelper;
 
-public class HomingProjectile extends Entity implements IProjectile {
+/**
+ * Represents an entity that homes towards a target. This is just the abstract parent class for other 
+ * entities such as firework entities or shuriken entities that need to home towards their target. 
+ * 
+ * @author zNick_
+ */
+public abstract class HomingProjectile extends Entity implements IProjectile {
 
 	protected EntityLiving target;
 	private final double speed;
@@ -45,16 +51,8 @@ public class HomingProjectile extends Entity implements IProjectile {
 		this.speed = speed;
 	}
 	
-	public HomingProjectile(World world, EntityLiving target, double speed) {
-		super(world);
-		this.searchRadius = 25;
-		this.target = target;
-		this.speed = speed;
-	}
-	
 	@Override
 	public void onUpdate() {
-		System.out.println(this.motionY);
 		super.onUpdate();
 		this.ticksExisted++;
 		if (this.isDead) return;
@@ -78,6 +76,7 @@ public class HomingProjectile extends Entity implements IProjectile {
 			}
 		} 
 		
+		// If there is no alive target to home to, find one
 		else {
 			this.target = this.findTarget();
 		}

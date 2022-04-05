@@ -2,6 +2,7 @@ package znick_.riskofrain2.client.gui.commandessence;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Arrays;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.client.Minecraft;
@@ -41,8 +42,7 @@ public class CommandEssenceGui extends GuiScreen {
 	@Override
 	public void initGui() {
 		
-		this.items = RiskOfRain2Items.ITEM_SET
-				.stream()
+		this.items = Arrays.stream(RiskOfRain2Items.itemSet())
 				.filter(item -> item.getRarity() == this.commandEssence.getRarity())
 				.filter(item -> !(item instanceof ScrapItem))
 				.filter(item -> !(item instanceof RegeneratingScrapItem))
@@ -79,9 +79,20 @@ public class CommandEssenceGui extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTick) {
+		
+		// Draw the translucent gray background
 		this.drawDefaultBackground();
+		
+		// Draw the buttons onto the screen
 		super.drawScreen(mouseX, mouseY, partialTick);
-		this.drawCenteredString(Minecraft.getMinecraft().fontRenderer, EnumChatFormatting.ITALIC + "What is your command?", this.width/2, this.itemStart.y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT - 2, Color.WHITE.getRGB());
+		
+		// Draw the "What's your command?" text
+		this.drawCenteredString(
+			Minecraft.getMinecraft().fontRenderer, 
+			EnumChatFormatting.ITALIC + "What is your command?", 
+			this.width/2, this.itemStart.y - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT - 2, 
+			Color.WHITE.getRGB()
+		);
     }
 
 	@Override
@@ -98,16 +109,14 @@ public class CommandEssenceGui extends GuiScreen {
 			RiskOfRain2Packets.NET.sendToServer(packet);
 			
 			// Close the gui
+			this.commandEssence.setDead();
 			Minecraft.getMinecraft().thePlayer.closeScreen();
 		}
 	}
 	
 	@Override
 	public void onGuiClosed() {
-		// If the player exited without choosing an item, spawn a new command essence
-		if (this.chosenItem == null) {
-			this.commandEssence.worldObj.spawnEntityInWorld(new CommandEssenceEntity(Minecraft.getMinecraft().theWorld, this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.commandEssence.getRarity()));
-		}
+
 	}
 	
 	@Override

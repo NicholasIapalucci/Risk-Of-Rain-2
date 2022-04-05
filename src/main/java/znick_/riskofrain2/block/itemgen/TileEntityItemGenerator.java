@@ -67,45 +67,28 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		if (MinecraftForge.EVENT_BUS.post(event)) return false;
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Object interaction event not canceled. Continuing...");
 		
+		// Play the sound effect
+		RiskOfRain2Item generatedItem = this.generateItem(player);
+		this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, this.getSoundName(generatedItem), 1, 1);
+		this.isOpened = true;
+		
 		// Post a generate item event and exit if it was canceled
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Posting item generation event...");
-		RiskOfRain2Item generatedItem = this.generateItem(player);
 		GenerateItemEvent genEvent = new GenerateItemEvent(this, generatedItem, player);
 		if (MinecraftForge.EVENT_BUS.post(genEvent)) return false;
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Item generation event not canceled. Continuing...");
 				
 		// Refresh the item to drop in case an event listener changed it
 		RiskOfRain2Item toDrop = genEvent.getItem();
-		this.isOpened = true;
 		
-		// Open the loot holder
-		if (!this.worldObj.isRemote) this.forceOpen(player, toDrop);
+		// Create the item to drop
+		EntityItem entityItem = new EntityItem(this.worldObj, ((double) this.xCoord) + 0.5, this.yCoord + 1.2, ((double) this.zCoord) + 0.5, new ItemStack(toDrop));
+		this.worldObj.spawnEntityInWorld(entityItem);
+		entityItem.setVelocity(0, 0.4, 0.1);
+				
 		this.afterOpened(player);
 		
 		return true;
-	}
-	
-	/**
-	 * Force opens the loot crate without firing any events. This should not be called directly, but rather
-	 * by {@link #open(EntityPlayer)} only. Otherwise, if you <i>really</i> need to bypass events, call this
-	 * through reflection. I'll at least make you work for it. Note that this also does not set {@link #isOpened}
-	 * to true, so you'd have to do that manually as well.
-	 * 
-	 * @param item The item to generate.
-	 */
-	private void forceOpen(EntityPlayer player, RiskOfRain2Item item) {
-		if (RiskOfRain2Mod.DEBUG) System.out.println("Opening item generator");
-		
-		// Create the item to drop
-		EntityItem entityItem = new EntityItem(this.worldObj, ((double) this.xCoord) + 0.5, this.yCoord + 1.2, ((double) this.zCoord) + 0.5, new ItemStack(item));
-		this.worldObj.spawnEntityInWorld(entityItem);
-		entityItem.setVelocity(0, 0.4, 0.1);
-		
-		// Play the sound effect
-		this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, this.getSoundName(item), 1, 1);
-		
-		// Update the block
-		this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 1, 3);
 	}
 	
 	/**
