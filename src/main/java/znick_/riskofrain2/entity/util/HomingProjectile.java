@@ -132,14 +132,20 @@ public abstract class HomingProjectile extends Entity implements IProjectile {
 			this.posY + this.searchRadius, 
 			this.posZ + this.searchRadius
 		);
+		
+		// Get the targets within the range and pick a random one as the starting target
 		List<EntityLiving> possibleTargets = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, aabb);
 		if (possibleTargets.isEmpty()) return null;
 		EntityLiving target = possibleTargets.get(0);
+		
+		// Find the nearest entity by checking each one and if it is closer, make that the new target
 		for (EntityLiving entity : possibleTargets) {
 			if (entity.getDistanceToEntity(this) < target.getDistanceToEntity(this)) {
 				target = entity;
 			}
 		}
+		
+		// Return the final target
 		return target;
 	}
 

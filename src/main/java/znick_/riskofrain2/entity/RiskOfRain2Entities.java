@@ -13,10 +13,19 @@ import znick_.riskofrain2.item.ror.list.green.atgmissile.ATGMissileEntity;
 import znick_.riskofrain2.item.ror.list.red.ceremonialdagger.CeremonialDaggerEntity;
 import znick_.riskofrain2.item.ror.list.white.fireworks.FireworkEntity;
 
+/**
+ * Class of custom entities in the Risk of Rain 2 mod.
+ * 
+ * @author zNick_
+ */
 public class RiskOfRain2Entities {
 
+	/**The next unused ID*/
 	private static int nextID = 0;
 	
+	/**
+	 * Registers the custom entities into the game. 
+	 */
 	public static void registerEntities() {
 		registerStandardEntity(HuntressRainingArrow.class, "huntress_raining_arrow");
 		registerStandardEntity(FireworkEntity.class, "bundle_of_fireworks");
@@ -31,6 +40,12 @@ public class RiskOfRain2Entities {
 		registerStandardEntity(MalachiteZombie.class, "malachite_zombie");
 	}
 	
+	/**
+	 * Registers an entity with standard parameters. 
+	 * 
+	 * @param entityClass The class of the entity to register
+	 * @param name The name of the entity to register
+	 */
 	private static void registerStandardEntity(Class<? extends Entity> entityClass, String name) {
 		EntityRegistry.registerModEntity(entityClass, name, nextID++, RiskOfRain2Mod.instance, 64, 1, true);
 	}
