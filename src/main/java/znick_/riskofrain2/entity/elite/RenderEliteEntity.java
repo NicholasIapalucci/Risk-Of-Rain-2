@@ -41,6 +41,8 @@ public interface RenderEliteEntity {
 		double d3 = entity.getDistanceSqToEntity(rm.livingPlayer);
 
 		if (d3 <= (double) (dist * dist)) {
+			
+			// Apply translations
 			FontRenderer fontrenderer = render.getFontRendererFromRenderManager();
 			float f = 1.6F;
 			float f1 = 0.016666668F * f;
@@ -57,12 +59,13 @@ public interface RenderEliteEntity {
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			Tessellator tessellator = Tessellator.instance;
 			
+			// Deadmau5 has ears skin so name must be raised
 			byte b0 = 0;
 			if (name.equals("deadmau5")) b0 = -10;
-
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
 			int j = fontrenderer.getStringWidth(name) / 2;
 			
+			// Render the name tag box
 			tessellator.startDrawingQuads();
 			tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
 			tessellator.addVertex((double) (-j - 1), (double) (-1 + b0), 0.0D);
@@ -71,6 +74,7 @@ public interface RenderEliteEntity {
 			tessellator.addVertex((double) ( j + 1), (double) (-1 + b0), 0.0D);
 			tessellator.draw();
 			
+			// Render the name string
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			fontrenderer.drawString(name, -fontrenderer.getStringWidth(name) / 2, b0, 553648127);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -79,6 +83,7 @@ public interface RenderEliteEntity {
 			GL11.glEnable(GL11.GL_LIGHTING);
 	        GL11.glDisable(GL11.GL_BLEND);
 			
+	        // Render the elite icon
 			this.renderEliteIcon(tessellator, -j - 10, -1, 9);
 			GL11.glPopMatrix();
 		}

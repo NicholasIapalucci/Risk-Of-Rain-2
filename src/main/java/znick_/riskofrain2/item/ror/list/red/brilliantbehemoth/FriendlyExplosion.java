@@ -1,6 +1,5 @@
 package znick_.riskofrain2.item.ror.list.red.brilliantbehemoth;
 
-import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
@@ -59,7 +57,7 @@ public class FriendlyExplosion extends Explosion {
         explosion.isSmoking = true;
         if (ForgeEventFactory.onExplosionStart(mob.worldObj, explosion)) return;
         explosion.doExplosionA();
-        if (exploder.worldObj.isRemote) explosion.doExplosionB(true);
+        if (mob.worldObj.isRemote) explosion.doExplosionB(true);
 	}
 
 	/**
@@ -122,7 +120,7 @@ public class FriendlyExplosion extends Explosion {
 					double d10 = (double) this.world.getBlockDensity(vec3, entity.boundingBox);
 					double d11 = (1.0D - d4) * d10;
 					
-					entity.attackEntityFrom(new UniqueDamageSource((EntityPlayer) this.exploder), (float) ((int) ((d11 * d11 + d11) / 2.0D * 8.0D * (double) this.explosionSize + 1.0D)));
+					entity.attackEntityFrom(new UniqueDamageSource((EntityLivingBase) this.exploder), (float) ((int) ((d11 * d11 + d11) / 2.0D * 8.0D * (double) this.explosionSize + 1.0D)));
 					double d8 = EnchantmentProtection.func_92092_a(entity, d11);
 					
 					entity.motionX += d5 * d8;

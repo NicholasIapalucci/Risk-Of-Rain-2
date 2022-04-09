@@ -1,11 +1,13 @@
-package znick_.riskofrain2.entity.inanimate;
+package znick_.riskofrain2.api.ror.artifact.list.command.entity;
 
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
-public class CommandEssenceEntity extends Entity {
+public class CommandEssenceEntity extends Entity implements IEntityAdditionalSpawnData {
 
 	private ItemRarity rarity;
 	private final CommandEssenceCube[] cubes = new CommandEssenceCube[15];
@@ -71,6 +73,16 @@ public class CommandEssenceEntity extends Entity {
 
 	public ItemRarity getRarity() {
 		return this.rarity;
+	}
+	
+	@Override
+	public void writeSpawnData(ByteBuf buf) {
+		buf.writeInt(this.rarity.ordinal());
+	}
+
+	@Override
+	public void readSpawnData(ByteBuf buf) {
+		this.rarity = ItemRarity.values()[buf.readInt()];
 	}
 
 }

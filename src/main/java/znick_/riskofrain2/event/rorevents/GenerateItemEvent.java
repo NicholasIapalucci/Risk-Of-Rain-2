@@ -21,7 +21,9 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 @Cancelable
 public class GenerateItemEvent extends PlayerEvent {
 
+	/**The item that was generated*/
 	private RiskOfRain2Item item;
+	/**The tile entity that generated the item*/
 	private final TileEntityItemGenerator generationSource;
 	
 	/**
@@ -36,14 +38,25 @@ public class GenerateItemEvent extends PlayerEvent {
 		this.generationSource = tile;
 	}
 	
+	/**
+	 * Sets the item that was generated. This will replace the item in the world.
+	 * 
+	 * @param item The item to generate
+	 */
 	public void setItem(RiskOfRain2Item item) {
 		this.item = item;
 	}
 	
+	/**
+	 * Gets the item that was generated.
+	 */
 	public RiskOfRain2Item getItem() {
 		return this.item;
 	}
 	
+	/**
+	 * Returns the tile entity that generated the item.
+	 */
 	public TileEntityItemGenerator getSource() {
 		return this.generationSource;
 	}

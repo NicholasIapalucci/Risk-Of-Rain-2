@@ -54,7 +54,6 @@ public class SmallChestBlock extends Block implements IBlockItem, ITileEntityPro
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		System.out.println(meta);
 		return this.closedTextures[side];
 	}
 	

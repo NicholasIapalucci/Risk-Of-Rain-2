@@ -1,4 +1,4 @@
-package znick_.riskofrain2.entity.inanimate;
+package znick_.riskofrain2.api.ror.artifact.list.command.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;

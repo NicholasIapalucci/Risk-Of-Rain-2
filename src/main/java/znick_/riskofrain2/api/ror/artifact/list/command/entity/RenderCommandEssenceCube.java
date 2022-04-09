@@ -1,4 +1,4 @@
-package znick_.riskofrain2.entity.inanimate;
+package znick_.riskofrain2.api.ror.artifact.list.command.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
@@ -18,8 +18,6 @@ public class RenderCommandEssenceCube extends Render {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
-		CommandEssenceEntity cube = ((CommandEssenceCube) entity).getCommandEssenceEntity();
-		System.out.println(cube.getRarity());
-		return RiskOfRain2Resources.get(RiskOfRain2Resources.TEXTURES + "entity/items/command_essence/" + cube.getRarity().toString().toLowerCase());
+		return RiskOfRain2Resources.get(RiskOfRain2Resources.TEXTURES + "entity/items/command_essence/" + ((CommandEssenceCube) entity).getRarity().toString().toLowerCase());
 	}
 }

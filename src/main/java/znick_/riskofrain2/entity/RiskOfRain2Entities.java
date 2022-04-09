@@ -3,12 +3,13 @@ package znick_.riskofrain2.entity;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import net.minecraft.entity.Entity;
 import znick_.riskofrain2.RiskOfRain2Mod;
+import znick_.riskofrain2.api.ror.artifact.list.command.entity.CommandEssenceCube;
+import znick_.riskofrain2.api.ror.artifact.list.command.entity.CommandEssenceEntity;
+import znick_.riskofrain2.api.ror.artifact.list.vengeance.VengeantPlayer;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.HuntressRainingArrow;
 import znick_.riskofrain2.entity.elite.mobs.zombie.BlazingZombie;
 import znick_.riskofrain2.entity.elite.mobs.zombie.GlacialZombie;
 import znick_.riskofrain2.entity.elite.mobs.zombie.MalachiteZombie;
-import znick_.riskofrain2.entity.inanimate.CommandEssenceCube;
-import znick_.riskofrain2.entity.inanimate.CommandEssenceEntity;
 import znick_.riskofrain2.item.ror.list.green.atgmissile.ATGMissileEntity;
 import znick_.riskofrain2.item.ror.list.red.ceremonialdagger.CeremonialDaggerEntity;
 import znick_.riskofrain2.item.ror.list.white.fireworks.FireworkEntity;
@@ -33,6 +34,9 @@ public class RiskOfRain2Entities {
 		registerStandardEntity(ATGMissileEntity.class, "atg_missile");
 		registerStandardEntity(CommandEssenceEntity.class, "command_essence");
 		registerStandardEntity(CommandEssenceCube.class, "command_essence_cube");
+		
+		// Artifacts
+		registerStandardEntity(VengeantPlayer.class, "vengeant_player");
 		
 		// Elite Zombie
 		registerStandardEntity(BlazingZombie.class, "blazing_zombie");

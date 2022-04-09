@@ -48,12 +48,13 @@ public class ItemProccer extends EventHandler {
 	 */
 	@SubscribeEvent
 	public void procOnHitItems(LivingAttackEvent event) {
-		if (event.source.getEntity() instanceof EntityPlayer && 
-		    !(event.source instanceof UniqueDamageSource) && 
-		    event.source.getEntity() != null) {
+		if (
+			!(event.source instanceof UniqueDamageSource) && 
+			event.source.getEntity() != null &&
+			event.source.getEntity() instanceof EntityLivingBase) {
 			
-			EntityPlayer player = (EntityPlayer) event.source.getEntity();
-			AbstractEntityData data = AbstractEntityData.get(player);
+			AbstractEntityData data = AbstractEntityData.get((EntityLivingBase) event.source.getEntity());
+					
 			Map<OnHitItem, Integer> itemMap = data.getRiskOfRain2Items(OnHitItem.class);
 			double originalDamageMultiplier = data.getStat(EntityStat.DAMAGE_MULTIPLIER);
 			
@@ -67,7 +68,7 @@ public class ItemProccer extends EventHandler {
 			//Check for & handle critical strike
 			boolean crit = data.rollStat(EntityStat.CRIT_CHANCE);
 			
-			if (crit && !player.worldObj.isRemote) {
+			if (crit && !data.getWorld().isRemote) {
 				if (RiskOfRain2Mod.DEBUG) System.out.println("Player procced critical strike with chance " + data.getStat(EntityStat.CRIT_CHANCE) * 100 + "%");
 				data.addToStat(EntityStat.DAMAGE_MULTIPLIER, 1);
 				data.playSound("ror2:crit_glasses");
@@ -79,7 +80,7 @@ public class ItemProccer extends EventHandler {
 				}
 			} 
 			
-			else if (!player.worldObj.isRemote) {
+			else if (!data.getWorld().isRemote) {
 				if (RiskOfRain2Mod.DEBUG) System.out.println("Failed to proc critical strike with chance " + data.getStat(EntityStat.CRIT_CHANCE) * 100 + "%");
 			}
 			
@@ -92,7 +93,7 @@ public class ItemProccer extends EventHandler {
 			 */
 			if (data.getStat(EntityStat.DAMAGE_MULTIPLIER) != 1) {
 				event.setCanceled(true);
-				event.entity.attackEntityFrom(new UniqueDamageSource(player), (float) (event.ammount * data.getStat(EntityStat.DAMAGE_MULTIPLIER)));
+				event.entity.attackEntityFrom(new UniqueDamageSource(data.getEntity()), (float) (event.ammount * data.getStat(EntityStat.DAMAGE_MULTIPLIER)));
 			}
 			
 			// Reset to original damage multiplier

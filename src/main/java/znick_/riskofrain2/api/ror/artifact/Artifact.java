@@ -4,14 +4,15 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import net.minecraft.util.ResourceLocation;
-import znick_.riskofrain2.api.ror.artifact.list.ArtifactOfCommand;
+import znick_.riskofrain2.api.ror.artifact.list.command.ArtifactOfCommand;
+import znick_.riskofrain2.api.ror.artifact.list.vengeance.ArtifactOfVengeance;
 import znick_.riskofrain2.util.file.RiskOfRain2Resources;
 import znick_.riskofrain2.util.helper.StringHelper;
 
 /**
  * Artifacts are modifiers from the Risk of Rain 2 game
- * @author nick
- *
+ * 
+ * @author zNick_
  */
 public abstract class Artifact {
 	
@@ -24,9 +25,19 @@ public abstract class Artifact {
 	 */
 	public static final ArtifactOfCommand COMMAND = new ArtifactOfCommand();
 	
+	/**
+	 * The "Artifact of Vengeance". Every 10 minutes, an evil player will spawn near a player with
+	 * the same Risk of Rain 2 items as them.
+	 */
+	public static final ArtifactOfVengeance VENGEANCE = new ArtifactOfVengeance();
+	
+	/**The artifact tablet triangle shape.*/
 	protected static final Shape TRIANGLE = new Shape();
+	/**The artifact tablet square shape.*/
 	protected static final Shape SQUARE = new Shape();
+	/**The artifact tablet circle shape.*/
 	protected static final Shape CIRCLE = new Shape();
+	/**The artifact tablet diamond shape.*/
 	protected static final Shape DIAMOND = new Shape();
 	
 	/**
@@ -47,7 +58,7 @@ public abstract class Artifact {
 	 */
 	protected Artifact(String name) {
 		this.name = name;
-		this.texture = RiskOfRain2Resources.get(RiskOfRain2Resources.TEXTURES + "gui/artifacts/" + name);
+		this.texture = RiskOfRain2Resources.get(RiskOfRain2Resources.GUI + "artifacts/" + name);
 		ARTIFACTS.add(this);
 	}
 	
@@ -97,6 +108,11 @@ public abstract class Artifact {
 	/**Returns the configuration of shapes on the tablet that corresponds to this artifact.*/
 	public abstract Shape[] getTabletConfiguration();
 	
+	/**
+	 * Class for creating shapes for the artifact tablets.
+	 * 
+	 * @author zNick_
+	 */
 	public static class Shape {
 		private Shape() {}
 	}

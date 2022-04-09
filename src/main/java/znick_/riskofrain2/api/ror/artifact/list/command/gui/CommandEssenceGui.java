@@ -1,4 +1,4 @@
-package znick_.riskofrain2.client.gui.commandessence;
+package znick_.riskofrain2.api.ror.artifact.list.command.gui;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -8,13 +8,15 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.Position;
+import znick_.riskofrain2.api.ror.artifact.list.command.entity.CommandEssenceEntity;
 import znick_.riskofrain2.client.gui.GuiHandler;
 import znick_.riskofrain2.client.gui.logbook.ItemButton;
-import znick_.riskofrain2.entity.inanimate.CommandEssenceEntity;
+import znick_.riskofrain2.entity.util.EntityPacketHandler.EntityPacket;
 import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.list.ScrapItem;
@@ -105,18 +107,24 @@ public class CommandEssenceGui extends GuiScreen {
 			
 			// Spawn it on the server side
 			Minecraft.getMinecraft().thePlayer.playSound(RiskOfRain2Mod.MODID + ":item_spawn_" + item.getRarity().name().toLowerCase(), 1, 1);
-			IMessage packet = new DropItemPacketHandler.DropItemPacket(this.chosenItem, this.pos.getX(), this.pos.getY(), this.pos.getZ());
-			RiskOfRain2Packets.NET.sendToServer(packet);
+			IMessage dropItemPacket = new DropItemPacketHandler.DropItemPacket(this.chosenItem, this.pos.getX(), this.pos.getY(), this.pos.getZ());
+			RiskOfRain2Packets.NET.sendToServer(dropItemPacket);
 			
-			// Close the gui
-			this.commandEssence.setDead();
+			// Kill the command essence entity and close the gui
+			IMessage entityPacket = new EntityPacket(this.commandEssence) {
+				@Override
+				public void onServerMessage(Entity entity) {
+					entity.setDead();
+				}
+			};
+			RiskOfRain2Packets.NET.sendToServer(entityPacket);
 			Minecraft.getMinecraft().thePlayer.closeScreen();
 		}
 	}
 	
 	@Override
 	public void onGuiClosed() {
-
+		
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package znick_.riskofrain2.api.ror.artifact.list;
+package znick_.riskofrain2.api.ror.artifact.list.command;
 
 import znick_.riskofrain2.api.ror.artifact.Artifact;
 import znick_.riskofrain2.item.RiskOfRain2Items;

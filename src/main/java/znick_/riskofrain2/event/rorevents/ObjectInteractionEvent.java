@@ -17,13 +17,23 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 @Cancelable
 public class ObjectInteractionEvent extends PlayerEvent {
 	
+	/**The tile entity object that was interacted with*/
 	private final TileEntity object;
 	
+	/**
+	 * Creates a new {@code ObjectInteractionEvent}.
+	 * 
+	 * @param player The player that interacted with the object
+	 * @param object The object that was interacted with
+	 */
 	public ObjectInteractionEvent(EntityPlayer player, TileEntity object) {
 		super(player);
 		this.object = object;
 	}
 	
+	/**
+	 * Returns the tile entity object that was interacted with.
+	 */
 	public TileEntity getInteractedObject() {
 		return this.object;
 	}

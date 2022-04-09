@@ -7,11 +7,11 @@ import znick_.riskofrain2.RiskOfRain2Mod;
 import znick_.riskofrain2.api.mc.data.packets.FindItemPacketHandler;
 import znick_.riskofrain2.api.mc.data.packets.PlayerHealPacketHandler;
 import znick_.riskofrain2.api.mc.data.packets.SyncPlayerDataPacketHandler;
+import znick_.riskofrain2.api.ror.artifact.list.command.gui.DropItemPacketHandler;
 import znick_.riskofrain2.api.ror.buff.BuffPacketHandler;
 import znick_.riskofrain2.api.ror.buff.stat.EntityStatUpdatePacketHandler;
 import znick_.riskofrain2.api.ror.survivor.huntress.ability.special.arrowrain.ArrowRainPacketHandler;
-import znick_.riskofrain2.client.gui.commandessence.DropItemPacketHandler;
-import znick_.riskofrain2.client.gui.commandessence.SpawnCommandEssencePacketHandler;
+import znick_.riskofrain2.entity.util.EntityPacketHandler;
 
 public class RiskOfRain2Packets {
 
@@ -25,9 +25,9 @@ public class RiskOfRain2Packets {
 		registerMessage(EntityStatUpdatePacketHandler.class, EntityStatUpdatePacketHandler.EntityStatUpdatePacket.class);
 		registerMessage(BuffPacketHandler.class, BuffPacketHandler.BuffPacket.class);
 		registerMessage(DropItemPacketHandler.class, DropItemPacketHandler.DropItemPacket.class);
-		registerMessage(SpawnCommandEssencePacketHandler.class, SpawnCommandEssencePacketHandler.SpawnCommandEssencePacket.class);
 		registerMessage(FindItemPacketHandler.class, FindItemPacketHandler.FindItemPacket.class);
 		registerMessage(SyncPlayerDataPacketHandler.class, SyncPlayerDataPacketHandler.SyncPlayerDataPacket.class);
+		registerMessage(EntityPacketHandler.class, EntityPacketHandler.EntityPacket.class);
 	}
 	
 	private static void registerMessage(Class handler, Class packet) {

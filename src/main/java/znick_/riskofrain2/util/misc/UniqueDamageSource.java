@@ -1,19 +1,18 @@
 package znick_.riskofrain2.util.misc;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 
 public class UniqueDamageSource extends DamageSource {
 
-	private final EntityPlayer player;
+	private final EntityLivingBase player;
 	
-	public UniqueDamageSource(EntityPlayer player) {
+	public UniqueDamageSource(EntityLivingBase player) {
 		super("unique");
 		this.player = player;
 	}
 	
-	public EntityPlayer getPlayer() {
+	public EntityLivingBase getPlayer() {
 		return player;
 	}
 
