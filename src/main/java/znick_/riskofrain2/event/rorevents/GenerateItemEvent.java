@@ -14,7 +14,7 @@ import znick_.riskofrain2.item.ror.RiskOfRain2Item;
  * the item is canceled, the small chest will still be opened and unopenable in the future. In order to fully
  * fully prevent an interactable from being opened, see 
  * {@link znick_.riskofrain2.event.rorevents.ObjectInteractionEvent ObjectInteractionEvent}. To check what
- * type of interactable generated the item, use an {@code instanceof} check on {@link #getSource()}
+ * type of interactable generated the item, use an {@code instanceof} check on {@link #getSource()}.
  * 
  * @author zNick_
  */

@@ -4,16 +4,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import znick_.riskofrain2.RiskOfRain2Mod;
+import znick_.riskofrain2.api.mc.enums.Face;
 import znick_.riskofrain2.block.itemblock.IBlockItem;
+import znick_.riskofrain2.block.util.BlockFace;
+import znick_.riskofrain2.block.util.FacingBlock;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
-public class SmallChestBlock extends Block implements IBlockItem, ITileEntityProvider {
+public class SmallChestBlock extends Block implements IBlockItem, ITileEntityProvider, FacingBlock {
 
 	private final IIcon[] closedTextures = new IIcon[6];
 	
@@ -23,6 +28,11 @@ public class SmallChestBlock extends Block implements IBlockItem, ITileEntityPro
 		this.setBlockTextureName(RiskOfRain2Mod.MODID + ":chest");
 		this.setCreativeTab(RiskOfRain2CreativeTabs.BLOCKS);
 		this.setBlockUnbreakable();
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase placer, ItemStack stack) {
+		this.setMetadataUponPlacing(world, x, y, z, placer);
 	}
 	
 	@Override
@@ -67,6 +77,16 @@ public class SmallChestBlock extends Block implements IBlockItem, ITileEntityPro
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
 		return ItemBlockChest.class;
+	}
+
+	@Override
+	public Face getFacingDirection() {
+		return null;
+	}
+
+	@Override
+	public String getSideTexture(BlockFace face) {
+		return null;
 	}
 
 }

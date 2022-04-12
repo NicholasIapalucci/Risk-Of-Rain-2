@@ -28,12 +28,16 @@ public class RiskOfRain2Entities {
 	 * Registers the custom entities into the game. 
 	 */
 	public static void registerEntities() {
-		registerStandardEntity(HuntressRainingArrow.class, "huntress_raining_arrow");
+		
+		//Items
 		registerStandardEntity(FireworkEntity.class, "bundle_of_fireworks");
 		registerStandardEntity(CeremonialDaggerEntity.class, "ceremonial_dagger");
 		registerStandardEntity(ATGMissileEntity.class, "atg_missile");
 		registerStandardEntity(CommandEssenceEntity.class, "command_essence");
 		registerStandardEntity(CommandEssenceCube.class, "command_essence_cube");
+		
+		// Survivors
+		registerStandardEntity(HuntressRainingArrow.class, "huntress_raining_arrow");
 		
 		// Artifacts
 		registerStandardEntity(VengeantPlayer.class, "vengeant_player");

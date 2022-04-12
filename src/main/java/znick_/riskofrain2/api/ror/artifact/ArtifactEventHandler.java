@@ -30,13 +30,15 @@ public class ArtifactEventHandler extends EventHandler {
 		
 		if (!event.entityPlayer.worldObj.isRemote) {
 			TileEntity tile = event.getSource();
-			tile.getWorldObj().spawnEntityInWorld(new CommandEssenceEntity(
-				tile.getWorldObj(), 
-				tile.xCoord, 
-				tile.yCoord, 
-				tile.zCoord + 1, 
-				event.getItem().getRarity()
-			));
+			tile.getWorldObj().spawnEntityInWorld(
+				new CommandEssenceEntity(
+					tile.getWorldObj(), 
+					tile.xCoord, 
+					tile.yCoord, 
+					tile.zCoord + 1, 
+					event.getItem().getRarity()
+				)
+			);
 		}
 	}
 }

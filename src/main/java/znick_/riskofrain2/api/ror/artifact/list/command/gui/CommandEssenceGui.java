@@ -62,11 +62,10 @@ public class CommandEssenceGui extends GuiScreen {
 	@Override
 	public void initGui() {
 		
-		this.items = Arrays.stream(RiskOfRain2Items.itemSet())
-				.filter(item -> item.getRarity() == this.commandEssence.getRarity())
-				.filter(item -> !(item instanceof ScrapItem))
-				.filter(item -> !(item instanceof RegeneratingScrapItem))
-				.toArray(RiskOfRain2Item[]::new);
+		this.items = RiskOfRain2Items.itemSubset(
+			item -> !item.isExcludedFromChests() && 
+			item.getRarity() == this.commandEssence.getRarity()
+		);
 			
 		this.displayItems = new RiskOfRain2Item[5][(int) Math.ceil(items.length/5)];
 			
