@@ -23,20 +23,38 @@ import znick_.riskofrain2.item.ror.list.ScrapItem;
 import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapItem;
 import znick_.riskofrain2.net.RiskOfRain2Packets;
 
+/**
+ * Class for creating the command essence GUI that lets the player pick their item.
+ * 
+ * @author zNick_
+ */
 public class CommandEssenceGui extends GuiScreen {
 
+	/**The GUI ID*/
 	public static final int GUI_ID = GuiHandler.getNextID(CommandEssenceGui.class);
+	/**The next available button ID*/
 	private int nextButtonID = 0;
 	
+	/**The location of the GUI*/
 	private final Position pos;
+	/**The command essence entity that created the GUI*/
 	private CommandEssenceEntity commandEssence;
 	
+	/**The items to display, formatted as a 2D array.*/
 	private RiskOfRain2Item[][] displayItems;
+	/**The items to display*/
 	private RiskOfRain2Item[] items;
-	private ItemStack chosenItem;
 	
+	/**The upper left corner of the first item*/
 	private Point itemStart;
 	
+	/**
+	 * Creates a new {@code CommandEssenceGui} at the specified position
+	 * 
+	 * @param x The x-coordinate of the GUI
+	 * @param y The y-coordinate of the GUI
+	 * @param z The z-coordinate of the GUI
+	 */
 	public CommandEssenceGui(int x, int y, int z) {
 		this.pos = new Position(x, y, z);
 	}
@@ -99,15 +117,17 @@ public class CommandEssenceGui extends GuiScreen {
 
 	@Override
 	public void actionPerformed(GuiButton button) {
+		
+		// Check if the player chose an item
 		if (button instanceof ItemButton) {
 			
 			// Get the item chosen
 			RiskOfRain2Item item = (RiskOfRain2Item) ((ItemButton) button).getItem();
-			this.chosenItem = new ItemStack(item, 1);
+			ItemStack chosenItem = new ItemStack(item, 1);
 			
 			// Spawn it on the server side
 			Minecraft.getMinecraft().thePlayer.playSound(RiskOfRain2Mod.MODID + ":item_spawn_" + item.getRarity().name().toLowerCase(), 1, 1);
-			IMessage dropItemPacket = new DropItemPacketHandler.DropItemPacket(this.chosenItem, this.pos.getX(), this.pos.getY(), this.pos.getZ());
+			IMessage dropItemPacket = new DropItemPacketHandler.DropItemPacket(chosenItem, this.pos.getX(), this.pos.getY(), this.pos.getZ());
 			RiskOfRain2Packets.NET.sendToServer(dropItemPacket);
 			
 			// Kill the command essence entity and close the gui
@@ -118,6 +138,7 @@ public class CommandEssenceGui extends GuiScreen {
 				}
 			};
 			RiskOfRain2Packets.NET.sendToServer(entityPacket);
+			this.commandEssence.setDead();
 			Minecraft.getMinecraft().thePlayer.closeScreen();
 		}
 	}
@@ -132,6 +153,10 @@ public class CommandEssenceGui extends GuiScreen {
         return false;
     }
 
+	/**
+	 * Sets the command essence entity that created this GUI. This is the entity that will be killed
+	 * if the player choosen an item.
+	 */
 	public void setCommandEssenceEntity(CommandEssenceEntity entity) {
 		this.commandEssence = entity;
 	}

@@ -30,7 +30,7 @@ public abstract class ConsumedItem extends RiskOfRain2Item {
 	}
 	
 	@Override
-	public boolean isSpecial() {
+	public boolean isExcludedFromLogbook() {
 		return true;
 	}
 

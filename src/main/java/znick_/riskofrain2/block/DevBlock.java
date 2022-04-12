@@ -8,6 +8,12 @@ import znick_.riskofrain2.api.mc.data.PlayerData;
 import znick_.riskofrain2.api.ror.artifact.list.vengeance.VengeantPlayer;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
 
+/**
+ * Class used for creating the dev block, a block which I randomly have do different things
+ * on right click, such as spawning a custom mob, to test it.
+ * 
+ * @author zNick_
+ */
 public class DevBlock extends Block {
 
 	public DevBlock() {

@@ -36,7 +36,7 @@ public abstract class EliteEquipmentItem extends RiskOfRain2Item {
 	}
 	
 	@Override
-	public boolean isSpecial() {
+	public boolean isExcludedFromLogbook() {
 		return true;
 	}
 

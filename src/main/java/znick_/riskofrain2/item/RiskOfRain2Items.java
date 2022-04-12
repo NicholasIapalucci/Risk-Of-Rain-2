@@ -371,7 +371,7 @@ public class RiskOfRain2Items {
 					// Register items into the item set
 					if (item instanceof RiskOfRain2Item) {
 						RiskOfRain2Item rorItem = (RiskOfRain2Item) item;
-						if (!rorItem.isSpecial()) ITEM_SET.add(rorItem);
+						ITEM_SET.add(rorItem);
 					}
 				}
 			}

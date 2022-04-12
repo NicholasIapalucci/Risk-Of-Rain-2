@@ -202,11 +202,29 @@ public abstract class RiskOfRain2Item extends Item {
 	public abstract String getDescription();
 	
 	/**
-	 * Returns whether or not this is a special item that should not be included in the standard
-	 * set of items when generating loot, such as item scrap or command essence.
+	 * Returns whether or not this is a special item that should not be included in the logbook, 
+	 * such as consumed items.
 	 */
-	public boolean isSpecial() {
+	public boolean isExcludedFromLogbook() {
 		return false;
+	}
+	
+	/**
+	 * Returns whether or not this item should be excluded from 3D printers. By default, this
+	 * returns the same result as {@link #isExcludedFromChests()}. However, some items, such as
+	 * regenerating scrap, can be found in chests, but not 3D printed. Such items should override
+	 * this method. 
+	 */
+	public boolean isExcludedFrom3DPrinters() {
+		return this.isExcludedFromChests();
+	}
+	
+	/**
+	 * Returns whether or not this item should be excluded from chest generation, such as 
+	 * item scrap. By default this returns the result of {@link #isExcludedFromLogbook()}.
+	 */
+	public boolean isExcludedFromChests() {
+		return this.isExcludedFromLogbook();
 	}
 	
 	@Override

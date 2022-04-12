@@ -109,7 +109,7 @@ public class LogbookGui extends GuiScreen {
 		int nextID = 0;
 		int space = d/12;
 		for (RiskOfRain2Item item : RiskOfRain2Items.itemSet()) {
-			if (item.isSpecial()) continue;
+			if (item.isExcludedFromLogbook()) continue;
 			this.buttonList.add(new ItemButton(nextID++, item, this.itemsUpperLeft.x + itemPoint.x, this.itemsUpperLeft.y + itemPoint.y, d, d));
 			itemPoint.x += d + space;
 			
