@@ -7,9 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import znick_.riskofrain2.block.itemgen.ItemGenerator;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 import znick_.riskofrain2.util.creativetabs.RiskOfRain2CreativeTabs;
+import znick_.riskofrain2.util.helper.ArrayHelper;
 
 /**
  * Class for creating the {@link znick_.riskofrain2.block.RiskOfRain2Blocks#PRINTER_3D 3DPrinter} block.
@@ -36,9 +38,9 @@ public class Printer3D extends Block implements ITileEntityProvider {
 	
 	private static RiskOfRain2Item generateItem() {
 		double rand = Math.random();
-		if (rand < 0.099) return ItemGenerator.generateItem(ItemRarity.RED);
-		if (rand < 0.198) return ItemGenerator.generateItem(ItemRarity.GREEN);
-		return ItemGenerator.generateItem(ItemRarity.WHITE);
+		if (rand < 0.099) return ArrayHelper.randomElement(RiskOfRain2Items.itemSubset(item -> !item.isExcludedFrom3DPrinters() && item.getRarity() == ItemRarity.RED));
+		if (rand < 0.198) return ArrayHelper.randomElement(RiskOfRain2Items.itemSubset(item -> !item.isExcludedFrom3DPrinters() && item.getRarity() == ItemRarity.GREEN));
+		return ArrayHelper.randomElement(RiskOfRain2Items.itemSubset(item -> !item.isExcludedFrom3DPrinters() && item.getRarity() == ItemRarity.RED));
 	}
 	
 	/**

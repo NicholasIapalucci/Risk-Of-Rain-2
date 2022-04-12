@@ -2,6 +2,7 @@ package znick_.riskofrain2.item.ror.list.green.regeneratingscrap;
 
 import net.minecraft.util.EnumChatFormatting;
 import znick_.riskofrain2.api.mc.data.AbstractEntityData;
+import znick_.riskofrain2.item.RiskOfRain2Items;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
 import znick_.riskofrain2.item.ror.consume.ConsumableItem;
 import znick_.riskofrain2.item.ror.dlc.DLC;
@@ -40,8 +41,13 @@ public class RegeneratingScrapItem extends RiskOfRain2Item implements Consumable
 	}
 	
 	@Override
+	public boolean isExcludedFrom3DPrinters() {
+		return true;
+	}
+	
+	@Override
 	public RiskOfRain2Item getBrokenItem() {
-		return null;
+		return RiskOfRain2Items.REGENERATING_SCRAP_CONSUMED;
 	}
 
 }

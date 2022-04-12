@@ -40,4 +40,9 @@ public class ScrapItem extends RiskOfRain2Item {
 	public String getDescription() {
 		return "Does nothing. Prioritized when used with 3D Printers.";
 	}
+	
+	@Override
+	public boolean isExcludedFromChests() {
+		return true;
+	}
 }

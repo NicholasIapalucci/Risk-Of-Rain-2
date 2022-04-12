@@ -64,7 +64,10 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		// Post the object interaction event and exit if it was canceled
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Posting object interaction event...");
 		ObjectInteractionEvent event = new ObjectInteractionEvent(player, this);
-		if (MinecraftForge.EVENT_BUS.post(event)) return false;
+		if (MinecraftForge.EVENT_BUS.post(event)) {
+			System.out.println("Object interaction event was canceled! Exiting.");
+			return false;
+		}
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Object interaction event not canceled. Continuing...");
 		
 		// Play the sound effect
@@ -75,7 +78,10 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		// Post a generate item event and exit if it was canceled
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Posting item generation event...");
 		GenerateItemEvent genEvent = new GenerateItemEvent(this, generatedItem, player);
-		if (MinecraftForge.EVENT_BUS.post(genEvent)) return false;
+		if (MinecraftForge.EVENT_BUS.post(genEvent)) {
+			System.out.println("Item generation event was canceled! Exiting.");
+			return false;
+		}
 		if (RiskOfRain2Mod.DEBUG) System.out.println("Item generation event not canceled. Continuing...");
 				
 		// Refresh the item to drop in case an event listener changed it
@@ -83,8 +89,8 @@ public abstract class TileEntityItemGenerator extends TileEntity implements Item
 		
 		// Create the item to drop
 		EntityItem entityItem = new EntityItem(this.worldObj, ((double) this.xCoord) + 0.5, this.yCoord + 1.2, ((double) this.zCoord) + 0.5, new ItemStack(toDrop));
-		this.worldObj.spawnEntityInWorld(entityItem);
 		entityItem.setVelocity(0, 0.4, 0.1);
+		this.worldObj.spawnEntityInWorld(entityItem);
 				
 		this.afterOpened(player);
 		

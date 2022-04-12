@@ -13,7 +13,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import znick_.riskofrain2.api.ror.buff.stat.EntityStat;
 import znick_.riskofrain2.block.itemgen.TileEntityItemGenerator;
 import znick_.riskofrain2.event.handler.TickHandler;
 import znick_.riskofrain2.item.ror.RiskOfRain2Item;
@@ -21,6 +20,11 @@ import znick_.riskofrain2.item.ror.list.ScrapItem;
 import znick_.riskofrain2.item.ror.list.green.regeneratingscrap.RegeneratingScrapItem;
 import znick_.riskofrain2.item.ror.property.ItemRarity;
 
+/**
+ * The tile entity class for the 3D Printer block. 
+ * 
+ * @author zNick_
+ */
 public class TileEntity3DPrinter extends TileEntityItemGenerator {
 
 	/**The item stack of the Risk Of Rain 2 item in this printer*/
@@ -67,13 +71,16 @@ public class TileEntity3DPrinter extends TileEntityItemGenerator {
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        this.item = (RiskOfRain2Item) Item.getItemById(nbt.getInteger("item_id"));
+        NBTTagCompound compound = (NBTTagCompound) nbt.getTag("item");
+        this.item = (RiskOfRain2Item) Item.getItemById(compound.getInteger("item_id"));
     }
 
 	@Override
     public void writeToNBT(NBTTagCompound nbt) {
     	super.writeToNBT(nbt);
-    	nbt.setInteger("item_id", Item.getIdFromItem(this.item));
+    	NBTTagCompound compound = new NBTTagCompound();
+    	compound.setInteger("item_id", Item.getIdFromItem(this.item));
+    	nbt.setTag("item", compound);
     }
 	
 	@Override
@@ -145,8 +152,9 @@ public class TileEntity3DPrinter extends TileEntityItemGenerator {
 					}
 					
 					// Prioritize normal scrap
-					if (riskItem instanceof ScrapItem && itemToTake == null) {
+					if (riskItem instanceof ScrapItem) {
 						itemToTake = new AbstractMap.SimpleEntry<Integer, RiskOfRain2Item>(i, riskItem);
+						break;
 					}
 					
 					// If there is no scrap, adds the item to the set of potential items

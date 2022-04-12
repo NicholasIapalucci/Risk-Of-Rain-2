@@ -1,8 +1,10 @@
 package znick_.riskofrain2.item;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.EnumRarity;
@@ -378,7 +380,21 @@ public class RiskOfRain2Items {
 		} catch(Exception e) {throw new RuntimeException(e);}
 	}
 	
+	/**
+	 * Returns the set of all Risk of Rain 2 items.
+	 */
 	public static RiskOfRain2Item[] itemSet() {
 		return ITEM_SET.toArray(new RiskOfRain2Item[0]);
+	}
+	
+	/**
+	 * Returns a subset of the Risk of Rain 2 items that all match the given filters.
+	 * 
+	 * @param filters The filters on the item set
+	 * 
+	 * @return The filtered array of items
+	 */
+	public static RiskOfRain2Item[] itemSubset(Predicate<? super RiskOfRain2Item>... filters) {
+		return ITEM_SET.stream().filter(item -> Arrays.stream(filters).allMatch(filter -> filter.test(item))).toArray(RiskOfRain2Item[]::new);
 	}
 }
